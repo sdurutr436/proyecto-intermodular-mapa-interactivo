@@ -3,8 +3,8 @@ Este proyecto consiste en un mapa interactivo del mundo, donde cada país se mue
 Este proyecto combina interactividad, visualización geográfica y traducción automática, lo que lo hace útil para aplicaciones educativas, demostraciones lingüísticas o juegos didácticos de idiomas.
 
 ## ENLACES A LOS DOCUMENTOS DE LA PROPUESTA
-- Enlace 1
-- Enlace 2
+- Enlace documento 1
+- Enlace documento 2
 
 ## INFORMACIÓN DEL EQUIPO
 - Sergio Durán Utrera
