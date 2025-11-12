@@ -1,8 +1,24 @@
 .app-container {
   min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
   color: white;
+  overflow: hidden;
+  gap: 0.5rem;
+}
+
+.app-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 .app-header {
@@ -81,6 +97,77 @@
   color: #0891B2;
 }
 
+/* Sección de información */
+.info-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.info-section h2 {
+  color: #0891B2;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-section h3 {
+  color: #0891B2;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-section p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Grid de progreso */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.progress-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.progress-card:hover {
+  transform: translateY(-5px);
+  border-color: #0891B2;
+}
+
+.progress-card.completed {
+  border-left: 4px solid #10B981;
+}
+
+.progress-card h3 {
+  color: #0891B2;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.progress-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.progress-card li {
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-card li:last-child {
+  border-bottom: none;
+}
+
 .app-footer {
   padding: 1.5rem;
   text-align: center;
@@ -91,6 +178,16 @@
 .app-footer p {
   font-size: 0.9rem;
   opacity: 0.8;
+}
+
+.app-footer a {
+  color: #0891B2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
 }
 
 /* Responsive */
