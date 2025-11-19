@@ -1,9 +1,8 @@
 {
-  "name": "translator-client-sprint4-partial",
+  "name": "translator-client",
   "private": true,
-  "version": "0.4.6",
+  "version": "0.0.0",
   "type": "module",
-  "description": "Frontend para Global Translator App - Sprint 4 Parcial (WorldMap)",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
@@ -15,8 +14,10 @@
     "react-simple-maps": "^3.0.0"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.10",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/react-simple-maps": "^3.0.0",
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"

@@ -1,109 +1,135 @@
-/**
- * Issue 4.6 - Sprint 4
- * Componente WorldMap - Mapa interactivo con react-simple-maps
- * 
- * Este componente renderiza un mapa mundial interactivo donde los usuarios
- * pueden hacer clic en países para iniciar una traducción.
- * 
- * Características:
- * - Renderiza mapa con proyección geoMercator
- * - Países clickeables con efectos hover
- * - Estilos visuales diferenciados (default, hover, pressed)
- * - Integración con World Atlas para datos GeoJSON
- */
-
-import React from 'react';
+import React, { memo, useState } from 'react';
 import {
   ComposableMap,
   Geographies,
-  Geography
+  Geography,
+  ZoomableGroup
 } from 'react-simple-maps';
-import { WorldMapProps, GeoFeature } from '../types';
 import '../styles/WorldMap.css';
 
-// URL del GeoJSON de World Atlas (110m = resolución media, buen balance tamaño/detalle)
-const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-/**
- * Componente WorldMap
- * 
- * @param {WorldMapProps} props - Propiedades del componente
- * @param {function} props.onCountryClick - Callback cuando se hace clic en un país
- * @param {string} props.inputText - Texto a traducir (opcional, para validación)
- */
-const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, inputText }) => {
-  
-  /**
-   * Maneja el clic en un país
-   * @param {GeoFeature} geo - Objeto GeoJSON del país
-   */
-  const handleCountryClick = (geo: GeoFeature) => {
-    const countryName = geo.properties.name;
-    
-    // Validar que hay texto antes de permitir clic
-    if (!inputText || inputText.trim().length === 0) {
-      alert('⚠️ Por favor, escribe un texto antes de seleccionar un país');
-      return;
-    }
-    
-    // Llamar al callback del padre con nombre del país
-    // El código ISO se obtendrá en el backend usando countryCodeMapping
-    onCountryClick(countryName, countryName);
-    
-    console.log(`[WorldMap] País seleccionado: ${countryName}`);
+import { Feature, GeometryObject } from 'geojson';
+
+interface WorldMapProps {
+  onCountryClick: (geo: Feature<GeometryObject>) => void;
+}
+
+const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick }) => {
+  const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+
+  const handleMoveEnd = (position: any) => {
+    setPosition(position);
+  };
+
+  const handleZoomIn = () => {
+    if (position.zoom >= 4) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 1.5 }));
+  };
+
+  const handleZoomOut = () => {
+    if (position.zoom <= 1) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom / 1.5 }));
+  };
+
+  const handleResetZoom = () => {
+    setPosition({ coordinates: [0, 0], zoom: 1 });
   };
 
   return (
     <div className="world-map-container">
+      {/* Controles de Zoom */}
+      <div className="zoom-controls">
+        {/* Botón Zoom In */}
+        <button
+          onClick={handleZoomIn}
+          disabled={position.zoom >= 4}
+          className="zoom-button"
+          title="Acercar (Zoom In)"
+        >
+          +
+        </button>
+
+        {/* Botón Zoom Out */}
+        <button
+          onClick={handleZoomOut}
+          disabled={position.zoom <= 1}
+          className="zoom-button"
+          title="Alejar (Zoom Out)"
+        >
+          −
+        </button>
+
+        {/* Separador */}
+        <div className="zoom-separator"></div>
+
+        {/* Botón Reset */}
+        <button
+          onClick={handleResetZoom}
+          className="zoom-button reset"
+          title="Restablecer Vista"
+        >
+          ⌂
+        </button>
+      </div>
+
+      {/* Indicador de Nivel de Zoom */}
+      <div className="zoom-indicator">
+        Zoom: {position.zoom.toFixed(1)}x
+      </div>
+
+      {/* Mapa */}
       <ComposableMap
         projection="geoMercator"
-        projectionConfig={{
-          scale: 140,
-          center: [10, 45]
-        }}
+        projectionConfig={{ scale: 140, center: [10, 45] }}
         className="world-map-svg"
       >
-        <Geographies geography={geoUrl}>
-          {({ geographies }) =>
-            geographies
-              // Filtrar Antarctica (opcional, puede removerse si se desea incluir)
-              .filter((geo: GeoFeature) => geo.properties.name !== 'Antarctica')
-              .map((geo: GeoFeature) => (
+        <ZoomableGroup
+          center={position.coordinates as [number, number]}
+          zoom={position.zoom}
+          onMoveEnd={handleMoveEnd}
+          minZoom={1}
+          maxZoom={4}
+        >
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies
+                .filter((geo: Feature<GeometryObject>) => geo.properties?.name !== "Antarctica")
+                .map((geo: Feature<GeometryObject>) => (
                 <Geography
-                  key={geo.properties.name}
+                  key={geo.properties?.name || Math.random()}
                   geography={geo}
-                  onClick={() => handleCountryClick(geo)}
+                  onClick={() => onCountryClick(geo)}
                   style={{
                     default: {
-                      fill: '#2c3e50',
-                      stroke: '#34495e',
-                      strokeWidth: 0.5,
-                      outline: 'none',
-                      transition: 'all 0.3s ease'
+                      fill: "#27374D",
+                      stroke: "#4A5568",
+                      strokeWidth: 0.75,
+                      outline: "none",
                     },
                     hover: {
-                      fill: '#3498db',
-                      stroke: '#2980b9',
+                      fill: "#0891B2",
+                      stroke: "#164E63",
                       strokeWidth: 1,
-                      cursor: 'pointer',
-                      outline: 'none',
-                      transition: 'all 0.3s ease'
+                      outline: "none",
+                      cursor: "pointer",
                     },
                     pressed: {
-                      fill: '#1abc9c',
-                      stroke: '#16a085',
+                      fill: "#0E7490",
+                      stroke: "#164E63",
                       strokeWidth: 1,
-                      outline: 'none',
-                      transition: 'all 0.1s ease'
-                    }
+                      outline: "none",
+                    },
                   }}
                 />
               ))
-          }
-        </Geographies>
+            }
+          </Geographies>
+        </ZoomableGroup>
       </ComposableMap>
     </div>
   );
 };
 
-export default WorldMap;
+export default memo(WorldMap);
+

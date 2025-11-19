@@ -1,20 +1,30 @@
-# Dockerfile para desarrollo - Sprint 4 Parcial (WorldMap)
-FROM node:20-alpine
+# Etapa de construcción
+FROM node:20-alpine as build
 
 WORKDIR /app
 
-# Copiar archivos de configuración
+# Copiar los archivos de configuración
 COPY package*.json ./
+COPY tsconfig*.json ./
 
 # Instalar dependencias
-# Incluye: react, react-dom, react-simple-maps, typescript, vite
 RUN npm install
 
-# Copiar código fuente
+# Copiar el código fuente
 COPY . .
 
-# Exponer puerto de Vite
-EXPOSE 5173
+# Construir la aplicación
+RUN npm run build
 
-# Comando de desarrollo con host habilitado para Docker
-CMD ["npm", "run", "dev", "--", "--host"]
+# Etapa de producción
+FROM nginx:1.26-alpine
+
+# Copiar la configuración de nginx
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Copiar los archivos construidos desde la etapa de build
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

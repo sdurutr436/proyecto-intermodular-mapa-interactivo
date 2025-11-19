@@ -1,214 +1,91 @@
+/* Estilos principales de la aplicación */
+
 .app-container {
   min-height: 100vh;
-  max-height: 100vh;
+  background: linear-gradient(to bottom right, #0f172a, #111827);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 1rem;
-  color: white;
-  overflow: hidden;
-  gap: 0.5rem;
 }
 
-.app-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #ffffff;
-  text-align: center;
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  z-index: 10;
+@media (min-width: 640px) {
+  .app-container {
+    padding: 1.5rem;
+  }
 }
 
-.app-header {
-  padding: 2rem;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.app-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.sprint-badge {
-  display: inline-block;
-  background: #0891B2;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  margin-top: 1rem;
+@media (min-width: 768px) {
+  .app-container {
+    padding: 2rem;
+  }
 }
 
 .app-main {
-  flex: 1;
-  padding: 3rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
+  max-width: 80rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.5rem;
 }
 
-.info-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.info-card h2 {
-  color: #0891B2;
+.search-container {
+  width: 100%;
   margin-bottom: 1.5rem;
-  font-size: 1.8rem;
 }
 
-.info-card h3 {
-  color: #0891B2;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+@media (min-width: 768px) {
+  .search-container {
+    width: 75%;
+  }
 }
 
-.checklist {
-  list-style: none;
-  padding: 0;
+@media (min-width: 1024px) {
+  .search-container {
+    width: 66.666667%;
+  }
 }
 
-.checklist li {
-  padding: 0.75rem 0;
-  font-size: 1.1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.checklist li:last-child {
-  border-bottom: none;
-}
-
-.info-card p {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.info-card p strong {
-  color: #0891B2;
-}
-
-/* Sección de información */
-.info-section {
-  margin-bottom: 2rem;
+.search-instruction {
   text-align: center;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
 }
 
-.info-section h2 {
-  color: #0891B2;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.map-wrapper {
+  width: 100%;
+  height: 70vh;
+  background-color: #1e293b;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(6, 182, 212, 0.1);
+  overflow: hidden;
+  border: 1px solid #334155;
 }
 
-.info-section h3 {
-  color: #0891B2;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+@media (min-width: 768px) {
+  .map-wrapper {
+    height: 75vh;
+  }
 }
 
-.info-section p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-/* Grid de progreso */
-.progress-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.progress-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.progress-card:hover {
-  transform: translateY(-5px);
-  border-color: #0891B2;
-}
-
-.progress-card.completed {
-  border-left: 4px solid #10B981;
-}
-
-.progress-card h3 {
-  color: #0891B2;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.progress-card ul {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-}
-
-.progress-card li {
-  padding: 0.5rem 0;
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.progress-card li:last-child {
-  border-bottom: none;
+@media (min-width: 1024px) {
+  .map-wrapper {
+    height: 80vh;
+  }
 }
 
 .app-footer {
-  padding: 1.5rem;
+  width: 100%;
+  max-width: 80rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
 }
 
-.app-footer p {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.app-footer a {
-  color: #0891B2;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.app-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .app-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .app-main {
-    padding: 2rem 1rem;
-  }
-
-  .info-card {
-    padding: 1.5rem;
-  }
-
-  .info-card h2 {
-    font-size: 1.5rem;
-  }
-
-  .checklist li {
-    font-size: 1rem;
-  }
+.footer-text {
+  color: #64748b;
+  font-size: 0.875rem;
 }
