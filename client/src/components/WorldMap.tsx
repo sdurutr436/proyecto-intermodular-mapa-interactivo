@@ -6,6 +6,7 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 import '../styles/WorldMap.css';
+import { countryNameToCode } from '../data/countryCodeMapping'; // Mapeo nombre país → código ISO para rayado
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -13,70 +14,35 @@ import { Feature, GeometryObject } from 'geojson';
 
 interface WorldMapProps {
   onCountryClick: (geo: Feature<GeometryObject>) => void;
+  blockedCountries?: string[]; // Array de países bloqueados (códigos ISO)
 }
 
-const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick }) => {
+const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = [] }) => {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
-  const handleMoveEnd = (position: any) => {
-    setPosition(position);
-  };
-
+  const handleMoveEnd = (position: any) => setPosition(position);
   const handleZoomIn = () => {
     if (position.zoom >= 4) return;
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 1.5 }));
+    setPosition(pos => ({ ...pos, zoom: pos.zoom * 1.5 }));
   };
-
   const handleZoomOut = () => {
     if (position.zoom <= 1) return;
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom / 1.5 }));
+    setPosition(pos => ({ ...pos, zoom: pos.zoom / 1.5 }));
   };
-
-  const handleResetZoom = () => {
-    setPosition({ coordinates: [0, 0], zoom: 1 });
-  };
+  const handleResetZoom = () => setPosition({ coordinates: [0, 0], zoom: 1 });
 
   return (
     <div className="world-map-container">
       {/* Controles de Zoom */}
       <div className="zoom-controls">
-        {/* Botón Zoom In */}
-        <button
-          onClick={handleZoomIn}
-          disabled={position.zoom >= 4}
-          className="zoom-button"
-          title="Acercar (Zoom In)"
-        >
-          +
-        </button>
-
-        {/* Botón Zoom Out */}
-        <button
-          onClick={handleZoomOut}
-          disabled={position.zoom <= 1}
-          className="zoom-button"
-          title="Alejar (Zoom Out)"
-        >
-          −
-        </button>
-
-        {/* Separador */}
+        <button onClick={handleZoomIn} disabled={position.zoom >= 4} className="zoom-button" title="Acercar (Zoom In)">+</button>
+        <button onClick={handleZoomOut} disabled={position.zoom <= 1} className="zoom-button" title="Alejar (Zoom Out)">−</button>
         <div className="zoom-separator"></div>
-
-        {/* Botón Reset */}
-        <button
-          onClick={handleResetZoom}
-          className="zoom-button reset"
-          title="Restablecer Vista"
-        >
-          ⌂
-        </button>
+        <button onClick={handleResetZoom} className="zoom-button reset" title="Restablecer Vista">⌂</button>
       </div>
 
       {/* Indicador de Nivel de Zoom */}
-      <div className="zoom-indicator">
-        Zoom: {position.zoom.toFixed(1)}x
-      </div>
+      <div className="zoom-indicator">Zoom: {position.zoom.toFixed(1)}x</div>
 
       {/* Mapa */}
       <ComposableMap
@@ -84,6 +50,16 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick }) => {
         projectionConfig={{ scale: 140, center: [10, 45] }}
         className="world-map-svg"
       >
+        {/* Definición del patrón de rayas horizontales */}
+        <defs>
+          <pattern id="horizontal-stripe" width="8" height="8" patternUnits="userSpaceOnUse">
+            <rect width="8" height="8" fill="#bdc3c7" />
+            <line x1="0" y1="0" x2="8" y2="0" stroke="#e74c3c" strokeWidth="3" />
+            <line x1="0" y1="4" x2="8" y2="4" stroke="#e74c3c" strokeWidth="3" />
+            <line x1="0" y1="8" x2="8" y2="8" stroke="#e74c3c" strokeWidth="3" />
+          </pattern>
+        </defs>
+        
         <ZoomableGroup
           center={position.coordinates as [number, number]}
           zoom={position.zoom}
@@ -95,34 +71,28 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick }) => {
             {({ geographies }) =>
               geographies
                 .filter((geo: Feature<GeometryObject>) => geo.properties?.name !== "Antarctica")
-                .map((geo: Feature<GeometryObject>) => (
-                <Geography
-                  key={geo.properties?.name || Math.random()}
-                  geography={geo}
-                  onClick={() => onCountryClick(geo)}
-                  style={{
-                    default: {
-                      fill: "#27374D",
-                      stroke: "#4A5568",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                    hover: {
-                      fill: "#0891B2",
-                      stroke: "#164E63",
-                      strokeWidth: 1,
-                      outline: "none",
-                      cursor: "pointer",
-                    },
-                    pressed: {
-                      fill: "#0E7490",
-                      stroke: "#164E63",
-                      strokeWidth: 1,
-                      outline: "none",
-                    },
-                  }}
-                />
-              ))
+                .map((geo: Feature<GeometryObject>) => {
+                  // Mapeamos el nombre del país (del geo) a su código ISO Alpha-3
+                  const countryCode = countryNameToCode[geo.properties?.name];
+                  // ¿Está bloqueado?
+                  const isBlocked = blockedCountries.includes(countryCode);
+
+                  return (
+                    <Geography
+                      key={geo.properties?.name || Math.random()}
+                      geography={geo}
+                      onClick={() => onCountryClick(geo)}
+                      className={isBlocked ? "country-blocked" : ""}
+                      style={{
+                        default: {},
+                        hover: isBlocked
+                          ? { cursor: "not-allowed" }
+                          : { cursor: "pointer" },
+                        pressed: {}
+                      }}
+                    />
+                  );
+                })
             }
           </Geographies>
         </ZoomableGroup>
@@ -132,4 +102,3 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick }) => {
 };
 
 export default memo(WorldMap);
-
