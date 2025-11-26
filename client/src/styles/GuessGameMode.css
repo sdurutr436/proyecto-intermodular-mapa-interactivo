@@ -1,0 +1,183 @@
+/* Estilos del modo de juego Adivinar País */
+
+/* Estadísticas flotantes sobre el mapa */
+.game-stats-floating {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-item-floating {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1.5px solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stat-item-floating:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .stat-item-floating {
+  background: rgba(45, 55, 72, 0.95);
+  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.stat-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.stat-item-floating .stat-label {
+  font-size: 0.625rem;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+body.dark-mode .stat-item-floating .stat-label {
+  color: #94a3b8;
+}
+
+.stat-item-floating .stat-value {
+  font-size: 1.125rem;
+  color: #2c3e50;
+  font-weight: 700;
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  line-height: 1;
+}
+
+body.dark-mode .stat-item-floating .stat-value {
+  color: #e2e8f0;
+}
+
+.stat-correct .stat-value {
+  color: #10b981;
+}
+
+.stat-lives .stat-value {
+  color: #ef4444;
+}
+
+/* Feedback visual */
+.game-feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  animation: feedbackSlideIn 0.4s ease-out;
+  border: 3px solid;
+  max-width: 90%;
+  text-align: center;
+  pointer-events: none;
+}
+
+@keyframes feedbackSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.game-feedback.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+  color: #ffffff;
+}
+
+.game-feedback.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #f87171;
+  color: #ffffff;
+}
+
+.feedback-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.feedback-content svg {
+  width: 20px;
+  height: 20px;
+}
+
+.feedback-content svg {
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .stat-item-floating {
+    min-width: 90px;
+    padding: 0.45rem 0.65rem;
+  }
+
+  .stat-icon {
+    font-size: 1.125rem;
+  }
+
+  .stat-item-floating .stat-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-stats-floating {
+    top: 8px;
+    left: 8px;
+    gap: 5px;
+  }
+
+  .stat-item-floating {
+    min-width: 85px;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .stat-icon {
+    font-size: 1rem;
+  }
+
+  .stat-item-floating .stat-label {
+    font-size: 0.55rem;
+  }
+
+  .stat-item-floating .stat-value {
+    font-size: 0.95rem;
+  }
+
+  .feedback-content {
+    font-size: 0.9rem;
+  }
+}

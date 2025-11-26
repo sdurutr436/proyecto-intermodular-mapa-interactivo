@@ -1,0 +1,159 @@
+/* Estilos del modal de Game Over */
+
+.gameover-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 9000;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+  border-radius: 12px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gameover-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  border: 3px solid #a5b4fc;
+  box-shadow: 0 25px 80px rgba(102, 126, 234, 0.4);
+  animation: slideUp 0.4s ease-out;
+  text-align: center;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body.dark-mode .gameover-content {
+  background: linear-gradient(135deg, #4f46e5 0%, #5b21b6 100%);
+  border-color: #ef4444;
+  box-shadow: 0 25px 80px rgba(220, 38, 38, 0.5);
+}
+
+.gameover-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+}
+
+.gameover-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.gameover-stat {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gameover-stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gameover-stat-value {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+}
+
+.gameover-stat-value.success {
+  color: #4ade80;
+}
+
+.gameover-restart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1.25rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gameover-restart-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: #fef2f2;
+}
+
+.gameover-restart-button:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gameover-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .gameover-title {
+    font-size: 2rem;
+  }
+
+  .gameover-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .gameover-stat {
+    padding: 1rem;
+  }
+
+  .gameover-stat-value {
+    font-size: 2rem;
+  }
+
+  .gameover-restart-button {
+    font-size: 1.125rem;
+    padding: 1rem 1.5rem;
+  }
+}

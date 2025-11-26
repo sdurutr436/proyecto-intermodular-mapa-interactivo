@@ -11,7 +11,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  z-index: 1000;
+  z-index: 500;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -20,6 +20,12 @@
   padding: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 2px solid #d4dce6;
+}
+
+body.dark-mode .zoom-controls {
+  background-color: rgba(45, 55, 72, 0.9);
+  border-color: #4a5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .zoom-button {
@@ -38,14 +44,28 @@
   justify-content: center;
 }
 
+body.dark-mode .zoom-button {
+  background-color: #60a5fa;
+  color: #0f1419;
+}
+
 .zoom-button:disabled {
   background-color: #9cb4cc;
   cursor: not-allowed;
 }
 
+body.dark-mode .zoom-button:disabled {
+  background-color: #4a5568;
+  color: #64748b;
+}
+
 .zoom-button:not(:disabled):hover {
   background-color: #234a87;
   transform: scale(1.05);
+}
+
+body.dark-mode .zoom-button:not(:disabled):hover {
+  background-color: #3b82f6;
 }
 
 .zoom-button.reset {
@@ -58,12 +78,16 @@
   margin: 4px 0;
 }
 
+body.dark-mode .zoom-separator {
+  background-color: #4a5568;
+}
+
 /* Indicador de Nivel de Zoom */
 .zoom-indicator {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  z-index: 1000;
+  z-index: 500;
   background-color: rgba(255, 255, 255, 0.9);
   color: #2c3e50;
   padding: 8px 12px;
@@ -72,6 +96,13 @@
   font-weight: bold;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 2px solid #d4dce6;
+}
+
+body.dark-mode .zoom-indicator {
+  background-color: rgba(45, 55, 72, 0.9);
+  color: #e2e8f0;
+  border-color: #4a5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Estilos del Mapa */
@@ -83,9 +114,9 @@
 
 /* Estilos por defecto de los países */
 .world-map-svg path {
-  fill: #f8e292; /*Color de los países*/
-  stroke: #d4a574;
-  stroke-width: 0.5;
+  /* Los colores se aplican individualmente por país */
+  stroke: #1F2937;
+  stroke-width: 0.8;
   transition: all 0.3s ease;
   cursor: pointer;
   outline: none;
@@ -101,9 +132,9 @@
 }
 
 .world-map-svg path:hover {
-  fill: #fff8dc;
-  stroke: #c89860;
-  stroke-width: 1;
+  /* El hover se maneja con filter: brightness en el componente */
+  stroke: #111827;
+  stroke-width: 1.5;
 }
 
 /* -------- País bloqueado "rallado" --------- */

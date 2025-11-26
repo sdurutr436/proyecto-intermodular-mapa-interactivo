@@ -12,7 +12,7 @@
   width: 100%;
   padding: 0.75rem 1.25rem;
   padding-left: 3rem;
-  padding-right: 3rem;
+  padding-right: 1.25rem;
   font-size: 0.95rem;
   background-color: #f8fafc;
   border: 2px solid #d4dce6;
@@ -23,9 +23,20 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+body.dark-mode .search-bar-input {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .search-bar-input::placeholder {
   color: #94a3b8;
   font-size: 0.9rem;
+}
+
+body.dark-mode .search-bar-input::placeholder {
+  color: #64748b;
 }
 
 .search-bar-input:hover {
@@ -33,10 +44,21 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
+body.dark-mode .search-bar-input:hover {
+  border-color: #64748b;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
 .search-bar-input:focus {
   border-color: #2c5aa0;
   box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
   background-color: #ffffff;
+}
+
+body.dark-mode .search-bar-input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+  background-color: #1e293b;
 }
 
 .search-bar-icon-left {
@@ -54,34 +76,13 @@
   color: #2c5aa0;
 }
 
-/* Botón hamburguesa dentro de SearchBar */
-.search-bar-hamburger {
-  position: absolute;
-  right: 0.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
+body.dark-mode .search-bar-icon-left {
+  color: #94a3b8;
 }
 
-.search-bar-hamburger:hover {
-  background-color: #e8ecf1;
+body.dark-mode .search-bar-container:hover .search-bar-icon-left,
+body.dark-mode .search-bar-input:focus ~ .search-bar-icon-left {
+  color: #60a5fa;
 }
 
-.search-bar-hamburger span {
-  display: block;
-  width: 20px;
-  height: 3px;
-  background-color: #2c5aa0;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
+
