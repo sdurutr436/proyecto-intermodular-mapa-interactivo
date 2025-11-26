@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Define Routes - Standardizing to /api prefix
 app.use('/api/translate', require('./routes/api/translate'));
+app.use('/api/game', require('./routes/api/game'));
 
 const PORT = process.env.PORT || 5000;
 
