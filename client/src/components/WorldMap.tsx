@@ -7,6 +7,7 @@ import {
 } from 'react-simple-maps';
 import '../styles/WorldMap.css';
 import { countryNameToCode } from '../data/countryCodeMapping'; // Mapeo nombre país → código ISO para rayado
+import { countryColors } from '../data/countryColors'; // Colores únicos para cada país
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -15,9 +16,10 @@ import { Feature, GeometryObject } from 'geojson';
 interface WorldMapProps {
   onCountryClick: (geo: Feature<GeometryObject>) => void;
   blockedCountries?: string[]; // Array de países bloqueados (códigos ISO)
+  isGameMode?: boolean; // Indica si estamos en modo de juego
 }
 
-const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = [] }) => {
+const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = [], isGameMode = false }) => {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   const handleMoveEnd = (position: any) => setPosition(position);
@@ -77,6 +79,8 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
                   // ¿Está bloqueado?
                   const isBlocked = blockedCountries.includes(countryCode);
 
+                  const countryColor = countryColors[geo.properties?.name] || '#f8e292';
+                  
                   return (
                     <Geography
                       key={geo.properties?.name || Math.random()}
@@ -84,10 +88,20 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
                       onClick={() => onCountryClick(geo)}
                       className={isBlocked ? "country-blocked" : ""}
                       style={{
-                        default: {},
+                        default: {
+                          fill: isBlocked ? undefined : countryColor,
+                          stroke: '#1F2937',
+                          strokeWidth: 0.8
+                        },
                         hover: isBlocked
                           ? { cursor: "not-allowed" }
-                          : { cursor: "pointer" },
+                          : { 
+                              cursor: "pointer",
+                              fill: countryColor,
+                              filter: 'brightness(1.15)',
+                              stroke: '#111827',
+                              strokeWidth: 1.5
+                            },
                         pressed: {}
                       }}
                     />

@@ -6,3 +6,10 @@ export interface TranslationResult {
     languageCode?: string;
     fromCache?: boolean;
 }
+
+export interface GamePhrase {
+    text: string;
+    languageCode: string;
+    languageName: string;
+    validCountryCodes: string[];
+}

@@ -5,10 +5,9 @@ interface SearchBarProps {
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
-    onHamburgerClick?: () => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder, onHamburgerClick }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder }) => {
     return (
         <div className="search-bar-container">
             <svg
@@ -32,15 +31,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder, onH
                 placeholder={placeholder}
                 className="search-bar-input"
             />
-            <button 
-                className="search-bar-hamburger" 
-                aria-label="Menú"
-                onClick={onHamburgerClick}
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     );
 };
