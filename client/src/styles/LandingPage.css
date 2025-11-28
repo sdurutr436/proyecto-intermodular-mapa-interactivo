@@ -1,0 +1,594 @@
+/* client/src/styles/LandingPage.css */
+
+/* ============================================
+   LANDING PAGE - Estilos principales
+   ============================================ */
+
+.landing-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+/* Tema claro */
+.landing-page.light {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  color: #2c3e50;
+}
+
+/* Tema oscuro */
+.landing-page.dark {
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+  color: #e2e8f0;
+}
+
+/* ============================================
+   FONDO - Mapa y animación del mar
+   ============================================ */
+
+.landing-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Contenedor del mapa de Europa - desplazado más a la derecha */
+.europe-map-container {
+  position: absolute;
+  right: -20%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90%;
+  height: 110%;
+  opacity: 0.6;
+}
+
+.europe-map-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.europe-country {
+  /* La transición se maneja desde JS para mayor control */
+}
+
+/* ============================================
+   ANIMACIÓN DEL MAR - más a la izquierda
+   ============================================ */
+
+.sea-animation {
+  position: absolute;
+  left: -15%;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  opacity: 0.15;
+  border-radius: 43%;
+  animation: waveRotate 15s linear infinite;
+}
+
+.landing-page.light .wave {
+  background: linear-gradient(135deg, #4d9de0 0%, #3bb2d0 50%, #667eea 100%);
+}
+
+.landing-page.dark .wave {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 50%, #3d7a9e 100%);
+}
+
+.wave1 {
+  left: -120%;
+  top: -50%;
+  animation-duration: 18s;
+}
+
+.wave2 {
+  left: -130%;
+  top: -60%;
+  animation-duration: 22s;
+  animation-delay: -5s;
+  opacity: 0.12;
+}
+
+.wave3 {
+  left: -140%;
+  top: -40%;
+  animation-duration: 26s;
+  animation-delay: -10s;
+  opacity: 0.08;
+}
+
+@keyframes waveRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   CAPA DE DESENFOQUE
+   ============================================ */
+
+.landing-blur-overlay {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ============================================
+   CONTENIDO PRINCIPAL - 3 filas más compactas
+   ============================================ */
+
+.landing-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-height: 100vh;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* ============================================
+   FILA 1: Logo y título - más compacto
+   ============================================ */
+
+.landing-header {
+  flex: 0 0 auto;
+  padding-top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Botón "Sobre nosotros" - Fijo en esquina superior derecha de la ventana */
+.landing-about-button {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.landing-page.light .landing-about-button {
+  background: rgba(255, 255, 255, 0.8);
+  color: #4a5568;
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.landing-page.dark .landing-about-button {
+  background: rgba(45, 55, 72, 0.8);
+  color: #e2e8f0;
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.landing-about-button:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.landing-page.light .landing-about-button:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #667eea;
+}
+
+.landing-page.dark .landing-about-button:hover {
+  background: rgba(45, 55, 72, 0.95);
+  color: #a5b4fc;
+}
+
+.landing-about-button svg {
+  flex-shrink: 0;
+}
+
+.landing-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.landing-logo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-logo-globe {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.4));
+  transition: transform 0.3s ease;
+  animation: floatGlobe 4s ease-in-out infinite;
+}
+
+@keyframes floatGlobe {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Caracteres flotantes alrededor del logo */
+.landing-kanji {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 600;
+  opacity: 0.85;
+  z-index: 1;
+  font-family: 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  animation: floatKanjiLanding 3s ease-in-out infinite;
+}
+
+.landing-page.light .landing-kanji {
+  color: #667eea;
+}
+
+.landing-page.dark .landing-kanji {
+  color: #a5b4fc;
+}
+
+.landing-kanji-top {
+  top: -8px;
+  right: -20px;
+  transform: rotate(8deg);
+}
+
+.landing-kanji-bottom {
+  bottom: -8px;
+  left: -20px;
+  transform: rotate(-8deg);
+  animation-delay: 1.5s;
+}
+
+/* Caracteres de otros idiomas */
+.landing-lang-char {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.75;
+  z-index: 1;
+  animation: floatLangChar 4s ease-in-out infinite;
+}
+
+.landing-page.light .landing-lang-char {
+  color: #4d9de0;
+}
+
+.landing-page.dark .landing-lang-char {
+  color: #7dd3fc;
+}
+
+.landing-lang-arabic {
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%) rotate(-5deg);
+  font-family: 'Noto Sans Arabic', 'Amiri', sans-serif;
+  animation-delay: 0.5s;
+}
+
+.landing-lang-russian {
+  bottom: 50%;
+  left: -30px;
+  transform: translateY(50%) rotate(5deg);
+  font-family: 'Noto Sans', sans-serif;
+  animation-delay: 2s;
+}
+
+@keyframes floatKanjiLanding {
+  0%, 100% {
+    transform: translateY(0) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(8deg);
+  }
+}
+
+@keyframes floatLangChar {
+  0%, 100% {
+    transform: translateY(-50%) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(calc(-50% - 5px)) rotate(-5deg);
+  }
+}
+
+.landing-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #4d9de0 50%, #3bb2d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+/* ============================================
+/* ============================================
+   FILA 2: Descripción - más compacta
+   ============================================ */
+
+.landing-description {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+}
+
+.landing-description p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  max-width: 500px;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.landing-page.light .landing-description p {
+  color: #4a5568;
+}
+
+.landing-page.dark .landing-description p {
+  color: #cbd5e0;
+}
+
+/* ============================================
+   FILA 3: Botones de acción - más compacta
+   ============================================ */
+
+.landing-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding-bottom: 1rem;
+}
+
+/* Botón principal "Empezar" */
+.landing-start-button {
+  padding: 1rem 3rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea 0%, #4d9de0 50%, #3bb2d0 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-start-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5a6fd6 0%, #3d8bc8 50%, #2a9aba 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.landing-start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+}
+
+.landing-start-button:hover::before {
+  opacity: 1;
+}
+
+.landing-start-button span,
+.landing-start-button {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-start-button:active {
+  transform: translateY(-1px);
+}
+
+/* Contenedor de modos */
+.landing-modes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.modes-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.landing-modes-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Botones de modo individual */
+.landing-mode-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  min-width: 100px;
+}
+
+.landing-page.light .landing-mode-button {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: #d4dce6;
+  color: #2c3e50;
+}
+
+.landing-page.dark .landing-mode-button {
+  background: rgba(45, 55, 72, 0.8);
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+.landing-mode-button:hover {
+  transform: translateY(-2px);
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Iconos SVG en botones de modo */
+.mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.mode-icon-svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.8;
+}
+
+.landing-page.light .mode-icon-svg {
+  stroke: #667eea;
+}
+
+.landing-page.dark .mode-icon-svg {
+  stroke: #a5b4fc;
+}
+
+/* Fallback emoji si el SVG falla */
+.icon-fallback {
+  font-size: 1.5rem;
+}
+
+.mode-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 2.5rem;
+  }
+
+  .landing-description p {
+    font-size: 1.1rem;
+  }
+
+  .landing-logo-globe {
+    width: 60px;
+    height: 60px;
+  }
+
+  .landing-kanji {
+    font-size: 1.2rem;
+  }
+
+  .landing-lang-char {
+    font-size: 1rem;
+  }
+
+  .landing-start-button {
+    padding: 0.875rem 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  .europe-map-container {
+    right: -20%;
+    opacity: 0.4;
+  }
+
+  .sea-animation {
+    left: -25%;
+    width: 50%;
+  }
+
+  .landing-about-button span {
+    display: none;
+  }
+  
+  .landing-about-button {
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-content {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .landing-title {
+    font-size: 2rem;
+  }
+
+  .landing-description p {
+    font-size: 1rem;
+  }
+
+  .landing-modes-grid {
+    flex-direction: column;
+  }
+
+  .landing-mode-button {
+    flex-direction: row;
+    min-width: 150px;
+    justify-content: center;
+  }
+
+  .landing-lang-arabic,
+  .landing-lang-russian {
+    display: none;
+  }
+}

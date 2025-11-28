@@ -1,0 +1,91 @@
+/* client/src/styles/AppLogo.css */
+/* Estilos adicionales para el componente AppLogo reutilizable */
+/* Las clases principales (.logo-container, .logo-wrapper, .logo-globe, etc.) */
+/* están definidas en App.css y se reutilizan aquí */
+
+/* ============================================
+   BASE PARA EL COMPONENTE REUTILIZABLE
+   ============================================ */
+
+/* El componente usa .logo-container de App.css pero necesita */
+/* flex-direction: column para tamaño grande (landing page) */
+.app-logo--large.logo-container {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Tamaño grande - para landing page */
+.app-logo--large .logo-globe {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.app-logo--large .kanji {
+  font-size: 1.4rem;
+}
+
+.app-logo--large .kanji-top {
+  top: -10px;
+  right: -18px;
+}
+
+.app-logo--large .kanji-bottom {
+  bottom: -10px;
+  left: -18px;
+}
+
+.app-logo--large .lang-arabic {
+  top: -8px;
+  left: -16px;
+  font-size: 1.2rem;
+}
+
+.app-logo--large .lang-russian {
+  bottom: -8px;
+  right: -12px;
+  font-size: 1.2rem;
+}
+
+.app-logo--large .app-title {
+  font-size: 3.5rem;
+}
+
+/* Tamaño mediano */
+.app-logo--medium .logo-globe {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.app-logo--medium .kanji {
+  font-size: 1.1rem;
+}
+
+.app-logo--medium .app-title {
+  font-size: 2rem;
+}
+
+/* ============================================
+   RESPONSIVE PARA LANDING
+   ============================================ */
+
+@media (max-width: 768px) {
+  .app-logo--large .logo-globe {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .app-logo--large .kanji {
+    font-size: 1.2rem;
+  }
+  
+  .app-logo--large .app-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-logo--large .lang-arabic,
+  .app-logo--large .lang-russian {
+    display: none;
+  }
+}

@@ -1,0 +1,418 @@
+/* client/src/styles/AboutModal.css */
+/* Estilos del modal "Sobre nosotros" */
+
+/* ============================================
+   OVERLAY
+   ============================================ */
+
+.about-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+.about-modal-overlay.light {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.about-modal-overlay.dark {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* ============================================
+   CONTENIDO DEL MODAL
+   ============================================ */
+
+.about-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  max-height: calc(100vh - 4rem);
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+  overflow: hidden;
+}
+
+.about-modal-overlay.light .about-modal-content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #2c3e50;
+}
+
+.about-modal-overlay.dark .about-modal-content {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #e2e8f0;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   BOTÓN DE CERRAR
+   ============================================ */
+
+.about-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.about-modal-overlay.light .about-modal-close {
+  background: rgba(0, 0, 0, 0.05);
+  color: #64748b;
+}
+
+.about-modal-overlay.light .about-modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+}
+
+.about-modal-overlay.dark .about-modal-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+.about-modal-overlay.dark .about-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+}
+
+/* ============================================
+   CONTENIDO SCROLLEABLE
+   ============================================ */
+
+.about-modal-scroll {
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding: 2rem;
+  padding-right: 1.5rem;
+}
+
+/* Scrollbar personalizada */
+.about-modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.about-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.about-modal-overlay.light .about-modal-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.about-modal-overlay.dark .about-modal-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+/* ============================================
+   CABECERA
+   ============================================ */
+
+.about-modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.about-modal-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #4d9de0 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.about-modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #4d9de0 50%, #3bb2d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   SECCIONES
+   ============================================ */
+
+.about-modal-section {
+  margin-bottom: 2rem;
+}
+
+.about-modal-intro {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: center;
+  margin: 0;
+}
+
+.about-modal-overlay.light .about-modal-intro {
+  color: #475569;
+}
+
+.about-modal-overlay.dark .about-modal-intro {
+  color: #cbd5e0;
+}
+
+.about-modal-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+}
+
+/* ============================================
+   MODOS DE JUEGO
+   ============================================ */
+
+.about-modal-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-mode-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.about-modal-overlay.light .about-mode-card {
+  background: rgba(102, 126, 234, 0.05);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.about-modal-overlay.dark .about-mode-card {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.about-mode-card:hover {
+  transform: translateX(4px);
+}
+
+.about-mode-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.about-mode-content h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.about-mode-content p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.about-modal-overlay.light .about-mode-content p {
+  color: #64748b;
+}
+
+.about-modal-overlay.dark .about-mode-content p {
+  color: #94a3b8;
+}
+
+.about-mode-content ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.about-mode-content li {
+  margin-bottom: 0.25rem;
+}
+
+.about-modal-overlay.light .about-mode-content li {
+  color: #64748b;
+}
+
+.about-modal-overlay.dark .about-mode-content li {
+  color: #94a3b8;
+}
+
+/* ============================================
+   PASOS
+   ============================================ */
+
+.about-modal-steps {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.about-modal-steps li {
+  line-height: 1.6;
+}
+
+.about-modal-overlay.light .about-modal-steps li {
+  color: #64748b;
+}
+
+.about-modal-overlay.dark .about-modal-steps li {
+  color: #94a3b8;
+}
+
+.about-modal-steps strong {
+  color: #667eea;
+}
+
+/* ============================================
+   CARACTERÍSTICAS
+   ============================================ */
+
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.about-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.about-modal-overlay.light .about-feature {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.about-modal-overlay.dark .about-feature {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.feature-icon {
+  font-size: 1.25rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.about-modal-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
+  text-align: center;
+}
+
+.about-modal-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .about-modal-overlay {
+    padding: 1rem;
+  }
+
+  .about-modal-scroll {
+    padding: 1.5rem;
+  }
+
+  .about-modal-title {
+    font-size: 1.5rem;
+  }
+
+  .about-modal-intro {
+    font-size: 1rem;
+  }
+
+  .about-mode-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-mode-content ul {
+    text-align: left;
+  }
+
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-modal-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .about-modal-logo svg {
+    width: 32px;
+    height: 32px;
+  }
+}
