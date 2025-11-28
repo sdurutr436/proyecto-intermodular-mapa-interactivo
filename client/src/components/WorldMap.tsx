@@ -24,7 +24,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
 
   const handleMoveEnd = (position: any) => setPosition(position);
   const handleZoomIn = () => {
-    if (position.zoom >= 4) return;
+    if (position.zoom >= 10) return;
     setPosition(pos => ({ ...pos, zoom: pos.zoom * 1.5 }));
   };
   const handleZoomOut = () => {
@@ -37,7 +37,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
     <div className="world-map-container">
       {/* Controles de Zoom */}
       <div className="zoom-controls">
-        <button onClick={handleZoomIn} disabled={position.zoom >= 4} className="zoom-button" title="Acercar (Zoom In)">+</button>
+        <button onClick={handleZoomIn} disabled={position.zoom >= 10} className="zoom-button" title="Acercar (Zoom In)">+</button>
         <button onClick={handleZoomOut} disabled={position.zoom <= 1} className="zoom-button" title="Alejar (Zoom Out)">−</button>
         <div className="zoom-separator"></div>
         <button onClick={handleResetZoom} className="zoom-button reset" title="Restablecer Vista">⌂</button>
@@ -67,7 +67,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
           zoom={position.zoom}
           onMoveEnd={handleMoveEnd}
           minZoom={1}
-          maxZoom={4}
+          maxZoom={10}
         >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
