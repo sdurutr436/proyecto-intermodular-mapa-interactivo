@@ -85,7 +85,7 @@ body.dark-mode .zoom-separator {
 /* Indicador de Nivel de Zoom */
 .zoom-indicator {
   position: absolute;
-  bottom: 20px;
+  bottom: 85px;
   right: 20px;
   z-index: 500;
   background-color: rgba(255, 255, 255, 0.9);
@@ -103,6 +103,58 @@ body.dark-mode .zoom-indicator {
   color: #e2e8f0;
   border-color: #4a5568;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Indicador de País - Debajo del zoom */
+.country-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid #d4dce6;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 180px;
+  height: 50px;
+}
+
+body.dark-mode .country-indicator {
+  background-color: rgba(45, 55, 72, 0.9);
+  color: #e2e8f0;
+  border-color: #4a5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.country-indicator-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+}
+
+body.dark-mode .country-indicator-label {
+  color: #94a3b8;
+}
+
+.country-indicator-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: #2c5aa0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.dark-mode .country-indicator-name {
+  color: #60a5fa;
 }
 
 /* Estilos del Mapa */

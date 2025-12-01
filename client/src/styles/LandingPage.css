@@ -164,11 +164,8 @@
   align-items: center;
 }
 
-/* Botón "Sobre nosotros" - Fijo en esquina superior derecha de la ventana */
+/* Botón "Sobre nosotros" - Dentro del contenedor de botones superiores */
 .landing-about-button {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -179,7 +176,6 @@
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  z-index: 1000;
 }
 
 .landing-page.light .landing-about-button {
@@ -212,6 +208,151 @@
 
 .landing-about-button svg {
   flex-shrink: 0;
+}
+
+/* ============================================
+   CONTENEDOR DE BOTONES SUPERIORES (idioma + sobre nosotros)
+   ============================================ */
+
+.landing-top-buttons {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+/* ============================================
+   SELECTOR DE IDIOMA
+   ============================================ */
+
+.landing-language-selector {
+  position: relative;
+}
+
+.landing-language-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.landing-page.light .landing-language-indicator {
+  background: rgba(255, 255, 255, 0.8);
+  color: #4a5568;
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.landing-page.dark .landing-language-indicator {
+  background: rgba(45, 55, 72, 0.8);
+  color: #e2e8f0;
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.landing-language-indicator:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.landing-page.light .landing-language-indicator:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #667eea;
+}
+
+.landing-page.dark .landing-language-indicator:hover {
+  background: rgba(45, 55, 72, 0.95);
+  color: #a5b4fc;
+}
+
+.landing-language-code {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.landing-dropdown-icon {
+  transition: transform 0.2s ease;
+}
+
+.landing-language-selector:hover .landing-dropdown-icon {
+  transform: translateY(2px);
+}
+
+.landing-language-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 130px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.landing-page.light .landing-language-dropdown {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.landing-page.dark .landing-language-dropdown {
+  background: rgba(45, 55, 72, 0.95);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.landing-language-selector:hover .landing-language-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.landing-language-option {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.landing-page.light .landing-language-option {
+  color: #4a5568;
+}
+
+.landing-page.dark .landing-language-option {
+  color: #e2e8f0;
+}
+
+.landing-language-option:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.landing-language-option.active {
+  background: rgba(102, 126, 234, 0.15);
+  font-weight: 600;
+}
+
+.landing-page.light .landing-language-option.active {
+  color: #667eea;
+}
+
+.landing-page.dark .landing-language-option.active {
+  color: #a5b4fc;
 }
 
 .landing-logo-container {
@@ -407,6 +548,7 @@
   background: linear-gradient(135deg, #5a6fd6 0%, #3d8bc8 50%, #2a9aba 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .landing-start-button:hover {
@@ -418,8 +560,7 @@
   opacity: 1;
 }
 
-.landing-start-button span,
-.landing-start-button {
+.landing-start-button span {
   position: relative;
   z-index: 1;
 }

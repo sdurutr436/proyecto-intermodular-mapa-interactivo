@@ -279,7 +279,7 @@ body.dark-mode .mode-indicator:hover {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  width: max-content;
+  width: auto;
   background: #ffffff;
   border: 2px solid #d4dce6;
   border-radius: 8px;
@@ -314,6 +314,7 @@ body.dark-mode .mode-dropdown {
   cursor: pointer;
   transition: background 0.2s ease;
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .mode-option:hover {
@@ -371,6 +372,122 @@ body.dark-mode .mode-option.active {
 
 body.dark-mode .dark-mode-toggle:hover {
   background-color: #2d3748;
+}
+
+/* Selector de idioma */
+.language-selector {
+  position: relative;
+  z-index: 200000;
+}
+
+.language-indicator {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  background-color: #f1f5f9;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  border: 2px solid #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.language-indicator:hover {
+  background-color: #e0e7ff;
+  border-color: #818cf8;
+}
+
+body.dark-mode .language-indicator {
+  color: #94a3b8;
+  background-color: #3b4252;
+  border-color: #4c566a;
+}
+
+body.dark-mode .language-indicator:hover {
+  background-color: #434c5e;
+  border-color: #5e81ac;
+}
+
+.globe-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.language-code {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: max-content;
+  min-width: 120px;
+  background: #ffffff;
+  border: 2px solid #d4dce6;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 200000;
+  overflow: hidden;
+}
+
+body.dark-mode .language-dropdown {
+  background: #2d3748;
+  border-color: #4a5568;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.language-selector:hover .language-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #2c3e50;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-option:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.language-option.active {
+  background: rgba(102, 126, 234, 0.15);
+  color: #2c5aa0;
+  font-weight: 600;
+}
+
+body.dark-mode .language-option {
+  color: #e2e8f0;
+}
+
+body.dark-mode .language-option:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+body.dark-mode .language-option.active {
+  background: rgba(102, 126, 234, 0.25);
+  color: #60a5fa;
 }
 
 /* Botón de información (i) en el header */

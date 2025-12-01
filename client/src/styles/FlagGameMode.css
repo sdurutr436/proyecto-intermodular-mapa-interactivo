@@ -1,0 +1,222 @@
+/* Estilos del modo de juego Adivinar Bandera */
+/* La mayoría de estilos se comparten con GuessGameMode.css */
+
+/* Contenedor de la bandera flotante */
+.flag-display-floating {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  min-width: 160px;
+  max-width: 280px;
+  text-align: center;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+body.dark-mode .flag-display-floating {
+  background: rgba(45, 55, 72, 0.98);
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Imagen de la bandera */
+.flag-image-container {
+  width: 140px;
+  height: 93px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(102, 126, 234, 0.4);
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark-mode .flag-image-container {
+  border-color: rgba(102, 126, 234, 0.6);
+  background: #2d3748;
+}
+
+.flag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.flag-image:hover {
+  transform: scale(1.02);
+}
+
+/* Loading de bandera */
+.flag-loading-floating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+body.dark-mode .flag-loading-floating {
+  color: #a5b4fc;
+}
+
+.flag-loading-floating .loading-spinner-small {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #d4dce6;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body.dark-mode .flag-loading-floating .loading-spinner-small {
+  border-color: #4a5568;
+  border-top-color: #a5b4fc;
+}
+
+/* Error de bandera */
+.flag-error-floating {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+
+/* Título del modo bandera */
+.flag-game-mode-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #667eea;
+  text-align: center;
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+body.dark-mode .flag-game-mode-title {
+  color: #a5b4fc;
+}
+
+/* Toast de pista para banderas (continente) */
+.hint-toast-flag {
+  position: absolute;
+  top: 190px;
+  left: 12px;
+  z-index: 1000;
+  background: rgba(99, 102, 241, 0.95);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  border: 2px solid #818cf8;
+  animation: slideInLeft 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hint-toast-flag .hint-toast-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.hint-toast-flag .hint-toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.hint-toast-flag .hint-toast-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+.hint-toast-flag .hint-toast-continent {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+}
+
+body.dark-mode .hint-toast-flag {
+  background: rgba(129, 140, 248, 0.95);
+  border-color: #a5b4fc;
+  box-shadow: 0 4px 12px rgba(129, 140, 248, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flag-display-floating {
+    min-width: 140px;
+    max-width: 200px;
+    padding: 0.65rem 0.875rem;
+    top: 15px;
+  }
+  
+  .flag-image-container {
+    width: 120px;
+    height: 80px;
+  }
+  
+  .hint-toast-flag {
+    top: 200px;
+    left: 8px;
+    min-width: 160px;
+    padding: 0.65rem 0.875rem;
+  }
+  
+  .hint-toast-flag .hint-toast-icon {
+    font-size: 1.1rem;
+  }
+  
+  .hint-toast-flag .hint-toast-continent {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .flag-image-container {
+    width: 100px;
+    height: 67px;
+  }
+}
