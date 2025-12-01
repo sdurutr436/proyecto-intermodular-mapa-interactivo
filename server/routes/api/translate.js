@@ -3,88 +3,89 @@ const router = express.Router();
 const Translation = require('../../models/Translation');
 const { countryLanguageMap } = require('../../data/countryLanguageMap');
 const { countryNameToCode } = require('../../data/countryCodeMapping');
-const { francAll } = require('franc-min');
 const deepl = require('deepl-node');
 
 // Configuración de DeepL
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 const translator = DEEPL_API_KEY ? new deepl.Translator(DEEPL_API_KEY) : null;
 
-// Función mejorada para detectar el idioma del texto
-const detectLanguage = (text) => {
+// ========== DETECCIÓN DE IDIOMA AUTOMÁTICA ==========
+// Usa la API de Google Translate para detectar el idioma (gratuita, sin API key)
+// Soporta TODOS los idiomas automáticamente sin diccionarios manuales
+
+const detectLanguageWithGoogle = async (text) => {
     try {
-        const normalizedText = text.trim().toLowerCase();
-        // Intentar detectar por palabras clave en cualquier parte del texto
-        const languageKeywords = {
-            'es': ['hola', 'adiós', 'adios', 'gracias', 'por favor', 'buenos días', 'buenas tardes', 'buenas noches', 'qué tal', 'que tal', 'cómo', 'como', 'dónde', 'donde', 'cuándo', 'cuando', 'sí', 'si', 'año', 'español', 'mañana', 'también', 'tambien', 'después', 'despues'],
-            'en': ['hello', 'hi', 'goodbye', 'bye', 'thanks', 'thank you', 'please', 'good morning', 'good afternoon', 'how are you', 'what', 'where', 'when', 'yes', 'yeah', 'the', 'and', 'with', 'from'],
-            'fr': ['bonjour', 'salut', 'au revoir', 'merci', "s'il vous plaît", "s'il te plaît", 'bonsoir', 'comment allez-vous', 'très', 'avec', 'français', 'après', 'être', 'avoir'],
-            'de': ['guten tag', 'guten morgen', 'guten abend', 'auf wiedersehen', 'tschüss', 'tschuss', 'danke', 'bitte', 'wie geht', 'deutsch', 'über', 'sehr', 'auch'],
-            'it': ['ciao', 'buongiorno', 'buonasera', 'arrivederci', 'grazie', 'per favore', 'come stai', 'molto', 'anche', 'italiano', 'dopo', 'prima'],
-            'pt': ['olá', 'ola', 'oi', 'tchau', 'obrigado', 'obrigada', 'por favor', 'bom dia', 'boa tarde', 'como vai', 'tudo bem', 'você', 'voce', 'também', 'depois', 'portugués'],
-        };
-        // Contar coincidencias por idioma
-        const scores = {};
-        for (const [lang, keywords] of Object.entries(languageKeywords)) {
-            scores[lang] = 0;
-            for (const keyword of keywords) {
-                if (normalizedText.includes(keyword)) {
-                    scores[lang]++;
-                }
-            }
+        const fetch = require('node-fetch');
+        // Usar la API de Google Translate para detectar idioma
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error de API: ${response.status}`);
         }
-        // Buscar el idioma con más coincidencias
-        const maxScore = Math.max(...Object.values(scores));
-        if (maxScore > 0) {
-            const detectedLang = Object.keys(scores).find(lang => scores[lang] === maxScore);
-            console.log(`Idioma detectado por palabras clave: ${detectedLang} (${maxScore} coincidencias)`);
+        
+        const data = await response.json();
+        
+        // Google devuelve el idioma detectado en data[2]
+        if (data && data[2]) {
+            const detectedLang = data[2];
+            console.log(`[Google Detect] Idioma detectado: ${detectedLang} para texto: "${text.substring(0, 50)}..."`);
             return detectedLang;
         }
-        // Si no hay coincidencias, usar franc para análisis estadístico
-        const results = francAll(text, { minLength: 1 });
-        if (results.length === 0 || results[0][0] === 'und') {
-            console.log('No se pudo detectar el idioma, usando español por defecto');
-            return 'es';
-        }
-        // Mapa de conversión de códigos ISO 639-3 a ISO 639-1
-        const langMap = {
-            'spa': 'es',  'eng': 'en',  'fra': 'fr',  'deu': 'de',  'ita': 'it',
-            'por': 'pt',  'rus': 'ru',  'jpn': 'ja',  'kor': 'ko',  'zho': 'zh',
-            'cmn': 'zh',  'ara': 'ar',  'hin': 'hi',  'nld': 'nl',  'swe': 'sv',
-            'nor': 'no',  'nob': 'no',  'nno': 'no',  'dan': 'da',  'fin': 'fi',
-            'pol': 'pl',  'tur': 'tr',  'ell': 'el',  'heb': 'he',  'tha': 'th',
-            'vie': 'vi',  'ind': 'id',  'msa': 'ms',  'zlm': 'ms',  'ben': 'bn',
-            'urd': 'ur',  'fas': 'fa',  'swa': 'sw',  'ron': 'ro',  'hun': 'hu',
-            'ces': 'cs',  'slk': 'sk',  'bul': 'bg',  'hrv': 'hr',  'srp': 'sr',
-            'ukr': 'uk',  'kat': 'ka',  'hye': 'hy',  'sqi': 'sq',  'bel': 'be',
-            'bos': 'bs',  'aze': 'az',  'khm': 'km',  'pus': 'ps',  'cat': 'ca',
-            'mkd': 'mk',  'slv': 'sl',  'est': 'et',  'lav': 'lv',  'lit': 'lt',
-            'isl': 'is',  'gle': 'ga',  'cym': 'cy',  'mlt': 'mt',  'afr': 'af',
-        };
-        const langCode3 = results[0][0];
-        const detectedLang = langMap[langCode3] || 'es';
-        const confidence = results[0][1];
-        console.log(`Idioma detectado por franc: ${langCode3} -> ${detectedLang} (confianza: ${confidence.toFixed(3)})`);
-        // Si la confianza es muy baja, usar español por defecto
-        if (confidence < 0.3) {
-            console.log('Confianza baja, usando español por defecto');
-            return 'es';
-        }
-        return detectedLang;
+        
+        return null;
     } catch (error) {
-        console.error('Error en detección de idioma:', error.message);
-        return 'es'; // Por defecto español
+        console.error('[Google Detect] Error:', error.message);
+        return null;
     }
 };
 
-// --- FUNCIÓN AÑADIDA ---
+// Función principal de detección de idioma (usa Google como método principal)
+const detectLanguage = async (text) => {
+    try {
+        const normalizedText = text.trim();
+        
+        // Si el texto es muy corto (menos de 2 caracteres), no podemos detectar bien
+        if (normalizedText.length < 2) {
+            console.log('Texto muy corto para detectar idioma, devolviendo null');
+            return null;
+        }
+        
+        // Usar Google Translate API para detección automática
+        const detectedLang = await detectLanguageWithGoogle(normalizedText);
+        
+        if (detectedLang) {
+            // Normalizar el código de idioma (algunos vienen como zh-CN, pt-BR, etc.)
+            const baseLang = detectedLang.split('-')[0].toLowerCase();
+            console.log(`[detectLanguage] Resultado final: ${baseLang}`);
+            return baseLang;
+        }
+        
+        console.log('[detectLanguage] No se pudo detectar el idioma');
+        return null;
+    } catch (error) {
+        console.error('Error en detección de idioma:', error.message);
+        return null;
+    }
+};
+
+// --- FUNCIÓN MEJORADA ---
 // Encuentra todos los países donde el idioma de origen es oficial
 function getBlockedCountriesBySourceLang(sourceLangCode) {
+    if (!sourceLangCode) return [];
+    
+    const normalizedSourceLang = sourceLangCode.toLowerCase().split('-')[0]; // 'pt-BR' -> 'pt'
+    
     // Devuelve ISO alpha3 de los países donde ese idioma es oficial
     return Object.entries(countryLanguageMap)
         .filter(([countryCode, langObj]) => {
-            // langObj.code puede ser composite, ej. 'pt-BR'
-            return langObj.code.toLowerCase().startsWith(sourceLangCode.toLowerCase());
+            // Normalizar el código del país también
+            const countryLang = langObj.code.toLowerCase().split('-')[0];
+            return countryLang === normalizedSourceLang;
         })
         .map(([countryCode]) => countryCode);
 }
@@ -209,14 +210,34 @@ const translateText = async (text, sourceLang, targetLang) => {
 // @route   POST /translate/blocked-countries
 // @desc    Devuelve la lista de países bloqueados para una frase
 // @access  Public
-router.post('/blocked-countries', (req, res) => {
+router.post('/blocked-countries', async (req, res) => {
     const { text } = req.body;
     if (!text || typeof text !== 'string') {
         return res.status(400).json({ success: false, message: 'Texto inválido' });
     }
-    const sourceLang = detectLanguage(text);
-    const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
-    res.json({ blockedCountries, sourceLang });
+    
+    // Si el texto es muy corto, no bloquear nada
+    const trimmedText = text.trim();
+    if (trimmedText.length < 2) {
+        return res.json({ blockedCountries: [], sourceLang: null, message: 'Texto muy corto para detectar idioma' });
+    }
+    
+    try {
+        const sourceLang = await detectLanguage(trimmedText);
+        
+        // Si no se pudo detectar el idioma, devolver lista vacía
+        if (!sourceLang) {
+            console.log(`[blocked-countries] No se pudo detectar idioma para: "${trimmedText.substring(0, 50)}..."`);
+            return res.json({ blockedCountries: [], sourceLang: null, message: 'No se pudo detectar el idioma' });
+        }
+        
+        const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
+        console.log(`[blocked-countries] Idioma: ${sourceLang}, Países bloqueados: ${blockedCountries.length}`);
+        res.json({ blockedCountries, sourceLang });
+    } catch (error) {
+        console.error('[blocked-countries] Error:', error.message);
+        res.json({ blockedCountries: [], sourceLang: null, message: 'Error al detectar idioma' });
+    }
 });
 
 /* --- ENDPOINT PRINCIPAL MODIFICADO --- */
@@ -302,7 +323,7 @@ router.post('/', async (req, res) => {
         }
 
         // --- BLOQUEO DE PAÍSES aquí ---
-        const sourceLang = detectLanguage(text);
+        const sourceLang = await detectLanguage(text);
         const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
         if (blockedCountries.includes(alpha3Code)) {
             return res.status(403).json({
