@@ -1,23 +1,23 @@
-// src/components/GuessGameMode.tsx
+// src/components/FlagGameMode.tsx
 
 import React, { useState, useCallback } from 'react';
 import WorldMap from './WorldMap';
-import { checkCountryGuess } from '../services/gameService';
+import { checkFlagGuess } from '../services/gameService';
 import { countryNameToCode } from '../data/countryCodeMapping';
 import { useLanguage } from '../contexts/LanguageContext';
-import type { GamePhrase } from '../types';
-import '../styles/GuessGameMode.css';
+import type { FlagQuestion } from '../types';
+import '../styles/FlagGameMode.css';
 
-interface GuessGameModeProps {
-  currentPhrase: GamePhrase | null;
+interface FlagGameModeProps {
+  currentFlag: FlagQuestion | null;
   isLoading: boolean;
   stats: { attempts: number; correct: number; lives: number };
   onCountryGuess: (isCorrect: boolean, countryName: string) => void;
   showHint: boolean;
 }
 
-const GuessGameMode: React.FC<GuessGameModeProps> = ({ 
-  currentPhrase, 
+const FlagGameMode: React.FC<FlagGameModeProps> = ({ 
+  currentFlag, 
   isLoading,
   stats,
   onCountryGuess,
@@ -29,7 +29,7 @@ const GuessGameMode: React.FC<GuessGameModeProps> = ({
   const [isValidating, setIsValidating] = useState<boolean>(false);
 
   const handleCountryClick = useCallback(async (geo: any) => {
-    if (!currentPhrase || isLoading || isValidating) return;
+    if (!currentFlag || isLoading || isValidating) return;
 
     const countryName = geo.properties.name;
     const countryCode = countryNameToCode[countryName];
@@ -37,11 +37,11 @@ const GuessGameMode: React.FC<GuessGameModeProps> = ({
     // Validar con el backend
     setIsValidating(true);
     try {
-      const result = await checkCountryGuess(currentPhrase.languageCode, countryCode);
+      const result = await checkFlagGuess(currentFlag.countryCode, countryCode);
       const isCorrect = result.isCorrect;
 
       if (isCorrect) {
-        setFeedback(`${t.correctAnswer} ${countryName} ${t.speaks} ${result.languageName}`);
+        setFeedback(`${t.correctAnswer} ${t.isTheFlagOf} ${result.correctCountryName}`);
         setFeedbackType('success');
         
         // Limpiar feedback después de 2 segundos
@@ -50,7 +50,7 @@ const GuessGameMode: React.FC<GuessGameModeProps> = ({
           setFeedbackType(null);
         }, 2000);
       } else {
-        setFeedback(`${t.incorrectAnswer} ${countryName} ${t.doesNotSpeak} ${result.languageName}`);
+        setFeedback(`${t.incorrectAnswer} ${countryName} ${t.isNotCorrect}`);
         setFeedbackType('error');
         
         // Limpiar feedback después de 2 segundos
@@ -73,7 +73,7 @@ const GuessGameMode: React.FC<GuessGameModeProps> = ({
     } finally {
       setIsValidating(false);
     }
-  }, [currentPhrase, isLoading, isValidating, onCountryGuess, t]);
+  }, [currentFlag, isLoading, isValidating, onCountryGuess, t]);
 
   return (
     <>
@@ -130,4 +130,4 @@ const GuessGameMode: React.FC<GuessGameModeProps> = ({
   );
 };
 
-export default GuessGameMode;
+export default FlagGameMode;

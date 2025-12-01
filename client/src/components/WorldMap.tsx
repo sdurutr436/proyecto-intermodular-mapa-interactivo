@@ -8,6 +8,7 @@ import {
 import '../styles/WorldMap.css';
 import { countryNameToCode } from '../data/countryCodeMapping'; // Mapeo nombre país → código ISO para rayado
 import { countryColors } from '../data/countryColors'; // Colores únicos para cada país
+import { useLanguage } from '../contexts/LanguageContext';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -21,6 +22,8 @@ interface WorldMapProps {
 
 const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = [], isGameMode = false }) => {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const handleMoveEnd = (position: any) => setPosition(position);
   const handleZoomIn = () => {
@@ -37,14 +40,20 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
     <div className="world-map-container">
       {/* Controles de Zoom */}
       <div className="zoom-controls">
-        <button onClick={handleZoomIn} disabled={position.zoom >= 10} className="zoom-button" title="Acercar (Zoom In)">+</button>
-        <button onClick={handleZoomOut} disabled={position.zoom <= 1} className="zoom-button" title="Alejar (Zoom Out)">−</button>
+        <button onClick={handleZoomIn} disabled={position.zoom >= 10} className="zoom-button" title={t.zoomIn}>+</button>
+        <button onClick={handleZoomOut} disabled={position.zoom <= 1} className="zoom-button" title={t.zoomOut}>−</button>
         <div className="zoom-separator"></div>
-        <button onClick={handleResetZoom} className="zoom-button reset" title="Restablecer Vista">⌂</button>
+        <button onClick={handleResetZoom} className="zoom-button reset" title={t.resetView}>⌂</button>
       </div>
 
-      {/* Indicador de Nivel de Zoom */}
-      <div className="zoom-indicator">Zoom: {position.zoom.toFixed(1)}x</div>
+      {/* Indicador de Zoom - esquina inferior derecha */}
+      <div className="zoom-indicator">{t.zoom}: {position.zoom.toFixed(1)}x</div>
+      
+      {/* Indicador de País - a la izquierda del zoom */}
+      <div className="country-indicator">
+        <span className="country-indicator-label">{t.country}:</span>
+        <span className="country-indicator-name">{hoveredCountry || ''}</span>
+      </div>
 
       {/* Mapa */}
       <ComposableMap
@@ -86,6 +95,8 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
                       key={geo.properties?.name || Math.random()}
                       geography={geo}
                       onClick={() => onCountryClick(geo)}
+                      onMouseEnter={() => setHoveredCountry(geo.properties?.name || null)}
+                      onMouseLeave={() => setHoveredCountry(null)}
                       className={isBlocked ? "country-blocked" : ""}
                       style={{
                         default: {

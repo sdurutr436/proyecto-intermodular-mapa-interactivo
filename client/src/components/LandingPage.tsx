@@ -9,6 +9,7 @@ import {
 import { countryColors } from '../data/countryColors';
 import AppLogo from './AppLogo';
 import AboutModal from './AboutModal';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/LandingPage.css';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
@@ -109,6 +110,36 @@ const GlobeQuestionIcon: React.FC<IconProps> = ({ className = '', size = 24, fal
   );
 };
 
+// Icono de Bandera - para Adivinar Bandera
+const FlagIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🚩' }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return <span className={`icon-fallback ${className}`} role="img" aria-label="flag">{fallbackEmoji}</span>;
+  }
+
+  return (
+    <svg 
+      className={className}
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      onError={() => setHasError(true)}
+    >
+      {/* Mástil de la bandera */}
+      <path d="M4 22V4" />
+      {/* Bandera ondeante */}
+      <path d="M4 4h12a2 2 0 0 1 0 4c-2 0-4 2-4 2H4" />
+      <path d="M4 10h8c0 0 2 2 4 2a2 2 0 0 1 0 4H4" />
+    </svg>
+  );
+};
+
 // Icono de Globo genérico (fallback)
 const GlobeIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🌐' }) => {
   const [hasError, setHasError] = useState(false);
@@ -141,12 +172,14 @@ const GlobeIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmo
 const MODE_ICONS: Record<string, React.FC<IconProps>> = {
   translation: LanguageIcon,
   guess: GlobeQuestionIcon,
+  flag: FlagIcon,
 };
 
 // Emojis de fallback por ID de modo
 const MODE_FALLBACK_EMOJIS: Record<string, string> = {
   translation: '🌍',
   guess: '🎯',
+  flag: '🚩',
 };
 
 // ============================================
@@ -173,11 +206,17 @@ const GAME_MODES: GameMode[] = [
     description: 'Adivina de qué idioma es la frase',
     available: true,
   },
+  {
+    id: 'flag',
+    name: 'Adivinar la Bandera',
+    description: 'Adivina a qué país corresponde la bandera',
+    available: true,
+  },
   // Añade nuevos modos aquí fácilmente:
   // {
-  //   id: 'flags',
-  //   name: 'Banderas del Mundo',
-  //   description: 'Identifica países por sus banderas',
+  //   id: 'capitals',
+  //   name: 'Capitales del Mundo',
+  //   description: 'Identifica países por sus capitales',
   //   available: false,
   // },
 ];
@@ -187,11 +226,13 @@ const GAME_MODES: GameMode[] = [
 // ============================================
 
 interface LandingPageProps {
-  onStart: (mode: 'translation' | 'guess') => void;
+  onStart: (mode: 'translation' | 'guess' | 'flag') => void;
   isDarkMode: boolean;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart, isDarkMode }) => {
+  const { language, setLanguage, t } = useLanguage();
+  
   // Estado para países iluminados con transición suave
   const [illuminatedCountries, setIlluminatedCountries] = useState<Map<string, number>>(new Map());
   const illuminationRef = useRef<Map<string, number>>(new Map());
@@ -319,28 +360,62 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, isDarkMode }) => {
       {/* Capa de desenfoque */}
       <div className="landing-blur-overlay"></div>
 
-      {/* Botón "Sobre nosotros" en esquina superior derecha de la VENTANA */}
-      <button 
-        className="landing-about-button"
-        onClick={() => setShowAboutModal(true)}
-        title="Sobre nosotros"
-      >
-        <svg 
-          width="20" 
-          height="20" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
+      {/* Contenedor de botones superiores (idioma + sobre nosotros) */}
+      <div className="landing-top-buttons">
+        {/* Selector de idioma */}
+        <div className="landing-language-selector">
+          <button className="landing-language-indicator">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span className="landing-language-code">{language.toUpperCase()}</span>
+            <svg className="landing-dropdown-icon" width="10" height="10" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M6 8L2 4h8L6 8z" />
+            </svg>
+          </button>
+          <div className="landing-language-dropdown">
+            <button 
+              className={`landing-language-option ${language === 'en' ? 'active' : ''}`}
+              onClick={() => setLanguage('en')}
+            >
+              <span className="lang-flag">🇬🇧</span>
+              <span>English</span>
+            </button>
+            <button 
+              className={`landing-language-option ${language === 'es' ? 'active' : ''}`}
+              onClick={() => setLanguage('es')}
+            >
+              <span className="lang-flag">🇪🇸</span>
+              <span>Español</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Botón "Sobre nosotros" */}
+        <button 
+          className="landing-about-button"
+          onClick={() => setShowAboutModal(true)}
+          title={t.aboutUs}
         >
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="16" x2="12" y2="12" />
-          <line x1="12" y1="8" x2="12.01" y2="8" />
-        </svg>
-        <span>Sobre nosotros</span>
-      </button>
+          <svg 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          <span>{t.aboutUs}</span>
+        </button>
+      </div>
 
       {/* Contenido principal en 3 filas */}
       <div className="landing-content">
@@ -352,7 +427,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, isDarkMode }) => {
 
         {/* Fila 2: Descripción */}
         <section className="landing-description">
-          <p>Explora el mundo a través de los idiomas. Traduce, aprende y juega.</p>
+          <p>{t.landingDescription}</p>
         </section>
 
         {/* Fila 3: Botones de acción */}
@@ -361,21 +436,27 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, isDarkMode }) => {
             className="landing-start-button"
             onClick={() => onStart('translation')}
           >
-            Empezar
+            <span>{t.startButton}</span>
           </button>
 
           <div className="landing-modes-container">
-            <p className="modes-label">O elige un modo:</p>
+            <p className="modes-label">{t.orChooseMode}</p>
             <div className="landing-modes-grid">
               {availableModes.map(mode => (
                 <button
                   key={mode.id}
                   className="landing-mode-button"
-                  onClick={() => onStart(mode.id as 'translation' | 'guess')}
-                  title={mode.description}
+                  onClick={() => onStart(mode.id as 'translation' | 'guess' | 'flag')}
+                  title={mode.id === 'translation' ? t.translationDescription : 
+                         mode.id === 'guess' ? t.guessLanguageDescription : 
+                         t.guessFlagDescription}
                 >
                   <span className="mode-icon">{renderModeIcon(mode.id)}</span>
-                  <span className="mode-name">{mode.name}</span>
+                  <span className="mode-name">
+                    {mode.id === 'translation' ? t.translation : 
+                     mode.id === 'guess' ? t.guessLanguage : 
+                     t.guessFlag}
+                  </span>
                 </button>
               ))}
             </div>

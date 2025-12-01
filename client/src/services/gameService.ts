@@ -1,6 +1,6 @@
 // src/services/gameService.ts
 
-import type { GamePhrase } from '../types';
+import type { GamePhrase, FlagQuestion } from '../types';
 
 // @ts-ignore - Vite environment variable
 const API_URL = import.meta.env?.VITE_API_URL || 'http://localhost:5000';
@@ -21,6 +21,56 @@ export const generateRandomPhrase = async (): Promise<GamePhrase> => {
   } catch (error) {
     console.error('Error al obtener frase del servidor:', error);
     throw new Error('No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.');
+  }
+};
+
+/**
+ * Genera una pregunta aleatoria de bandera desde el backend
+ */
+export const generateRandomFlag = async (): Promise<FlagQuestion> => {
+  try {
+    const response = await fetch(`${API_URL}/api/game/flag`);
+    
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener bandera del servidor:', error);
+    throw new Error('No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.');
+  }
+};
+
+/**
+ * Verifica si el país seleccionado es correcto para la bandera usando el backend
+ */
+export const checkFlagGuess = async (
+  targetCountryCode: string, 
+  guessedCountryCode: string
+): Promise<{ isCorrect: boolean; correctCountryName: string }> => {
+  try {
+    const response = await fetch(`${API_URL}/api/game/validate-flag`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        targetCountryCode,
+        guessedCountryCode,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al validar respuesta en el servidor:', error);
+    throw new Error('No se pudo validar la respuesta. Por favor, verifica la conexión con el servidor.');
   }
 };
 

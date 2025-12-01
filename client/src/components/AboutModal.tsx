@@ -2,6 +2,7 @@
 // Modal de información "Sobre nosotros" con descripción de la aplicación
 
 import React, { useEffect, useRef } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/AboutModal.css';
 
 interface AboutModalProps {
@@ -17,6 +18,7 @@ interface AboutModalProps {
  * - Contenido scrolleable para futuras expansiones
  */
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) => {
+  const { t } = useLanguage();
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   // Cerrar modal con tecla Escape
@@ -64,7 +66,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
         <button 
           className="about-modal-close"
           onClick={onClose}
-          aria-label="Cerrar modal"
+          aria-label={t.closeModal}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -83,15 +85,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
             </div>
-            <h2 id="about-modal-title" className="about-modal-title">Sobre Transkarte</h2>
+            <h2 id="about-modal-title" className="about-modal-title">{t.aboutTitle}</h2>
           </header>
 
           {/* Descripción principal */}
           <section className="about-modal-section">
             <p className="about-modal-intro">
-              <strong>Transkarte</strong> es una aplicación interactiva que te permite explorar el mundo 
-              a través de los idiomas. Combina la geografía con el aprendizaje lingüístico de una manera 
-              visual y divertida, haciendo que descubrir nuevos idiomas sea una aventura.
+              <strong>Transkarte</strong> {t.aboutIntro}
             </p>
           </section>
 
@@ -99,72 +99,41 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
           <section className="about-modal-section">
             <h3 className="about-modal-section-title">
               <span className="section-icon">🎮</span>
-              Modos de juego
+              {t.gameModes}
             </h3>
             
             <div className="about-modal-modes">
               <div className="about-mode-card">
                 <div className="about-mode-icon">🌍</div>
                 <div className="about-mode-content">
-                  <h4>Modo Traducción</h4>
-                  <p>
-                    Escribe cualquier palabra o frase y haz clic en cualquier país del mapa mundial. 
-                    La aplicación traducirá tu texto al idioma oficial del país seleccionado, 
-                    mostrándote cómo se dice en diferentes partes del mundo.
-                  </p>
-                  <ul>
-                    <li>Traducciones a más de 100 idiomas</li>
-                    <li>Visualización geográfica intuitiva</li>
-                    <li>Aprende vocabulario explorando el mapa</li>
-                  </ul>
+                  <h4>{t.translationModeTitle}</h4>
+                  <p>{t.translationModeDesc}</p>
                 </div>
               </div>
 
               <div className="about-mode-card">
                 <div className="about-mode-icon">🎯</div>
                 <div className="about-mode-content">
-                  <h4>Modo Adivina el Idioma</h4>
-                  <p>
-                    Pon a prueba tus conocimientos lingüísticos. Se te mostrará una frase en un idioma 
-                    desconocido y deberás identificar en qué país del mundo se habla ese idioma.
-                  </p>
-                  <ul>
-                    <li>Sistema de vidas para mayor emoción</li>
-                    <li>Pistas disponibles si te atascas</li>
-                    <li>Estadísticas de aciertos e intentos</li>
-                  </ul>
+                  <h4>{t.guessLanguageModeTitle}</h4>
+                  <p>{t.guessLanguageModeDesc}</p>
+                </div>
+              </div>
+
+              <div className="about-mode-card">
+                <div className="about-mode-icon">🚩</div>
+                <div className="about-mode-content">
+                  <h4>{t.guessFlagModeTitle}</h4>
+                  <p>{t.guessFlagModeDesc}</p>
                 </div>
               </div>
             </div>
-          </section>
-
-          {/* Cómo funciona */}
-          <section className="about-modal-section">
-            <h3 className="about-modal-section-title">
-              <span className="section-icon">⚙️</span>
-              Cómo funciona
-            </h3>
-            <ol className="about-modal-steps">
-              <li>
-                <strong>Elige un modo:</strong> Selecciona entre Traducción o Adivina el Idioma 
-                desde el menú desplegable en la esquina superior derecha.
-              </li>
-              <li>
-                <strong>Interactúa con el mapa:</strong> Usa el zoom y arrastra el mapa para 
-                explorar diferentes regiones del mundo.
-              </li>
-              <li>
-                <strong>Aprende jugando:</strong> Cada interacción te enseña algo nuevo sobre 
-                los idiomas y las culturas del mundo.
-              </li>
-            </ol>
           </section>
 
           {/* Características */}
           <section className="about-modal-section">
             <h3 className="about-modal-section-title">
               <span className="section-icon">✨</span>
-              Características
+              {t.features}
             </h3>
             <div className="about-features-grid">
               <div className="about-feature">

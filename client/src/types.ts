@@ -13,3 +13,10 @@ export interface GamePhrase {
     languageName: string;
     validCountryCodes: string[];
 }
+
+export interface FlagQuestion {
+    countryCode: string;
+    countryName: string;
+    continent: string;
+    flagUrl: string;
+}

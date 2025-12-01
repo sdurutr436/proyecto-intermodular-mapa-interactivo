@@ -5,14 +5,18 @@ import WorldMap from './components/WorldMap';
 import SearchBar from './components/SearchBar';
 import TranslationModal from './components/TranslationModal';
 import GuessGameMode from './components/GuessGameMode';
+import FlagGameMode from './components/FlagGameMode';
 import GameOverModal from './components/GameOverModal';
 import LandingPage from './components/LandingPage';
 import AppLogo from './components/AppLogo';
 import { translateText, getBlockedCountries } from './services/translationService';
-import { generateRandomPhrase } from './services/gameService';
+import { generateRandomPhrase, generateRandomFlag } from './services/gameService';
 import { countryNameToCode } from './data/countryCodeMapping';
-import type { TranslationResult, GamePhrase } from './types';
+import { useLanguage } from './contexts/LanguageContext';
+import type { TranslationResult, GamePhrase, FlagQuestion } from './types';
+import type { Language } from './i18n/translations';
 import './styles/App.css';
+import './styles/FlagGameMode.css';
 
 // Clave para localStorage
 const STORAGE_KEY_LANDING = 'tradumap_has_visited';
@@ -20,6 +24,9 @@ const STORAGE_KEY_LAST_MODE = 'tradumap_last_mode';
 const STORAGE_KEY_DARK_MODE = 'tradumap_dark_mode';
 
 const App: React.FC = () => {
+  // Hook de idioma
+  const { language, setLanguage, t } = useLanguage();
+  
   // Estado para mostrar/ocultar la landing page
   const [showLanding, setShowLanding] = useState<boolean>(() => {
     // Verificar si el usuario ya ha visitado antes
@@ -51,14 +58,17 @@ const App: React.FC = () => {
   });
   
   // Inicializar modo de juego basado en el último usado
-  const [gameMode, setGameMode] = useState<'translation' | 'guess'>(() => {
+  const [gameMode, setGameMode] = useState<'translation' | 'guess' | 'flag'>(() => {
     const lastMode = localStorage.getItem(STORAGE_KEY_LAST_MODE);
-    return (lastMode === 'guess') ? 'guess' : 'translation';
+    if (lastMode === 'guess' || lastMode === 'flag') return lastMode;
+    return 'translation';
   });
 
   // Estados del modo de juego
   const [currentPhrase, setCurrentPhrase] = useState<GamePhrase | null>(null);
+  const [currentFlag, setCurrentFlag] = useState<FlagQuestion | null>(null);
   const [isPhraseLoading, setIsPhraseLoading] = useState<boolean>(false);
+  const [isFlagLoading, setIsFlagLoading] = useState<boolean>(false);
   const [gameStats, setGameStats] = useState({ attempts: 0, correct: 0, lives: 5 });
   const [showHint, setShowHint] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
@@ -110,7 +120,7 @@ const App: React.FC = () => {
   }, [inputText]);
 
   // Handler para iniciar desde la landing page
-  const handleStartFromLanding = (mode: 'translation' | 'guess') => {
+  const handleStartFromLanding = (mode: 'translation' | 'guess' | 'flag') => {
     setGameMode(mode);
     localStorage.setItem(STORAGE_KEY_LANDING, 'true');
     localStorage.setItem(STORAGE_KEY_LAST_MODE, mode);
@@ -120,14 +130,14 @@ const App: React.FC = () => {
   // Callback para clic en país
   const handleCountryClick = useCallback(async (geo: any) => {
     if (!inputText.trim()) {
-      alert("Por favor, escribe un texto para traducir.");
+      alert(t.writeTextFirst);
       return;
     }
 
     // Bloqueo visual: país rallado
     const code = countryNameToCode[geo.properties.name];
     if (blockedCountries.includes(code)) {
-      alert("Este país está bloqueado porque su idioma coincide con el idioma del texto que escribiste. Por favor, elige otro país.");
+      alert(t.countryBlocked);
       return;
     }
 
@@ -140,7 +150,7 @@ const App: React.FC = () => {
       const result = await translateText(inputText, geo);
       setTranslationResult(result);
     } catch (e: any) {
-      let errorMessage = "Ocurrió un error inesperado.";
+      let errorMessage = t.unexpectedError;
       if (e instanceof Error) {
         errorMessage = e.message;
       } else if (typeof e === 'string') {
@@ -150,7 +160,7 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [inputText, blockedCountries]);
+  }, [inputText, blockedCountries, t]);
 
   const closeModal = () => {
     setSelectedCountry(null);
@@ -174,16 +184,30 @@ const App: React.FC = () => {
     setShowLanding(true);
   };
 
-  // Guardar el último modo cuando cambia
-  const handleGameModeChange = (newMode: 'translation' | 'guess') => {
+  // Guardar el último modo cuando cambia y reiniciar estadísticas
+  const handleGameModeChange = (newMode: 'translation' | 'guess' | 'flag') => {
     setGameMode(newMode);
     localStorage.setItem(STORAGE_KEY_LAST_MODE, newMode);
+    // Reiniciar estadísticas y estado del juego al cambiar de modo
+    setGameStats({ attempts: 0, correct: 0, lives: 5 });
+    setGameOver(false);
+    setShowHint(false);
+    setHintUsed(false);
+    setCurrentPhrase(null);
+    setCurrentFlag(null);
   };
 
-  // Cargar frase al entrar en modo juego
+  // Cargar frase al entrar en modo juego de adivinar idioma
   useEffect(() => {
     if (gameMode === 'guess' && !currentPhrase && !gameOver) {
       loadNewPhrase();
+    }
+  }, [gameMode]);
+
+  // Cargar bandera al entrar en modo juego de adivinar bandera
+  useEffect(() => {
+    if (gameMode === 'flag' && !currentFlag && !gameOver) {
+      loadNewFlag();
     }
   }, [gameMode]);
 
@@ -200,14 +224,31 @@ const App: React.FC = () => {
     }
   };
 
+  const loadNewFlag = async () => {
+    setIsFlagLoading(true);
+    setShowHint(false);
+    try {
+      const flag = await generateRandomFlag();
+      setCurrentFlag(flag);
+    } catch (error) {
+      console.error('Error loading flag:', error);
+    } finally {
+      setIsFlagLoading(false);
+    }
+  };
+
   const handleCountryGuess = (isCorrect: boolean, countryName: string) => {
     setGameStats(prev => ({ ...prev, attempts: prev.attempts + 1 }));
 
     if (isCorrect) {
       setGameStats(prev => ({ ...prev, correct: prev.correct + 1 }));
-      // Cargar nueva frase después de un breve delay
+      // Cargar nueva frase/bandera después de un breve delay
       setTimeout(() => {
-        loadNewPhrase();
+        if (gameMode === 'guess') {
+          loadNewPhrase();
+        } else if (gameMode === 'flag') {
+          loadNewFlag();
+        }
       }, 2000);
     } else {
       // Perder una vida
@@ -230,7 +271,11 @@ const App: React.FC = () => {
       return { ...prev, lives: newLives, attempts: prev.attempts + 1 };
     });
     if (gameStats.lives > 1) {
-      loadNewPhrase();
+      if (gameMode === 'guess') {
+        loadNewPhrase();
+      } else if (gameMode === 'flag') {
+        loadNewFlag();
+      }
     }
   };
 
@@ -239,7 +284,11 @@ const App: React.FC = () => {
     setGameOver(false);
     setShowHint(false);
     setHintUsed(false);
-    loadNewPhrase();
+    if (gameMode === 'guess') {
+      loadNewPhrase();
+    } else if (gameMode === 'flag') {
+      loadNewFlag();
+    }
   };
 
   const handleShowHint = () => {
@@ -268,6 +317,18 @@ const App: React.FC = () => {
       <header className="app-header">
         <div className="header-left">
           <AppLogo size="small" showTitle gradientId="header" />
+          <button 
+            className="home-button"
+            aria-label={t.backToHome}
+            onClick={handleBackToLanding}
+            title={t.backToHome}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+          </button>
         </div>
         
         <div className="header-center">
@@ -275,10 +336,12 @@ const App: React.FC = () => {
             <SearchBar
               value={inputText}
               onChange={(value) => setInputText(value)}
-              placeholder="Escribe algo y luego haz clic en un país del mapa"
+              placeholder={t.searchPlaceholder}
             />
+          ) : gameMode === 'guess' ? (
+            <div className="game-mode-title">{t.headerTitleGuess}</div>
           ) : (
-            <div className="game-mode-title">¿En qué país se habla este idioma?</div>
+            <div className="game-mode-title">{t.headerTitleFlag}</div>
           )}
         </div>
         
@@ -288,11 +351,13 @@ const App: React.FC = () => {
             <button 
               className="mode-indicator" 
               onClick={() => {
-                const newMode = gameMode === 'translation' ? 'guess' : 'translation';
-                handleGameModeChange(newMode);
+                const modes: ('translation' | 'guess' | 'flag')[] = ['translation', 'guess', 'flag'];
+                const currentIndex = modes.indexOf(gameMode);
+                const nextMode = modes[(currentIndex + 1) % modes.length];
+                handleGameModeChange(nextMode);
               }}
             >
-              {gameMode === 'translation' ? 'Traducción' : 'Adivinar Idioma'}
+              {gameMode === 'translation' ? t.translation : gameMode === 'guess' ? t.guessLanguage : t.guessFlag}
               <svg 
                 className="dropdown-icon" 
                 width="12" 
@@ -308,22 +373,59 @@ const App: React.FC = () => {
                 className={`mode-option ${gameMode === 'translation' ? 'active' : ''}`}
                 onClick={() => handleGameModeChange('translation')}
               >
-                Traducción
+                {t.translation}
               </button>
               <button 
                 className={`mode-option ${gameMode === 'guess' ? 'active' : ''}`}
                 onClick={() => handleGameModeChange('guess')}
               >
-                Adivinar Idioma
+                {t.guessLanguage}
+              </button>
+              <button 
+                className={`mode-option ${gameMode === 'flag' ? 'active' : ''}`}
+                onClick={() => handleGameModeChange('flag')}
+              >
+                {t.guessFlag}
+              </button>
+            </div>
+          </div>
+
+          {/* Selector de idioma */}
+          <div className="language-selector">
+            <button className="language-indicator">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <span className="language-code">{language.toUpperCase()}</span>
+              <svg className="dropdown-icon" width="10" height="10" viewBox="0 0 12 12" fill="currentColor">
+                <path d="M6 8L2 4h8L6 8z" />
+              </svg>
+            </button>
+            <div className="language-dropdown">
+              <button 
+                className={`language-option ${language === 'en' ? 'active' : ''}`}
+                onClick={() => setLanguage('en')}
+              >
+                <span className="lang-flag">🇬🇧</span>
+                <span>English</span>
+              </button>
+              <button 
+                className={`language-option ${language === 'es' ? 'active' : ''}`}
+                onClick={() => setLanguage('es')}
+              >
+                <span className="lang-flag">🇪🇸</span>
+                <span>Español</span>
               </button>
             </div>
           </div>
           
           <button 
             className="dark-mode-toggle"
-            aria-label={isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            aria-label={isDarkMode ? t.lightMode : t.darkMode}
             onClick={handleDarkModeToggle}
-            title={isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            title={isDarkMode ? t.lightMode : t.darkMode}
           >
             <div className={`toggle-switch ${isDarkMode ? 'active' : ''}`}>
               <svg className="toggle-background-icon toggle-sun" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -335,19 +437,6 @@ const App: React.FC = () => {
               </svg>
               <div className="toggle-circle"></div>
             </div>
-          </button>
-
-          <button 
-            className="home-button"
-            aria-label="Volver a la landing page"
-            onClick={handleBackToLanding}
-            title="Volver al inicio"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="16" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12.01" y2="8" />
-            </svg>
           </button>
         </div>
       </header>
@@ -371,19 +460,19 @@ const App: React.FC = () => {
               />
             )}
           </>
-        ) : (
+        ) : gameMode === 'guess' ? (
           <div className="game-map-wrapper">
             {/* Frase del juego flotante */}
             <div className="game-phrase-floating">
               {isPhraseLoading ? (
                 <div className="phrase-loading-floating">
                   <div className="loading-spinner-small"></div>
-                  <span>Cargando...</span>
+                  <span>{t.loading}</span>
                 </div>
               ) : currentPhrase ? (
                 <div className="phrase-text-floating">{currentPhrase.text}</div>
               ) : (
-                <div className="phrase-error-floating">Error al cargar</div>
+                <div className="phrase-error-floating">{t.loadError}</div>
               )}
             </div>
             
@@ -393,7 +482,7 @@ const App: React.FC = () => {
                 className="game-floating-button hint-button"
                 onClick={handleShowHint}
                 disabled={hintUsed}
-                title={hintUsed ? "Pista ya usada" : "Mostrar pista"}
+                title={hintUsed ? t.hintUsed : t.showHint}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
@@ -403,7 +492,7 @@ const App: React.FC = () => {
                 className="game-floating-button skip-button"
                 onClick={handleSkipPhrase}
                 disabled={isPhraseLoading || gameOver}
-                title="Siguiente palabra (pierde 1 vida)"
+                title={t.nextWord}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M6 4l12 8-12 8V4z"/>
@@ -413,7 +502,7 @@ const App: React.FC = () => {
               <button 
                 className="game-floating-button reset-button"
                 onClick={handleResetGame}
-                title="Reiniciar juego"
+                title={t.restartGame}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
@@ -435,8 +524,92 @@ const App: React.FC = () => {
               <div className="hint-toast">
                 <div className="hint-toast-icon">💡</div>
                 <div className="hint-toast-content">
-                  <span className="hint-toast-label">Pista:</span>
+                  <span className="hint-toast-label">{t.hint}:</span>
                   <span className="hint-toast-language">{currentPhrase.languageName}</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Modal de Game Over */}
+            {gameOver && (
+              <GameOverModal
+                stats={gameStats}
+                onRestart={handleResetGame}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="game-map-wrapper">
+            {/* Bandera del juego flotante */}
+            <div className="flag-display-floating">
+              {isFlagLoading ? (
+                <div className="flag-loading-floating">
+                  <div className="loading-spinner-small"></div>
+                  <span>{t.loading}</span>
+                </div>
+              ) : currentFlag ? (
+                <div className="flag-image-container">
+                  <img 
+                    src={currentFlag.flagUrl} 
+                    alt={t.flagToGuess}
+                    className="flag-image"
+                  />
+                </div>
+              ) : (
+                <div className="flag-error-floating">{t.loadError}</div>
+              )}
+            </div>
+            
+            {/* Botones de acción flotantes */}
+            <div className="game-controls-floating">
+              <button 
+                className="game-floating-button hint-button"
+                onClick={handleShowHint}
+                disabled={hintUsed}
+                title={hintUsed ? t.hintUsed : t.showHintContinent}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+                </svg>
+              </button>
+              <button 
+                className="game-floating-button skip-button"
+                onClick={handleSkipPhrase}
+                disabled={isFlagLoading || gameOver}
+                title={t.nextFlag}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 4l12 8-12 8V4z"/>
+                  <path d="M18 4h2v16h-2z"/>
+                </svg>
+              </button>
+              <button 
+                className="game-floating-button reset-button"
+                onClick={handleResetGame}
+                title={t.restartGame}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                </svg>
+              </button>
+            </div>
+            
+            {/* Modo Adivinar Bandera */}
+            <FlagGameMode 
+              currentFlag={currentFlag}
+              isLoading={isFlagLoading}
+              stats={gameStats}
+              onCountryGuess={handleCountryGuess}
+              showHint={showHint}
+            />
+            
+            {/* Toast de pista - Continente */}
+            {showHint && currentFlag && (
+              <div className="hint-toast-flag">
+                <div className="hint-toast-icon">🌍</div>
+                <div className="hint-toast-content">
+                  <span className="hint-toast-label">{t.continent}:</span>
+                  <span className="hint-toast-continent">{currentFlag.continent}</span>
                 </div>
               </div>
             )}
