@@ -19,9 +19,9 @@ import './styles/App.css';
 import './styles/FlagGameMode.css';
 
 // Clave para localStorage
-const STORAGE_KEY_LANDING = 'tradumap_has_visited';
-const STORAGE_KEY_LAST_MODE = 'tradumap_last_mode';
-const STORAGE_KEY_DARK_MODE = 'tradumap_dark_mode';
+const STORAGE_KEY_LANDING = 'transkarte_has_visited';
+const STORAGE_KEY_LAST_MODE = 'transkarte_last_mode';
+const STORAGE_KEY_DARK_MODE = 'transkarte_dark_mode';
 
 const App: React.FC = () => {
   // Hook de idioma

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Language, Translations, getTranslation } from '../i18n/translations';
 
-const STORAGE_KEY_LANGUAGE = 'tradumap_language';
+const STORAGE_KEY_LANGUAGE = 'transkarte_language';
 
 interface LanguageContextType {
   language: Language;

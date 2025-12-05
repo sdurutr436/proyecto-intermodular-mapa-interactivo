@@ -3,7 +3,7 @@
 import type { GamePhrase, FlagQuestion } from '../types';
 
 // @ts-ignore - Vite environment variable
-const API_URL = import.meta.env?.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env?.VITE_API_URL || '';
 
 /**
  * Genera una frase aleatoria en un idioma aleatorio desde el backend
