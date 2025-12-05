@@ -1,461 +1,321 @@
-# 🌍 MAPA TRADUCTOR INTERACTIVO
+<div align="center">
 
-> **Sprint 2 Completado** - Backend Base y Base de Datos
 
-> 🐳 **IMPORTANTE**: Con Docker, **NO necesitas** ejecutar `npm install`. Las dependencias se instalan automáticamente dentro de los contenedores. Solo ejecuta: `docker-compose up -d --build`
 
-Este proyecto consiste en un mapa interactivo del mundo, donde cada país se muestra con colores personalizados y efectos visuales al pasar el cursor. La funcionalidad principal permite al usuario escribir una palabra en un cuadro de texto y, al hacer clic en un país, esta palabra se traduce automáticamente al idioma oficial del país seleccionado.
+<a id="inicio"></a>
+![Logo Transkarte](./docs/img/logo.png)
 
-Este proyecto combina interactividad, visualización geográfica y traducción automática, lo que lo hace útil para aplicaciones educativas, demostraciones lingüísticas o juegos didácticos de idiomas.
+### *Explora el mundo aprendiendo idiomas*
 
-## 📋 TABLA DE CONTENIDOS
+**Aplicación web educativa que combina geografía y traducción interactiva**
 
-- [Información del Equipo](#información-del-equipo)
-- [Estado del Proyecto](#estado-del-proyecto)
-- [Stack Tecnológico](#stack-tecnológico)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Instalación](#instalación)
-- [API Backend](#api-backend)
-- [Base de Datos](#base-de-datos)
-- [Enlaces a Documentos](#enlaces-a-los-documentos-de-la-propuesta)
-- [❓ FAQ - Preguntas Frecuentes](FAQ.md)
+</div>
 
 ---
 
-## 👥 INFORMACIÓN DEL EQUIPO
+## 📖 Sobre el Proyecto
 
-- **Sergio Durán Utrera**
-- **Manolo Cárdeno Sánchez**
-- **Francisco José Redondo González**
+**Transkarte** es una aplicación web educativa que transforma el aprendizaje de idiomas en una experiencia interactiva y visual. A través de un mapa mundial interactivo, los usuarios pueden:
 
----
+- 🗺️ **Explorar** países con visualización interactiva y efectos visuales
+- 🔤 **Traducir** palabras y frases al idioma oficial de cada país
+- 🎮 **Jugar** modos educativos para aprender geografía e idiomas
+- 🌍 **Descubrir** más de 150 países y sus lenguas oficiales
 
-## 📊 ESTADO DEL PROYECTO
+La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para ofrecer una experiencia fluida y educativa. Desarrollada con Docker para facilitar el despliegue y sin necesidad de registro de usuarios, Transkarte pone la privacidad y la simplicidad en primer lugar.
 
-### ✅ Sprint 2 - Backend Base y Base de Datos (COMPLETADO)
+## 📋 Tabla de Contenidos
 
-- [x] Issue 2.1: MongoDB configurado en Docker
-- [x] Issue 2.2: Módulo de conexión a base de datos
-- [x] Issue 2.3 y 2.4: Modelo Translation con schema completo
-- [x] Issue 2.5: Server.js con Express y middleware
-- [x] Issue 2.6: Variables de entorno configuradas
-- [x] Issue 2.7 y 2.8: Rutas API y endpoint de prueba
-- [x] Issue 2.9: Mapeos de países e idiomas (150+ países)
-- [x] Issue 2.12: Documentación de API
-
-### 🚧 Próximos Sprints
-
-- [ ] Sprint 3: Integración de APIs de Traducción
-- [ ] Sprint 4: Frontend Base y Componentes UI
-- [ ] Sprint 5: Mapa Interactivo y Conexión Frontend-Backend
-- [ ] Sprint 6: Dockerización, Despliegue y Optimización
+- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
+- [🚀 Demo en Producción](#-demo-en-producción)
+- [📸 Capturas de Pantalla](#-capturas-de-pantalla)
+- [💻 Instalación y Desarrollo Local](#-instalación-y-desarrollo-local)
+- [👥 Equipo de Desarrollo](#-equipo-de-desarrollo)
+- [📚 Documentación](#-documentación)
+- [📊 Estado del Proyecto](#-estado-del-proyecto)
+- [🔌 API Backend](#-api-backend)
+- [📄 Licencia](#-licencia)
 
 ---
 
-## 🛠️ STACK TECNOLÓGICO
+## 📊 Estado del Proyecto
+
+### ✅ Proyecto Completado
+
+**Backend:**
+- [x] MongoDB configurado en Docker
+- [x] Modelos de datos (Translation, GameStats)
+- [x] Sistema de traducción con DeepL + Google Translate fallback
+- [x] Detección automática de idioma
+- [x] Sistema de caché de traducciones
+- [x] API de juegos (frases y banderas)
+- [x] Mapeos de 150+ países e idiomas
+
+**Frontend:**
+- [x] React 18 + TypeScript + Vite
+- [x] Mapa interactivo mundial (react-simple-maps)
+- [x] Modo Traducción: traduce al idioma del país clickeado
+- [x] Modo Adivina el Idioma: reconoce frases en diferentes idiomas
+- [x] Modo Adivina la Bandera: identifica países por su bandera
+- [x] Sistema de vidas y estadísticas en tiempo real
+- [x] Internacionalización (español/inglés)
+- [x] Modo oscuro/claro
+- [x] Landing page interactiva
+- [x] Diseño responsive
+
+**Infraestructura:**
+- [x] Dockerización completa (frontend + backend + MongoDB)
+- [x] Variables de entorno configuradas
+- [x] CORS y seguridad básica
+
+---
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+
+- **⚛️ React 18** - Librería UI con hooks y context
+- **📘 TypeScript** - Tipado estático para mayor robustez
+- **⚡ Vite** - Build tool ultrarrápido
+- **🗺️ react-simple-maps** - Visualización de mapas SVG interactivos
+- **🎨 CSS3** - Estilos personalizados con animaciones
 
 ### Backend
-- **Node.js** 20
-- **Express.js** - Framework web
-- **MongoDB** 7.0 - Base de datos NoSQL
-- **Mongoose** - ODM para MongoDB
 
-### Frontend (Próximos Sprints)
-- **React** 18
-- **TypeScript**
-- **Vite** - Build tool
-- **react-simple-maps** - Componente de mapa interactivo
+- **🟢 Node.js 20** - Runtime JavaScript
+- **🚂 Express.js** - Framework web minimalista
+- **🍃 MongoDB 7.0** - Base de datos NoSQL
+- **📦 Mongoose** - ODM para MongoDB con esquemas tipados
 
-### DevOps
-- **Docker & Docker Compose**
-- **dotenv** - Variables de entorno
+### APIs Externas
 
----
+- **🔷 DeepL API** - Traducción de alta calidad (principal)
+- **🌐 Google Translate API** - Traducción gratuita (fallback)
 
-## 📁 ESTRUCTURA DEL PROYECTO
+### DevOps e Infraestructura
 
-```
-MapaTraductorInteractivo_Sprints/
-│
-├── client/                    # Frontend (React + TypeScript)
-│   ├── src/
-│   │   ├── components/       # Componentes React
-│   │   ├── styles/           # Archivos CSS
-│   │   └── App.tsx           # Componente principal
-│   ├── Dockerfile
-│   └── package.json
-│
-├── server/                    # Backend (Node.js + Express)
-│   ├── config/
-│   │   └── db.js            # ✅ Configuración MongoDB
-│   ├── models/
-│   │   └── Translation.js   # ✅ Modelo de datos
-│   ├── routes/
-│   │   └── api/
-│   │       └── translate.js # ✅ Rutas de traducción
-│   ├── data/
-│   │   ├── countryLanguageMap.js    # ✅ Mapeo país-idioma
-│   │   └── countryCodeMapping.js    # ✅ Mapeo nombre-código
-│   ├── .env                 # ✅ Variables de entorno
-│   ├── .env.example         # ✅ Template de variables
-│   ├── server.js            # ✅ Servidor Express
-│   ├── Dockerfile
-│   └── package.json
-│
-├── docker-compose.yml        # ✅ Orquestación de servicios
-└── README.md                 # ✅ Este archivo
-
-✅ = Completado en Sprint 2
-```
+- **🐳 Docker & Docker Compose** - Contenedorización
+- **🔒 HTTPS** - Certificado SSL (Let's Encrypt en producción)
+- **📝 dotenv** - Gestión de variables de entorno
 
 ---
 
-## 🚀 INSTALACIÓN
+## 🚀 Demo en Producción
+
+<!-- TODO: Añadir enlace cuando la aplicación esté desplegada -->
+
+> ⚠️ **Próximamente**: La aplicación estará disponible en producción una vez completado el Sprint 6 (Dockerización y Despliegue).
+
+**URL de producción:** `TODO - Pendiente de despliegue`
+
+---
+
+## 📸 Capturas de Pantalla
+
+<!-- TODO: Añadir capturas de pantalla de la aplicación -->
+
+<div align="center">
+  <b>Página de inicio (Landing Page)</b><br>
+  <img src="./docs/img/landing-page.png" alt="Landing Page" width="600" />
+  <br><br>
+  <b>Mapa interactivo con países</b><br>
+  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="600" />
+  <br><br>
+  <b>Modo de traducción</b><br>
+  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="600" />
+  <br><br>
+  <b>Modo de juego: Adivina el idioma</b><br>
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="600" />
+  <br><br>
+  <b>Modo de juego: Adivina la Bandera</b><br>
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="600" />
+</div>
+
+---
+
+## 💻 Instalación y Desarrollo Local
 
 ### Requisitos Previos
 
-#### Con Docker (Recomendado) ⭐
-- ✅ **Docker Desktop** instalado y corriendo
-- ✅ **Git**
-- ❌ **NO necesitas** Node.js
-- ❌ **NO necesitas** ejecutar `npm install`
-- ❌ **NO necesitas** MongoDB instalado
+#### ⭐ Opción 1: Con Docker (Recomendado)
 
-#### Sin Docker
+- ✅ **Docker Desktop** instalado y en ejecución
+- ✅ **Git**
+- ❌ **NO necesitas** Node.js instalado
+- ❌ **NO necesitas** MongoDB instalado
+- ❌ **NO necesitas** ejecutar `npm install` manualmente
+
+#### 📦 Opción 2: Sin Docker (Manual)
+
 - ✅ **Node.js** 20+
 - ✅ **MongoDB** Community Edition
 - ✅ **Git**
-- ⚠️ **Sí necesitas** ejecutar `npm install` manualmente
-
-### Instalación con Docker (Recomendado) ⭐
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone <repository-url>
-   cd MapaTraductorInteractivo_Sprints
-   ```
-
-2. **Iniciar servicios con Docker Compose**
-   ```bash
-   docker-compose up -d --build
-   ```
-   
-   **¡Eso es todo!** 🎉 Las dependencias (`mongoose`, `react-simple-maps`, etc.) se instalan **automáticamente** dentro de los contenedores.
-
-3. **Acceder a la aplicación**
-   - **Frontend (Mapa Interactivo)**: http://localhost:5173
-   - **Backend (API)**: http://localhost:5000
-   - **Health Check**: http://localhost:5000/health
-   - **MongoDB**: localhost:27017
-
-> **Nota**: Con Docker **NO necesitas** ejecutar `npm install` manualmente. Los Dockerfiles ya lo hacen por ti.
-
-### 🗺️ Visualizar el Mapa
-
-Abre http://localhost:5173 en tu navegador y verás:
-- ✅ Mapa mundial interactivo
-- ✅ Países clickeables con efectos hover
-- ✅ Navegación completa del mapa
-- ⚠️ Funcionalidad de traducción pendiente (Sprint 3)
 
 ---
 
-### Instalación Local (Sin Docker)
+### 🐳 Instalación con Docker (Recomendado)
 
-**Solo si NO usas Docker**, necesitas instalar dependencias manualmente:
-
-1. **Instalar dependencias**
-   ```bash
-   # Backend
-   cd server
-   npm install
-   
-   # Frontend
-   cd ../client
-   npm install
-   cd ..
-   ```
-
-2. **Configurar MongoDB local**
-   - Instalar MongoDB Community Edition
-   - Iniciar servicio: `mongod`
-   - Actualizar `MONGO_URI` en `server/.env` a `mongodb://localhost:27017/translator_db`
-
-3. **Iniciar servicios**
-   ```bash
-   # Terminal 1 - Backend
-   cd server
-   npm run dev
-   
-   # Terminal 2 - Frontend
-   cd client
-   npm run dev
-   ```
-
----
-
-## 🔌 API BACKEND
-
-### Base URL
-```
-http://localhost:5000
-```
-
-### Endpoints Disponibles (Sprint 2)
-
-#### 1. Health Check
-```http
-GET /health
-```
-
-**Respuesta exitosa (200)**
-```json
-{
-  "status": "OK",
-  "timestamp": "2025-11-12T10:30:00.000Z",
-  "database": "connected",
-  "sprint": 2
-}
-```
-
----
-
-#### 2. Información del API
-```http
-GET /
-```
-
-**Respuesta exitosa (200)**
-```json
-{
-  "message": "🌍 Global Translator API - Sprint 2",
-  "status": "Backend y Base de Datos conectados",
-  "sprint": 2,
-  "endpoints": {
-    "health": "/health",
-    "translateTest": "POST /api/translate/test",
-    "translate": "POST /api/translate"
-  },
-  "database": "MongoDB",
-  "version": "1.0.0"
-}
-```
-
----
-
-#### 3. Endpoint de Prueba de Traducción
-```http
-POST /api/translate/test
-Content-Type: application/json
-```
-
-**Body**
-```json
-{
-  "text": "Hello world",
-  "country": "Spain"
-}
-```
-
-**Respuesta exitosa (200)**
-```json
-{
-  "success": true,
-  "data": {
-    "originalText": "Hello world",
-    "country": "Spain",
-    "alpha3Code": "SPA",
-    "language": "es",
-    "translation": "[MOCK] Traducción de prueba para: \"Hello world\"",
-    "fromCache": false
-  },
-  "message": "Endpoint de prueba funcionando correctamente (Sprint 2)",
-  "timestamp": "2025-11-12T10:30:00.000Z"
-}
-```
-
-**Errores posibles**
-- `400` - Texto vacío o falta campo requerido
-- `500` - Error interno del servidor
-
----
-
-#### 4. Estadísticas del Caché
-```http
-GET /api/translate/cache
-```
-
-**Respuesta exitosa (200)**
-```json
-{
-  "success": true,
-  "cache": {
-    "total": 42,
-    "recent": [
-      {
-        "originalText": "Hello",
-        "alpha3Code": "ESP",
-        "language": "es",
-        "createdAt": "2025-11-12T10:00:00.000Z"
-      }
-    ]
-  },
-  "timestamp": "2025-11-12T10:30:00.000Z"
-}
-```
-
----
-
-#### 5. Traducción Completa (Próximo Sprint)
-```http
-POST /api/translate
-```
-
-**Estado actual**: 501 Not Implemented
-- Se implementará en Sprint 3 con integración de DeepL API
-
----
-
-### Ejemplos con cURL
-
-**Health Check**
-```bash
-curl http://localhost:5000/health
-```
-
-**Test de Traducción**
-```bash
-curl -X POST http://localhost:5000/api/translate/test \
-  -H "Content-Type: application/json" \
-  -d '{"text":"Hello","country":"France"}'
-```
-
-**Estadísticas**
-```bash
-curl http://localhost:5000/api/translate/cache
-```
-
----
-
-## 🗄️ BASE DE DATOS
-
-### Modelo de Datos: Translation
-
-```javascript
-{
-  originalText: String,    // Texto original (max 5000 caracteres)
-  alpha3Code: String,      // Código ISO del país (3 letras)
-  language: String,        // Código ISO del idioma
-  translation: String,     // Texto traducido
-  createdAt: Date         // Timestamp automático
-}
-```
-
-### Índices
-- **Compuesto único**: `(originalText, alpha3Code)` - Evita duplicados y optimiza caché
-- **Simple**: `language` - Para filtrar por idioma
-
-### Estadísticas
-- **150+ países mapeados** con sus idiomas oficiales
-- **Caché automático** de traducciones
-- **Búsqueda optimizada** con índices compuestos
-
----
-
-## 📚 MAPEOS DE DATOS
-
-### Países Soportados
-
-El sistema incluye mapeos completos para:
-- 🇪🇺 **Europa**: 35+ países
-- 🌎 **Américas**: 25+ países
-- 🌏 **Asia**: 35+ países
-- 🌍 **África**: 30+ países
-- 🌊 **Oceanía**: 5+ países
-- 🇷🇺 **Ex-URSS**: 10+ países
-
-**Total**: **150+ países con idiomas oficiales**
-
-### Idiomas Soportados
-
-Español, Inglés, Francés, Alemán, Italiano, Portugués, Ruso, Chino, Japonés, Coreano, Árabe, Hindi, y muchos más...
-
----
-
-## 🔧 COMANDOS ÚTILES
-
-### Docker
+1️⃣ **Clonar el repositorio**
 
 ```bash
-# Iniciar servicios
-docker-compose up -d
+git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
+cd ProyectoIntermodular-MapaInteractivo
+```
 
-# Ver logs
+2️⃣ **Iniciar todos los servicios**
+
+```bash
+docker-compose up -d --build
+```
+
+> 🎉 **¡Listo!** Las dependencias se instalan automáticamente dentro de los contenedores.
+
+3️⃣ **Acceder a la aplicación**
+
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:5000](http://localhost:5000)
+- **Health Check**: [http://localhost:5000/health](http://localhost:5000/health)
+- **MongoDB**: `localhost:27017`
+
+4️⃣ **Ver logs (opcional)**
+
+```bash
+# Logs de todos los servicios
 docker-compose logs -f
 
-# Ver logs solo del servidor
+# Logs solo del servidor
 docker-compose logs -f server
 
-# Detener servicios
-docker-compose down
-
-# Reconstruir imágenes
-docker-compose up -d --build
-
-# Eliminar volúmenes (⚠️ borra datos de MongoDB)
-docker-compose down -v
+# Logs solo del cliente
+docker-compose logs -f client
 ```
 
-### NPM (Desarrollo Local)
+5️⃣ **Detener los servicios**
 
 ```bash
-# Instalar dependencias
-npm install
-
-# Modo desarrollo
-npm run dev
-
-# Iniciar servidor
-npm start
+docker-compose down
 ```
 
 ---
 
-## 📖 ENLACES A LOS DOCUMENTOS DE LA PROPUESTA
+### 📦 Instalación Manual (Sin Docker)
 
-- [Problema y Justificación](./docs/problema.md)
-- [Objetivos y Alcance](./docs/objetivos-alcance.md)
-- [Viabilidad Técnica](./docs/viabilidad-tecnica.md)
-- [Recursos Necesarios](./docs/recursos.md)
+<details>
+<summary><b>Clic aquí para ver instrucciones sin Docker</b></summary>
+
+1️⃣ **Clonar el repositorio**
+
+```bash
+git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
+cd ProyectoIntermodular-MapaInteractivo
+```
+
+2️⃣ **Instalar dependencias**
+
+```bash
+# Backend
+cd server
+npm install
+
+# Frontend
+cd ../client
+npm install
+cd ..
+```
+
+3️⃣ **Configurar MongoDB**
+
+- Instalar [MongoDB Community Edition](https://www.mongodb.com/try/download/community)
+- Iniciar el servicio: `mongod`
+- Actualizar `MONGO_URI` en `server/.env`:
+  ```
+  MONGO_URI=mongodb://localhost:27017/translator_db
+  ```
+
+4️⃣ **Iniciar servicios**
+
+```bash
+# Terminal 1 - Backend
+cd server
+npm run dev
+
+# Terminal 2 - Frontend
+cd client
+npm run dev
+```
+
+5️⃣ **Acceder a la aplicación**
+
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
+- **Backend**: [http://localhost:5000](http://localhost:5000)
+
+</details>
 
 ---
 
-## 📝 NOTAS DE DESARROLLO
+## 👥 Equipo de Desarrollo
 
-### Sprint 2 - Completado ✅
+<div align="center">
 
-Este sprint estableció las bases del backend:
-- Base de datos MongoDB funcionando en Docker
-- Modelo de datos optimizado con índices
-- Sistema de rutas modular
-- Endpoint de prueba operativo
-- Mapeos completos de 150+ países
-- Logging básico implementado
+| Avatar | Nombre | Rol | GitHub |
+|:------:|--------|-----|:------:|
+| <img src="https://github.com/sdurutr436.png" width="80" style="border-radius:50%"/> | **Sergio Durán Utrera** | Full Stack Developer | [![GitHub](https://img.shields.io/badge/GitHub-sdurutr436-181717?style=flat&logo=github)](https://github.com/sdurutr436) |
+| <img src="https://github.com/nolocardeno.png" width="80" style="border-radius:50%"/> | **Manolo Cárdeno Sánchez** | Full Stack Developer | [![GitHub](https://img.shields.io/badge/GitHub-nolocardeno-181717?style=flat&logo=github)](https://github.com/manolo-card) |
+| <img src="https://github.com/Fjrg0309.png" width="80" style="border-radius:50%"/> | **Francisco J. Redondo González** | Full Stack Developer | [![GitHub](https://img.shields.io/badge/GitHub-Fjrg0309-181717?style=flat&logo=github)](https://github.com/FranRG96) |
 
-### Próximos Pasos - Sprint 3
+</div>
 
-- Integración con DeepL API
-- Detección automática de idioma (franc-min + keywords)
-- Sistema de caché completo
-- Fallback a Google Translate
-- Endpoint `/api/translate` funcional
+> 💡 Este proyecto fue desarrollado como parte del **Proyecto Intermodular** del ciclo de **Desarrollo de Aplicaciones Web (DAW)**.
 
 ---
 
-## 📄 LICENCIA
+## 📚 Documentación
 
-Este proyecto es parte de un trabajo académico para el curso de Desarrollo en Servidor.
+### 📂 Documentación del Proyecto
+
+> 📝 **TODO**: Expandir documentación técnica con diagramas de arquitectura, flujos de usuario y guías de contribución.
+
+Toda la documentación técnica y de planificación se encuentra en la carpeta [`/docs`](./docs):
+
+- 📄 [**Problema y Justificación**](./docs/problema.md) - Contexto y necesidad del proyecto
+- 🎯 [**Objetivos y Alcance**](./docs/objetivos-alcance.md) - Metas y límites del proyecto
+- 🔧 [**Viabilidad Técnica**](./docs/viabilidad-tecnica.md) - Análisis técnico y factibilidad
+- 💰 [**Recursos Necesarios**](./docs/recursos.md) - Recursos humanos y técnicos
+- ⚖️ [**Legislación y Cumplimiento**](./docs/legislacion.md) - RGPD, accesibilidad y normativas
+
+### 📖 Wiki del Proyecto
+
+> 📚 **Wiki completa:** [https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki)
+
+Páginas disponibles en la wiki:
+- [Home](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki) — Portada y presentación general del proyecto
+- [Actas de reuniones](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones) — Resúmenes y acuerdos de las reuniones del equipo
+- [Gestión de Recursos y Tiempos](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos) — Planificación de recursos, cronograma y asignación de tareas
+- [Metodología SCRUM](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM) — Explicación del marco de trabajo ágil utilizado
+- [Planificación de Sprints](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints) — Detalle de los sprints, objetivos y entregables
+- [Roles de equipo](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo) — Descripción de los roles y responsabilidades de cada miembro
 
 ---
 
-**Última actualización**: Sprint 2 - Noviembre 2025
+## 📄 Licencia
+
+Este proyecto es parte de un **trabajo académico** desarrollado para el **Proyecto Intermodular** del ciclo de **Desarrollo de Aplicaciones Web (DAW)** en el **IES Rafael Alberti** (Cádiz, España).
+
+### Uso Educativo
+
+- ✅ **Permitido**: Uso con fines educativos y de aprendizaje
+- ✅ **Permitido**: Clonación y modificación para proyectos académicos
+- ⚠️ **Atribución requerida**: Si usas este código, menciona a los autores originales
+
+### Autores
+
+- Sergio Durán Utrera ([@sdurutr436](https://github.com/sdurutr436))
+- Manolo Cárdeno Sánchez ([@manolo-card](https://github.com/nolocardeno))
+- Francisco J. Redondo González ([@FranRG96](https://github.com/Fjrg0309))
+
+---
+
+
+<p align="center">
+  <a href="#inicio">⬆️ Volver arriba</a>
+</p>
