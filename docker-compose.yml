@@ -1,16 +1,16 @@
 services:
-  client:
+  frontend:
     build:
-      context: ./client
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:80"
     depends_on:
-      - server
+      - backend
 
-  server:
+  backend:
     build:
-      context: ./server
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
@@ -22,7 +22,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - ./server:/app
+      - ./backend:/app
       - /app/node_modules
 
   mongo:
