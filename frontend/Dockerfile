@@ -1,5 +1,5 @@
 # Etapa de construcción
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -25,6 +25,13 @@ COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 # Copiar los archivos construidos desde la etapa de build
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Script para configurar el puerto dinámicamente
+RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
+    echo 'PORT=${PORT:-80}' >> /docker-entrypoint.sh && \
+    echo 'sed -i "s/listen 80;/listen $PORT;/g" /etc/nginx/conf.d/default.conf' >> /docker-entrypoint.sh && \
+    echo 'exec nginx -g "daemon off;"' >> /docker-entrypoint.sh && \
+    chmod +x /docker-entrypoint.sh
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/docker-entrypoint.sh"]
