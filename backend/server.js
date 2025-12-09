@@ -9,7 +9,13 @@ const app = express();
 connectDB();
 
 // Init Middleware
-app.use(cors());
+// Configurar CORS para permitir el frontend
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Define Routes - Standardizing to /api prefix

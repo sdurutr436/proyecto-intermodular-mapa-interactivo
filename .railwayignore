@@ -1,0 +1,14 @@
+# Railway Deployment Files
+*.local
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
