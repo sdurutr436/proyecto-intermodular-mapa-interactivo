@@ -44,7 +44,9 @@ jobs:
       # ========== BACKEND DOCUMENTATION (JSDoc) ==========
       - name: Install backend dependencies
         working-directory: backend
-        run: npm ci
+        run: |
+          rm -f package-lock.json
+          npm install
 
       - name: Generate Backend JSDoc documentation
         working-directory: backend
@@ -53,7 +55,9 @@ jobs:
       # ========== FRONTEND DOCUMENTATION (TypeDoc) ==========
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm ci
+        run: |
+          rm -f package-lock.json
+          npm install
 
       - name: Install TypeDoc
         working-directory: frontend
