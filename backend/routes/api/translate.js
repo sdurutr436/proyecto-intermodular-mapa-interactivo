@@ -308,22 +308,52 @@ const translateText = async (text, sourceLang, targetLang) => {
 
 /**
  * @route   POST /api/translate/blocked-countries
- * @desc    Devuelve la lista de países bloqueados para una frase según su idioma detectado
+ * @method  POST
+ * @desc    Detecta automáticamente el idioma de un texto y devuelve la lista de países bloqueados
+ *          para evitar traducciones al mismo idioma. Útil para validación previa de países antes
+ *          de realizar una traducción.
  * @access  Public
- * @param   {Object} req.body
- * @param   {string} req.body.text - Texto para detectar idioma y determinar bloqueos
- * @returns {Object} JSON con lista de países bloqueados, código de idioma y mensaje
  * 
- * @example
- * // Request
+ * @param   {Object} req.body - Cuerpo de la petición
+ * @param   {string} req.body.text - Texto para detectar idioma (mínimo 2 caracteres)
+ * 
+ * @returns {200} Success - Países bloqueados detectados correctamente
+ * @returns {400} Bad Request - Texto inválido o vacío
+ * @returns {500} Internal Server Error - Error en el servicio de detección
+ * 
+ * @example Request
  * POST /api/translate/blocked-countries
- * { "text": "Hola mundo" }
+ * Content-Type: application/json
  * 
- * // Response
  * {
- *   "blockedCountries": ["ESP", "MEX", "ARG"],
+ *   "text": "Hola mundo"
+ * }
+ * 
+ * @example Response 200 (Success)
+ * {
+ *   "blockedCountries": ["ESP", "MEX", "ARG", "COL", "CHL"],
  *   "sourceLang": "es",
  *   "message": "OK"
+ * }
+ * 
+ * @example Response 200 (Texto muy corto)
+ * {
+ *   "blockedCountries": [],
+ *   "sourceLang": null,
+ *   "message": "Texto muy corto para detectar idioma"
+ * }
+ * 
+ * @example Response 400 (Bad Request)
+ * {
+ *   "success": false,
+ *   "message": "Texto inválido"
+ * }
+ * 
+ * @example Response 200 (No se pudo detectar)
+ * {
+ *   "blockedCountries": [],
+ *   "sourceLang": null,
+ *   "message": "No se pudo detectar el idioma"
  * }
  */
 router.post('/blocked-countries', async (req, res) => {
@@ -358,18 +388,32 @@ router.post('/blocked-countries', async (req, res) => {
 
 /**
  * @route   POST /api/translate
- * @desc    Traduce un texto al idioma oficial del país seleccionado
+ * @method  POST
+ * @desc    Traduce un texto al idioma oficial del país seleccionado usando sistema híbrido
+ *          (DeepL para mejor calidad, Google Translate como fallback gratuito). Incluye
+ *          detección automática de idioma fuente, bloqueo de países con mismo idioma,
+ *          sistema de caché MongoDB y validación completa de parámetros.
  * @access  Public
- * @param   {Object} req.body
- * @param   {string} req.body.text - Texto a traducir (máximo 500 caracteres)
+ * 
+ * @param   {Object} req.body - Cuerpo de la petición
+ * @param   {string} req.body.text - Texto a traducir (máximo 500 caracteres, mínimo 1)
  * @param   {Object} req.body.geo - Información geográfica del país destino
  * @param   {Object} req.body.geo.properties - Propiedades del país
- * @param   {string} req.body.geo.properties.name - Nombre del país
- * @returns {Object} JSON con traducción, idioma, país y código de idioma
+ * @param   {string} req.body.geo.properties.name - Nombre del país en inglés (ej: "Spain", "France")
  * 
- * @example
- * // Request
+ * @returns {200} Success - Traducción realizada correctamente
+ * @returns {400} Bad Request - Parámetros inválidos o texto demasiado largo
+ * @returns {403} Forbidden - País bloqueado porque habla el mismo idioma del texto
+ * @returns {404} Not Found - País no soportado o idioma no configurado
+ * @returns {429} Too Many Requests - Cuota de API excedida
+ * @returns {500} Internal Server Error - Error en servicio de traducción
+ * @returns {502} Bad Gateway - No se pudo conectar con el servicio externo
+ * @returns {504} Gateway Timeout - Tiempo de espera agotado
+ * 
+ * @example Request
  * POST /api/translate
+ * Content-Type: application/json
+ * 
  * {
  *   "text": "Hello world",
  *   "geo": {
@@ -377,14 +421,112 @@ router.post('/blocked-countries', async (req, res) => {
  *   }
  * }
  * 
- * // Response
+ * @example Response 200 (Success - Nueva traducción)
  * {
  *   "success": true,
  *   "translation": "Hola mundo",
  *   "language": "Spanish",
  *   "country": "Spain",
  *   "languageCode": "es",
- *   "fromCache": false
+ *   "fromCache": false,
+ *   "blockedCountries": ["USA", "GBR", "AUS"]
+ * }
+ * 
+ * @example Response 200 (Success - Desde caché)
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": true
+ * }
+ * 
+ * @example Response 200 (Success - Mismo idioma)
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": false,
+ *   "note": "El texto ya está en el idioma del país seleccionado"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Texto inválido)
+ * {
+ *   "success": false,
+ *   "message": "Texto inválido",
+ *   "details": "Se requiere un texto válido para traducir"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Texto muy largo)
+ * {
+ *   "success": false,
+ *   "message": "Texto demasiado largo",
+ *   "details": "El texto no puede exceder los 500 caracteres"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Datos incompletos)
+ * {
+ *   "success": false,
+ *   "message": "Datos incompletos",
+ *   "details": "Se requiere información del país destino"
+ * }
+ * 
+ * @example Response 403 (Forbidden - País bloqueado)
+ * {
+ *   "success": false,
+ *   "message": "El país 'Spain' está bloqueado porque su idioma principal coincide con el idioma fuente.",
+ *   "blockedCountries": ["ESP", "MEX", "ARG"],
+ *   "sourceLang": "es",
+ *   "details": "Debes elegir un país diferente donde no se hable ese idioma como principal."
+ * }
+ * 
+ * @example Response 404 (Not Found - País no soportado)
+ * {
+ *   "success": false,
+ *   "message": "País no soportado: Antarctica",
+ *   "details": "El país no está en nuestra base de datos"
+ * }
+ * 
+ * @example Response 404 (Not Found - Idioma no configurado)
+ * {
+ *   "success": false,
+ *   "message": "Idioma no configurado para: Vatican City",
+ *   "details": "No se encontró el idioma asociado al país"
+ * }
+ * 
+ * @example Response 429 (Too Many Requests)
+ * {
+ *   "success": false,
+ *   "message": "Cuota de traducción excedida",
+ *   "details": "quota exceeded for DeepL API",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 500 (Internal Server Error)
+ * {
+ *   "success": false,
+ *   "message": "Error interno del servidor",
+ *   "details": "Database connection failed",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 502 (Bad Gateway)
+ * {
+ *   "success": false,
+ *   "message": "No se pudo conectar con el servicio de traducción",
+ *   "details": "ENOTFOUND api.deepl.com",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 504 (Gateway Timeout)
+ * {
+ *   "success": false,
+ *   "message": "Tiempo de espera agotado",
+ *   "details": "Request timeout after 30s",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
  * }
  */
 router.post('/', async (req, res) => {
