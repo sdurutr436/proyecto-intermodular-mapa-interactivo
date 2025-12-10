@@ -107,6 +107,11 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
 
                   const countryColor = countryColors[geo.properties?.name] || '#f8e292';
                   
+                  // Generar un data-testid único para el país (convertir a kebab-case)
+                  const countryTestId = geo.properties?.name 
+                    ? `country-${geo.properties.name.toLowerCase().replace(/\s+/g, '-')}`
+                    : undefined;
+                  
                   return (
                     <Geography
                       key={geo.properties?.name || Math.random()}
@@ -115,6 +120,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
                       onMouseEnter={() => setHoveredCountry(geo.properties?.name || null)}
                       onMouseLeave={() => setHoveredCountry(null)}
                       className={isBlocked ? "country-blocked" : ""}
+                      data-testid={countryTestId}
                       style={{
                         default: {
                           fill: isBlocked ? undefined : countryColor,

@@ -1,0 +1,250 @@
+url: https://transkarte.up.railway.app/
+---
+# Flujo completo: Testear mapa interactivo con zoom, navegación y traducción
+# Se prueban países de diferentes continentes: Europa, Asia y América
+
+# ========== INICIALIZACIÓN ==========
+# 1. Abrir la URL en el navegador
+- launchApp:
+    clearState: true
+
+# 2. Esperar a que la página de inicio cargue completamente
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# 3. Hacer clic en el botón "Start" (Comenzar) en la landing page
+- tapOn:
+    text: "START"
+
+# 4. Esperar a que cargue el mapa y la barra de búsqueda
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# ========== TEST 1: EUROPA - ESPAÑA ==========
+# 5. Hacer zoom para ver Europa mejor
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Hola mundo"
+- waitForAnimationToEnd:
+    timeout: 1000
+
+# 6. Hacer clic en España (Spain)
+- tapOn:
+    id: "country-spain"
+
+# 7. Verificar que aparece el modal de traducción
+- assertVisible: "Translation"
+
+# 8. Esperar para visualizar el resultado
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 9. Cerrar el modal
+- tapOn:
+    text: "×"
+
+# 10. Verificar que el modal se cerró
+- assertNotVisible: "Translation"
+
+# ========== TEST 2: EUROPA - FRANCIA ==========
+# 11. Borrar búsqueda anterior y buscar nueva frase
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Good morning"
+
+# 12. Hacer clic en Francia (France)
+- tapOn:
+    id: "country-france"
+
+# 13. Verificar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 14. Cerrar modal
+- tapOn:
+    text: "×"
+
+# ========== TEST 3: EUROPA - ALEMANIA ==========
+# 15. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Thank you"
+
+# 16. Hacer clic en Alemania (Germany)
+- tapOn:
+    id: "country-germany"
+
+# 17. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== TEST 4: AMÉRICA DEL NORTE - ESTADOS UNIDOS ==========
+# 18. Usar el botón de reset para volver a la vista inicial
+- tapOn:
+    text: "⌂"
+
+# 19. Buscar nueva frase para Estados Unidos
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Hello world"
+
+# 20. Hacer zoom en dirección a América (centro del mapa ligeramente a la izquierda)
+# Maestro permite scroll/pan sobre elementos específicos
+- scrollUntilVisible:
+    element:
+      id: "country-united-states"
+    direction: LEFT
+    timeout: 5000
+    
+# 21. Hacer clic en Estados Unidos (United States)
+- tapOn:
+    id: "country-united-states"
+
+# 22. Verificar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 23. Cerrar modal
+- tapOn:
+    text: "×"
+
+# ========== TEST 5: AMÉRICA DEL SUR - BRASIL ==========
+# 24. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Good evening"
+
+# 25. Scroll hacia Brasil (hacia abajo y ligeramente a la derecha)
+- scrollUntilVisible:
+    element:
+      id: "country-brazil"
+    direction: DOWN
+    timeout: 5000
+
+# 26. Hacer clic en Brasil (Brazil)
+- tapOn:
+    id: "country-brazil"
+
+# 27. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== TEST 6: AMÉRICA DEL NORTE - MÉXICO ==========
+# 28. Reset de vista
+- tapOn:
+    text: "⌂"
+
+# 29. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Welcome"
+
+# 30. Scroll hacia México
+- scrollUntilVisible:
+    element:
+      id: "country-mexico"
+    direction: LEFT
+    timeout: 5000
+
+# 31. Hacer clic en México (Mexico)
+- tapOn:
+    id: "country-mexico"
+
+# 32. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== TEST 7: ASIA - JAPÓN ==========
+# 33. Reset de vista para ir a Asia
+- tapOn:
+    text: "⌂"
+
+# 34. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Good night"
+
+# 35. Scroll hacia Japón (a la derecha del mapa)
+- scrollUntilVisible:
+    element:
+      id: "country-japan"
+    direction: RIGHT
+    timeout: 5000
+
+# 36. Hacer clic en Japón (Japan)
+- tapOn:
+    id: "country-japan"
+
+# 37. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== TEST 8: ASIA - CHINA ==========
+# 38. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "See you later"
+
+# 39. Scroll hacia China
+- scrollUntilVisible:
+    element:
+      id: "country-china"
+    direction: RIGHT
+    timeout: 5000
+
+# 40. Hacer clic en China (China)
+- tapOn:
+    id: "country-china"
+
+# 41. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== TEST 9: ASIA - INDIA ==========
+# 42. Nueva búsqueda
+- tapOn:
+    id: "search-bar-input"
+- inputText: "Please"
+
+# 43. Scroll hacia India
+- scrollUntilVisible:
+    element:
+      id: "country-india"
+    direction: RIGHT
+    timeout: 5000
+
+# 44. Hacer clic en India (India)
+- tapOn:
+    id: "country-india"
+
+# 45. Verificar y cerrar modal
+- assertVisible: "Translation"
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "×"
+
+# ========== FINALIZACIÓN ==========
+# 46. Reset final para volver a la vista inicial
+- tapOn:
+    text: "⌂"
+
+# 47. Flujo completado exitosamente
+- stopApp
