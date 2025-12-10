@@ -21,6 +21,8 @@ const countryLanguageMap = {
     ALB: { code: 'sq', name: 'Albanian' },
     DZA: { code: 'ar', name: 'Arabic' },
     AND: { code: 'ca', name: 'Catalan' },
+    ATA: { code: 'en', name: 'English' }, // Antarctica (investigación internacional, inglés como lingua franca)
+    ATF: { code: 'fr', name: 'French' }, // French Southern and Antarctic Lands
     AGO: { code: 'pt', name: 'Portuguese' },
     ARG: { code: 'es', name: 'Spanish' },
     ARM: { code: 'hy', name: 'Armenian' },
@@ -72,15 +74,19 @@ const countryLanguageMap = {
     ERI: { code: 'ti', name: 'Tigrinya' },
     EST: { code: 'et', name: 'Estonian' },
     ETH: { code: 'am', name: 'Amharic' },
+    SWZ: { code: 'en', name: 'English' }, // Eswatini (formerly Swaziland)
+    FLK: { code: 'en', name: 'English' }, // Falkland Islands
     FJI: { code: 'en', name: 'English' },
     FIN: { code: 'fi', name: 'Finnish' },
     FRA: { code: 'fr', name: 'French' },
+    GUF: { code: 'fr', name: 'French' }, // French Guiana
     GAB: { code: 'fr', name: 'French' },
     GMB: { code: 'en', name: 'English' },
     GEO: { code: 'ka', name: 'Georgian' },
     DEU: { code: 'de', name: 'German' },
     GHA: { code: 'en', name: 'English' },
     GRC: { code: 'el', name: 'Greek' },
+    GRL: { code: 'da', name: 'Danish' }, // Greenland (también hablan Kalaallisut, pero usamos danés por compatibilidad)
     GTM: { code: 'es', name: 'Spanish' },
     GIN: { code: 'fr', name: 'French' },
     GNB: { code: 'pt', name: 'Portuguese' },
@@ -102,6 +108,7 @@ const countryLanguageMap = {
     KAZ: { code: 'kk', name: 'Kazakh' },
     KEN: { code: 'sw', name: 'Swahili' },
     KWT: { code: 'ar', name: 'Arabic' },
+    XKX: { code: 'sq', name: 'Albanian' }, // Kosovo
     KGZ: { code: 'ky', name: 'Kyrgyz' },
     LAO: { code: 'lo', name: 'Lao' },
     LVA: { code: 'lv', name: 'Latvian' },
@@ -122,6 +129,7 @@ const countryLanguageMap = {
     MEX: { code: 'es', name: 'Spanish' },
     MDA: { code: 'ro', name: 'Romanian' },
     MNG: { code: 'mn', name: 'Mongolian' },
+    MKD: { code: 'mk', name: 'Macedonian' }, // North Macedonia
     MNE: { code: 'sr', name: 'Serbian' },
     MAR: { code: 'ar', name: 'Arabic' },
     MOZ: { code: 'pt', name: 'Portuguese' },
@@ -129,6 +137,7 @@ const countryLanguageMap = {
     NAM: { code: 'en', name: 'English' },
     NPL: { code: 'ne', name: 'Nepali' },
     NLD: { code: 'nl', name: 'Dutch' },
+    NCL: { code: 'fr', name: 'French' }, // New Caledonia
     NZL: { code: 'en', name: 'English' },
     NIC: { code: 'es', name: 'Spanish' },
     NER: { code: 'fr', name: 'French' },
@@ -145,6 +154,7 @@ const countryLanguageMap = {
     PHL: { code: 'tl', name: 'Tagalog' },
     POL: { code: 'pl', name: 'Polish' },
     PRT: { code: 'pt', name: 'Portuguese' },
+    PRI: { code: 'es', name: 'Spanish' }, // Puerto Rico
     QAT: { code: 'ar', name: 'Arabic' },
     ROU: { code: 'ro', name: 'Romanian' },
     RUS: { code: 'ru', name: 'Russian' },
@@ -155,6 +165,7 @@ const countryLanguageMap = {
     SLE: { code: 'en', name: 'English' },
     SGP: { code: 'en', name: 'English' },
     SVK: { code: 'sk', name: 'Slovak' },
+    SLB: { code: 'en', name: 'English' }, // Solomon Islands
     SVN: { code: 'sl', name: 'Slovenian' },
     SOM: { code: 'so', name: 'Somali' },
     ZAF: { code: 'en', name: 'English' },
@@ -176,6 +187,7 @@ const countryLanguageMap = {
     TUN: { code: 'ar', name: 'Arabic' },
     TUR: { code: 'tr', name: 'Turkish' },
     TKM: { code: 'tk', name: 'Turkmen' },
+    TTO: { code: 'en', name: 'English' }, // Trinidad and Tobago
     UGA: { code: 'en', name: 'English' },
     UKR: { code: 'uk', name: 'Ukrainian' },
     ARE: { code: 'ar', name: 'Arabic' },

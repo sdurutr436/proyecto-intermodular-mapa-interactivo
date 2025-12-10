@@ -217,17 +217,21 @@ const translateWithDeepL = async (text, sourceLang, targetLang) => {
     console.log(`[DeepL] Traduciendo de ${sourceLang} a ${targetLang}`);
     console.log(`[DeepL] Texto original: "${text}"`);
     try {
-        // Mapeo de códigos de idioma para DeepL
-        const deeplLangMap = {
+        // Mapeo de códigos de idioma para DeepL (solo para idioma DESTINO)
+        // Para idioma FUENTE, DeepL solo acepta códigos base sin variantes
+        const deeplTargetLangMap = {
             'en': 'EN-US', 'es': 'ES', 'fr': 'FR', 'de': 'DE', 'it': 'IT',
             'pt': 'PT-PT', 'pt-BR': 'PT-BR', 'ru': 'RU', 'ja': 'JA', 'zh': 'ZH', 'zh-CN': 'ZH',
             'nl': 'NL', 'pl': 'PL', 'tr': 'TR', 'sv': 'SV', 'da': 'DA', 'fi': 'FI', 'el': 'EL',
             'cs': 'CS', 'ro': 'RO', 'hu': 'HU', 'sk': 'SK', 'bg': 'BG', 'uk': 'UK', 'id': 'ID',
             'ko': 'KO', 'no': 'NB', 'et': 'ET', 'lv': 'LV', 'lt': 'LT', 'sl': 'SL', 'ar': 'AR',
         };
-        // Convertir códigos de idioma
-        const sourceDeepL = deeplLangMap[sourceLang] || sourceLang.toUpperCase();
-        const targetDeepL = deeplLangMap[targetLang] || targetLang.toUpperCase();
+        
+        // Para idioma fuente, usar siempre código base (sin variantes regionales)
+        const sourceDeepL = sourceLang.toUpperCase();
+        // Para idioma destino, usar el mapeo con variantes
+        const targetDeepL = deeplTargetLangMap[targetLang] || targetLang.toUpperCase();
+        
         console.log(`[DeepL] Códigos ajustados: ${sourceLang} -> ${sourceDeepL}, ${targetLang} -> ${targetDeepL}`);
         // Realizar traducción con DeepL
         const result = await translator.translateText(
@@ -464,7 +468,9 @@ router.post('/', async (req, res) => {
         // --- BLOQUEO DE PAÍSES aquí ---
         const sourceLang = await detectLanguage(text);
         const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
+        
         if (blockedCountries.includes(alpha3Code)) {
+            console.log(`[BLOQUEO] ❌ País bloqueado: ${geo.properties.name} (${alpha3Code}) - Idioma fuente: ${sourceLang}`);
             return res.status(403).json({
                 success: false,
                 message: `El país "${geo.properties.name}" está bloqueado porque su idioma principal coincide con el idioma fuente.`,

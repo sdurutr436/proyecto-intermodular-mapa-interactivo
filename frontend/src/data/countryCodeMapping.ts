@@ -202,7 +202,22 @@ const countryNameVariants: Record<string, string> = {
   'España': 'ESP',
   'Rusia': 'RUS',
   'Brasil': 'BRA',
-  'Japón': 'JPN'
+  'Japón': 'JPN',
+  // Nombres abreviados que usa el atlas mundial (react-simple-maps)
+  'Czechia': 'CZE', // Nombre alternativo de Czech Republic
+  'Bosnia and Herz.': 'BIH', // Nombre abreviado en el mapa
+  'Macedonia': 'MKD', // Nombre corto (también North Macedonia)
+  'Côte d\'Ivoire': 'CIV', // Nombre francés de Ivory Coast
+  'Cote d\'Ivoire': 'CIV', // Variante sin acento
+  'W. Sahara': 'ESH', // Nombre abreviado de Western Sahara
+  'Central African Rep.': 'CAF', // Nombre abreviado de Central African Republic
+  'Eq. Guinea': 'GNQ', // Nombre abreviado de Equatorial Guinea
+  'S. Sudan': 'SSD', // Nombre abreviado de South Sudan
+  'Somaliland': 'SOM', // Territorio de Somalia
+  'Dem. Rep. Congo': 'COD', // Nombre abreviado de Democratic Republic of the Congo
+  'eSwatini': 'SWZ', // Nombre alternativo de Eswatini/Swaziland
+  'Fr. S. Antarctic Lands': 'ATF', // Tierras Australes y Antárticas Francesas
+  'Dominican Rep.': 'DOM' // Nombre abreviado de Dominican Republic
 };
 
 // Exporta la unión de ambos (base + alias)

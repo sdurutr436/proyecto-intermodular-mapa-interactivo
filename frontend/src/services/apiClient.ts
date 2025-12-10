@@ -86,7 +86,8 @@ apiClient.interceptors.response.use(
         case 401:
           throw new Error('No autorizado. Por favor, inicia sesión.');
         case 403:
-          throw new Error('Acceso prohibido. No tienes permisos para esta acción.');
+          // Para 403, priorizar el mensaje del servidor (ej: país bloqueado)
+          throw new Error(data?.message || data?.details || 'Acceso prohibido. No tienes permisos para esta acción.');
         case 404:
           throw new Error(data?.message || 'Recurso no encontrado.');
         case 429:
