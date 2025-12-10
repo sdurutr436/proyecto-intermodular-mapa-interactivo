@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Modal informativo "Sobre nosotros" de Transkarte
+ * @module components/AboutModal
+ * @description Modal accesible que presenta información detallada sobre
+ * la aplicación, sus modos de juego y características principales.
+ */
+
 // client/src/components/AboutModal.tsx
 // Modal de información "Sobre nosotros" con descripción de la aplicación
 
@@ -5,17 +12,45 @@ import React, { useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/AboutModal.css';
 
+/**
+ * Propiedades del componente AboutModal
+ * @interface AboutModalProps
+ */
 interface AboutModalProps {
+  /** Controla si el modal está visible */
   isOpen: boolean;
+  /** Callback para cerrar el modal */
   onClose: () => void;
+  /** Indica si el modo oscuro está activo */
   isDarkMode: boolean;
 }
 
 /**
- * Modal de "Sobre nosotros" que muestra información sobre la aplicación
+ * Modal informativo "Sobre nosotros"
+ * 
+ * @component
+ * @description Modal accesible que muestra información sobre Transkarte:
+ * - Descripción general de la aplicación
+ * - Los tres modos de juego disponibles
+ * - Características especiales (modo oscuro, mapa interactivo, etc.)
+ * 
+ * Características de accesibilidad:
+ * - Se cierra con la tecla Escape
  * - Se cierra al hacer clic fuera del contenido
- * - Se cierra con el botón X
- * - Contenido scrolleable para futuras expansiones
+ * - Bloquea el scroll del body cuando está abierto
+ * - Incluye roles ARIA apropiados
+ * 
+ * @example
+ * ```tsx
+ * <AboutModal 
+ *   isOpen={showAbout}
+ *   onClose={() => setShowAbout(false)}
+ *   isDarkMode={isDarkMode}
+ * />
+ * ```
+ * 
+ * @param {AboutModalProps} props - Las propiedades del componente
+ * @returns {JSX.Element | null} Modal renderizado o null si está cerrado
  */
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) => {
   const { t } = useLanguage();

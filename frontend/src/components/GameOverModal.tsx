@@ -1,17 +1,55 @@
+/**
+ * @fileoverview Modal de fin de juego que muestra estadísticas finales
+ * @module components/GameOverModal
+ * @description Componente modal que se muestra cuando el jugador pierde
+ * todas sus vidas, presentando estadísticas de la partida y opción de reiniciar.
+ */
+
 // src/components/GameOverModal.tsx
 
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/GameOverModal.css';
 
+/**
+ * Propiedades del componente GameOverModal
+ * @interface GameOverModalProps
+ */
 interface GameOverModalProps {
+  /** Estadísticas del juego finalizado */
   stats: {
+    /** Número total de intentos realizados */
     attempts: number;
+    /** Número de respuestas correctas */
     correct: number;
   };
+  /** Callback para reiniciar el juego */
   onRestart: () => void;
 }
 
+/**
+ * Modal de fin de juego con estadísticas
+ * 
+ * @component
+ * @description Muestra un overlay modal cuando el juego termina, presentando:
+ * - Número total de intentos
+ * - Respuestas correctas
+ * - Porcentaje de precisión calculado
+ * - Botón para reiniciar el juego
+ * 
+ * El modal utiliza el contexto de idioma para textos localizados.
+ * 
+ * @example
+ * ```tsx
+ * <GameOverModal 
+ *   stats={{ attempts: 10, correct: 7 }}
+ *   onRestart={() => resetGame()}
+ * />
+ * ```
+ * 
+ * @param {GameOverModalProps} props - Las propiedades del componente
+ * @returns {JSX.Element} Modal con estadísticas finales del juego
+ */
 const GameOverModal: React.FC<GameOverModalProps> = ({ stats, onRestart }) => {
   const { t } = useLanguage();
   const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;

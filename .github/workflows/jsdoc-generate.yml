@@ -67,7 +67,9 @@ jobs:
             --out ../docs-generated/frontend \
             --name "Transkarte Frontend" \
             --excludePrivate \
-            --excludeExternals
+            --excludeExternals \
+            --categorizeByGroup true \
+            --navigationLinks '{"GitHub":"https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo"}'
 
       # ========== CREATE INDEX PAGE ==========
       - name: Create documentation index page
@@ -78,48 +80,139 @@ jobs:
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Documentación - Transkarte</title>
+            <title>Documentación Técnica - Transkarte</title>
+            <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
             <style>
               *{margin:0;padding:0;box-sizing:border-box}
-              body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
-              .container{text-align:center;max-width:800px}
-              h1{color:#fff;font-size:2.5rem;margin-bottom:.5rem;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
-              .subtitle{color:rgba(255,255,255,.9);margin-bottom:2rem}
-              .cards{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center}
-              .card{background:#fff;border-radius:16px;padding:2rem;width:300px;text-decoration:none;color:inherit;transition:transform .3s,box-shadow .3s;box-shadow:0 10px 40px rgba(0,0,0,.2)}
-              .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.3)}
-              .card h2{font-size:1.5rem;margin:.5rem 0;color:#333}
-              .card p{color:#666;font-size:.95rem;margin-bottom:1rem}
-              .icon{font-size:3rem}
-              .backend{border-top:4px solid #38a169}
-              .frontend{border-top:4px solid #3182ce}
-              .btn{display:inline-block;padding:.5rem 1rem;background:#667eea;color:#fff;border-radius:6px;font-weight:600}
-              .footer{margin-top:2rem;color:rgba(255,255,255,.8);font-size:.9rem}
-              .footer a{color:#fff}
+              body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;color:#fff}
+              .header{text-align:center;padding:3rem 2rem 2rem;background:rgba(0,0,0,0.2)}
+              .logo{font-size:4rem;margin-bottom:1rem}
+              h1{font-size:2.5rem;margin-bottom:.5rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+              .subtitle{color:rgba(255,255,255,.7);font-size:1.1rem;margin-bottom:0}
+              .container{max-width:1000px;margin:0 auto;padding:2rem}
+              .section-title{font-size:1.5rem;margin:2rem 0 1rem;display:flex;align-items:center;gap:.5rem}
+              .section-title span{font-size:1.2rem}
+              .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+              .card{background:rgba(255,255,255,0.05);border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all .3s ease;border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px)}
+              .card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2)}
+              .card-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+              .card-icon{font-size:2.5rem;width:60px;height:60px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+              .backend .card-icon{background:linear-gradient(135deg,#38a169,#2f855a)}
+              .frontend .card-icon{background:linear-gradient(135deg,#3182ce,#2b6cb0)}
+              .card h3{font-size:1.3rem}
+              .card p{color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.5;margin-bottom:1rem}
+              .tech-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+              .tech-tag{background:rgba(255,255,255,0.1);padding:.25rem .75rem;border-radius:20px;font-size:.75rem;color:rgba(255,255,255,.8)}
+              .card-link{display:inline-flex;align-items:center;gap:.5rem;color:#667eea;font-weight:600;font-size:.9rem}
+              .card-link:hover{color:#764ba2}
+              .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+              .feature{background:rgba(255,255,255,0.03);padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.05)}
+              .feature-icon{font-size:1.5rem;margin-bottom:.5rem}
+              .feature h4{font-size:.9rem;margin-bottom:.25rem}
+              .feature p{font-size:.8rem;color:rgba(255,255,255,.6)}
+              .footer{text-align:center;padding:2rem;color:rgba(255,255,255,.5);font-size:.85rem;border-top:1px solid rgba(255,255,255,0.1);margin-top:2rem}
+              .footer a{color:#667eea;text-decoration:none}
+              .footer a:hover{text-decoration:underline}
             </style>
           </head>
           <body>
-            <div class="container">
-              <h1>📚 Documentación Técnica</h1>
-              <p class="subtitle">Transkarte - Mapa Interactivo</p>
+            <header class="header">
+              <div class="logo">🗺️</div>
+              <h1>Transkarte</h1>
+              <p class="subtitle">Documentación Técnica del Proyecto</p>
+            </header>
+            
+            <main class="container">
+              <h2 class="section-title"><span>📁</span> Documentación por Módulo</h2>
+              
               <div class="cards">
                 <a href="./backend/index.html" class="card backend">
-                  <div class="icon">⚙️</div>
-                  <h2>Backend</h2>
-                  <p>API REST con Node.js y Express</p>
-                  <span class="btn">Ver Docs →</span>
+                  <div class="card-header">
+                    <div class="card-icon">⚙️</div>
+                    <div>
+                      <h3>Backend</h3>
+                      <span style="color:rgba(255,255,255,.5);font-size:.8rem">API REST</span>
+                    </div>
+                  </div>
+                  <p>Servidor Node.js con Express que gestiona la lógica de juego, traducciones y estadísticas. Incluye conexión a MongoDB.</p>
+                  <div class="tech-tags">
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Express</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">Mongoose</span>
+                  </div>
+                  <span class="card-link">Ver documentación →</span>
                 </a>
+                
                 <a href="./frontend/index.html" class="card frontend">
-                  <div class="icon">🎨</div>
-                  <h2>Frontend</h2>
-                  <p>App React con TypeScript</p>
-                  <span class="btn">Ver Docs →</span>
+                  <div class="card-header">
+                    <div class="card-icon">🎨</div>
+                    <div>
+                      <h3>Frontend</h3>
+                      <span style="color:rgba(255,255,255,.5);font-size:.8rem">Aplicación Web</span>
+                    </div>
+                  </div>
+                  <p>Aplicación React con TypeScript que renderiza el mapa interactivo, gestiona modos de juego y proporciona la interfaz de usuario.</p>
+                  <div class="tech-tags">
+                    <span class="tech-tag">React 18</span>
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Vite</span>
+                    <span class="tech-tag">react-simple-maps</span>
+                  </div>
+                  <span class="card-link">Ver documentación →</span>
                 </a>
               </div>
-              <p class="footer">
-                <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo">GitHub</a>
+              
+              <h2 class="section-title"><span>🎮</span> Modos de Juego</h2>
+              <div class="features">
+                <div class="feature">
+                  <div class="feature-icon">🌍</div>
+                  <h4>Traducción</h4>
+                  <p>Traduce palabras del idioma del país seleccionado en el mapa</p>
+                </div>
+                <div class="feature">
+                  <div class="feature-icon">🎯</div>
+                  <h4>Adivina el Idioma</h4>
+                  <p>Identifica el idioma de una frase mostrada aleatoriamente</p>
+                </div>
+                <div class="feature">
+                  <div class="feature-icon">🚩</div>
+                  <h4>Adivina la Bandera</h4>
+                  <p>Relaciona banderas con sus países correspondientes</p>
+                </div>
+              </div>
+              
+              <h2 class="section-title"><span>📋</span> Estructura del Proyecto</h2>
+              <div class="features">
+                <div class="feature">
+                  <div class="feature-icon">📂</div>
+                  <h4>backend/</h4>
+                  <p>server.js, routes/, models/, config/, data/</p>
+                </div>
+                <div class="feature">
+                  <div class="feature-icon">📂</div>
+                  <h4>frontend/src/</h4>
+                  <p>components/, services/, contexts/, data/, i18n/</p>
+                </div>
+                <div class="feature">
+                  <div class="feature-icon">🐳</div>
+                  <h4>Docker</h4>
+                  <p>docker-compose.yml, Dockerfiles para despliegue</p>
+                </div>
+                <div class="feature">
+                  <div class="feature-icon">📄</div>
+                  <h4>docs/</h4>
+                  <p>Documentación del proyecto académico</p>
+                </div>
+              </div>
+            </main>
+            
+            <footer class="footer">
+              <p>
+                Generado automáticamente con JSDoc y TypeDoc | 
+                <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo">Ver en GitHub</a>
               </p>
-            </div>
+            </footer>
           </body>
           </html>
           INDEXEOF
@@ -128,8 +221,10 @@ jobs:
         run: |
           echo "=== Generated documentation ==="
           ls -la docs-generated/
-          ls -la docs-generated/backend/ || echo "Backend folder empty"
-          ls -la docs-generated/frontend/ || echo "Frontend folder empty"
+          echo "=== Backend docs ==="
+          ls -la docs-generated/backend/ || echo "Backend folder empty or not found"
+          echo "=== Frontend docs ==="
+          ls -la docs-generated/frontend/ || echo "Frontend folder empty or not found"
 
       # ========== DEPLOY ==========
       - name: Deploy to GitHub Pages

@@ -1,10 +1,32 @@
+/**
+ * @fileoverview Mapeo de colores para países del mapa interactivo
+ * @module data/countryColors
+ * @description Define colores hexadecimales únicos y vibrantes para cada país,
+ * diseñados para ser visualmente diferenciables tanto entre sí como del fondo.
+ * Los colores se utilizan para resaltar países en el mapa y en efectos de iluminación.
+ */
+
 // client/src/data/countryColors.ts
 
 /**
- * Colores sólidos y vibrantes para cada país
- * Altamente diferenciables entre sí y del fondo del mapa
+ * Colores sólidos y vibrantes para cada país del mundo
+ * 
+ * @constant {Record<string, string>}
+ * @description Objeto que mapea nombres de países (en inglés) a colores hexadecimales.
+ * Los colores están organizados alfabéticamente y seleccionados para:
+ * - Alta visibilidad sobre fondos claros y oscuros
+ * - Diferenciación clara entre países vecinos
+ * - Consistencia con identidades visuales nacionales cuando es posible
+ * 
+ * @example
+ * ```ts
+ * // Obtener el color de España
+ * const spanishColor = countryColors['Spain']; // '#E63946'
+ * 
+ * // Usar en estilos dinámicos
+ * style={{ fill: countryColors[countryName] }}
+ * ```
  */
-
 export const countryColors: Record<string, string> = {
   // A
   'Afghanistan': '#E63946',

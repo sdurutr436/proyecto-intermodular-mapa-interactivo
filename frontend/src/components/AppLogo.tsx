@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Componente del logo de Transkarte
+ * @module components/AppLogo
+ * @description Logo SVG reutilizable de la aplicación con globo terráqueo
+ * animado, caracteres flotantes y soporte para múltiples tamaños.
+ */
+
 // client/src/components/AppLogo.tsx
 // Componente reutilizable del logo de Transkarte
 // Basado en el logo original del header de la aplicación
@@ -5,21 +12,46 @@
 import React from 'react';
 import '../styles/AppLogo.css';
 
+/**
+ * Propiedades del componente AppLogo
+ * @interface AppLogoProps
+ */
 interface AppLogoProps {
+  /** Tamaño del logo: 'small' (36px), 'medium' (50px), 'large' (80px) */
   size?: 'small' | 'medium' | 'large';
+  /** Si debe mostrar el título "Transkarte" junto al logo */
   showTitle?: boolean;
+  /** Clases CSS adicionales */
   className?: string;
-  gradientId?: string; // Para evitar conflictos de ID en SVG
+  /** ID único para gradientes SVG (evita conflictos con múltiples instancias) */
+  gradientId?: string;
 }
 
 /**
- * Componente de Logo de la aplicación Transkarte
- * Réplica exacta del logo original del header
+ * Logo animado de Transkarte
  * 
- * @param size - Tamaño del logo: 'small' (36px header), 'medium' (50px), 'large' (80px landing)
- * @param showTitle - Si debe mostrar el título "Transkarte" al lado/debajo del logo
- * @param className - Clases CSS adicionales
- * @param gradientId - ID único para los gradientes SVG (útil cuando hay múltiples logos)
+ * @component
+ * @description Componente que renderiza el logo de la aplicación con:
+ * - Globo terráqueo SVG con continentes estilizados
+ * - Gradientes y efectos de brillo
+ * - Caracteres flotantes de diferentes idiomas (japonés, árabe, ruso)
+ * - Título opcional "Transkarte"
+ * - Soporte para tres tamaños predefinidos
+ * 
+ * Los gradientes SVG usan IDs únicos para evitar conflictos cuando
+ * hay múltiples instancias del logo en la misma página.
+ * 
+ * @example
+ * ```tsx
+ * // Logo pequeño para el header
+ * <AppLogo size="small" />
+ * 
+ * // Logo grande con título para landing page
+ * <AppLogo size="large" showTitle gradientId="landing" />
+ * ```
+ * 
+ * @param {AppLogoProps} props - Las propiedades del componente
+ * @returns {JSX.Element} Logo SVG con animaciones
  */
 const AppLogo: React.FC<AppLogoProps> = ({ 
   size = 'medium', 

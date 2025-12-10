@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Página de inicio/landing de la aplicación Transkarte
+ * @module components/LandingPage
+ * @description Componente principal de la pantalla de inicio que muestra el mapa
+ * de fondo con efecto de iluminación de países, selector de idioma, información
+ * del proyecto y botones para iniciar los diferentes modos de juego.
+ */
+
 // client/src/components/LandingPage.tsx
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
@@ -14,7 +22,10 @@ import '../styles/LandingPage.css';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-// Países europeos y parte de Asia para el mapa de fondo
+/**
+ * Lista de países europeos y asiáticos occidentales para mostrar en el mapa de fondo
+ * @constant {string[]}
+ */
 const displayCountries = [
   // Europa
   'Portugal', 'Spain', 'France', 'United Kingdom', 'Ireland', 'Belgium',
@@ -34,12 +45,25 @@ const displayCountries = [
 // ICONOS SVG - Componentes reutilizables
 // ============================================
 
+/**
+ * Propiedades comunes para los componentes de iconos SVG
+ * @interface IconProps
+ */
 interface IconProps {
+  /** Clase CSS adicional para el icono */
   className?: string;
+  /** Tamaño del icono en píxeles */
   size?: number;
+  /** Emoji alternativo si el SVG falla */
   fallbackEmoji?: string;
 }
 
+/**
+ * Icono de idiomas/traducción con texto "A" estilizado
+ * @component
+ * @param {IconProps} props - Propiedades del icono
+ * @returns {JSX.Element} Icono SVG o emoji de respaldo
+ */
 // Icono de Idiomas/Traducción
 const LanguageIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🌍' }) => {
   const [hasError, setHasError] = useState(false);
@@ -71,6 +95,12 @@ const LanguageIcon: React.FC<IconProps> = ({ className = '', size = 24, fallback
   );
 };
 
+/**
+ * Icono de globo con signo de interrogación para el modo de adivinar idioma
+ * @component
+ * @param {IconProps} props - Propiedades del icono
+ * @returns {JSX.Element} Icono SVG o emoji de respaldo
+ */
 // Icono de Globo con interrogación - para Adivinar idioma
 const GlobeQuestionIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🎯' }) => {
   const [hasError, setHasError] = useState(false);
@@ -110,6 +140,12 @@ const GlobeQuestionIcon: React.FC<IconProps> = ({ className = '', size = 24, fal
   );
 };
 
+/**
+ * Icono de bandera ondeante para el modo de adivinar banderas
+ * @component
+ * @param {IconProps} props - Propiedades del icono
+ * @returns {JSX.Element} Icono SVG o emoji de respaldo
+ */
 // Icono de Bandera - para Adivinar Bandera
 const FlagIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🚩' }) => {
   const [hasError, setHasError] = useState(false);
@@ -140,6 +176,12 @@ const FlagIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoj
   );
 };
 
+/**
+ * Icono de globo terráqueo genérico (usado como fallback)
+ * @component
+ * @param {IconProps} props - Propiedades del icono
+ * @returns {JSX.Element} Icono SVG o emoji de respaldo
+ */
 // Icono de Globo genérico (fallback)
 const GlobeIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmoji = '🌐' }) => {
   const [hasError, setHasError] = useState(false);
@@ -168,6 +210,10 @@ const GlobeIcon: React.FC<IconProps> = ({ className = '', size = 24, fallbackEmo
   );
 };
 
+/**
+ * Mapeo de iconos SVG por ID de modo de juego
+ * @constant {Record<string, React.FC<IconProps>>}
+ */
 // Mapeo de iconos por ID de modo
 const MODE_ICONS: Record<string, React.FC<IconProps>> = {
   translation: LanguageIcon,
@@ -186,13 +232,25 @@ const MODE_FALLBACK_EMOJIS: Record<string, string> = {
 // CONFIGURACIÓN DE MODOS DE JUEGO
 // ============================================
 
+/**
+ * Representa un modo de juego disponible en la aplicación
+ * @interface GameMode
+ */
 interface GameMode {
+  /** Identificador único del modo */
   id: string;
+  /** Nombre visible del modo */
   name: string;
+  /** Descripción breve del modo */
   description: string;
+  /** Indica si el modo está disponible para jugar */
   available: boolean;
 }
 
+/**
+ * Configuración de todos los modos de juego de la aplicación
+ * @constant {GameMode[]}
+ */
 const GAME_MODES: GameMode[] = [
   {
     id: 'translation',
@@ -225,11 +283,42 @@ const GAME_MODES: GameMode[] = [
 // COMPONENTE PRINCIPAL
 // ============================================
 
+/**
+ * Propiedades del componente LandingPage
+ * @interface LandingPageProps
+ */
 interface LandingPageProps {
+  /** Callback que se ejecuta al seleccionar un modo de juego */
   onStart: (mode: 'translation' | 'guess' | 'flag') => void;
+  /** Indica si el modo oscuro está activo */
   isDarkMode: boolean;
 }
 
+/**
+ * Página de inicio de Transkarte
+ * 
+ * @component
+ * @description Componente principal de la landing page que incluye:
+ * - Mapa de fondo con animación de países iluminados (efecto "luces de navidad")
+ * - Logo de la aplicación con animaciones
+ * - Selector de idioma (español/inglés)
+ * - Botón "Sobre nosotros" que abre modal informativo
+ * - Botones para seleccionar modo de juego
+ * 
+ * Utiliza react-simple-maps para renderizar el mapa de Europa y Asia.
+ * El efecto de iluminación cambia países aleatoriamente cada 1.8 segundos.
+ * 
+ * @example
+ * ```tsx
+ * <LandingPage 
+ *   onStart={(mode) => navigateToGame(mode)}
+ *   isDarkMode={true}
+ * />
+ * ```
+ * 
+ * @param {LandingPageProps} props - Las propiedades del componente
+ * @returns {JSX.Element} Página de inicio completa
+ */
 const LandingPage: React.FC<LandingPageProps> = ({ onStart, isDarkMode }) => {
   const { language, setLanguage, t } = useLanguage();
   
