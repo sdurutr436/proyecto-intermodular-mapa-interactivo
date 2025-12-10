@@ -62,6 +62,7 @@ jobs:
         run: |
           cat > typedoc.json << 'EOF'
           {
+            "$schema": "https://typedoc.org/schema.json",
             "name": "Transkarte - Documentación Completa",
             "entryPoints": [
               "./frontend/src",
@@ -76,40 +77,32 @@ jobs:
               "**/*.test.ts",
               "**/*.test.js",
               "**/*.spec.ts",
-              "**/*.spec.js"
+              "**/*.spec.js",
+              "**/*.css",
+              "**/*.json"
             ],
             "excludePrivate": true,
             "excludeProtected": false,
             "excludeExternals": true,
             "includeVersion": true,
             "readme": "README.md",
-            "plugin": [],
-            "categoryOrder": [
-              "Frontend",
-              "Backend",
-              "Components",
-              "Services",
-              "Models",
-              "Routes",
-              "Contexts",
-              "Types",
-              "Data",
-              "*"
-            ],
+            "tsconfig": "./frontend/tsconfig.json",
+            "skipErrorChecking": true,
+            "compilerOptions": {
+              "allowJs": true,
+              "checkJs": false,
+              "skipLibCheck": true
+            },
             "categorizeByGroup": true,
             "sort": ["source-order"],
             "githubPages": true,
             "hideGenerator": false,
-            "searchInComments": true,
-            "navigation": {
-              "includeCategories": true,
-              "includeGroups": true
-            }
+            "searchInComments": true
           }
           EOF
 
       - name: Generate unified documentation
-        run: typedoc --options typedoc.json
+        run: typedoc --options typedoc.json --skipErrorChecking
 
       # ========== DEPLOY ==========
       - name: Deploy to GitHub Pages
