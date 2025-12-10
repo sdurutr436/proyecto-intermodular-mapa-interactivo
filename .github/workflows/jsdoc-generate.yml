@@ -61,7 +61,7 @@ jobs:
 
       - name: Install TypeDoc
         working-directory: frontend
-        run: npm install --save-dev typedoc typedoc-plugin-markdown
+        run: npm install --save-dev typedoc@0.25.13 --legacy-peer-deps
 
       - name: Generate Frontend TypeDoc documentation
         working-directory: frontend
