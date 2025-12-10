@@ -1,0 +1,23 @@
+{
+  "source": {
+    "include": [
+      "server.js",
+      "routes/",
+      "models/",
+      "config/",
+      "data/"
+    ],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "encoding": "utf8",
+    "destination": "../docs-generated/backend",
+    "recurse": true,
+    "readme": "../README.md"
+  },
+  "tags": {
+    "allowUnknownTags": true
+  }
+}
