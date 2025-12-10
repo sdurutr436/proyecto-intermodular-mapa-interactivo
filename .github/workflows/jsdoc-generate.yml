@@ -41,68 +41,184 @@ jobs:
       - name: Create docs output directory
         run: mkdir -p docs-generated
 
-      # ========== INSTALL DEPENDENCIES ==========
+      # ========== BACKEND DOCUMENTATION (JSDoc) ==========
       - name: Install backend dependencies
         working-directory: backend
         run: |
           rm -f package-lock.json
           npm install
 
+      - name: Generate Backend JSDoc documentation
+        working-directory: backend
+        run: npx jsdoc -c jsdoc.json -r
+
+      # ========== FRONTEND DOCUMENTATION (TypeDoc) ==========
       - name: Install frontend dependencies
         working-directory: frontend
         run: |
           rm -f package-lock.json
           npm install
 
-      # ========== UNIFIED DOCUMENTATION (TypeDoc for both Backend and Frontend) ==========
-      - name: Install TypeDoc and plugins
-        run: npm install --global typedoc@0.25.13 typedoc-plugin-markdown
+      - name: Install TypeDoc
+        working-directory: frontend
+        run: npm install --save-dev typedoc@0.25.13 --legacy-peer-deps
 
-      - name: Create TypeDoc configuration
+      - name: Generate Frontend TypeDoc documentation
+        working-directory: frontend
+        run: npx typedoc --entryPoints src --entryPointStrategy expand --out ../docs-generated/frontend --exclude '**/node_modules/**' --tsconfig tsconfig.json --name "Frontend Documentation" --includeVersion --excludePrivate
+
+      # ========== CREATE INDEX PAGE ==========
+      - name: Create documentation index page
         run: |
-          cat > typedoc.json << 'EOF'
-          {
-            "$schema": "https://typedoc.org/schema.json",
-            "name": "Transkarte - Documentación Completa",
-            "entryPoints": [
-              "./frontend/src",
-              "./backend"
-            ],
-            "entryPointStrategy": "expand",
-            "out": "docs-generated",
-            "exclude": [
-              "**/node_modules/**",
-              "**/dist/**",
-              "**/build/**",
-              "**/*.test.ts",
-              "**/*.test.js",
-              "**/*.spec.ts",
-              "**/*.spec.js",
-              "**/*.css",
-              "**/*.json"
-            ],
-            "excludePrivate": true,
-            "excludeProtected": false,
-            "excludeExternals": true,
-            "includeVersion": true,
-            "readme": "README.md",
-            "tsconfig": "./frontend/tsconfig.json",
-            "skipErrorChecking": true,
-            "compilerOptions": {
-              "allowJs": true,
-              "checkJs": false,
-              "skipLibCheck": true
-            },
-            "categorizeByGroup": true,
-            "sort": ["source-order"],
-            "githubPages": true,
-            "hideGenerator": false,
-            "searchInComments": true
-          }
+          cat > docs-generated/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Documentación del Proyecto - Transkarte</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+              }
+              .container { 
+                text-align: center;
+                max-width: 900px;
+                width: 100%;
+              }
+              h1 { 
+                color: white;
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+                font-weight: 700;
+              }
+              .subtitle {
+                color: rgba(255,255,255,0.95);
+                font-size: 1.3rem;
+                margin-bottom: 3rem;
+                font-weight: 300;
+              }
+              .cards { 
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-bottom: 2rem;
+              }
+              .card { 
+                background: white;
+                border-radius: 20px;
+                padding: 2.5rem;
+                text-decoration: none;
+                color: inherit;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                position: relative;
+                overflow: hidden;
+              }
+              .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+                background: linear-gradient(90deg, var(--card-color), var(--card-color-light));
+              }
+              .card:hover { 
+                transform: translateY(-12px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+              }
+              .card h2 { 
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+                color: #1a202c;
+                font-weight: 700;
+              }
+              .card p { 
+                color: #4a5568;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+              }
+              .card .icon { 
+                font-size: 4rem;
+                margin-bottom: 1.5rem;
+                display: block;
+              }
+              .card .cta {
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                background: var(--card-color);
+                color: white;
+                border-radius: 8px;
+                font-weight: 600;
+                transition: all 0.2s;
+              }
+              .card:hover .cta {
+                transform: scale(1.05);
+              }
+              .backend {
+                --card-color: #38a169;
+                --card-color-light: #48bb78;
+              }
+              .frontend {
+                --card-color: #3182ce;
+                --card-color-light: #4299e1;
+              }
+              .footer { 
+                margin-top: 3rem;
+                color: rgba(255,255,255,0.8);
+                font-size: 0.95rem;
+              }
+              .footer a {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                border-bottom: 2px solid rgba(255,255,255,0.5);
+                transition: border-color 0.2s;
+              }
+              .footer a:hover {
+                border-bottom-color: white;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>📚 Documentación Técnica</h1>
+              <p class="subtitle">Transkarte - Mapa Interactivo de Idiomas</p>
+              
+              <div class="cards">
+                <a href="./backend/" class="card backend">
+                  <span class="icon">⚙️</span>
+                  <h2>Backend</h2>
+                  <p>API REST con Node.js y Express. Documentación de endpoints, modelos, servicios de traducción y rutas de juego.</p>
+                  <span class="cta">Ver Documentación →</span>
+                </a>
+                
+                <a href="./frontend/" class="card frontend">
+                  <span class="icon">🎨</span>
+                  <h2>Frontend</h2>
+                  <p>Aplicación React con TypeScript. Componentes, servicios, contextos y tipos de datos.</p>
+                  <span class="cta">Ver Documentación →</span>
+                </a>
+              </div>
+              
+              <p class="footer">
+                Documentación generada automáticamente con JSDoc y TypeDoc<br>
+                <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo" target="_blank">Ver Repositorio en GitHub</a>
+              </p>
+            </div>
+          </body>
+          </html>
           EOF
-
-      - name: Generate unified documentation
-        run: typedoc --options typedoc.json --skipErrorChecking
 
       # ========== DEPLOY ==========
       - name: Deploy to GitHub Pages
@@ -123,7 +239,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '📚 La documentación completa estará disponible en: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/'
+              body: '📚 La documentación estará disponible en:\n- **Principal:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/\n- **Backend:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/backend/\n- **Frontend:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/frontend/'
             })
 
       - name: Upload documentation artifact
