@@ -3,6 +3,10 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+# Argumento para la URL del backend (se pasa desde Railway)
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Copiar los archivos de configuración
 COPY package*.json ./
 COPY tsconfig*.json ./
@@ -13,7 +17,7 @@ RUN npm install
 # Copiar el código fuente
 COPY . .
 
-# Construir la aplicación
+# Construir la aplicación con la variable de entorno
 RUN npm run build
 
 # Etapa de producción

@@ -7,9 +7,12 @@ interface GeoObject {
   };
 }
 
+// @ts-ignore - Vite environment variable
+const API_URL = import.meta.env?.VITE_API_URL || '';
+
 export const translateText = async (text: string, geo: GeoObject): Promise<TranslationResult> => {
   try {
-    const response = await fetch('/api/translate', {
+    const response = await fetch(`${API_URL}/api/translate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, geo }),
@@ -33,7 +36,7 @@ export const translateText = async (text: string, geo: GeoObject): Promise<Trans
 
 // --- NUEVA FUNCIÓN PARA OBTENER PAÍSES BLOQUEADOS ---
 export const getBlockedCountries = async (text: string): Promise<{ blockedCountries: string[], sourceLang: string }> => {
-  const response = await fetch('/api/translate/blocked-countries', {
+  const response = await fetch(`${API_URL}/api/translate/blocked-countries`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text })
