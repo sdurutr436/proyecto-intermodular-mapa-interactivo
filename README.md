@@ -69,6 +69,7 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 - [x] Dockerización completa (frontend + backend + MongoDB)
 - [x] Variables de entorno configuradas
 - [x] CORS y seguridad básica
+- [x] Script de seeding para datos iniciales de traducciones
 
 ---
 
@@ -101,6 +102,7 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 - **🐳 Docker & Docker Compose** - Contenedorización
 - **🔒 HTTPS** - Certificado SSL (Let's Encrypt en producción)
 - **📝 dotenv** - Gestión de variables de entorno
+- **🌱 Seeding Script** - Población automática de base de datos con datos iniciales
 
 ---
 
@@ -108,9 +110,7 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 
 <!-- TODO: Añadir enlace cuando la aplicación esté desplegada -->
 
-> ⚠️ **Próximamente**: La aplicación estará disponible en producción una vez completado el Sprint 6 (Dockerización y Despliegue).
-
-**URL de producción:** `TODO - Pendiente de despliegue`
+**URL de producción:** https://transkarte.up.railway.app/
 
 ---
 

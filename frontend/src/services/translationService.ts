@@ -43,6 +43,9 @@ export const translateText = async (text: string, geo: GeoObject): Promise<Trans
 
     const result = response.data;
     
+    console.log('📦 Respuesta del servidor:', result);
+    console.log('✅ fromCache:', result.fromCache);
+    
     if (!result.translation) {
       throw new Error('La respuesta del servidor no contiene una traducción válida');
     }
