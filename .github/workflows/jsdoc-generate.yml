@@ -68,8 +68,7 @@ jobs:
             --name "Transkarte Frontend" \
             --excludePrivate \
             --excludeExternals \
-            --categorizeByGroup true \
-            --navigationLinks '{"GitHub":"https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo"}'
+            --categorizeByGroup true
 
       # ========== CREATE INDEX PAGE ==========
       - name: Create documentation index page
