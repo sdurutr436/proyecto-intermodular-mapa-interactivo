@@ -62,6 +62,8 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 - [x] Modo oscuro/claro
 - [x] Landing page interactiva
 - [x] Diseño responsive
+- [x] Gestión de estado con Zustand (store centralizado con persistencia)
+- [x] API HTTP con Axios (interceptores, manejo de errores, timeouts)
 
 **Infraestructura:**
 - [x] Dockerización completa (frontend + backend + MongoDB)
@@ -79,6 +81,8 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 - **⚡ Vite** - Build tool ultrarrápido
 - **🗺️ react-simple-maps** - Visualización de mapas SVG interactivos
 - **🎨 CSS3** - Estilos personalizados con animaciones
+- **🐻 Zustand** - Gestión de estado global con middleware de persistencia
+- **📡 Axios** - Cliente HTTP con interceptores y manejo centralizado de errores
 
 ### Backend
 

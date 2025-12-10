@@ -1,10 +1,11 @@
 /**
  * @file translationService.ts
- * @description Servicio para comunicación con la API de traducción del backend.
+ * @description Servicio para comunicación con la API de traducción del backend usando Axios.
  * Maneja traducciones de texto y consultas de países bloqueados.
  * @module services/translationService
  */
 
+import apiClient, { getErrorMessage } from './apiClient';
 import type { TranslationResult } from '../types';
 
 /**
@@ -18,13 +19,6 @@ interface GeoObject {
 }
 
 /**
- * URL base de la API backend
- * @constant
- */
-// @ts-ignore - Vite environment variable
-const API_URL = import.meta.env?.VITE_API_URL || '';
-
-/**
  * Traduce un texto al idioma oficial del país seleccionado.
  * Envía una petición POST al backend con el texto y datos geográficos.
  * 
@@ -35,30 +29,27 @@ const API_URL = import.meta.env?.VITE_API_URL || '';
  * @throws {Error} Si la API falla o devuelve datos inválidos
  * 
  * @example
+ * ```ts
  * const result = await translateText('Hello', { id: 'ESP', properties: { name: 'Spain' } });
  * console.log(result.translation); // 'Hola'
+ * ```
  */
 export const translateText = async (text: string, geo: GeoObject): Promise<TranslationResult> => {
   try {
-    const response = await fetch(`${API_URL}/api/translate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, geo }),
+    const response = await apiClient.post<TranslationResult>('/api/translate', {
+      text,
+      geo
     });
 
-    const result = await response.json();
-    if (!response.ok) {
-      throw new Error(result.message || result.details || `Error del servidor: ${response.status}`);
-    }
+    const result = response.data;
+    
     if (!result.translation) {
       throw new Error('La respuesta del servidor no contiene una traducción válida');
     }
+    
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error("Ocurrió un error de red desconocido.");
+    throw new Error(getErrorMessage(error));
   }
 };
 
@@ -72,16 +63,21 @@ export const translateText = async (text: string, geo: GeoObject): Promise<Trans
  * @throws {Error} Si la API no responde correctamente
  * 
  * @example
+ * ```ts
  * const { blockedCountries, sourceLang } = await getBlockedCountries('Hello world');
  * console.log(sourceLang); // 'en'
  * console.log(blockedCountries); // ['USA', 'GBR', 'CAN', ...]
+ * ```
  */
 export const getBlockedCountries = async (text: string): Promise<{ blockedCountries: string[], sourceLang: string }> => {
-  const response = await fetch(`${API_URL}/api/translate/blocked-countries`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text })
-  });
-  if (!response.ok) throw new Error('No se pudo obtener países bloqueados');
-  return await response.json();
+  try {
+    const response = await apiClient.post<{ blockedCountries: string[], sourceLang: string }>(
+      '/api/translate/blocked-countries',
+      { text }
+    );
+    
+    return response.data;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
 };
