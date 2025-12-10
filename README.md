@@ -114,26 +114,143 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 
 ---
 
-## 📸 Capturas de Pantalla
+## 📸 Capturas de Pantalla y Guía de Usuario
 
-<!-- TODO: Añadir capturas de pantalla de la aplicación -->
+### 🏠 Página de Inicio (Landing Page)
 
 <div align="center">
-  <b>Página de inicio (Landing Page)</b><br>
-  <img src="./docs/img/landing-page.png" alt="Landing Page" width="600" />
-  <br><br>
-  <b>Mapa interactivo con países</b><br>
-  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="600" />
-  <br><br>
-  <b>Modo de traducción</b><br>
-  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="600" />
-  <br><br>
-  <b>Modo de juego: Adivina el idioma</b><br>
-  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="600" />
-  <br><br>
-  <b>Modo de juego: Adivina la Bandera</b><br>
-  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="600" />
+  <img src="./docs/img/landing-page.png" alt="Landing Page" width="700" />
 </div>
+
+**¿Qué puede hacer el usuario aquí?**
+
+- 🌍 **Ver presentación animada** del proyecto con efectos visuales
+- 🎯 **Elegir modo de uso**: Traducción o Juego (2 modos)
+- 🌐 **Cambiar idioma de interfaz**: Español ↔️ Inglés (botón superior derecha)
+- 📖 **Leer descripción** de cada modo antes de empezar e información sobre nosotros
+- 🚀 **Comenzar experiencia** haciendo clic en cualquier tarjeta de modo
+
+---
+
+### 🗺️ Mapa Interactivo (Vista Principal)
+
+<div align="center">
+  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="700" />
+</div>
+
+<div align="center">
+  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="700" />
+</div>
+
+**¿Qué puede hacer el usuario aquí?**
+
+- 🖱️ **Hacer hover sobre países**: Ver efecto de resaltado visual
+- 🔍 **Usar barra de búsqueda**: Para saber como se dice una frase o palabra en un pais cuando el usuario lo clique
+- ✍️ **Escribir texto**: Introducir palabra o frase (máximo 500 caracteres)
+- 🚫 **Ver bloqueo automático**: Los países que hablan el idioma del texto aparecen en rojo
+- 🌍 **Seleccionar país destino**: Clic en cualquier país del mapa
+- 🎨 **Navegar el mapa**: Scroll para zoom, arrastrar para mover
+- 🔄 **Ver traducción instantánea**: Resultado en modal con animación
+- 💾 **Caché automático**: Traducciones repetidas son instantáneas (guardadas en BD)
+- ❌ **Cerrar modal**: Hacer clic fuera del modal o botón de cerrar
+- 🏠 **Volver a la landing page**: Botón "i" en esquina superior izquierda al lado del logo para volver a la página principal
+- 🌐 **Cambiar idioma**: Selector ES/EN en barra superior
+- 🌓 **Cambiar tema**: Icono de sol/luna en barra superior
+
+**Ejemplo de uso:**
+1. Escribe "Hello world" en el campo de texto
+2. Los países anglófonos (USA, UK, Australia) se bloquean automáticamente en rojo
+3. Haz clic en España → Aparece "Hola mundo"
+4. Haz clic en Francia → Aparece "Bonjour le monde"
+
+---
+
+### 🎮 Modo Juego: Adivina el Idioma
+
+<div align="center">
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="700" />
+</div>
+
+**¿Qué puede hacer el usuario aquí?**
+
+- 📖 **Leer frase en idioma desconocido**: Aparece en la parte superior
+- 🤔 **Adivinar el país correcto**: Clic en el país que habla ese idioma
+- ❤️ **Gestionar vidas**: Tienes 5 vidas (corazones), pierdes 1 por error
+- 📊 **Ver estadísticas en tiempo real**: Aciertos, fallos y puntos.
+- ✅ **Recibir feedback inmediato**: Animación verde si aciertas, roja si fallas
+- 🔄 **Nueva pregunta automática**: Después de cada respuesta (correcta o incorrecta)
+- 💀 **Game Over**: Al perder las 5 vidas, ver resumen de estadísticas
+- ➡️ **Pasar intento**: Botón para pasar la frase a una nueva, a costa de un intento
+- 🔁 **Reintentar**: Botón para comenzar nueva partida
+- 🏠 **Volver al menú**: Abandonar partida en cualquier momento
+
+**Mecánica del juego:**
+- Cada respuesta correcta suma +1 punto
+- Cada error resta 1 vida
+- Frases aleatorias en 50+ idiomas diferentes
+- Algunos idiomas tienen múltiples países válidos (ej: español → España, México, Argentina...)
+
+---
+
+### 🏴 Modo Juego: Adivina la Bandera
+
+<div align="center">
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="700" />
+</div>
+
+**¿Qué puede hacer el usuario aquí?**
+
+- 🏴 **Ver bandera aleatoria**: Aparece en grande en la parte superior
+- 🗺️ **Adivinar el país**: Clic en el país correcto en el mapa
+- ❤️ **Gestionar vidas**: Tienes 5 vidas, pierdes 1 por error
+- 📊 **Ver estadísticas**: Aciertos, fallos, puntos, porcentaje de acierto al final de la partida
+- ✅ **Feedback visual**: Animación verde/roja + nombre del país correcto
+- 🌍 **Aprender geografía**: 195 banderas de países del mundo
+- 🔄 **Nueva bandera automática**: Después de cada intento
+- 💀 **Game Over**: Ver resumen completo al perder todas las vidas
+- ➡️ **Pasar intento**: Botón para pasar una bandera nueva, a costa de un intento
+- 🔁 **Jugar de nuevo**: Reiniciar partida con nuevas banderas aleatorias
+
+**Mecánica del juego:**
+- Cada acierto suma +1 punto
+- Cada fallo resta 1 vida
+- Banderas generadas aleatoriamente
+- Incluye países de todos los continentes
+- Dificultad variada: desde banderas icónicas hasta las más desafiantes
+
+---
+
+### 🎨 Características Comunes en Todas las Pantallas
+
+**Controles Globales:**
+- 🌐 **Selector de idioma** (ES/EN) - Esquina superior derecha
+- 🌓 **Toggle tema oscuro/claro** - Icono de sol/luna
+- 🏠 **Botón "i"** - Volver a la landing page
+
+**Accesibilidad:**
+- 🎨 Alto contraste en modo oscuro
+- 📢 Textos legibles (tamaño mínimo 14px)
+- 🖱️ Áreas de clic amplias (mínimo 44x44px)
+- 🔊 Estados visuales claros (hover, focus, active)
+
+---
+
+### 💡 Consejos de Uso
+
+**Para el Modo Traducción:**
+- 🔤 Usa frases cortas para traducciones más precisas
+- 🌍 Explora diferentes países para descubrir nuevos idiomas
+- 💾 Las traducciones se guardan, otros usuarios las aprovechan
+
+**Para los Modos de Juego:**
+- 🎯 Empieza con países/idiomas que conoces para ganar confianza
+- 📊 Observa tus estadísticas para mejorar tu conocimiento geográfico
+- 🔁 Juega varias veces para memorizar banderas e idiomas
+
+**Rendimiento:**
+- 🚀 Primera traducción puede tardar 1-2s (llamada a API)
+- ⚡ Traducciones repetidas son instantáneas (caché en base de datos)
+- 🌐 Conexión a internet requerida para traducción
 
 ---
 
