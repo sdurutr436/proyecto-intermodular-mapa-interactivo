@@ -1,0 +1,68 @@
+{
+  "source": {
+    "include": [
+      "server.js",
+      "routes/",
+      "models/",
+      "config/",
+      "data/"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "opts": {
+    "template": "node_modules/docdash",
+    "encoding": "utf8",
+    "destination": "../docs-generated",
+    "recurse": true,
+    "verbose": true,
+    "readme": "../README.md"
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": true
+    }
+  },
+  "docdash": {
+    "static": true,
+    "sort": true,
+    "sectionOrder": [
+      "Modules",
+      "Classes",
+      "Externals",
+      "Events",
+      "Namespaces",
+      "Mixins",
+      "Tutorials",
+      "Interfaces"
+    ],
+    "menu": {
+      "GitHub": {
+        "href": "https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo",
+        "target": "_blank",
+        "class": "menu-item",
+        "id": "repository_link"
+      },
+      "Documentación": {
+        "href": "https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/tree/main/docs",
+        "target": "_blank",
+        "class": "menu-item",
+        "id": "docs_link"
+      }
+    }
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false
+  }
+}
