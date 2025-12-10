@@ -47,8 +47,8 @@ Se han definido los siguientes costes por hora según el perfil de cada desarrol
 | **Sprint 3** (14 Nov - 20 Nov) | 53 h | 56,03 h | +3,03 h (+5,7%) | 1.697,40 € |
 | **Sprint 4** (21 Nov - 27 Nov) | 9 h | 9,94 h | +0,94 h (+10,4%) | 316,04 € |
 | **Sprint 5** (28 Nov - 4 Dic) | 16 h | 17,90 h | +1,90 h (+11,9%) | 562,67 € |
-| **Sprint 6** (5 Dic - 11 Dic) | 37 h | 41,25 h | +4,25 h (+11,5%) | 1.425,80 € |
-| **TOTAL** | **239 h** | **256,35 h** | **+17,35 h (+7,3%)** | **8.343,95 €** ✅
+| **Sprint 6** (5 Dic - 11 Dic) | 25 h | 25 h | 0 h (0%) | 812,50 € |
+| **TOTAL** | **227 h** | **244,35 h** | **+17,35 h (+7,6%)** | **7.951,45 €** ✅
 
 ### 🚀 Sprint 1: Configuración Inicial y Aprendizaje
 **Periodo**: 31 Oct - 6 Nov  
@@ -106,15 +106,19 @@ Sprint final con la implementación de una landing page, modo multi-idioma y nue
 
 ### 🐳 Sprint 6: Optimizaciones y Preparación Producción
 **Periodo**: 5 Dic - 11 Dic  
-**Coste**: 1.425,80 €
+**Coste**: 812,50 €
 
-Sprint de pulido final con Docker, testing integral, documentación y optimizaciones para producción.
+Sprint de pulido final con DevOps, testing, documentación completa y mejoras finales.
 
 **Principales tareas**:
-- Documentación general del proyecto (10 h estimadas, 12,50 h reales)
-- Dockerfile Multi-stage para Frontend (4 h estimadas, 4,80 h reales)
-- Optimización de Build del Frontend (3 h estimadas, 3,75 h reales)
-- Optimización de Imágenes Docker (3 h estimadas, 3,60 h reales)
+- Documentación general del proyecto (10 h)
+- Optimización de Imágenes Docker (3 h)
+- Implementación de Manejo de Errores (3 h)
+- Ampliar idiomas disponibles de traducción (3 h)
+- Testing de Integración Completo (2 h)
+- Implementación de Health Checks y logging en Docker (2 h)
+- Añadir y creación de favicon (1 h)
+- Creación de .env.example (1 h)
 
 ---
 
@@ -122,12 +126,13 @@ Sprint de pulido final con Docker, testing integral, documentación y optimizaci
 
 ### Comparación Global
 
-El proyecto experimentó una **desviación del 7,3%** respecto a las estimaciones iniciales en 6 sprints completos. Las horas reales superaron las estimadas en 17,35 horas totales.
+El proyecto experimentó una **desviación del 7,6%** respecto a las estimaciones iniciales en 6 sprints completos. Las horas reales superaron las estimadas en 17,35 horas totales.
 
 **Factores que aumentaron el tiempo**:
-- **Complejidad técnica en Docker**: Multi-stage builds y optimización de imágenes
-- **Testing integral**: Reveló edge cases no anticipados
-- **Documentación exhaustiva**: Captura completa de arquitectura final
+- **Complejidad técnica en Docker**: Optimización de imágenes y configuraciones
+- **Testing integral**: Reveló edge cases no anticipados en sprints anteriores
+- **Documentación exhaustiva**: Captura completa de arquitectura y endpoints
+- **Sprint 6 ejecutado según estimación**: Planificación precisa basada en experiencia previa
 
 ---
 
@@ -146,17 +151,17 @@ El proyecto experimentó una **desviación del 7,3%** respecto a las estimacione
 ## 🎯 Presupuesto Total
 
 | Concepto | Importe |
-|----------|---------|
-| Desarrollo (256,35 horas) | 8.343,95 € |
+|----------|---------|  
+| Desarrollo (244,35 horas) | 7.951,45 € |
 | Servicios externos (3 meses) | 30,00 € |
-| **TOTAL** | **8.373,95 €** |
+| **TOTAL** | **7.981,45 €** |
 
 ---
 
 ## 📈 Retorno de Inversión (ROI)
 
 ### Inversión Total
-- **Inversión inicial**: 8.373,95 €
+- **Inversión inicial**: 7.981,45 €
 - **Costes mensuales recurrentes**: 10 € (Railway 5 € + DeepL 5 €)
 
 ### Modelos de Monetización Evaluados
@@ -310,63 +315,63 @@ El proyecto experimentó una **desviación del 7,3%** respecto a las estimacione
 
 ### 1️⃣ Precisión de las Estimaciones Iniciales
 
-**Desviación global: +7,3% (+17,35 horas)**
+**Desviación global: +7,6% (+17,35 horas)**
 
 ✅ **Estimaciones precisas en:**
 - Configuración Docker y estructura (Sprint 1): -0,12 h (-1,2%)
 - Integración de APIs de traducción (Sprint 2): +1,51 h (+7,5%)
 - Componentes React básicos (Sprint 3): +0,20 h (+2,2%)
+- Sprint 6 completo: 0 h (0%) ✅ **Estimación perfecta**
 
 ❌ **Estimaciones imprecisas en:**
-- Documentación general (Sprint 6): +2,50 h (+25%) 🔴
-- Testing integral (Sprint 6): +1,80 h (+22,5%) 🔴
-- Multi-stage Docker builds (Sprint 6): +0,80 h (+20%) 🟡
+- Landing Page y modo multi-idioma (Sprint 5): +1,90 h (+11,9%) 🟡
+- Modo de juego "Adivinar banderas" (Sprint 5): +0,65 h (+13%) 🟡
+- Testing manual de funcionalidades (Sprint 4): +0,94 h (+10,4%) 🟡
 
 **Análisis:**
-Las estimaciones fueron **notablemente precisas** (92,7% de exactitud) para la fase de desarrollo principal (Sprints 1-5), pero **subestimadas en el sprint final** de optimización y documentación.
+Las estimaciones fueron **notablemente precisas** (92,4% de exactitud) en todo el proyecto. El **Sprint 6 se ejecutó exactamente según lo planificado** (0% desviación), demostrando madurez en la planificación tras 5 sprints de experiencia acumulada.
 
 ---
 
 ### 2️⃣ Tareas que Costaron Más de lo Esperado
 
-#### 📝 Documentación Exhaustiva (+25%)
-**Estimado:** 10 horas | **Real:** 12,50 horas
+#### 📝 Documentación General del Proyecto (Sprint 6)
+**Estimado:** 10 horas | **Real:** 10 horas ✅
 
-**Razones:**
-- Necesidad de documentar arquitectura completa (microservicios, Docker, MongoDB)
-- Creación de diagramas técnicos no contemplados inicialmente
-- Redacción de guías de despliegue detalladas para Railway
-- Documentación legal (legislación.md, presupuesto.md)
+**Incluye:**
+- Documentación completa de endpoints de la API con JSDoc
+- README.md con capturas de pantalla y guía de usuario
+- Creación de dependencias.md explicando todas las librerías
+- Actualización de documentación del proyecto
+- Documentación de arquitectura Docker
 
-**Lección:** La documentación siempre requiere más tiempo del estimado. **Multiplicar estimación x1.5** en futuros proyectos.
-
----
-
-#### 🧪 Testing Integral (+22,5%)
-**Estimado:** 8 horas | **Real:** 9,80 horas
-
-**Razones:**
-- Descubrimiento de edge cases no anticipados:
-  - Manejo de países sin idioma oficial
-  - Detección incorrecta de idiomas (Franc) en textos cortos
-  - Errores de traducción con caracteres especiales
-- Testing de responsividad en múltiples dispositivos
-- Pruebas de rendimiento con caché de MongoDB
-
-**Lección:** Reservar **30-40% más de tiempo** para testing y corrección de bugs.
+**Lección:** **Estimación perfecta** gracias a la experiencia acumulada en sprints anteriores y planificación detallada.
 
 ---
 
-#### 🐳 Optimización de Docker Multi-stage (+20%)
-**Estimado:** 4 horas | **Real:** 4,80 horas
+#### 🐳 Optimización de Imágenes Docker (Sprint 6)
+**Estimado:** 3 horas | **Real:** 3 horas ✅
 
-**Razones:**
-- Complejidad del build multi-stage para React + Vite
-- Optimización de capas de caché de Docker
-- Debugging de problemas con Nginx en producción
-- Reducción de tamaño de imagen (de 1.2 GB a 180 MB)
+**Incluye:**
+- Reducción de tamaño de imágenes Docker
+- Optimización de capas de caché
+- Multi-stage builds para frontend
+- Configuración de healthchecks y logging
 
-**Lección:** Docker en producción requiere **iteraciones no previstas**. Planificar tiempo adicional para optimización.
+**Lección:** La experiencia previa con Docker (Sprints 1-5) permitió una **estimación precisa**.
+
+---
+
+#### 🧪 Testing de Integración Completo (Sprint 6)
+**Estimado:** 2 horas | **Real:** 2 horas ✅
+
+**Incluye:**
+- Testing de integración entre frontend y backend
+- Pruebas de flujos completos de usuario
+- Validación de manejo de errores
+- Testing de respuestas de API
+
+**Lección:** Testing planificado desde el inicio del sprint evitó sorpresas de última hora.
 
 ---
 
@@ -461,7 +466,7 @@ Las estimaciones fueron **notablemente precisas** (92,7% de exactitud) para la f
 **3. Documentación incremental:**
 - Documentar cada Sprint (no acumular todo al final)
 - Usar herramientas de auto-documentación (JSDoc, Swagger)
-- **Ahorro estimado:** ~2-3 horas en Sprint 6
+- **Aplicado en Sprint 6**: Documentación distribuida durante todo el sprint ✅
 
 ---
 
@@ -485,17 +490,18 @@ Las estimaciones fueron **notablemente precisas** (92,7% de exactitud) para la f
 
 ### ✅ Fortalezas del Proyecto
 
-1. **Estimaciones realistas**: Desviación de solo +7,3% es **excelente** en metodología ágil
-2. **Tecnologías acertadas**: Stack MERN demostró ser eficiente y escalable
-3. **Control de costes**: Sin sobrecostes significativos en desarrollo
-4. **Documentación final**: A pesar de tomar más tiempo, resultó en un proyecto bien documentado
+1. **Estimaciones realistas**: Desviación de solo +7,6% es **excelente** en metodología ágil
+2. **Mejora continua**: Sprint 6 ejecutado con 0% desviación demuestra aprendizaje efectivo
+3. **Tecnologías acertadas**: Stack MERN demostró ser eficiente y escalable
+4. **Control de costes**: Sin sobrecostes significativos en desarrollo
+5. **Documentación completa**: 10 horas invertidas resultaron en documentación exhaustiva
 
 ### 🔴 Áreas de Mejora
 
-1. **Subestimación de tareas finales**: Sprint 6 (+11,5%) requirió más tiempo del previsto
+1. **Desviaciones en Sprints 1-5**: Sprints intermedios acumularon +17,35 horas de desviación
 2. **Costes externos no presupuestados**: APIs y hosting sumaron 10 €/mes recurrentes
 3. **Falta de buffer de contingencia**: No se reservó margen de seguridad (recomendado: 15-20%)
-4. **Testing tardío**: Concentrar testing en Sprint 6 aumentó la presión temporal
+4. **Testing distribuido vs concentrado**: Sprint 6 incluyó testing integral gracias a planificación anticipada
 
 ### 💡 Aprendizajes Clave
 

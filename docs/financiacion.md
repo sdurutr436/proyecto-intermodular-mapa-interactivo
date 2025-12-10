@@ -2,7 +2,7 @@
 
 > **Versión:** 1.0  
 > **Fecha:** Diciembre 2025  
-> **Referencia:** Basado en el presupuesto del proyecto (8.373,95 €)
+> **Referencia:** Basado en el presupuesto del proyecto (7.981,45 €)
 
 ---
 
@@ -33,15 +33,15 @@ Este documento analiza las **necesidades de financiación** del proyecto **Trans
 
 | Concepto | Importe |
 |----------|---------|
-| 👥 Desarrollo (256,35 horas) | 8.343,95 € |
+| 👥 Desarrollo (244,35 horas) | 7.951,45 € |
 | ☁️ Servicios externos (3 meses) | 30,00 € |
-| **TOTAL DESARROLLO** | **8.373,95 €** |
+| **TOTAL DESARROLLO** | **7.981,45 €** |
 
 ### ¿Se puede afrontar sin financiación externa?
 
 | Escenario | Viabilidad | Comentario |
 |-----------|------------|------------|
-| 🟢 **Autofinanciación total** | Posible | Si los 3 fundadores aportan ~2.800€ cada uno |
+| 🟢 **Autofinanciación total** | Posible | Si los 3 fundadores aportan ~2.660€ cada uno |
 | 🟡 **Autofinanciación parcial** | Recomendado | Aportar 50% y buscar financiación para el resto |
 | 🔴 **Financiación externa 100%** | No recomendado | Pérdida de control y mayor dilución |
 
@@ -233,57 +233,57 @@ Este documento analiza las **necesidades de financiación** del proyecto **Trans
 
 | Concepto | Importe |
 |----------|---------|
-| 💻 Desarrollo (ya realizado) | 8.373,95 € |
+| 💻 Desarrollo (ya realizado) | 7.981,45 € |
 | 🏢 Infraestructura (12 meses) | 132 € |
 | 📣 Marketing lanzamiento | 350 € |
 | 💰 Fondo emergencia (6 meses) | 240 € |
-| 🔧 Imprevistos (10%) | 910 € |
-| **TOTAL NECESARIO** | **10.005,95 €** |
+| 🔧 Imprevistos (10%) | 870 € |
+| **TOTAL NECESARIO** | **9.573,45 €** |
 
 ### Capital a Captar
 
 | Concepto | Importe |
 |----------|---------|
-| 📊 Necesidad total | 10.005,95 € |
-| 💵 Redondeo para operaciones | +500 € |
-| **CAPITAL OBJETIVO** | **10.500 €** |
+| 📊 Necesidad total | 9.573,45 € |
+| 💵 Redondeo para operaciones | +426,55 € |
+| **CAPITAL OBJETIVO** | **10.000 €** |
 
 ### Fuente de Financiación Recomendada
 
 Para **Transkarte** en su fase actual, recomendamos:
 
 | Prioridad | Fuente | Importe | Justificación |
-|-----------|--------|---------|---------------|
+|-----------|--------|---------|--------------|
 | 1️⃣ | **Autofinanciación** | 6.000 € | 2.000 € × 3 fundadores - Mantiene control |
 | 2️⃣ | **Ayudas públicas** | 3.000 € | Subvenciones a emprendedores sin dilución |
-| 3️⃣ | **Crowdfunding** | 1.500 € | Validación + comunidad inicial |
-| | **TOTAL** | **10.500 €** | |
+| 3️⃣ | **Crowdfunding** | 1.000 € | Validación + comunidad inicial |
+| | **TOTAL** | **10.000 €** | |
 
 ### Distribución de la Inversión
 
 | Área | Importe | % |
 |------|---------|---|
-| 💻 Desarrollo | 8.373,95 € | 79.8% |
-| 📣 Marketing | 350 € | 3.3% |
+| 💻 Desarrollo | 7.981,45 € | 79.8% |
+| 📣 Marketing | 350 € | 3.5% |
 | 🏢 Infraestructura (año 1) | 132 € | 1.3% |
-| 💰 Fondo emergencia | 240 € | 2.3% |
-| 🔧 Imprevistos | 1.403,05 € | 13.4% |
-| **TOTAL** | **10.500 €** | 100% |
+| 💰 Fondo emergencia | 240 € | 2.4% |
+| 🔧 Imprevistos | 1.296,55 € | 13.0% |
+| **TOTAL** | **10.000 €** | 100% |
 
 ### Visualización del Plan
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ 💶 PLAN DE FINANCIACIÓN: 10.500 €                       │
+│ 💶 PLAN DE FINANCIACIÓN: 10.000 €                       │
 ├─────────────────────────────────────────────────────────┤
-│ ████████████████████████████████████ 57%                │
+│ ████████████████████████████████████ 60%                │
 │ 🏠 Autofinanciación: 6.000 €                            │
 ├─────────────────────────────────────────────────────────┤
-│ █████████████████ 29%                                   │
+│ ██████████████████ 30%                                  │
 │ 🏛️ Ayudas públicas: 3.000 €                             │
 ├─────────────────────────────────────────────────────────┤
-│ ██████ 14%                                              │
-│ 🚀 Crowdfunding: 1.500 €                                │
+│ █████ 10%                                               │
+│ 🚀 Crowdfunding: 1.000 €                                │
 └─────────────────────────────────────────────────────────┘
 ```
 
