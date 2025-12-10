@@ -1,11 +1,11 @@
 /**
  * @file App.tsx
- * @description Componente raíz de la aplicación. Maneja la navegación entre modos de juego,
- * el estado global de la aplicación, modo oscuro, traducción y estadísticas de juego.
+ * @description Componente raíz de la aplicación refactorizado con Zustand.
+ * Maneja la navegación entre modos de juego usando el store centralizado.
  * @module components/App
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import WorldMap from './components/WorldMap';
 import SearchBar from './components/SearchBar';
 import TranslationModal from './components/TranslationModal';
@@ -18,69 +18,60 @@ import { translateText, getBlockedCountries } from './services/translationServic
 import { generateRandomPhrase, generateRandomFlag } from './services/gameService';
 import { countryNameToCode } from './data/countryCodeMapping';
 import { useLanguage } from './contexts/LanguageContext';
-import type { TranslationResult, GamePhrase, FlagQuestion } from './types';
-import type { Language } from './i18n/translations';
+import { useAppStore } from './store/useAppStore';
 import './styles/App.css';
 import './styles/FlagGameMode.css';
-
-// Clave para localStorage
-const STORAGE_KEY_LANDING = 'transkarte_has_visited';
-const STORAGE_KEY_LAST_MODE = 'transkarte_last_mode';
-const STORAGE_KEY_DARK_MODE = 'transkarte_dark_mode';
 
 const App: React.FC = () => {
   // Hook de idioma
   const { language, setLanguage, t } = useLanguage();
   
-  // Estado para mostrar/ocultar la landing page
-  const [showLanding, setShowLanding] = useState<boolean>(() => {
-    // Verificar si el usuario ya ha visitado antes
-    const hasVisited = localStorage.getItem(STORAGE_KEY_LANDING);
-    return !hasVisited;
-  });
-
-  // Detectar preferencia de modo oscuro del sistema
-  const getSystemDarkMode = (): boolean => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  };
-
-  const [inputText, setInputText] = useState<string>('');
-  const [selectedCountry, setSelectedCountry] = useState<any | null>(null);
-  const [translationResult, setTranslationResult] = useState<TranslationResult | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Inicializar modo oscuro basado en preferencia guardada o del sistema
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const savedMode = localStorage.getItem(STORAGE_KEY_DARK_MODE);
-    if (savedMode !== null) {
-      return savedMode === 'true';
-    }
-    return getSystemDarkMode();
-  });
-  
-  // Inicializar modo de juego basado en el último usado
-  const [gameMode, setGameMode] = useState<'translation' | 'guess' | 'flag'>(() => {
-    const lastMode = localStorage.getItem(STORAGE_KEY_LAST_MODE);
-    if (lastMode === 'guess' || lastMode === 'flag') return lastMode;
-    return 'translation';
-  });
-
-  // Estados del modo de juego
-  const [currentPhrase, setCurrentPhrase] = useState<GamePhrase | null>(null);
-  const [currentFlag, setCurrentFlag] = useState<FlagQuestion | null>(null);
-  const [isPhraseLoading, setIsPhraseLoading] = useState<boolean>(false);
-  const [isFlagLoading, setIsFlagLoading] = useState<boolean>(false);
-  const [gameStats, setGameStats] = useState({ attempts: 0, correct: 0, lives: 5 });
-  const [showHint, setShowHint] = useState<boolean>(false);
-  const [gameOver, setGameOver] = useState<boolean>(false);
-  const [hintUsed, setHintUsed] = useState<boolean>(false);
-
-  // Estado para países bloqueados (rallados)
-  const [blockedCountries, setBlockedCountries] = useState<string[]>([]);
+  // Zustand store
+  const {
+    // UI State
+    showLanding,
+    isDarkMode,
+    gameMode,
+    
+    // Translation State
+    inputText,
+    selectedCountry,
+    translationResult,
+    isLoading,
+    error,
+    blockedCountries,
+    
+    // Game State
+    currentPhrase,
+    currentFlag,
+    isPhraseLoading,
+    isFlagLoading,
+    gameStats,
+    showHint,
+    gameOver,
+    hintUsed,
+    
+    // Actions
+    setInputText,
+    setSelectedCountry,
+    setTranslationResult,
+    setIsLoading,
+    setError,
+    setBlockedCountries,
+    closeTranslationModal,
+    toggleDarkMode,
+    setGameMode,
+    startFromLanding,
+    backToLanding,
+    setCurrentPhrase,
+    setCurrentFlag,
+    setIsPhraseLoading,
+    setIsFlagLoading,
+    handleGuess,
+    skipQuestion,
+    showHintAction,
+    resetGame
+  } = useAppStore();
 
   // Aplicar modo oscuro inicial al cargar
   useEffect(() => {
@@ -88,28 +79,6 @@ const App: React.FC = () => {
       document.body.classList.add('dark-mode');
     } else {
       document.body.classList.remove('dark-mode');
-    }
-  }, []);
-
-  // Escuchar cambios en la preferencia del sistema
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = (e: MediaQueryListEvent) => {
-        // Solo cambiar si el usuario no ha establecido una preferencia manual
-        const savedMode = localStorage.getItem(STORAGE_KEY_DARK_MODE);
-        if (savedMode === null) {
-          setIsDarkMode(e.matches);
-          if (e.matches) {
-            document.body.classList.add('dark-mode');
-          } else {
-            document.body.classList.remove('dark-mode');
-          }
-        }
-      };
-      
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
     }
   }, []);
 
@@ -122,15 +91,7 @@ const App: React.FC = () => {
     getBlockedCountries(inputText)
       .then(({ blockedCountries }) => setBlockedCountries(blockedCountries))
       .catch(() => setBlockedCountries([]));
-  }, [inputText]);
-
-  // Handler para iniciar desde la landing page
-  const handleStartFromLanding = (mode: 'translation' | 'guess' | 'flag') => {
-    setGameMode(mode);
-    localStorage.setItem(STORAGE_KEY_LANDING, 'true');
-    localStorage.setItem(STORAGE_KEY_LAST_MODE, mode);
-    setShowLanding(false);
-  };
+  }, [inputText, setBlockedCountries]);
 
   // Callback para clic en país
   const handleCountryClick = useCallback(async (geo: any) => {
@@ -165,60 +126,24 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [inputText, blockedCountries, t]);
-
-  const closeModal = () => {
-    setSelectedCountry(null);
-    setTranslationResult(null);
-    setError(null);
-  };
-
-  const handleDarkModeToggle = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    localStorage.setItem(STORAGE_KEY_DARK_MODE, String(newMode));
-    if (newMode) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  };
-
-  const handleBackToLanding = () => {
-    localStorage.removeItem(STORAGE_KEY_LANDING);
-    setShowLanding(true);
-  };
-
-  // Guardar el último modo cuando cambia y reiniciar estadísticas
-  const handleGameModeChange = (newMode: 'translation' | 'guess' | 'flag') => {
-    setGameMode(newMode);
-    localStorage.setItem(STORAGE_KEY_LAST_MODE, newMode);
-    // Reiniciar estadísticas y estado del juego al cambiar de modo
-    setGameStats({ attempts: 0, correct: 0, lives: 5 });
-    setGameOver(false);
-    setShowHint(false);
-    setHintUsed(false);
-    setCurrentPhrase(null);
-    setCurrentFlag(null);
-  };
+  }, [inputText, blockedCountries, t, setSelectedCountry, setIsLoading, setError, setTranslationResult]);
 
   // Cargar frase al entrar en modo juego de adivinar idioma
   useEffect(() => {
     if (gameMode === 'guess' && !currentPhrase && !gameOver) {
       loadNewPhrase();
     }
-  }, [gameMode]);
+  }, [gameMode, currentPhrase, gameOver]);
 
   // Cargar bandera al entrar en modo juego de adivinar bandera
   useEffect(() => {
     if (gameMode === 'flag' && !currentFlag && !gameOver) {
       loadNewFlag();
     }
-  }, [gameMode]);
+  }, [gameMode, currentFlag, gameOver]);
 
   const loadNewPhrase = async () => {
     setIsPhraseLoading(true);
-    setShowHint(false);
     try {
       const phrase = await generateRandomPhrase();
       setCurrentPhrase(phrase);
@@ -231,7 +156,6 @@ const App: React.FC = () => {
 
   const loadNewFlag = async () => {
     setIsFlagLoading(true);
-    setShowHint(false);
     try {
       const flag = await generateRandomFlag();
       setCurrentFlag(flag);
@@ -243,10 +167,9 @@ const App: React.FC = () => {
   };
 
   const handleCountryGuess = (isCorrect: boolean, countryName: string) => {
-    setGameStats(prev => ({ ...prev, attempts: prev.attempts + 1 }));
+    handleGuess(isCorrect);
 
     if (isCorrect) {
-      setGameStats(prev => ({ ...prev, correct: prev.correct + 1 }));
       // Cargar nueva frase/bandera después de un breve delay
       setTimeout(() => {
         if (gameMode === 'guess') {
@@ -255,26 +178,11 @@ const App: React.FC = () => {
           loadNewFlag();
         }
       }, 2000);
-    } else {
-      // Perder una vida
-      setGameStats(prev => {
-        const newLives = prev.lives - 1;
-        if (newLives <= 0) {
-          setGameOver(true);
-        }
-        return { ...prev, lives: newLives };
-      });
     }
   };
 
   const handleSkipPhrase = () => {
-    setGameStats(prev => {
-      const newLives = prev.lives - 1;
-      if (newLives <= 0) {
-        setGameOver(true);
-      }
-      return { ...prev, lives: newLives, attempts: prev.attempts + 1 };
-    });
+    skipQuestion();
     if (gameStats.lives > 1) {
       if (gameMode === 'guess') {
         loadNewPhrase();
@@ -285,10 +193,7 @@ const App: React.FC = () => {
   };
 
   const handleResetGame = () => {
-    setGameStats({ attempts: 0, correct: 0, lives: 5 });
-    setGameOver(false);
-    setShowHint(false);
-    setHintUsed(false);
+    resetGame();
     if (gameMode === 'guess') {
       loadNewPhrase();
     } else if (gameMode === 'flag') {
@@ -296,21 +201,11 @@ const App: React.FC = () => {
     }
   };
 
-  const handleShowHint = () => {
-    if (hintUsed) return;
-    setShowHint(true);
-    setHintUsed(true);
-    // Ocultar pista después de 5 segundos
-    setTimeout(() => {
-      setShowHint(false);
-    }, 5000);
-  };
-
   // Mostrar landing page si es la primera visita
   if (showLanding) {
     return (
       <LandingPage 
-        onStart={handleStartFromLanding}
+        onStart={startFromLanding}
         isDarkMode={isDarkMode}
       />
     );
@@ -325,7 +220,7 @@ const App: React.FC = () => {
           <button 
             className="home-button"
             aria-label={t.backToHome}
-            onClick={handleBackToLanding}
+            onClick={backToLanding}
             title={t.backToHome}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -359,7 +254,7 @@ const App: React.FC = () => {
                 const modes: ('translation' | 'guess' | 'flag')[] = ['translation', 'guess', 'flag'];
                 const currentIndex = modes.indexOf(gameMode);
                 const nextMode = modes[(currentIndex + 1) % modes.length];
-                handleGameModeChange(nextMode);
+                setGameMode(nextMode);
               }}
             >
               {gameMode === 'translation' ? t.translation : gameMode === 'guess' ? t.guessLanguage : t.guessFlag}
@@ -376,19 +271,19 @@ const App: React.FC = () => {
             <div className="mode-dropdown">
               <button 
                 className={`mode-option ${gameMode === 'translation' ? 'active' : ''}`}
-                onClick={() => handleGameModeChange('translation')}
+                onClick={() => setGameMode('translation')}
               >
                 {t.translation}
               </button>
               <button 
                 className={`mode-option ${gameMode === 'guess' ? 'active' : ''}`}
-                onClick={() => handleGameModeChange('guess')}
+                onClick={() => setGameMode('guess')}
               >
                 {t.guessLanguage}
               </button>
               <button 
                 className={`mode-option ${gameMode === 'flag' ? 'active' : ''}`}
-                onClick={() => handleGameModeChange('flag')}
+                onClick={() => setGameMode('flag')}
               >
                 {t.guessFlag}
               </button>
@@ -429,7 +324,7 @@ const App: React.FC = () => {
           <button 
             className="dark-mode-toggle"
             aria-label={isDarkMode ? t.lightMode : t.darkMode}
-            onClick={handleDarkModeToggle}
+            onClick={toggleDarkMode}
             title={isDarkMode ? t.lightMode : t.darkMode}
           >
             <div className={`toggle-switch ${isDarkMode ? 'active' : ''}`}>
@@ -461,7 +356,7 @@ const App: React.FC = () => {
                 result={translationResult}
                 isLoading={isLoading}
                 error={error}
-                onClose={closeModal}
+                onClose={closeTranslationModal}
               />
             )}
           </>
@@ -485,7 +380,7 @@ const App: React.FC = () => {
             <div className="game-controls-floating">
               <button 
                 className="game-floating-button hint-button"
-                onClick={handleShowHint}
+                onClick={showHintAction}
                 disabled={hintUsed}
                 title={hintUsed ? t.hintUsed : t.showHint}
               >
@@ -569,7 +464,7 @@ const App: React.FC = () => {
             <div className="game-controls-floating">
               <button 
                 className="game-floating-button hint-button"
-                onClick={handleShowHint}
+                onClick={showHintAction}
                 disabled={hintUsed}
                 title={hintUsed ? t.hintUsed : t.showHintContinent}
               >
