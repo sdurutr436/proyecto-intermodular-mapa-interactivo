@@ -283,7 +283,7 @@ La documentación incluye:
 
 Todo integrado en una única interfaz con menú lateral para fácil navegación entre módulos.
 
-La documentación se genera automáticamente en cada push a `main` mediante GitHub Actions.
+La documentación se genera automáticamente en cada push a `main` usando GitHub Actions.
 
 ### 📂 Documentación del Proyecto
 
