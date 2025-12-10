@@ -16,7 +16,7 @@
   "opts": {
     "template": "node_modules/docdash",
     "encoding": "utf8",
-    "destination": "../docs-generated",
+    "destination": "../docs-generated/backend",
     "recurse": true,
     "verbose": true,
     "readme": "../README.md"
