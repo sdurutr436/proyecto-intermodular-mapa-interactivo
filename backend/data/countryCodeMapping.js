@@ -1,6 +1,19 @@
-// server/data/countryCodeMapping.js
-// Mapeo nombre de país a código ISO Alpha-3
+/**
+ * @file countryCodeMapping.js
+ * @description Mapeo bidireccional entre nombres de países en inglés y códigos ISO Alpha-3.
+ * Utilizado para conversión de nombres geográficos del mapa a códigos estándar.
+ * @module data/countryCodeMapping
+ */
 
+/**
+ * Diccionario de nombres de países en inglés a códigos ISO Alpha-3.
+ * Los nombres corresponden a los usados en los archivos GeoJSON del mapa.
+ * 
+ * @constant {Object.<string, string>}
+ * @example
+ * countryNameToCode['Spain'] // 'ESP'
+ * countryNameToCode['United States of America'] // 'USA'
+ */
 const countryNameToCode = {
   'Afghanistan': 'AFG',
   'Albania': 'ALB',

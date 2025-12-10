@@ -41,80 +41,75 @@ jobs:
       - name: Create docs output directory
         run: mkdir -p docs-generated
 
-      # ========== BACKEND DOCUMENTATION (JSDoc) ==========
+      # ========== INSTALL DEPENDENCIES ==========
       - name: Install backend dependencies
         working-directory: backend
         run: |
           rm -f package-lock.json
           npm install
 
-      - name: Generate Backend JSDoc documentation
-        working-directory: backend
-        run: npx jsdoc -c jsdoc.json -r
-
-      # ========== FRONTEND DOCUMENTATION (TypeDoc) ==========
       - name: Install frontend dependencies
         working-directory: frontend
         run: |
           rm -f package-lock.json
           npm install
 
-      - name: Install TypeDoc
-        working-directory: frontend
-        run: npm install --save-dev typedoc@0.25.13 --legacy-peer-deps
+      # ========== UNIFIED DOCUMENTATION (TypeDoc for both Backend and Frontend) ==========
+      - name: Install TypeDoc and plugins
+        run: npm install --global typedoc@0.25.13 typedoc-plugin-markdown
 
-      - name: Generate Frontend TypeDoc documentation
-        working-directory: frontend
-        run: npx typedoc --entryPoints src --entryPointStrategy expand --out ../docs-generated/frontend --exclude '**/node_modules/**' --tsconfig tsconfig.json --name "Frontend Documentation" --includeVersion --excludePrivate
-
-      # ========== CREATE INDEX PAGE ==========
-      - name: Create documentation index page
+      - name: Create TypeDoc configuration
         run: |
-          cat > docs-generated/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="es">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Documentación del Proyecto - Mapa Interactivo</title>
-            <style>
-              * { margin: 0; padding: 0; box-sizing: border-box; }
-              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-              .container { text-align: center; padding: 2rem; }
-              h1 { color: white; font-size: 2.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-              p { color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 2rem; }
-              .cards { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
-              .card { background: white; border-radius: 16px; padding: 2rem; width: 280px; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
-              .card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-              .card h2 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #333; }
-              .card p { color: #666; font-size: 0.95rem; margin-bottom: 1rem; }
-              .card .icon { font-size: 3rem; margin-bottom: 1rem; }
-              .backend { border-top: 4px solid #38a169; }
-              .frontend { border-top: 4px solid #3182ce; }
-              .footer { margin-top: 2rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>📚 Documentación del Proyecto</h1>
-              <p>Mapa Interactivo - Documentación técnica generada automáticamente</p>
-              <div class="cards">
-                <a href="./backend/" class="card backend">
-                  <div class="icon">⚙️</div>
-                  <h2>Backend</h2>
-                  <p>API REST con Node.js y Express. Endpoints, modelos y configuración.</p>
-                </a>
-                <a href="./frontend/" class="card frontend">
-                  <div class="icon">🎨</div>
-                  <h2>Frontend</h2>
-                  <p>Aplicación React con TypeScript. Componentes, servicios y tipos.</p>
-                </a>
-              </div>
-              <p class="footer">Generado automáticamente con JSDoc y TypeDoc</p>
-            </div>
-          </body>
-          </html>
+          cat > typedoc.json << 'EOF'
+          {
+            "name": "Transkarte - Documentación Completa",
+            "entryPoints": [
+              "./frontend/src",
+              "./backend"
+            ],
+            "entryPointStrategy": "expand",
+            "out": "docs-generated",
+            "exclude": [
+              "**/node_modules/**",
+              "**/dist/**",
+              "**/build/**",
+              "**/*.test.ts",
+              "**/*.test.js",
+              "**/*.spec.ts",
+              "**/*.spec.js"
+            ],
+            "excludePrivate": true,
+            "excludeProtected": false,
+            "excludeExternals": true,
+            "includeVersion": true,
+            "readme": "README.md",
+            "plugin": [],
+            "categoryOrder": [
+              "Frontend",
+              "Backend",
+              "Components",
+              "Services",
+              "Models",
+              "Routes",
+              "Contexts",
+              "Types",
+              "Data",
+              "*"
+            ],
+            "categorizeByGroup": true,
+            "sort": ["source-order"],
+            "githubPages": true,
+            "hideGenerator": false,
+            "searchInComments": true,
+            "navigation": {
+              "includeCategories": true,
+              "includeGroups": true
+            }
+          }
           EOF
+
+      - name: Generate unified documentation
+        run: typedoc --options typedoc.json
 
       # ========== DEPLOY ==========
       - name: Deploy to GitHub Pages
@@ -135,7 +130,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '📚 La documentación estará disponible en:\n- **Backend:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/backend/\n- **Frontend:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/frontend/'
+              body: '📚 La documentación completa estará disponible en: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/'
             })
 
       - name: Upload documentation artifact

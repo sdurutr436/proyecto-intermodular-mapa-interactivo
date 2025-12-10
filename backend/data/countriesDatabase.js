@@ -1,8 +1,21 @@
-// server/data/countriesDatabase.js
+/**
+ * @file countriesDatabase.js
+ * @description Base de datos estática de países del mundo con sus códigos ISO Alpha-3,
+ * nombres localizados en español y continentes. Incluye función para obtener URLs de banderas.
+ * @module data/countriesDatabase
+ */
 
 /**
- * Base de datos de países con sus códigos, nombres y continentes
- * Los códigos de país son ISO Alpha-3
+ * Base de datos de países organizados por código ISO Alpha-3.
+ * Cada entrada contiene nombre localizado y continente.
+ * 
+ * @constant {Object.<string, {name: string, continent: string}>}
+ * @property {string} name - Nombre del país en español
+ * @property {string} continent - Continente al que pertenece
+ * 
+ * @example
+ * countriesDatabase['ESP'] // { name: 'España', continent: 'Europa' }
+ * countriesDatabase['USA'] // { name: 'Estados Unidos', continent: 'América del Norte' }
  */
 const countriesDatabase = {
   // Europa
@@ -234,6 +247,11 @@ const getFlagUrl = (countryCode) => {
   return `https://flagcdn.com/w320/${alpha2}.png`;
 };
 
+/**
+ * Exporta la base de datos de países y la función para obtener URLs de banderas
+ * @exports countriesDatabase
+ * @exports getFlagUrl
+ */
 module.exports = {
   countriesDatabase,
   getFlagUrl,

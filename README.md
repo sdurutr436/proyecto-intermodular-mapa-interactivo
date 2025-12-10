@@ -271,9 +271,21 @@ npm run dev
 
 ## 📚 Documentación
 
-### 📂 Documentación del Proyecto
+### 📖 Documentación de la API
 
-> 📝 **TODO**: Expandir documentación técnica con diagramas de arquitectura, flujos de usuario y guías de contribución.
+La documentación completa del código (Backend + Frontend) está disponible online en un solo lugar, generada automáticamente con TypeDoc:
+
+- **🌐 Documentación Unificada**: [https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/](https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/)
+
+La documentación incluye:
+- ⚙️ **Backend**: API REST, modelos, servicios de traducción, rutas de juego
+- 🎨 **Frontend**: Componentes React, servicios, contextos, tipos TypeScript
+
+Todo integrado en una única interfaz con menú lateral para fácil navegación entre módulos.
+
+La documentación se genera automáticamente en cada push a `main` mediante GitHub Actions.
+
+### 📂 Documentación del Proyecto
 
 Toda la documentación técnica y de planificación se encuentra en la carpeta [`/docs`](./docs):
 

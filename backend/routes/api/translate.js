@@ -1,18 +1,41 @@
-﻿const express = require('express');
+﻿/**
+ * @file translate.js
+ * @description Rutas de la API para el servicio de traducción.
+ * Implementa un sistema híbrido de traducción usando DeepL como servicio principal
+ * y Google Translate como fallback gratuito. Incluye detección automática de idioma,
+ * caché de traducciones y bloqueo de países según idioma fuente.
+ * @module routes/api/translate
+ */
+
+const express = require('express');
 const router = express.Router();
 const Translation = require('../../models/Translation');
 const { countryLanguageMap } = require('../../data/countryLanguageMap');
 const { countryNameToCode } = require('../../data/countryCodeMapping');
 const deepl = require('deepl-node');
 
-// Configuración de DeepL
+/**
+ * Configuración del traductor DeepL
+ * @type {deepl.Translator|null}
+ */
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 const translator = DEEPL_API_KEY ? new deepl.Translator(DEEPL_API_KEY) : null;
 
 // ========== DETECCIÓN DE IDIOMA AUTOMÁTICA ==========
-// Usa la API de Google Translate para detectar el idioma (gratuita, sin API key)
-// Soporta TODOS los idiomas automáticamente sin diccionarios manuales
 
+/**
+ * Detecta el idioma de un texto usando la API gratuita de Google Translate.
+ * No requiere autenticación y soporta todos los idiomas disponibles en Google Translate.
+ * 
+ * @async
+ * @function detectLanguageWithGoogle
+ * @param {string} text - Texto del cual detectar el idioma
+ * @returns {Promise<string|null>} Código ISO 639-1 del idioma detectado (ej: 'es', 'en', 'fr') o null si falla
+ * 
+ * @example
+ * const lang = await detectLanguageWithGoogle('Hello world');
+ * console.log(lang); // 'en'
+ */
 const detectLanguageWithGoogle = async (text) => {
     try {
         const fetch = require('node-fetch');
@@ -44,7 +67,19 @@ const detectLanguageWithGoogle = async (text) => {
     }
 };
 
-// Función principal de detección de idioma (usa Google como método principal)
+/**
+ * Función principal para detectar el idioma de un texto.
+ * Utiliza Google Translate como motor de detección.
+ * 
+ * @async
+ * @function detectLanguage
+ * @param {string} text - Texto a analizar
+ * @returns {Promise<string|null>} Código base del idioma (sin variantes regionales) o null
+ * 
+ * @example
+ * const lang = await detectLanguage('Bonjour le monde');
+ * console.log(lang); // 'fr'
+ */
 const detectLanguage = async (text) => {
     try {
         const normalizedText = text.trim();
@@ -73,8 +108,19 @@ const detectLanguage = async (text) => {
     }
 };
 
-// --- FUNCIÓN MEJORADA ---
-// Encuentra todos los países donde el idioma de origen es oficial
+/**
+ * Obtiene la lista de países que deben ser bloqueados para traducción
+ * basado en el idioma fuente detectado. Bloquea países donde el idioma
+ * fuente es el idioma oficial para evitar traducciones sin sentido.
+ * 
+ * @function getBlockedCountriesBySourceLang
+ * @param {string} sourceLangCode - Código ISO del idioma fuente (ej: 'es', 'en', 'pt-BR')
+ * @returns {string[]} Array de códigos ISO Alpha-3 de países bloqueados
+ * 
+ * @example
+ * const blocked = getBlockedCountriesBySourceLang('es');
+ * console.log(blocked); // ['ESP', 'MEX', 'ARG', 'COL', ...]
+ */
 function getBlockedCountriesBySourceLang(sourceLangCode) {
     if (!sourceLangCode) return [];
     
@@ -90,14 +136,34 @@ function getBlockedCountriesBySourceLang(sourceLangCode) {
         .map(([countryCode]) => countryCode);
 }
 
-// Lista de idiomas soportados por DeepL
+/**
+ * Lista de códigos de idiomas soportados por la API de DeepL.
+ * Incluye variantes regionales como pt-BR (Portugués de Brasil) y zh-CN (Chino simplificado).
+ * 
+ * @constant {string[]}
+ */
 const DEEPL_SUPPORTED_LANGS = [
     'en', 'es', 'fr', 'de', 'it', 'pt', 'pt-BR', 'ru', 'ja', 'zh', 'zh-CN',
     'nl', 'pl', 'tr', 'sv', 'da', 'fi', 'el', 'cs', 'ro', 'hu', 'sk', 'bg',
     'uk', 'id', 'ko', 'no', 'et', 'lv', 'lt', 'sl', 'ar'
 ];
 
-// Función para traducir con Google Translate (fallback gratuito)
+/**
+ * Traduce texto usando la API gratuita de Google Translate.
+ * Se usa como fallback cuando DeepL no está disponible o no soporta el idioma.
+ * 
+ * @async
+ * @function translateWithGoogleFallback
+ * @param {string} text - Texto a traducir
+ * @param {string} sourceLang - Código del idioma fuente
+ * @param {string} targetLang - Código del idioma destino
+ * @returns {Promise<string>} Texto traducido
+ * @throws {Error} Si la traducción falla o la respuesta es inválida
+ * 
+ * @example
+ * const translated = await translateWithGoogleFallback('Hello', 'en', 'es');
+ * console.log(translated); // 'Hola'
+ */
 const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
     console.log(`[Google Fallback] Traduciendo de ${sourceLang} a ${targetLang}`);
     console.log(`[Google Fallback] Texto original: "${text}"`);
@@ -128,7 +194,22 @@ const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
     }
 };
 
-// Función para realizar la traducción con DeepL
+/**
+ * Traduce texto usando la API de DeepL (servicio premium de mayor calidad).
+ * Requiere API key válida configurada en DEEPL_API_KEY.
+ * 
+ * @async
+ * @function translateWithDeepL
+ * @param {string} text - Texto a traducir
+ * @param {string} sourceLang - Código del idioma fuente
+ * @param {string} targetLang - Código del idioma destino
+ * @returns {Promise<string>} Texto traducido con alta calidad
+ * @throws {Error} Si la API key es inválida, se excede la cuota, o el idioma no está soportado
+ * 
+ * @example
+ * const translated = await translateWithDeepL('Hello world', 'en', 'es');
+ * console.log(translated); // 'Hola mundo'
+ */
 const translateWithDeepL = async (text, sourceLang, targetLang) => {
     if (!translator) {
         throw new Error('UNSUPPORTED_LANGUAGE'); // Forzar uso de Google Fallback
@@ -184,7 +265,22 @@ const translateWithDeepL = async (text, sourceLang, targetLang) => {
     }
 };
 
-// Función híbrida que intenta DeepL primero, luego Google Fallback
+/**
+ * Función híbrida de traducción que selecciona automáticamente el mejor servicio.
+ * Intenta usar DeepL primero (mayor calidad) y usa Google Translate como fallback.
+ * 
+ * @async
+ * @function translateText
+ * @param {string} text - Texto a traducir
+ * @param {string} sourceLang - Código del idioma fuente
+ * @param {string} targetLang - Código del idioma destino
+ * @returns {Promise<string>} Texto traducido
+ * @throws {Error} Si ambos servicios fallan
+ * 
+ * @example
+ * const result = await translateText('Hello', 'en', 'ja');
+ * console.log(result); // 'こんにちは'
+ */
 const translateText = async (text, sourceLang, targetLang) => {
     // Verificar si ambos idiomas están soportados por DeepL
     const sourceSupported = DEEPL_SUPPORTED_LANGS.includes(sourceLang);
@@ -206,10 +302,26 @@ const translateText = async (text, sourceLang, targetLang) => {
     }
 };
 
-/* --- ENDPOINT NUEVO opcional: consulta de países bloqueados --- */
-// @route   POST /translate/blocked-countries
-// @desc    Devuelve la lista de países bloqueados para una frase
-// @access  Public
+/**
+ * @route   POST /api/translate/blocked-countries
+ * @desc    Devuelve la lista de países bloqueados para una frase según su idioma detectado
+ * @access  Public
+ * @param   {Object} req.body
+ * @param   {string} req.body.text - Texto para detectar idioma y determinar bloqueos
+ * @returns {Object} JSON con lista de países bloqueados, código de idioma y mensaje
+ * 
+ * @example
+ * // Request
+ * POST /api/translate/blocked-countries
+ * { "text": "Hola mundo" }
+ * 
+ * // Response
+ * {
+ *   "blockedCountries": ["ESP", "MEX", "ARG"],
+ *   "sourceLang": "es",
+ *   "message": "OK"
+ * }
+ */
 router.post('/blocked-countries', async (req, res) => {
     const { text } = req.body;
     if (!text || typeof text !== 'string') {
@@ -240,10 +352,37 @@ router.post('/blocked-countries', async (req, res) => {
     }
 });
 
-/* --- ENDPOINT PRINCIPAL MODIFICADO --- */
-// @route   POST /translate
-// @desc    Translate text for a given country
-// @access  Public
+/**
+ * @route   POST /api/translate
+ * @desc    Traduce un texto al idioma oficial del país seleccionado
+ * @access  Public
+ * @param   {Object} req.body
+ * @param   {string} req.body.text - Texto a traducir (máximo 500 caracteres)
+ * @param   {Object} req.body.geo - Información geográfica del país destino
+ * @param   {Object} req.body.geo.properties - Propiedades del país
+ * @param   {string} req.body.geo.properties.name - Nombre del país
+ * @returns {Object} JSON con traducción, idioma, país y código de idioma
+ * 
+ * @example
+ * // Request
+ * POST /api/translate
+ * {
+ *   "text": "Hello world",
+ *   "geo": {
+ *     "properties": { "name": "Spain" }
+ *   }
+ * }
+ * 
+ * // Response
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": false
+ * }
+ */
 router.post('/', async (req, res) => {
     try {
         const { text, geo } = req.body;

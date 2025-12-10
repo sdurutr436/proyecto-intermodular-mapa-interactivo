@@ -1,7 +1,19 @@
-// src/i18n/translations.ts
+/**
+ * @file translations.ts
+ * @description Sistema de internacionalización (i18n) de la aplicación.
+ * Contiene traducciones en español e inglés para toda la interfaz.
+ * @module i18n/translations
+ */
 
+/**
+ * Idiomas soportados por la aplicación
+ */
 export type Language = 'en' | 'es';
 
+/**
+ * Interface que define todas las claves de traducción disponibles.
+ * Cada clave corresponde a un texto traducible en la interfaz.
+ */
 export interface Translations {
   // Header
   translation: string;

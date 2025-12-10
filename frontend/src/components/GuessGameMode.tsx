@@ -1,4 +1,9 @@
-// src/components/GuessGameMode.tsx
+/**
+ * @file GuessGameMode.tsx
+ * @description Modo de juego "Adivina el idioma". Muestra una frase en un idioma aleatorio
+ * y el jugador debe hacer clic en un país donde se hable ese idioma.
+ * @module components/GuessGameMode
+ */
 
 import React, { useState, useCallback } from 'react';
 import WorldMap from './WorldMap';
@@ -8,11 +13,19 @@ import { useLanguage } from '../contexts/LanguageContext';
 import type { GamePhrase } from '../types';
 import '../styles/GuessGameMode.css';
 
+/**
+ * Props del componente GuessGameMode
+ */
 interface GuessGameModeProps {
+  /** Frase actual del juego con su idioma */
   currentPhrase: GamePhrase | null;
+  /** Indica si se está cargando una nueva frase */
   isLoading: boolean;
+  /** Estadísticas actuales del juego */
   stats: { attempts: number; correct: number; lives: number };
+  /** Callback ejecutado cuando el jugador hace una adivinanza */
   onCountryGuess: (isCorrect: boolean, countryName: string) => void;
+  /** Indica si se debe mostrar la pista (continente) */
   showHint: boolean;
 }
 

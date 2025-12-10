@@ -1,3 +1,21 @@
+/**
+ * @file countryLanguageMap.js
+ * @description Mapeo de códigos de países (ISO Alpha-3) a sus idiomas oficiales principales.
+ * Usado para determinar el idioma de traducción según el país seleccionado.
+ * @module data/countryLanguageMap
+ */
+
+/**
+ * Diccionario de países a sus idiomas oficiales.
+ * 
+ * @constant {Object.<string, {code: string, name: string}>}
+ * @property {string} code - Código ISO 639-1 del idioma
+ * @property {string} name - Nombre del idioma en inglés
+ * 
+ * @example
+ * countryLanguageMap['ESP'] // { code: 'es', name: 'Spanish' }
+ * countryLanguageMap['JPN'] // { code: 'ja', name: 'Japanese' }
+ */
 const countryLanguageMap = {
     AFG: { code: 'ps', name: 'Pashto' },
     ALB: { code: 'sq', name: 'Albanian' },

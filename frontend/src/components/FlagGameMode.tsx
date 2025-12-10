@@ -1,4 +1,9 @@
-// src/components/FlagGameMode.tsx
+/**
+ * @file FlagGameMode.tsx
+ * @description Modo de juego "Adivina la bandera". Muestra la bandera de un país aleatorio
+ * y el jugador debe hacer clic en el país correcto en el mapa.
+ * @module components/FlagGameMode
+ */
 
 import React, { useState, useCallback } from 'react';
 import WorldMap from './WorldMap';
@@ -8,11 +13,19 @@ import { useLanguage } from '../contexts/LanguageContext';
 import type { FlagQuestion } from '../types';
 import '../styles/FlagGameMode.css';
 
+/**
+ * Props del componente FlagGameMode
+ */
 interface FlagGameModeProps {
+  /** Pregunta actual con la bandera y datos del país */
   currentFlag: FlagQuestion | null;
+  /** Indica si se está cargando una nueva pregunta */
   isLoading: boolean;
+  /** Estadísticas actuales del juego */
   stats: { attempts: number; correct: number; lives: number };
+  /** Callback ejecutado cuando el jugador hace una adivinanza */
   onCountryGuess: (isCorrect: boolean, countryName: string) => void;
+  /** Indica si se debe mostrar la pista (continente) */
   showHint: boolean;
 }
 

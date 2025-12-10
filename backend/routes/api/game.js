@@ -1,4 +1,10 @@
-// server/routes/api/game.js
+/**
+ * @file game.js
+ * @description Rutas de la API para el modo de juego del mapa interactivo.
+ * Incluye endpoints para obtener frases/banderas aleatorias, validar respuestas,
+ * gestionar estadísticas de juego y consultar el leaderboard.
+ * @module routes/api/game
+ */
 
 const express = require('express');
 const router = express.Router();

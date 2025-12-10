@@ -1,4 +1,9 @@
-// src/App.tsx
+/**
+ * @file App.tsx
+ * @description Componente raíz de la aplicación. Maneja la navegación entre modos de juego,
+ * el estado global de la aplicación, modo oscuro, traducción y estadísticas de juego.
+ * @module components/App
+ */
 
 import React, { useState, useCallback, useEffect } from 'react';
 import WorldMap from './components/WorldMap';

@@ -1,12 +1,30 @@
-// src/services/gameService.ts
+/**
+ * @file gameService.ts
+ * @description Servicio para comunicación con la API de juegos del backend.
+ * Maneja generación de preguntas, validación de respuestas y estadísticas.
+ * @module services/gameService
+ */
 
 import type { GamePhrase, FlagQuestion } from '../types';
 
+/**
+ * URL base de la API backend
+ * @constant
+ */
 // @ts-ignore - Vite environment variable
 const API_URL = import.meta.env?.VITE_API_URL || '';
 
 /**
- * Genera una frase aleatoria en un idioma aleatorio desde el backend
+ * Genera una frase aleatoria en un idioma aleatorio desde el backend.
+ * 
+ * @async
+ * @returns {Promise<GamePhrase>} Frase aleatoria con idioma y códigos de países válidos
+ * @throws {Error} Si el servidor no responde o devuelve error
+ * 
+ * @example
+ * const phrase = await generateRandomPhrase();
+ * console.log(phrase.text); // 'Bonjour'
+ * console.log(phrase.languageName); // 'French'
  */
 export const generateRandomPhrase = async (): Promise<GamePhrase> => {
   try {
@@ -25,7 +43,16 @@ export const generateRandomPhrase = async (): Promise<GamePhrase> => {
 };
 
 /**
- * Genera una pregunta aleatoria de bandera desde el backend
+ * Genera una pregunta aleatoria de bandera desde el backend.
+ * 
+ * @async
+ * @returns {Promise<FlagQuestion>} Pregunta con bandera, código de país y metadata
+ * @throws {Error} Si el servidor no responde o devuelve error
+ * 
+ * @example
+ * const flag = await generateRandomFlag();
+ * console.log(flag.flagUrl); // 'https://flagcdn.com/w320/es.png'
+ * console.log(flag.countryName); // 'Spain'
  */
 export const generateRandomFlag = async (): Promise<FlagQuestion> => {
   try {
@@ -44,7 +71,18 @@ export const generateRandomFlag = async (): Promise<FlagQuestion> => {
 };
 
 /**
- * Verifica si el país seleccionado es correcto para la bandera usando el backend
+ * Verifica si el país seleccionado es correcto para la bandera mostrada.
+ * 
+ * @async
+ * @param {string} targetCountryCode - Código ISO del país correcto
+ * @param {string} guessedCountryCode - Código ISO del país seleccionado por el jugador
+ * @returns {Promise<{isCorrect: boolean, correctCountryName: string}>} Resultado de validación
+ * @throws {Error} Si el servidor no responde o devuelve error
+ * 
+ * @example
+ * const result = await checkFlagGuess('ESP', 'FRA');
+ * console.log(result.isCorrect); // false
+ * console.log(result.correctCountryName); // 'Spain'
  */
 export const checkFlagGuess = async (
   targetCountryCode: string, 
@@ -75,7 +113,18 @@ export const checkFlagGuess = async (
 };
 
 /**
- * Verifica si el país seleccionado es correcto para el idioma usando el backend
+ * Verifica si el país seleccionado es correcto para el idioma mostrado.
+ * 
+ * @async
+ * @param {string} languageCode - Código ISO del idioma de la frase
+ * @param {string} guessedCountryCode - Código ISO del país seleccionado por el jugador
+ * @returns {Promise<{isCorrect: boolean, languageName: string, validCountryCodes: string[]}>} Resultado con validación y países válidos
+ * @throws {Error} Si el servidor no responde o devuelve error
+ * 
+ * @example
+ * const result = await checkCountryGuess('es', 'MEX');
+ * console.log(result.isCorrect); // true
+ * console.log(result.languageName); // 'Spanish'
  */
 export const checkCountryGuess = async (
   languageCode: string, 

@@ -1,16 +1,36 @@
+/**
+ * @file TranslationModal.tsx
+ * @description Modal que muestra el resultado de una traducción.
+ * Incluye el texto original, la traducción y estados de carga/error.
+ * @module components/TranslationModal
+ */
+
 import React from 'react';
 import type { TranslationResult } from '../types';
 import '../styles/TranslationModal.css';
 
+/**
+ * Props del componente TranslationModal
+ */
 interface TranslationModalProps {
+    /** Nombre del país al que se tradujo el texto */
     countryName: string;
+    /** Texto original ingresado por el usuario */
     originalText: string;
+    /** Resultado de la traducción (null si aún no hay resultado) */
     result: TranslationResult | null;
+    /** Indica si la traducción está en proceso */
     isLoading: boolean;
+    /** Mensaje de error si la traducción falló */
     error: string | null;
+    /** Callback para cerrar el modal */
     onClose: () => void;
 }
 
+/**
+ * Componente spinner de carga animado
+ * @component
+ */
 const Spinner: React.FC = () => (
     <div className="spinner"></div>
 );

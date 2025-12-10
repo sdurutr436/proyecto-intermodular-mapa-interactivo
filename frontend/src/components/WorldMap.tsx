@@ -1,3 +1,10 @@
+/**
+ * @file WorldMap.tsx
+ * @description Componente interactivo de mapa mundial con zoom, pan y selección de países.
+ * Utiliza react-simple-maps para renderizar un mapa vectorial con soporte para países bloqueados.
+ * @module components/WorldMap
+ */
+
 import React, { memo, useState } from 'react';
 import {
   ComposableMap,
@@ -6,18 +13,28 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 import '../styles/WorldMap.css';
-import { countryNameToCode } from '../data/countryCodeMapping'; // Mapeo nombre país → código ISO para rayado
-import { countryColors } from '../data/countryColors'; // Colores únicos para cada país
+import { countryNameToCode } from '../data/countryCodeMapping';
+import { countryColors } from '../data/countryColors';
 import { useLanguage } from '../contexts/LanguageContext';
 
+/**
+ * URL del atlas mundial en formato TopoJSON
+ * @constant
+ */
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 import { Feature, GeometryObject } from 'geojson';
 
+/**
+ * Props del componente WorldMap
+ */
 interface WorldMapProps {
+  /** Callback ejecutado cuando se hace clic en un país */
   onCountryClick: (geo: Feature<GeometryObject>) => void;
-  blockedCountries?: string[]; // Array de países bloqueados (códigos ISO)
-  isGameMode?: boolean; // Indica si estamos en modo de juego
+  /** Array de códigos ISO Alpha-3 de países bloqueados (se muestran con patrón de rayas) */
+  blockedCountries?: string[];
+  /** Indica si el mapa está en modo de juego (afecta el estilo visual) */
+  isGameMode?: boolean;
 }
 
 const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = [], isGameMode = false }) => {
