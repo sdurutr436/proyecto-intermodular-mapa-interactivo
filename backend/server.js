@@ -38,6 +38,21 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 /**
+ * Health check endpoint para Docker healthcheck y monitoreo
+ * @route GET /health
+ * @returns {200} - Servidor funcionando correctamente
+ * @returns {500} - Error en el servidor
+ */
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+/**
  * Registro de rutas de la API
  * Todas las rutas están bajo el prefijo /api
  */
