@@ -7,12 +7,16 @@
  * @module routes/api/translate
  */
 
+require("../../instrument.js");
 const express = require('express');
+const Sentry = require("@sentry/node");
 const router = express.Router();
 const Translation = require('../../models/Translation');
 const { countryLanguageMap } = require('../../data/countryLanguageMap');
 const { countryNameToCode } = require('../../data/countryCodeMapping');
 const deepl = require('deepl-node');
+
+const app = express();
 
 /**
  * Configuración del traductor DeepL
@@ -702,6 +706,23 @@ router.post('/', async (req, res) => {
             timestamp: new Date().toISOString()
         });
     }
+});
+
+/**
+ * @route   GET /api/translate/test-error
+ * @method  GET
+ * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
+ *          Esta ruta NO debe usarse en producción.
+ * @access  Public
+ * 
+ * @returns {500} Internal Server Error - Error capturado por Sentry
+ * 
+ * @example Request
+ * GET /api/translate/test-error
+ */
+
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
 });
 
 module.exports = router;

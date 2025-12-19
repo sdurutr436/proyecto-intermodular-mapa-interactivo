@@ -6,10 +6,14 @@
  * @module routes/api/game
  */
 
-const express = require('express');
+require("../../instrument.js")
+const express = require("express");
 const router = express.Router();
 const phrasesDatabase = require('../../data/phrasesDatabase');
 const { countriesDatabase, getFlagUrl } = require('../../data/countriesDatabase');
+const Sentry = require("@sentry/node");
+
+const app = express();
 
 /**
  * @route   GET /api/game/phrase
@@ -616,6 +620,23 @@ router.get('/leaderboard', async (req, res) => {
     console.error('Error al obtener leaderboard:', error);
     res.status(500).json({ error: 'Error interno del servidor al obtener leaderboard' });
   }
+});
+
+/**
+ * @route   GET /api/game/test-error
+ * @method  GET
+ * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
+ *          Esta ruta NO debe usarse en producción.
+ * @access  Public
+ * 
+ * @returns {500} Internal Server Error - Error capturado por Sentry
+ * 
+ * @example Request
+ * GET /api/game/test-error
+ */
+
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
 });
 
 module.exports = router;
