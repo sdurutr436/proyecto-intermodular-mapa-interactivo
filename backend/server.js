@@ -10,6 +10,8 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 /**
  * Instancia principal de la aplicación Express
@@ -19,6 +21,23 @@ const app = express();
 
 // Connect to Database
 connectDB();
+
+/**
+ * Configuración de seguridad con Helmet.js
+ * Añade varios headers HTTP para proteger contra vulnerabilidades comunes
+ * @middleware helmet
+ */
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+}));
 
 /**
  * Configuración de CORS para permitir peticiones desde el frontend
@@ -36,6 +55,35 @@ const corsOptions = {
 // Init Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+
+/**
+ * Configuración de rate limiting
+ * Limita el número de peticiones desde una misma IP
+ * @middleware rateLimit
+ */
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 500, // Máximo 500 peticiones por ventana (apropiado para juegos interactivos)
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true, // Return rate limit info in `RateLimit-*` headers
+  legacyHeaders: false, // Disable `X-RateLimit-*` headers
+});
+
+// Aplicar rate limiting a todas las rutas
+app.use(limiter);
+
+/**
+ * Rate limiting específico para rutas de traducción (más estricto)
+ * @middleware translateLimiter
+ */
+const translateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 200, // Máximo 200 traducciones por ventana
+  message: 'Too many translation requests, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: false,
+});
 
 /**
  * Health check endpoint para Docker healthcheck y monitoreo
@@ -56,7 +104,7 @@ app.get('/health', (req, res) => {
  * Registro de rutas de la API
  * Todas las rutas están bajo el prefijo /api
  */
-app.use('/api/translate', require('./routes/api/translate'));
+app.use('/api/translate', translateLimiter, require('./routes/api/translate'));
 app.use('/api/game', require('./routes/api/game'));
 
 /**
