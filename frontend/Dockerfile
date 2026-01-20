@@ -21,7 +21,7 @@ COPY . .
 RUN npm run build
 
 # Etapa de producción
-FROM nginx:1.26-alpine
+FROM nginx:1.29-alpine
 
 # Copiar la configuración de nginx
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
