@@ -6,10 +6,14 @@
  * @module routes/api/game
  */
 
-const express = require('express');
+require("../../instrument.js")
+const express = require("express");
 const router = express.Router();
 const phrasesDatabase = require('../../data/phrasesDatabase');
 const { countriesDatabase, getFlagUrl } = require('../../data/countriesDatabase');
+const Sentry = require("@sentry/node");
+
+const app = express();
 
 /**
  * @route   GET /api/game/phrase
@@ -43,6 +47,11 @@ const { countriesDatabase, getFlagUrl } = require('../../data/countriesDatabase'
  * }
  */
 router.get('/phrase', async (req, res) => {
+  const transaction = Sentry.startTransaction({
+    op: "game.getPhrase",
+    name: "Get Random Phrase",
+  });
+
   try {
     // Obtener lista de idiomas disponibles
     const languages = Object.keys(phrasesDatabase);
@@ -73,7 +82,15 @@ router.get('/phrase', async (req, res) => {
     res.json(response);
   } catch (error) {
     console.error('Error al generar frase:', error);
+    Sentry.captureException(error, {
+      tags: {
+        endpoint: '/api/game/phrase',
+        operation: 'getPhrase',
+      },
+    });
     res.status(500).json({ error: 'Error interno del servidor al generar frase' });
+  } finally {
+    transaction.finish();
   }
 });
 
@@ -109,6 +126,11 @@ router.get('/phrase', async (req, res) => {
  * }
  */
 router.get('/flag', async (req, res) => {
+  const transaction = Sentry.startTransaction({
+    op: "game.getFlag",
+    name: "Get Random Flag",
+  });
+
   try {
     // Obtener lista de países disponibles
     const countryCodes = Object.keys(countriesDatabase);
@@ -137,7 +159,15 @@ router.get('/flag', async (req, res) => {
     res.json(response);
   } catch (error) {
     console.error('Error al generar bandera:', error);
+    Sentry.captureException(error, {
+      tags: {
+        endpoint: '/api/game/flag',
+        operation: 'getFlag',
+      },
+    });
     res.status(500).json({ error: 'Error interno del servidor al generar bandera' });
+  } finally {
+    transaction.finish();
   }
 });
 
@@ -616,6 +646,23 @@ router.get('/leaderboard', async (req, res) => {
     console.error('Error al obtener leaderboard:', error);
     res.status(500).json({ error: 'Error interno del servidor al obtener leaderboard' });
   }
+});
+
+/**
+ * @route   GET /api/game/test-error
+ * @method  GET
+ * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
+ *          Esta ruta NO debe usarse en producción.
+ * @access  Public
+ * 
+ * @returns {500} Internal Server Error - Error capturado por Sentry
+ * 
+ * @example Request
+ * GET /api/game/test-error
+ */
+
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
 });
 
 module.exports = router;

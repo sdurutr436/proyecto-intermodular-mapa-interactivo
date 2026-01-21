@@ -14,6 +14,7 @@ import FlagGameMode from './components/FlagGameMode';
 import GameOverModal from './components/GameOverModal';
 import LandingPage from './components/LandingPage';
 import AppLogo from './components/AppLogo';
+import ErrorBoundary from './components/ErrorBoundary';
 import { translateText, getBlockedCountries } from './services/translationService';
 import { generateRandomPhrase, generateRandomFlag } from './services/gameService';
 import { countryNameToCode } from './data/countryCodeMapping';
@@ -204,15 +205,18 @@ const App: React.FC = () => {
   // Mostrar landing page si es la primera visita
   if (showLanding) {
     return (
-      <LandingPage 
-        onStart={startFromLanding}
-        isDarkMode={isDarkMode}
-      />
+      <ErrorBoundary>
+        <LandingPage 
+          onStart={startFromLanding}
+          isDarkMode={isDarkMode}
+        />
+      </ErrorBoundary>
     );
   }
 
   return (
-    <div className="app-container">
+    <ErrorBoundary>
+      <div className="app-container">
       {/* Header fijo con 3 columnas */}
       <header className="app-header">
         <div className="header-left">
@@ -524,7 +528,7 @@ const App: React.FC = () => {
           </div>
         )}
       </main>
-    </div>
+    </ErrorBoundary>
   );
 };
 

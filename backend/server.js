@@ -6,12 +6,16 @@
  * @version 1.0.0
  */
 
+// IMPORTANTE: instrument.js debe ser el primer require para que Sentry capture todos los errores
+require('./instrument.js');
+
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const Sentry = require('@sentry/node');
 
 /**
  * Instancia principal de la aplicación Express
@@ -106,6 +110,12 @@ app.get('/health', (req, res) => {
  */
 app.use('/api/translate', translateLimiter, require('./routes/api/translate'));
 app.use('/api/game', require('./routes/api/game'));
+
+/**
+ * Error handler de Sentry - DEBE ir después de todas las rutas
+ * Captura y reporta errores no manejados a Sentry
+ */
+Sentry.setupExpressErrorHandler(app);
 
 /**
  * Puerto en el que el servidor escuchará

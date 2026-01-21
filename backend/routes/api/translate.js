@@ -7,12 +7,16 @@
  * @module routes/api/translate
  */
 
+require("../../instrument.js");
 const express = require('express');
+const Sentry = require("@sentry/node");
 const router = express.Router();
 const Translation = require('../../models/Translation');
 const { countryLanguageMap } = require('../../data/countryLanguageMap');
 const { countryNameToCode } = require('../../data/countryCodeMapping');
 const deepl = require('deepl-node');
+
+const app = express();
 
 /**
  * Configuración del traductor DeepL
@@ -530,13 +534,18 @@ router.post('/blocked-countries', async (req, res) => {
  * }
  */
 router.post('/', async (req, res) => {
-    try {
-        const { text, geo } = req.body;
-        console.log('Solicitud de traducción recibida:', {
-            text,
-            country: geo?.properties?.name,
-            timestamp: new Date().toISOString()
-        });
+  const transaction = Sentry.startTransaction({
+    op: "translate.post",
+    name: "Translate Text",
+  });
+
+  try {
+    const { text, geo } = req.body;
+    console.log('Solicitud de traducción recibida:', {
+      text,
+      country: geo?.properties?.name,
+      timestamp: new Date().toISOString()
+    });
 
         // Validaciones
         if (!text || typeof text !== 'string') {
@@ -676,6 +685,15 @@ router.post('/', async (req, res) => {
             stack: error.stack,
             timestamp: new Date().toISOString()
         });
+        
+        // Capturar excepción en Sentry
+        Sentry.captureException(error, {
+          tags: {
+            endpoint: '/api/translate',
+            operation: 'translate',
+          },
+        });
+
         let statusCode = 500;
         let errorMessage = 'Error interno del servidor';
         let errorDetails = error.message;
@@ -701,7 +719,26 @@ router.post('/', async (req, res) => {
             details: errorDetails,
             timestamp: new Date().toISOString()
         });
+    } finally {
+        transaction.finish();
     }
+});
+
+/**
+ * @route   GET /api/translate/test-error
+ * @method  GET
+ * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
+ *          Esta ruta NO debe usarse en producción.
+ * @access  Public
+ * 
+ * @returns {500} Internal Server Error - Error capturado por Sentry
+ * 
+ * @example Request
+ * GET /api/translate/test-error
+ */
+
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
 });
 
 module.exports = router;

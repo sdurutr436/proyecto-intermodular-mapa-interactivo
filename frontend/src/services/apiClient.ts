@@ -6,6 +6,7 @@
  */
 
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import * as Sentry from '@sentry/react';
 
 /**
  * URL base de la API backend obtenida de variables de entorno
@@ -72,6 +73,26 @@ apiClient.interceptors.response.use(
     // Logging de errores
     if (import.meta.env.DEV) {
       console.error('[API Response Error]', error.response?.status, error.message);
+    }
+
+    // Capturar error en Sentry
+    if (error.response) {
+      Sentry.captureException(error, {
+        tags: {
+          errorType: 'http_error',
+          httpStatus: error.response.status,
+          endpoint: error.config?.url,
+          method: error.config?.method?.toUpperCase(),
+        },
+        level: error.response.status >= 500 ? 'error' : 'warning',
+      });
+    } else if (error.request) {
+      Sentry.captureException(error, {
+        tags: {
+          errorType: 'network_error',
+        },
+        level: 'warning',
+      });
     }
 
     // Manejo de errores específicos
