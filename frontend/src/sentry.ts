@@ -23,13 +23,8 @@ export const initSentry = () => {
     environment: import.meta.env.MODE,
     tracesSampleRate: import.meta.env.PROD ? 1.0 : 0.1,
     integrations: [
-      new Sentry.BrowserTracing({
-        tracingOrigins: [
-          /^\//,
-          /^https?:\/\/(localhost:5000|.*\.railway\.app)/,
-        ],
-      }),
-      new Sentry.Replay({
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration({
         maskAllText: true,
         blockAllMedia: true,
       }),
