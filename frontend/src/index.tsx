@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { initSentry } from './sentry';
 import './styles/index.css';
+
+// Inicializar Sentry ANTES de renderizar
+initSentry();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

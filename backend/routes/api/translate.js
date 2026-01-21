@@ -534,13 +534,18 @@ router.post('/blocked-countries', async (req, res) => {
  * }
  */
 router.post('/', async (req, res) => {
-    try {
-        const { text, geo } = req.body;
-        console.log('Solicitud de traducción recibida:', {
-            text,
-            country: geo?.properties?.name,
-            timestamp: new Date().toISOString()
-        });
+  const transaction = Sentry.startTransaction({
+    op: "translate.post",
+    name: "Translate Text",
+  });
+
+  try {
+    const { text, geo } = req.body;
+    console.log('Solicitud de traducción recibida:', {
+      text,
+      country: geo?.properties?.name,
+      timestamp: new Date().toISOString()
+    });
 
         // Validaciones
         if (!text || typeof text !== 'string') {
@@ -680,6 +685,15 @@ router.post('/', async (req, res) => {
             stack: error.stack,
             timestamp: new Date().toISOString()
         });
+        
+        // Capturar excepción en Sentry
+        Sentry.captureException(error, {
+          tags: {
+            endpoint: '/api/translate',
+            operation: 'translate',
+          },
+        });
+
         let statusCode = 500;
         let errorMessage = 'Error interno del servidor';
         let errorDetails = error.message;
@@ -705,6 +719,8 @@ router.post('/', async (req, res) => {
             details: errorDetails,
             timestamp: new Date().toISOString()
         });
+    } finally {
+        transaction.finish();
     }
 });
 
