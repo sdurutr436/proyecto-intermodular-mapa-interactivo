@@ -47,11 +47,6 @@ const app = express();
  * }
  */
 router.get('/phrase', async (req, res) => {
-  const transaction = Sentry.startTransaction({
-    op: "game.getPhrase",
-    name: "Get Random Phrase",
-  });
-
   try {
     // Obtener lista de idiomas disponibles
     const languages = Object.keys(phrasesDatabase);
@@ -89,8 +84,6 @@ router.get('/phrase', async (req, res) => {
       },
     });
     res.status(500).json({ error: 'Error interno del servidor al generar frase' });
-  } finally {
-    transaction.finish();
   }
 });
 
@@ -126,11 +119,6 @@ router.get('/phrase', async (req, res) => {
  * }
  */
 router.get('/flag', async (req, res) => {
-  const transaction = Sentry.startTransaction({
-    op: "game.getFlag",
-    name: "Get Random Flag",
-  });
-
   try {
     // Obtener lista de países disponibles
     const countryCodes = Object.keys(countriesDatabase);
@@ -166,8 +154,6 @@ router.get('/flag', async (req, res) => {
       },
     });
     res.status(500).json({ error: 'Error interno del servidor al generar bandera' });
-  } finally {
-    transaction.finish();
   }
 });
 

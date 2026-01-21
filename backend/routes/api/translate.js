@@ -534,11 +534,6 @@ router.post('/blocked-countries', async (req, res) => {
  * }
  */
 router.post('/', async (req, res) => {
-  const transaction = Sentry.startTransaction({
-    op: "translate.post",
-    name: "Translate Text",
-  });
-
   try {
     const { text, geo } = req.body;
     console.log('Solicitud de traducción recibida:', {
@@ -719,8 +714,6 @@ router.post('/', async (req, res) => {
             details: errorDetails,
             timestamp: new Date().toISOString()
         });
-    } finally {
-        transaction.finish();
     }
 });
 
