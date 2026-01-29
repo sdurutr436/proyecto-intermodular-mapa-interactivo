@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><div align="center">
+<p><a id="inicio"></a>
+<img src="./docs/img/logo.png" alt="Logo Transkarte"></p>
+<h3><em>Explora el mundo aprendiendo idiomas</em></h3>
+<p><strong>Aplicación web educativa que combina geografía y traducción interactiva</strong></p>
+<!-- BADGES DE ESTADO -->
+<p><img src="https://img.shields.io/github/last-commit/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square&amp;color=blueviolet" alt="GitHub last commit">
+<img src="https://img.shields.io/github/repo-size/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square" alt="GitHub repo size">
+<img src="https://img.shields.io/github/actions/workflow/status/sdurutr436/ProyectoIntermodular-MapaInteractivo/jsdoc-generate.yml?style=flat-square&amp;label=CI%20Build" alt="GitHub Actions Workflow Status">
+<a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/"><img src="https://img.shields.io/badge/docs-TypeDoc-blue?style=flat-square" alt="Documentación"></a></p>
+</div>
+<hr>
+<h2>📖 Sobre el Proyecto</h2>
+<p><strong>Transkarte</strong> es una aplicación web educativa que transforma el aprendizaje de idiomas en una experiencia interactiva y visual. A través de un mapa mundial interactivo, los usuarios pueden:</p>
+<ul>
+<li>🗺️ <strong>Explorar</strong> países con visualización interactiva y efectos visuales</li>
+<li>🔤 <strong>Traducir</strong> palabras y frases al idioma oficial de cada país</li>
+<li>🎮 <strong>Jugar</strong> modos educativos para aprender geografía e idiomas</li>
+<li>🌍 <strong>Descubrir</strong> más de 150 países y sus lenguas oficiales</li>
+</ul>
+<p>La aplicación combina <strong>React</strong>, <strong>TypeScript</strong>, <strong>Node.js</strong> y <strong>MongoDB</strong> para ofrecer una experiencia fluida y educativa. Desarrollada con Docker para facilitar el despliegue y sin necesidad de registro de usuarios, Transkarte pone la privacidad y la simplicidad en primer lugar.</p>
+<h2>📋 Tabla de Contenidos</h2>
+<ul>
+<li><a href="#%EF%B8%8F-stack-tecnol%C3%B3gico">🛠️ Stack Tecnológico</a></li>
+<li><a href="#-demo-en-producci%C3%B3n">🚀 Demo en Producción</a></li>
+<li><a href="#-capturas-de-pantalla">📸 Capturas de Pantalla</a></li>
+<li><a href="#-instalaci%C3%B3n-y-desarrollo-local">💻 Instalación y Desarrollo Local</a></li>
+<li><a href="#-equipo-de-desarrollo">👥 Equipo de Desarrollo</a></li>
+<li><a href="#-documentaci%C3%B3n">📚 Documentación</a></li>
+<li><a href="#-estado-del-proyecto">📊 Estado del Proyecto</a></li>
+<li><a href="#-api-backend">🔌 API Backend</a></li>
+<li><a href="#-licencia">📄 Licencia</a></li>
+</ul>
+<hr>
+<h2>📊 Estado del Proyecto</h2>
+<h3>✅ Proyecto Completado</h3>
+<p><strong>Backend:</strong></p>
+<ul>
+<li>[x] MongoDB configurado en Docker</li>
+<li>[x] Modelos de datos (Translation, GameStats)</li>
+<li>[x] Sistema de traducción con DeepL + Google Translate fallback</li>
+<li>[x] Detección automática de idioma</li>
+<li>[x] Sistema de caché de traducciones</li>
+<li>[x] API de juegos (frases y banderas)</li>
+<li>[x] Mapeos de 150+ países e idiomas</li>
+</ul>
+<p><strong>Frontend:</strong></p>
+<ul>
+<li>[x] React 18 + TypeScript + Vite</li>
+<li>[x] Mapa interactivo mundial (react-simple-maps)</li>
+<li>[x] Modo Traducción: traduce al idioma del país clickeado</li>
+<li>[x] Modo Adivina el Idioma: reconoce frases en diferentes idiomas</li>
+<li>[x] Modo Adivina la Bandera: identifica países por su bandera</li>
+<li>[x] Sistema de vidas y estadísticas en tiempo real</li>
+<li>[x] Internacionalización (español/inglés)</li>
+<li>[x] Modo oscuro/claro</li>
+<li>[x] Landing page interactiva</li>
+<li>[x] Diseño responsive</li>
+<li>[x] Gestión de estado con Zustand (store centralizado con persistencia)</li>
+<li>[x] API HTTP con Axios (interceptores, manejo de errores, timeouts)</li>
+</ul>
+<p><strong>Infraestructura:</strong></p>
+<ul>
+<li>[x] Dockerización completa (frontend + backend + MongoDB)</li>
+<li>[x] Variables de entorno configuradas</li>
+<li>[x] CORS y seguridad básica</li>
+<li>[x] Script de seeding para datos iniciales de traducciones</li>
+</ul>
+<hr>
+<h2>🛠️ Stack Tecnológico</h2>
+<div align="center">
+<h3>Frontend</h3>
+<p><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&amp;logo=react&amp;logoColor=%2361DAFB" alt="React">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&amp;logo=typescript&amp;logoColor=white" alt="TypeScript">
+<img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&amp;logo=vite&amp;logoColor=white" alt="Vite">
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&amp;logo=css3&amp;logoColor=white" alt="CSS3">
+<img src="https://img.shields.io/badge/Zustand-%2320232a.svg?style=for-the-badge" alt="Zustand"></p>
+<h3>Backend &amp; Database</h3>
+<p><img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&amp;logo=node.js&amp;logoColor=white" alt="NodeJS">
+<img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&amp;logo=express&amp;logoColor=%2361DAFB" alt="Express.js">
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&amp;logo=mongodb&amp;logoColor=white" alt="MongoDB"></p>
+<h3>DevOps &amp; Tools</h3>
+<p><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&amp;logo=docker&amp;logoColor=white" alt="Docker">
+<img src="https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&amp;logo=sentry&amp;logoColor=white" alt="Sentry">
+<img src="https://img.shields.io/badge/Railway-131415?style=for-the-badge&amp;logo=railway&amp;logoColor=white" alt="Railway"></p>
+</div>
+<h3>Frontend Detalles</h3>
+<ul>
+<li><strong>react-simple-maps</strong> - Visualización de mapas SVG interactivos</li>
+<li><strong>Axios</strong> - Cliente HTTP con interceptores y manejo centralizado de errores</li>
+</ul>
+<h3>APIs Externas</h3>
+<ul>
+<li><strong>🔷 DeepL API</strong> - Traducción de alta calidad (principal)</li>
+<li><strong>🌐 Google Translate API</strong> - Traducción gratuita (fallback)</li>
+</ul>
+<hr>
+<h2>🚀 Demo en Producción</h2>
+<p><strong>URL de producción:</strong> <a href="https://transkarte.up.railway.app/">https://transkarte.up.railway.app/</a></p>
+<hr>
+<h2>📸 Capturas de Pantalla y Guía de Usuario</h2>
+<h3>🏠 Página de Inicio (Landing Page)</h3>
+<div align="center">
+  <img src="./docs/img/landing-page.png" alt="Landing Page" width="700" />
+</div>
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🌍 <strong>Ver presentación animada</strong> del proyecto con efectos visuales</li>
+<li>🎯 <strong>Elegir modo de uso</strong>: Traducción o Juego (2 modos)</li>
+<li>🌐 <strong>Cambiar idioma de interfaz</strong>: Español ↔️ Inglés (botón superior derecha)</li>
+<li>📖 <strong>Leer descripción</strong> de cada modo antes de empezar e información sobre nosotros</li>
+<li>🚀 <strong>Comenzar experiencia</strong> haciendo clic en cualquier tarjeta de modo</li>
+</ul>
+<hr>
+<h3>🗺️ Mapa Interactivo (Vista Principal)</h3>
+<div align="center">
+  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="700" />
+</div>
+<div align="center">
+  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="700" />
+</div>
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🖱️ <strong>Hacer hover sobre países</strong>: Ver efecto de resaltado visual</li>
+<li>🔍 <strong>Usar barra de búsqueda</strong>: Para saber como se dice una frase o palabra en un pais cuando el usuario lo clique</li>
+<li>✍️ <strong>Escribir texto</strong>: Introducir palabra o frase (máximo 500 caracteres)</li>
+<li>🚫 <strong>Ver bloqueo automático</strong>: Los países que hablan el idioma del texto aparecen en rojo</li>
+<li>🌍 <strong>Seleccionar país destino</strong>: Clic en cualquier país del mapa</li>
+<li>🎨 <strong>Navegar el mapa</strong>: Scroll para zoom, arrastrar para mover</li>
+<li>🔄 <strong>Ver traducción instantánea</strong>: Resultado en modal con animación</li>
+<li>💾 <strong>Caché automático</strong>: Traducciones repetidas son instantáneas (guardadas en BD)</li>
+<li>❌ <strong>Cerrar modal</strong>: Hacer clic fuera del modal o botón de cerrar</li>
+<li>🏠 <strong>Volver a la landing page</strong>: Botón &quot;i&quot; en esquina superior izquierda al lado del logo para volver a la página principal</li>
+<li>🌐 <strong>Cambiar idioma</strong>: Selector ES/EN en barra superior</li>
+<li>🌓 <strong>Cambiar tema</strong>: Icono de sol/luna en barra superior</li>
+</ul>
+<p><strong>Ejemplo de uso:</strong></p>
+<ol>
+<li>Escribe &quot;Hello world&quot; en el campo de texto</li>
+<li>Los países anglófonos (USA, UK, Australia) se bloquean automáticamente en rojo</li>
+<li>Haz clic en España → Aparece &quot;Hola mundo&quot;</li>
+<li>Haz clic en Francia → Aparece &quot;Bonjour le monde&quot;</li>
+</ol>
+<hr>
+<h3>🎮 Modo Juego: Adivina el Idioma</h3>
+<div align="center">
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="700" />
+</div>
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>📖 <strong>Leer frase en idioma desconocido</strong>: Aparece en la parte superior</li>
+<li>🤔 <strong>Adivinar el país correcto</strong>: Clic en el país que habla ese idioma</li>
+<li>❤️ <strong>Gestionar vidas</strong>: Tienes 5 vidas (corazones), pierdes 1 por error</li>
+<li>📊 <strong>Ver estadísticas en tiempo real</strong>: Aciertos, fallos y puntos.</li>
+<li>✅ <strong>Recibir feedback inmediato</strong>: Animación verde si aciertas, roja si fallas</li>
+<li>🔄 <strong>Nueva pregunta automática</strong>: Después de cada respuesta (correcta o incorrecta)</li>
+<li>💀 <strong>Game Over</strong>: Al perder las 5 vidas, ver resumen de estadísticas</li>
+<li>➡️ <strong>Pasar intento</strong>: Botón para pasar la frase a una nueva, a costa de un intento</li>
+<li>🔁 <strong>Reintentar</strong>: Botón para comenzar nueva partida</li>
+<li>🏠 <strong>Volver al menú</strong>: Abandonar partida en cualquier momento</li>
+</ul>
+<p><strong>Mecánica del juego:</strong></p>
+<ul>
+<li>Cada respuesta correcta suma +1 punto</li>
+<li>Cada error resta 1 vida</li>
+<li>Frases aleatorias en 50+ idiomas diferentes</li>
+<li>Algunos idiomas tienen múltiples países válidos (ej: español → España, México, Argentina...)</li>
+</ul>
+<hr>
+<h3>🏴 Modo Juego: Adivina la Bandera</h3>
+<div align="center">
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="700" />
+</div>
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🏴 <strong>Ver bandera aleatoria</strong>: Aparece en grande en la parte superior</li>
+<li>🗺️ <strong>Adivinar el país</strong>: Clic en el país correcto en el mapa</li>
+<li>❤️ <strong>Gestionar vidas</strong>: Tienes 5 vidas, pierdes 1 por error</li>
+<li>📊 <strong>Ver estadísticas</strong>: Aciertos, fallos, puntos, porcentaje de acierto al final de la partida</li>
+<li>✅ <strong>Feedback visual</strong>: Animación verde/roja + nombre del país correcto</li>
+<li>🌍 <strong>Aprender geografía</strong>: 195 banderas de países del mundo</li>
+<li>🔄 <strong>Nueva bandera automática</strong>: Después de cada intento</li>
+<li>💀 <strong>Game Over</strong>: Ver resumen completo al perder todas las vidas</li>
+<li>➡️ <strong>Pasar intento</strong>: Botón para pasar una bandera nueva, a costa de un intento</li>
+<li>🔁 <strong>Jugar de nuevo</strong>: Reiniciar partida con nuevas banderas aleatorias</li>
+</ul>
+<p><strong>Mecánica del juego:</strong></p>
+<ul>
+<li>Cada acierto suma +1 punto</li>
+<li>Cada fallo resta 1 vida</li>
+<li>Banderas generadas aleatoriamente</li>
+<li>Incluye países de todos los continentes</li>
+<li>Dificultad variada: desde banderas icónicas hasta las más desafiantes</li>
+</ul>
+<hr>
+<h3>🎨 Características Comunes en Todas las Pantallas</h3>
+<p><strong>Controles Globales:</strong></p>
+<ul>
+<li>🌐 <strong>Selector de idioma</strong> (ES/EN) - Esquina superior derecha</li>
+<li>🌓 <strong>Toggle tema oscuro/claro</strong> - Icono de sol/luna</li>
+<li>🏠 <strong>Botón &quot;i&quot;</strong> - Volver a la landing page</li>
+</ul>
+<p><strong>Accesibilidad:</strong></p>
+<ul>
+<li>🎨 Alto contraste en modo oscuro</li>
+<li>📢 Textos legibles (tamaño mínimo 14px)</li>
+<li>🖱️ Áreas de clic amplias (mínimo 44x44px)</li>
+<li>🔊 Estados visuales claros (hover, focus, active)</li>
+</ul>
+<hr>
+<h2>💻 Instalación y Desarrollo Local</h2>
+<h3>Requisitos Previos</h3>
+<h4>⭐ Opción 1: Con Docker (Recomendado)</h4>
+<ul>
+<li>✅ <strong>Docker Desktop</strong> instalado y en ejecución</li>
+<li>✅ <strong>Git</strong></li>
+<li>❌ <strong>NO necesitas</strong> Node.js instalado</li>
+<li>❌ <strong>NO necesitas</strong> MongoDB instalado</li>
+<li>❌ <strong>NO necesitas</strong> ejecutar <code>npm install</code> manualmente</li>
+</ul>
+<h4>📦 Opción 2: Sin Docker (Manual)</h4>
+<ul>
+<li>✅ <strong>Node.js</strong> 20+</li>
+<li>✅ <strong>MongoDB</strong> Community Edition</li>
+<li>✅ <strong>Git</strong></li>
+</ul>
+<hr>
+<h3>🐳 Instalación con Docker (Recomendado)</h3>
+<p>1️⃣ <strong>Clonar el repositorio</strong></p>
+<pre class="prettyprint source lang-bash"><code>git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
+cd ProyectoIntermodular-MapaInteractivo
+</code></pre>
+<p>2️⃣ <strong>Iniciar todos los servicios</strong></p>
+<pre class="prettyprint source lang-bash"><code>docker-compose up -d --build
+</code></pre>
+<blockquote>
+<p>🎉 <strong>¡Listo!</strong> Las dependencias se instalan automáticamente dentro de los contenedores.</p>
+</blockquote>
+<p>3️⃣ <strong>Acceder a la aplicación</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:3000">http://localhost:3000</a></li>
+<li><strong>Backend API</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+<li><strong>Health Check</strong>: <a href="http://localhost:5000/health">http://localhost:5000/health</a></li>
+<li><strong>MongoDB</strong>: <code>localhost:27017</code></li>
+</ul>
+<p>4️⃣ <strong>Ver logs (opcional)</strong></p>
+<pre class="prettyprint source lang-bash"><code># Logs de todos los servicios
+docker-compose logs -f
+
+# Logs solo del servidor
+docker-compose logs -f server
+
+# Logs solo del cliente
+docker-compose logs -f client
+</code></pre>
+<p>5️⃣ <strong>Detener los servicios</strong></p>
+<pre class="prettyprint source lang-bash"><code>docker-compose down
+</code></pre>
+<hr>
+<h3>📦 Instalación Manual (Sin Docker)</h3>
+<details>
+<summary><b>Clic aquí para ver instrucciones sin Docker</b></summary>
+<p>1️⃣ <strong>Clonar el repositorio</strong></p>
+<pre class="prettyprint source lang-bash"><code>git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
+cd ProyectoIntermodular-MapaInteractivo
+</code></pre>
+<p>2️⃣ <strong>Instalar dependencias</strong></p>
+<pre class="prettyprint source lang-bash"><code># Backend
+cd server
+npm install
+
+# Frontend
+cd ../client
+npm install
+cd ..
+</code></pre>
+<p>3️⃣ <strong>Configurar MongoDB</strong></p>
+<ul>
+<li>Instalar <a href="https://www.mongodb.com/try/download/community">MongoDB Community Edition</a></li>
+<li>Iniciar el servicio: <code>mongod</code></li>
+<li>Actualizar <code>MONGO_URI</code> en <code>server/.env</code>:<pre class="prettyprint source"><code>MONGO_URI=mongodb://localhost:27017/translator_db
+</code></pre>
+</li>
+</ul>
+<p>4️⃣ <strong>Iniciar servicios</strong></p>
+<pre class="prettyprint source lang-bash"><code># Terminal 1 - Backend
+cd server
+npm run dev
+
+# Terminal 2 - Frontend
+cd client
+npm run dev
+</code></pre>
+<p>5️⃣ <strong>Acceder a la aplicación</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:5173">http://localhost:5173</a></li>
+<li><strong>Backend</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+</ul>
+</details>
+<hr>
+<h2>👥 Equipo de Desarrollo</h2>
+<div align="center">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Avatar</th>
+<th>Nombre</th>
+<th>Rol</th>
+<th style="text-align:center">GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://github.com/sdurutr436.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Sergio Durán Utrera</strong></td>
+<td>Full Stack Developer</td>
+<td style="text-align:center"><a href="https://github.com/sdurutr436"><img src="https://img.shields.io/badge/GitHub-sdurutr436-181717?style=flat&amp;logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://github.com/nolocardeno.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Manolo Cárdeno Sánchez</strong></td>
+<td>Full Stack Developer</td>
+<td style="text-align:center"><a href="https://github.com/manolo-card"><img src="https://img.shields.io/badge/GitHub-nolocardeno-181717?style=flat&amp;logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://github.com/Fjrg0309.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Francisco J. Redondo González</strong></td>
+<td>Full Stack Developer</td>
+<td style="text-align:center"><a href="https://github.com/FranRG96"><img src="https://img.shields.io/badge/GitHub-Fjrg0309-181717?style=flat&amp;logo=github" alt="GitHub"></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 Este proyecto fue desarrollado como parte del <strong>Proyecto Intermodular</strong> del ciclo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong>.</p>
+</blockquote>
+<hr>
+<h2>📚 Documentación</h2>
+<h3>📖 Documentación de la API</h3>
+<p>La documentación completa del código (Backend + Frontend) está disponible online en un solo lugar, generada automáticamente con TypeDoc:</p>
+<ul>
+<li><strong>🌐 Documentación Unificada</strong>: <a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/">https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/</a></li>
+</ul>
+<p>La documentación incluye:</p>
+<ul>
+<li>⚙️ <strong>Backend</strong>: API REST, modelos, servicios de traducción, rutas de juego</li>
+<li>🎨 <strong>Frontend</strong>: Componentes React, servicios, contextos, tipos TypeScript</li>
+</ul>
+<p>Todo integrado en una única interfaz con menú lateral para fácil navegación entre módulos.</p>
+<p>La documentación se genera automáticamente en cada push a <code>main</code> usando GitHub Actions.</p>
+<h3>📂 Documentación del Proyecto</h3>
+<p>Toda la documentación técnica y de planificación se encuentra en la carpeta <a href="./docs"><code>/docs</code></a>:</p>
+<ul>
+<li>📄 <a href="./docs/problema.md"><strong>Problema y Justificación</strong></a> - Contexto y necesidad del proyecto</li>
+<li>🎯 <a href="./docs/objetivos-alcance.md"><strong>Objetivos y Alcance</strong></a> - Metas y límites del proyecto</li>
+<li>🔧 <a href="./docs/viabilidad-tecnica.md"><strong>Viabilidad Técnica</strong></a> - Análisis técnico y factibilidad</li>
+<li>💰 <a href="./docs/recursos.md"><strong>Recursos Necesarios</strong></a> - Recursos humanos y técnicos</li>
+<li>⚖️ <a href="./docs/legislacion.md"><strong>Legislación y Cumplimiento</strong></a> - RGPD, accesibilidad y normativas</li>
+</ul>
+<h3>📖 Wiki del Proyecto</h3>
+<blockquote>
+<p>📚 <strong>Wiki completa:</strong> <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki</a></p>
+</blockquote>
+<p>Páginas disponibles en la wiki:</p>
+<ul>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">Home</a> — Portada y presentación general del proyecto</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones">Actas de reuniones</a> — Resúmenes y acuerdos de las reuniones del equipo</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos">Gestión de Recursos y Tiempos</a> — Planificación de recursos, cronograma y asignación de tareas</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM">Metodología SCRUM</a> — Explicación del marco de trabajo ágil utilizado</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints">Planificación de Sprints</a> — Detalle de los sprints, objetivos y entregables</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo">Roles de equipo</a> — Descripción de los roles y responsabilidades de cada miembro</li>
+</ul>
+<hr>
+<h2>📄 Licencia</h2>
+<p>Este proyecto es parte de un <strong>trabajo académico</strong> desarrollado para el <strong>Proyecto Intermodular</strong> del ciclo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong> en el <strong>IES Rafael Alberti</strong> (Cádiz, España).</p>
+<h3>Uso Educativo</h3>
+<ul>
+<li>✅ <strong>Permitido</strong>: Uso con fines educativos y de aprendizaje</li>
+<li>✅ <strong>Permitido</strong>: Clonación y modificación para proyectos académicos</li>
+<li>⚠️ <strong>Atribución requerida</strong>: Si usas este código, menciona a los autores originales</li>
+</ul>
+<h3>Autores</h3>
+<ul>
+<li>Sergio Durán Utrera (<a href="https://github.com/sdurutr436">@sdurutr436</a>)</li>
+<li>Manolo Cárdeno Sánchez (<a href="https://github.com/nolocardeno">@manolo-card</a>)</li>
+<li>Francisco J. Redondo González (<a href="https://github.com/Fjrg0309">@FranRG96</a>)</li>
+</ul>
+<hr>
+<p align="center">
+  <a href="#inicio">⬆️ Volver arriba</a>
+</p></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>server.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Main entry point of the backend application.
+Configures Express server, middlewares, routes and database connection.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Intermodular Project - Interactive Map</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server.js.html">server.js</a>, <a href="server.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a></li><li><a href="module-data_countriesDatabase.html">data/countriesDatabase</a></li><li><a href="module-data_countryCodeMapping.html">data/countryCodeMapping</a></li><li><a href="module-data_countryLanguageMap.html">data/countryLanguageMap</a></li><li><a href="module-data_phrasesDatabase.html">data/phrasesDatabase</a></li><li><a href="module-getFlagUrl.html">getFlagUrl</a></li><li><a href="module-models_GameStats.html">models/GameStats</a></li><li><a href="module-models_Translation.html">models/Translation</a></li><li><a href="module-routes_api_game.html">routes/api/game</a></li><li><a href="module-routes_api_translate.html">routes/api/translate</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#corsOptions">corsOptions</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#translateLimiter">translateLimiter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 29 2026 12:27:12 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

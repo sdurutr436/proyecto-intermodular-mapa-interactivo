@@ -1,0 +1,348 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Transkarte Frontend</title><meta name="description" content="Documentation for Transkarte Frontend"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Transkarte Frontend</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>Transkarte Frontend</h2></div><div class="tsd-panel tsd-typography"><div align="center">
+
+<p><a id="inicio"></a>
+<img src="./docs/img/logo.png" alt="Logo Transkarte"></p>
+<a id="md:explora-el-mundo-aprendiendo-idiomas" class="tsd-anchor"></a><h3><a href="#md:explora-el-mundo-aprendiendo-idiomas"><em>Explora el mundo aprendiendo idiomas</em></a></h3><p><strong>Aplicación web educativa que combina geografía y traducción interactiva</strong></p>
+<!-- BADGES DE ESTADO -->
+<p><img src="https://img.shields.io/github/last-commit/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square&color=blueviolet" alt="GitHub last commit">
+<img src="https://img.shields.io/github/repo-size/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square" alt="GitHub repo size">
+<img src="https://img.shields.io/github/actions/workflow/status/sdurutr436/ProyectoIntermodular-MapaInteractivo/jsdoc-generate.yml?style=flat-square&label=CI%20Build" alt="GitHub Actions Workflow Status">
+<a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/"><img src="https://img.shields.io/badge/docs-TypeDoc-blue?style=flat-square" alt="Documentación"></a></p>
+</div>
+
+<hr>
+<a id="md:📖-sobre-el-proyecto" class="tsd-anchor"></a><h2><a href="#md:📖-sobre-el-proyecto">📖 Sobre el Proyecto</a></h2><p><strong>Transkarte</strong> es una aplicación web educativa que transforma el aprendizaje de idiomas en una experiencia interactiva y visual. A través de un mapa mundial interactivo, los usuarios pueden:</p>
+<ul>
+<li>🗺️ <strong>Explorar</strong> países con visualización interactiva y efectos visuales</li>
+<li>🔤 <strong>Traducir</strong> palabras y frases al idioma oficial de cada país</li>
+<li>🎮 <strong>Jugar</strong> modos educativos para aprender geografía e idiomas</li>
+<li>🌍 <strong>Descubrir</strong> más de 150 países y sus lenguas oficiales</li>
+</ul>
+<p>La aplicación combina <strong>React</strong>, <strong>TypeScript</strong>, <strong>Node.js</strong> y <strong>MongoDB</strong> para ofrecer una experiencia fluida y educativa. Desarrollada con Docker para facilitar el despliegue y sin necesidad de registro de usuarios, Transkarte pone la privacidad y la simplicidad en primer lugar.</p>
+<a id="md:📋-tabla-de-contenidos" class="tsd-anchor"></a><h2><a href="#md:📋-tabla-de-contenidos">📋 Tabla de Contenidos</a></h2><ul>
+<li><a href="#md:️-stack-tecnológico">🛠️ Stack Tecnológico</a></li>
+<li><a href="#md:-demo-en-producción">🚀 Demo en Producción</a></li>
+<li><a href="#md:-capturas-de-pantalla">📸 Capturas de Pantalla</a></li>
+<li><a href="#md:-instalación-y-desarrollo-local">💻 Instalación y Desarrollo Local</a></li>
+<li><a href="#md:-equipo-de-desarrollo">👥 Equipo de Desarrollo</a></li>
+<li><a href="#md:-documentación">📚 Documentación</a></li>
+<li><a href="#md:-estado-del-proyecto">📊 Estado del Proyecto</a></li>
+<li><a href="#md:-api-backend">🔌 API Backend</a></li>
+<li><a href="#md:-licencia">📄 Licencia</a></li>
+</ul>
+<hr>
+<a id="md:📊-estado-del-proyecto" class="tsd-anchor"></a><h2><a href="#md:📊-estado-del-proyecto">📊 Estado del Proyecto</a></h2><a id="md:✅-proyecto-completado" class="tsd-anchor"></a><h3><a href="#md:✅-proyecto-completado">✅ Proyecto Completado</a></h3><p><strong>Backend:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> MongoDB configurado en Docker</li>
+<li><input checked="" disabled="" type="checkbox"> Modelos de datos (Translation, GameStats)</li>
+<li><input checked="" disabled="" type="checkbox"> Sistema de traducción con DeepL + Google Translate fallback</li>
+<li><input checked="" disabled="" type="checkbox"> Detección automática de idioma</li>
+<li><input checked="" disabled="" type="checkbox"> Sistema de caché de traducciones</li>
+<li><input checked="" disabled="" type="checkbox"> API de juegos (frases y banderas)</li>
+<li><input checked="" disabled="" type="checkbox"> Mapeos de 150+ países e idiomas</li>
+</ul>
+<p><strong>Frontend:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> React 18 + TypeScript + Vite</li>
+<li><input checked="" disabled="" type="checkbox"> Mapa interactivo mundial (react-simple-maps)</li>
+<li><input checked="" disabled="" type="checkbox"> Modo Traducción: traduce al idioma del país clickeado</li>
+<li><input checked="" disabled="" type="checkbox"> Modo Adivina el Idioma: reconoce frases en diferentes idiomas</li>
+<li><input checked="" disabled="" type="checkbox"> Modo Adivina la Bandera: identifica países por su bandera</li>
+<li><input checked="" disabled="" type="checkbox"> Sistema de vidas y estadísticas en tiempo real</li>
+<li><input checked="" disabled="" type="checkbox"> Internacionalización (español/inglés)</li>
+<li><input checked="" disabled="" type="checkbox"> Modo oscuro/claro</li>
+<li><input checked="" disabled="" type="checkbox"> Landing page interactiva</li>
+<li><input checked="" disabled="" type="checkbox"> Diseño responsive</li>
+<li><input checked="" disabled="" type="checkbox"> Gestión de estado con Zustand (store centralizado con persistencia)</li>
+<li><input checked="" disabled="" type="checkbox"> API HTTP con Axios (interceptores, manejo de errores, timeouts)</li>
+</ul>
+<p><strong>Infraestructura:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Dockerización completa (frontend + backend + MongoDB)</li>
+<li><input checked="" disabled="" type="checkbox"> Variables de entorno configuradas</li>
+<li><input checked="" disabled="" type="checkbox"> CORS y seguridad básica</li>
+<li><input checked="" disabled="" type="checkbox"> Script de seeding para datos iniciales de traducciones</li>
+</ul>
+<hr>
+<a id="md:🛠️-stack-tecnológico" class="tsd-anchor"></a><h2><a href="#md:🛠️-stack-tecnológico">🛠️ Stack Tecnológico</a></h2><div align="center">
+
+<a id="md:frontend" class="tsd-anchor"></a><h3><a href="#md:frontend">Frontend</a></h3><p><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+<img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+<img src="https://img.shields.io/badge/Zustand-%2320232a.svg?style=for-the-badge" alt="Zustand"></p>
+<a id="md:backend-amp-database" class="tsd-anchor"></a><h3><a href="#md:backend-amp-database">Backend &amp; Database</a></h3><p><img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS">
+<img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" alt="Express.js">
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"></p>
+<a id="md:devops-amp-tools" class="tsd-anchor"></a><h3><a href="#md:devops-amp-tools">DevOps &amp; Tools</a></h3><p><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+<img src="https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&logo=sentry&logoColor=white" alt="Sentry">
+<img src="https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white" alt="Railway"></p>
+</div>
+
+<a id="md:frontend-detalles" class="tsd-anchor"></a><h3><a href="#md:frontend-detalles">Frontend Detalles</a></h3><ul>
+<li><strong>react-simple-maps</strong> - Visualización de mapas SVG interactivos</li>
+<li><strong>Axios</strong> - Cliente HTTP con interceptores y manejo centralizado de errores</li>
+</ul>
+<a id="md:apis-externas" class="tsd-anchor"></a><h3><a href="#md:apis-externas">APIs Externas</a></h3><ul>
+<li><strong>🔷 DeepL API</strong> - Traducción de alta calidad (principal)</li>
+<li><strong>🌐 Google Translate API</strong> - Traducción gratuita (fallback)</li>
+</ul>
+<hr>
+<a id="md:🚀-demo-en-producción" class="tsd-anchor"></a><h2><a href="#md:🚀-demo-en-producción">🚀 Demo en Producción</a></h2><p><strong>URL de producción:</strong> <a href="https://transkarte.up.railway.app/">https://transkarte.up.railway.app/</a></p>
+<hr>
+<a id="md:📸-capturas-de-pantalla-y-guía-de-usuario" class="tsd-anchor"></a><h2><a href="#md:📸-capturas-de-pantalla-y-guía-de-usuario">📸 Capturas de Pantalla y Guía de Usuario</a></h2><a id="md:🏠-página-de-inicio-landing-page" class="tsd-anchor"></a><h3><a href="#md:🏠-página-de-inicio-landing-page">🏠 Página de Inicio (Landing Page)</a></h3><div align="center">
+  <img src="./docs/img/landing-page.png" alt="Landing Page" width="700" />
+</div>
+
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🌍 <strong>Ver presentación animada</strong> del proyecto con efectos visuales</li>
+<li>🎯 <strong>Elegir modo de uso</strong>: Traducción o Juego (2 modos)</li>
+<li>🌐 <strong>Cambiar idioma de interfaz</strong>: Español ↔️ Inglés (botón superior derecha)</li>
+<li>📖 <strong>Leer descripción</strong> de cada modo antes de empezar e información sobre nosotros</li>
+<li>🚀 <strong>Comenzar experiencia</strong> haciendo clic en cualquier tarjeta de modo</li>
+</ul>
+<hr>
+<a id="md:🗺️-mapa-interactivo-vista-principal" class="tsd-anchor"></a><h3><a href="#md:🗺️-mapa-interactivo-vista-principal">🗺️ Mapa Interactivo (Vista Principal)</a></h3><div align="center">
+  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="700" />
+</div>
+
+<div align="center">
+  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="700" />
+</div>
+
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🖱️ <strong>Hacer hover sobre países</strong>: Ver efecto de resaltado visual</li>
+<li>🔍 <strong>Usar barra de búsqueda</strong>: Para saber como se dice una frase o palabra en un pais cuando el usuario lo clique</li>
+<li>✍️ <strong>Escribir texto</strong>: Introducir palabra o frase (máximo 500 caracteres)</li>
+<li>🚫 <strong>Ver bloqueo automático</strong>: Los países que hablan el idioma del texto aparecen en rojo</li>
+<li>🌍 <strong>Seleccionar país destino</strong>: Clic en cualquier país del mapa</li>
+<li>🎨 <strong>Navegar el mapa</strong>: Scroll para zoom, arrastrar para mover</li>
+<li>🔄 <strong>Ver traducción instantánea</strong>: Resultado en modal con animación</li>
+<li>💾 <strong>Caché automático</strong>: Traducciones repetidas son instantáneas (guardadas en BD)</li>
+<li>❌ <strong>Cerrar modal</strong>: Hacer clic fuera del modal o botón de cerrar</li>
+<li>🏠 <strong>Volver a la landing page</strong>: Botón &quot;i&quot; en esquina superior izquierda al lado del logo para volver a la página principal</li>
+<li>🌐 <strong>Cambiar idioma</strong>: Selector ES/EN en barra superior</li>
+<li>🌓 <strong>Cambiar tema</strong>: Icono de sol/luna en barra superior</li>
+</ul>
+<p><strong>Ejemplo de uso:</strong></p>
+<ol>
+<li>Escribe &quot;Hello world&quot; en el campo de texto</li>
+<li>Los países anglófonos (USA, UK, Australia) se bloquean automáticamente en rojo</li>
+<li>Haz clic en España → Aparece &quot;Hola mundo&quot;</li>
+<li>Haz clic en Francia → Aparece &quot;Bonjour le monde&quot;</li>
+</ol>
+<hr>
+<a id="md:🎮-modo-juego-adivina-el-idioma" class="tsd-anchor"></a><h3><a href="#md:🎮-modo-juego-adivina-el-idioma">🎮 Modo Juego: Adivina el Idioma</a></h3><div align="center">
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="700" />
+</div>
+
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>📖 <strong>Leer frase en idioma desconocido</strong>: Aparece en la parte superior</li>
+<li>🤔 <strong>Adivinar el país correcto</strong>: Clic en el país que habla ese idioma</li>
+<li>❤️ <strong>Gestionar vidas</strong>: Tienes 5 vidas (corazones), pierdes 1 por error</li>
+<li>📊 <strong>Ver estadísticas en tiempo real</strong>: Aciertos, fallos y puntos.</li>
+<li>✅ <strong>Recibir feedback inmediato</strong>: Animación verde si aciertas, roja si fallas</li>
+<li>🔄 <strong>Nueva pregunta automática</strong>: Después de cada respuesta (correcta o incorrecta)</li>
+<li>💀 <strong>Game Over</strong>: Al perder las 5 vidas, ver resumen de estadísticas</li>
+<li>➡️ <strong>Pasar intento</strong>: Botón para pasar la frase a una nueva, a costa de un intento</li>
+<li>🔁 <strong>Reintentar</strong>: Botón para comenzar nueva partida</li>
+<li>🏠 <strong>Volver al menú</strong>: Abandonar partida en cualquier momento</li>
+</ul>
+<p><strong>Mecánica del juego:</strong></p>
+<ul>
+<li>Cada respuesta correcta suma +1 punto</li>
+<li>Cada error resta 1 vida</li>
+<li>Frases aleatorias en 50+ idiomas diferentes</li>
+<li>Algunos idiomas tienen múltiples países válidos (ej: español → España, México, Argentina...)</li>
+</ul>
+<hr>
+<a id="md:🏴-modo-juego-adivina-la-bandera" class="tsd-anchor"></a><h3><a href="#md:🏴-modo-juego-adivina-la-bandera">🏴 Modo Juego: Adivina la Bandera</a></h3><div align="center">
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="700" />
+</div>
+
+<p><strong>¿Qué puede hacer el usuario aquí?</strong></p>
+<ul>
+<li>🏴 <strong>Ver bandera aleatoria</strong>: Aparece en grande en la parte superior</li>
+<li>🗺️ <strong>Adivinar el país</strong>: Clic en el país correcto en el mapa</li>
+<li>❤️ <strong>Gestionar vidas</strong>: Tienes 5 vidas, pierdes 1 por error</li>
+<li>📊 <strong>Ver estadísticas</strong>: Aciertos, fallos, puntos, porcentaje de acierto al final de la partida</li>
+<li>✅ <strong>Feedback visual</strong>: Animación verde/roja + nombre del país correcto</li>
+<li>🌍 <strong>Aprender geografía</strong>: 195 banderas de países del mundo</li>
+<li>🔄 <strong>Nueva bandera automática</strong>: Después de cada intento</li>
+<li>💀 <strong>Game Over</strong>: Ver resumen completo al perder todas las vidas</li>
+<li>➡️ <strong>Pasar intento</strong>: Botón para pasar una bandera nueva, a costa de un intento</li>
+<li>🔁 <strong>Jugar de nuevo</strong>: Reiniciar partida con nuevas banderas aleatorias</li>
+</ul>
+<p><strong>Mecánica del juego:</strong></p>
+<ul>
+<li>Cada acierto suma +1 punto</li>
+<li>Cada fallo resta 1 vida</li>
+<li>Banderas generadas aleatoriamente</li>
+<li>Incluye países de todos los continentes</li>
+<li>Dificultad variada: desde banderas icónicas hasta las más desafiantes</li>
+</ul>
+<hr>
+<a id="md:🎨-características-comunes-en-todas-las-pantallas" class="tsd-anchor"></a><h3><a href="#md:🎨-características-comunes-en-todas-las-pantallas">🎨 Características Comunes en Todas las Pantallas</a></h3><p><strong>Controles Globales:</strong></p>
+<ul>
+<li>🌐 <strong>Selector de idioma</strong> (ES/EN) - Esquina superior derecha</li>
+<li>🌓 <strong>Toggle tema oscuro/claro</strong> - Icono de sol/luna</li>
+<li>🏠 <strong>Botón &quot;i&quot;</strong> - Volver a la landing page</li>
+</ul>
+<p><strong>Accesibilidad:</strong></p>
+<ul>
+<li>🎨 Alto contraste en modo oscuro</li>
+<li>📢 Textos legibles (tamaño mínimo 14px)</li>
+<li>🖱️ Áreas de clic amplias (mínimo 44x44px)</li>
+<li>🔊 Estados visuales claros (hover, focus, active)</li>
+</ul>
+<hr>
+<a id="md:💻-instalación-y-desarrollo-local" class="tsd-anchor"></a><h2><a href="#md:💻-instalación-y-desarrollo-local">💻 Instalación y Desarrollo Local</a></h2><a id="md:requisitos-previos" class="tsd-anchor"></a><h3><a href="#md:requisitos-previos">Requisitos Previos</a></h3><a id="md:⭐-opción-1-con-docker-recomendado" class="tsd-anchor"></a><h4><a href="#md:⭐-opción-1-con-docker-recomendado">⭐ Opción 1: Con Docker (Recomendado)</a></h4><ul>
+<li>✅ <strong>Docker Desktop</strong> instalado y en ejecución</li>
+<li>✅ <strong>Git</strong></li>
+<li>❌ <strong>NO necesitas</strong> Node.js instalado</li>
+<li>❌ <strong>NO necesitas</strong> MongoDB instalado</li>
+<li>❌ <strong>NO necesitas</strong> ejecutar <code>npm install</code> manualmente</li>
+</ul>
+<a id="md:📦-opción-2-sin-docker-manual" class="tsd-anchor"></a><h4><a href="#md:📦-opción-2-sin-docker-manual">📦 Opción 2: Sin Docker (Manual)</a></h4><ul>
+<li>✅ <strong>Node.js</strong> 20+</li>
+<li>✅ <strong>MongoDB</strong> Community Edition</li>
+<li>✅ <strong>Git</strong></li>
+</ul>
+<hr>
+<a id="md:🐳-instalación-con-docker-recomendado" class="tsd-anchor"></a><h3><a href="#md:🐳-instalación-con-docker-recomendado">🐳 Instalación con Docker (Recomendado)</a></h3><p>1️⃣ <strong>Clonar el repositorio</strong></p>
+<pre><code class="language-bash"><span class="hl-0">git</span><span class="hl-1"> </span><span class="hl-2">clone</span><span class="hl-1"> </span><span class="hl-2">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">ProyectoIntermodular-MapaInteractivo</span>
+</code><button>Copy</button></pre>
+<p>2️⃣ <strong>Iniciar todos los servicios</strong></p>
+<pre><code class="language-bash"><span class="hl-0">docker-compose</span><span class="hl-1"> </span><span class="hl-2">up</span><span class="hl-1"> </span><span class="hl-3">-d</span><span class="hl-1"> </span><span class="hl-3">--build</span>
+</code><button>Copy</button></pre>
+<blockquote>
+<p>🎉 <strong>¡Listo!</strong> Las dependencias se instalan automáticamente dentro de los contenedores.</p>
+</blockquote>
+<p>3️⃣ <strong>Acceder a la aplicación</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:3000">http://localhost:3000</a></li>
+<li><strong>Backend API</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+<li><strong>Health Check</strong>: <a href="http://localhost:5000/health">http://localhost:5000/health</a></li>
+<li><strong>MongoDB</strong>: <code>localhost:27017</code></li>
+</ul>
+<p>4️⃣ <strong>Ver logs (opcional)</strong></p>
+<pre><code class="language-bash"><span class="hl-4"># Logs de todos los servicios</span><br/><span class="hl-0">docker-compose</span><span class="hl-1"> </span><span class="hl-2">logs</span><span class="hl-1"> </span><span class="hl-3">-f</span><br/><br/><span class="hl-4"># Logs solo del servidor</span><br/><span class="hl-0">docker-compose</span><span class="hl-1"> </span><span class="hl-2">logs</span><span class="hl-1"> </span><span class="hl-3">-f</span><span class="hl-1"> </span><span class="hl-2">server</span><br/><br/><span class="hl-4"># Logs solo del cliente</span><br/><span class="hl-0">docker-compose</span><span class="hl-1"> </span><span class="hl-2">logs</span><span class="hl-1"> </span><span class="hl-3">-f</span><span class="hl-1"> </span><span class="hl-2">client</span>
+</code><button>Copy</button></pre>
+<p>5️⃣ <strong>Detener los servicios</strong></p>
+<pre><code class="language-bash"><span class="hl-0">docker-compose</span><span class="hl-1"> </span><span class="hl-2">down</span>
+</code><button>Copy</button></pre>
+<hr>
+<a id="md:📦-instalación-manual-sin-docker" class="tsd-anchor"></a><h3><a href="#md:📦-instalación-manual-sin-docker">📦 Instalación Manual (Sin Docker)</a></h3><details>
+<summary><b>Clic aquí para ver instrucciones sin Docker</b></summary>
+
+<p>1️⃣ <strong>Clonar el repositorio</strong></p>
+<pre><code class="language-bash"><span class="hl-0">git</span><span class="hl-1"> </span><span class="hl-2">clone</span><span class="hl-1"> </span><span class="hl-2">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">ProyectoIntermodular-MapaInteractivo</span>
+</code><button>Copy</button></pre>
+<p>2️⃣ <strong>Instalar dependencias</strong></p>
+<pre><code class="language-bash"><span class="hl-4"># Backend</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">server</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><br/><br/><span class="hl-4"># Frontend</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">../client</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">..</span>
+</code><button>Copy</button></pre>
+<p>3️⃣ <strong>Configurar MongoDB</strong></p>
+<ul>
+<li>Instalar <a href="https://www.mongodb.com/try/download/community">MongoDB Community Edition</a></li>
+<li>Iniciar el servicio: <code>mongod</code></li>
+<li>Actualizar <code>MONGO_URI</code> en <code>server/.env</code>:<pre><code><span class="hl-5">MONGO_URI</span><span class="hl-1">=</span><span class="hl-6">mongodb</span><span class="hl-1">:</span><span class="hl-4">//localhost:27017/translator_db</span>
+</code><button>Copy</button></pre>
+</li>
+</ul>
+<p>4️⃣ <strong>Iniciar servicios</strong></p>
+<pre><code class="language-bash"><span class="hl-4"># Terminal 1 - Backend</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">server</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span><br/><br/><span class="hl-4"># Terminal 2 - Frontend</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">client</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span>
+</code><button>Copy</button></pre>
+<p>5️⃣ <strong>Acceder a la aplicación</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:5173">http://localhost:5173</a></li>
+<li><strong>Backend</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+</ul>
+</details>
+
+<hr>
+<a id="md:👥-equipo-de-desarrollo" class="tsd-anchor"></a><h2><a href="#md:👥-equipo-de-desarrollo">👥 Equipo de Desarrollo</a></h2><div align="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">Avatar</th>
+<th>Nombre</th>
+<th>Rol</th>
+<th align="center">GitHub</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://github.com/sdurutr436.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Sergio Durán Utrera</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/sdurutr436"><img src="https://img.shields.io/badge/GitHub-sdurutr436-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td align="center"><img src="https://github.com/nolocardeno.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Manolo Cárdeno Sánchez</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/manolo-card"><img src="https://img.shields.io/badge/GitHub-nolocardeno-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td align="center"><img src="https://github.com/Fjrg0309.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Francisco J. Redondo González</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/FranRG96"><img src="https://img.shields.io/badge/GitHub-Fjrg0309-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+</tbody></table>
+</div>
+
+<blockquote>
+<p>💡 Este proyecto fue desarrollado como parte del <strong>Proyecto Intermodular</strong> del ciclo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong>.</p>
+</blockquote>
+<hr>
+<a id="md:📚-documentación" class="tsd-anchor"></a><h2><a href="#md:📚-documentación">📚 Documentación</a></h2><a id="md:📖-documentación-de-la-api" class="tsd-anchor"></a><h3><a href="#md:📖-documentación-de-la-api">📖 Documentación de la API</a></h3><p>La documentación completa del código (Backend + Frontend) está disponible online en un solo lugar, generada automáticamente con TypeDoc:</p>
+<ul>
+<li><strong>🌐 Documentación Unificada</strong>: <a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/">https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/</a></li>
+</ul>
+<p>La documentación incluye:</p>
+<ul>
+<li>⚙️ <strong>Backend</strong>: API REST, modelos, servicios de traducción, rutas de juego</li>
+<li>🎨 <strong>Frontend</strong>: Componentes React, servicios, contextos, tipos TypeScript</li>
+</ul>
+<p>Todo integrado en una única interfaz con menú lateral para fácil navegación entre módulos.</p>
+<p>La documentación se genera automáticamente en cada push a <code>main</code> usando GitHub Actions.</p>
+<a id="md:📂-documentación-del-proyecto" class="tsd-anchor"></a><h3><a href="#md:📂-documentación-del-proyecto">📂 Documentación del Proyecto</a></h3><p>Toda la documentación técnica y de planificación se encuentra en la carpeta <a href="./docs"><code>/docs</code></a>:</p>
+<ul>
+<li>📄 <a href="./docs/problema.md"><strong>Problema y Justificación</strong></a> - Contexto y necesidad del proyecto</li>
+<li>🎯 <a href="./docs/objetivos-alcance.md"><strong>Objetivos y Alcance</strong></a> - Metas y límites del proyecto</li>
+<li>🔧 <a href="./docs/viabilidad-tecnica.md"><strong>Viabilidad Técnica</strong></a> - Análisis técnico y factibilidad</li>
+<li>💰 <a href="./docs/recursos.md"><strong>Recursos Necesarios</strong></a> - Recursos humanos y técnicos</li>
+<li>⚖️ <a href="./docs/legislacion.md"><strong>Legislación y Cumplimiento</strong></a> - RGPD, accesibilidad y normativas</li>
+</ul>
+<a id="md:📖-wiki-del-proyecto" class="tsd-anchor"></a><h3><a href="#md:📖-wiki-del-proyecto">📖 Wiki del Proyecto</a></h3><blockquote>
+<p>📚 <strong>Wiki completa:</strong> <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki</a></p>
+</blockquote>
+<p>Páginas disponibles en la wiki:</p>
+<ul>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">Home</a> — Portada y presentación general del proyecto</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones">Actas de reuniones</a> — Resúmenes y acuerdos de las reuniones del equipo</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos">Gestión de Recursos y Tiempos</a> — Planificación de recursos, cronograma y asignación de tareas</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM">Metodología SCRUM</a> — Explicación del marco de trabajo ágil utilizado</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints">Planificación de Sprints</a> — Detalle de los sprints, objetivos y entregables</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo">Roles de equipo</a> — Descripción de los roles y responsabilidades de cada miembro</li>
+</ul>
+<hr>
+<a id="md:📄-licencia" class="tsd-anchor"></a><h2><a href="#md:📄-licencia">📄 Licencia</a></h2><p>Este proyecto es parte de un <strong>trabajo académico</strong> desarrollado para el <strong>Proyecto Intermodular</strong> del ciclo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong> en el <strong>IES Rafael Alberti</strong> (Cádiz, España).</p>
+<a id="md:uso-educativo" class="tsd-anchor"></a><h3><a href="#md:uso-educativo">Uso Educativo</a></h3><ul>
+<li>✅ <strong>Permitido</strong>: Uso con fines educativos y de aprendizaje</li>
+<li>✅ <strong>Permitido</strong>: Clonación y modificación para proyectos académicos</li>
+<li>⚠️ <strong>Atribución requerida</strong>: Si usas este código, menciona a los autores originales</li>
+</ul>
+<a id="md:autores" class="tsd-anchor"></a><h3><a href="#md:autores">Autores</a></h3><ul>
+<li>Sergio Durán Utrera (<a href="https://github.com/sdurutr436">@sdurutr436</a>)</li>
+<li>Manolo Cárdeno Sánchez (<a href="https://github.com/nolocardeno">@manolo-card</a>)</li>
+<li>Francisco J. Redondo González (<a href="https://github.com/Fjrg0309">@FranRG96</a>)</li>
+</ul>
+<hr>
+<p align="center">
+  <a href="#inicio">⬆️ Volver arriba</a>
+</p></div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><ul><li><a href="#md:explora-el-mundo-aprendiendo-idiomas"><span>Explora el mundo aprendiendo idiomas</span></a></li></ul><a href="#md:📖-sobre-el-proyecto"><span>📖 <wbr/>Sobre el <wbr/>Proyecto</span></a><a href="#md:📋-tabla-de-contenidos"><span>📋 <wbr/>Tabla de <wbr/>Contenidos</span></a><a href="#md:📊-estado-del-proyecto"><span>📊 <wbr/>Estado del <wbr/>Proyecto</span></a><ul><li><a href="#md:✅-proyecto-completado"><span>✅ <wbr/>Proyecto <wbr/>Completado</span></a></li></ul><a href="#md:🛠️-stack-tecnológico"><span>🛠️ <wbr/>Stack <wbr/>Tecnológico</span></a><ul><li><a href="#md:frontend"><span>Frontend</span></a></li><li><a href="#md:backend-amp-database"><span>Backend &amp; <wbr/>Database</span></a></li><li><a href="#md:devops-amp-tools"><span>Dev<wbr/>Ops &amp; <wbr/>Tools</span></a></li><li><a href="#md:frontend-detalles"><span>Frontend <wbr/>Detalles</span></a></li><li><a href="#md:apis-externas"><span>APIs <wbr/>Externas</span></a></li></ul><a href="#md:🚀-demo-en-producción"><span>🚀 <wbr/>Demo en <wbr/>Producción</span></a><a href="#md:📸-capturas-de-pantalla-y-guía-de-usuario"><span>📸 <wbr/>Capturas de <wbr/>Pantalla y <wbr/>Guía de <wbr/>Usuario</span></a><ul><li><a href="#md:🏠-página-de-inicio-landing-page"><span>🏠 <wbr/>Página de <wbr/>Inicio (<wbr/>Landing <wbr/>Page)</span></a></li><li><a href="#md:🗺️-mapa-interactivo-vista-principal"><span>🗺️ <wbr/>Mapa <wbr/>Interactivo (<wbr/>Vista <wbr/>Principal)</span></a></li><li><a href="#md:🎮-modo-juego-adivina-el-idioma"><span>🎮 <wbr/>Modo <wbr/>Juego: <wbr/>Adivina el <wbr/>Idioma</span></a></li><li><a href="#md:🏴-modo-juego-adivina-la-bandera"><span>🏴 <wbr/>Modo <wbr/>Juego: <wbr/>Adivina la <wbr/>Bandera</span></a></li><li><a href="#md:🎨-características-comunes-en-todas-las-pantallas"><span>🎨 <wbr/>Características <wbr/>Comunes en <wbr/>Todas las <wbr/>Pantallas</span></a></li></ul><a href="#md:💻-instalación-y-desarrollo-local"><span>💻 <wbr/>Instalación y <wbr/>Desarrollo <wbr/>Local</span></a><ul><li><a href="#md:requisitos-previos"><span>Requisitos <wbr/>Previos</span></a></li><li><ul><li><a href="#md:⭐-opción-1-con-docker-recomendado"><span>⭐ <wbr/>Opción 1: <wbr/>Con <wbr/>Docker (<wbr/>Recomendado)</span></a></li><li><a href="#md:📦-opción-2-sin-docker-manual"><span>📦 <wbr/>Opción 2: <wbr/>Sin <wbr/>Docker (<wbr/>Manual)</span></a></li></ul></li><li><a href="#md:🐳-instalación-con-docker-recomendado"><span>🐳 <wbr/>Instalación con <wbr/>Docker (<wbr/>Recomendado)</span></a></li><li><a href="#md:📦-instalación-manual-sin-docker"><span>📦 <wbr/>Instalación <wbr/>Manual (<wbr/>Sin <wbr/>Docker)</span></a></li></ul><a href="#md:👥-equipo-de-desarrollo"><span>👥 <wbr/>Equipo de <wbr/>Desarrollo</span></a><a href="#md:📚-documentación"><span>📚 <wbr/>Documentación</span></a><ul><li><a href="#md:📖-documentación-de-la-api"><span>📖 <wbr/>Documentación de la API</span></a></li><li><a href="#md:📂-documentación-del-proyecto"><span>📂 <wbr/>Documentación del <wbr/>Proyecto</span></a></li><li><a href="#md:📖-wiki-del-proyecto"><span>📖 <wbr/>Wiki del <wbr/>Proyecto</span></a></li></ul><a href="#md:📄-licencia"><span>📄 <wbr/>Licencia</span></a><ul><li><a href="#md:uso-educativo"><span>Uso <wbr/>Educativo</span></a></li><li><a href="#md:autores"><span>Autores</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>Transkarte Frontend</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
