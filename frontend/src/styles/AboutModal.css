@@ -1,5 +1,5 @@
 /* client/src/styles/AboutModal.css */
-/* Estilos del modal "Sobre nosotros" */
+/* "About us" modal styles */
 
 /* ============================================
    OVERLAY
@@ -40,7 +40,7 @@
 }
 
 /* ============================================
-   CONTENIDO DEL MODAL
+   MODAL CONTENT
    ============================================ */
 
 .about-modal-content {
@@ -76,7 +76,7 @@
 }
 
 /* ============================================
-   BOTÓN DE CERRAR
+   CLOSE BUTTON
    ============================================ */
 
 .about-modal-close {
@@ -116,7 +116,7 @@
 }
 
 /* ============================================
-   CONTENIDO SCROLLEABLE
+   SCROLLABLE CONTENT
    ============================================ */
 
 .about-modal-scroll {
@@ -126,7 +126,7 @@
   padding-right: 1.5rem;
 }
 
-/* Scrollbar personalizada */
+/* Custom scrollbar */
 .about-modal-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -146,7 +146,7 @@
 }
 
 /* ============================================
-   CABECERA
+   HEADER
    ============================================ */
 
 .about-modal-header {
@@ -182,7 +182,7 @@
 }
 
 /* ============================================
-   SECCIONES
+   SECTIONS
    ============================================ */
 
 .about-modal-section {

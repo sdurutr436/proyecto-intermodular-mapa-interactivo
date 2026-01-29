@@ -1,52 +1,52 @@
 /**
  * @file types.ts
- * @description Definiciones de tipos TypeScript compartidos en toda la aplicación.
- * Incluye interfaces para traducciones, preguntas de juego y resultados.
+ * @description Shared TypeScript type definitions across the entire application.
+ * Includes interfaces for translations, game questions and results.
  * @module types
  */
 
 /**
- * Resultado de una operación de traducción desde el backend
+ * Result of a translation operation from the backend
  */
 export interface TranslationResult {
-    /** Indica si la traducción fue exitosa */
+    /** Indicates if the translation was successful */
     success?: boolean;
-    /** Texto traducido al idioma destino */
+    /** Text translated to the target language */
     translation: string;
-    /** Nombre completo del idioma destino */
+    /** Full name of the target language */
     language: string;
-    /** Nombre del país al que se tradujo */
+    /** Name of the country it was translated to */
     country?: string;
-    /** Código ISO 639-1 del idioma */
+    /** ISO 639-1 language code */
     languageCode?: string;
-    /** Indica si el resultado proviene de caché */
+    /** Indicates if the result comes from cache */
     fromCache?: boolean;
 }
 
 /**
- * Frase de juego en modo "Adivina el idioma"
+ * Game phrase in "Guess the language" mode
  */
 export interface GamePhrase {
-    /** Texto de la frase en el idioma original */
+    /** Text of the phrase in the original language */
     text: string;
-    /** Código ISO 639-1 del idioma de la frase */
+    /** ISO 639-1 language code of the phrase */
     languageCode: string;
-    /** Nombre completo del idioma */
+    /** Full name of the language */
     languageName: string;
-    /** Array de códigos ISO Alpha-3 de países donde se habla este idioma */
+    /** Array of ISO Alpha-3 country codes where this language is spoken */
     validCountryCodes: string[];
 }
 
 /**
- * Pregunta de bandera en modo "Adivina la bandera"
+ * Flag question in "Guess the flag" mode
  */
 export interface FlagQuestion {
-    /** Código ISO Alpha-3 del país */
+    /** ISO Alpha-3 country code */
     countryCode: string;
-    /** Nombre del país */
+    /** Country name */
     countryName: string;
-    /** Continente al que pertenece el país */
+    /** Continent the country belongs to */
     continent: string;
-    /** URL de la imagen de la bandera */
+    /** Flag image URL */
     flagUrl: string;
 }

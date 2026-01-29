@@ -1,8 +1,8 @@
 /**
  * @file game.js
- * @description Rutas de la API para el modo de juego del mapa interactivo.
- * Incluye endpoints para obtener frases/banderas aleatorias, validar respuestas,
- * gestionar estadísticas de juego y consultar el leaderboard.
+ * @description API routes for the interactive map game mode.
+ * Includes endpoints to get random phrases/flags, validate answers,
+ * manage game statistics and query the leaderboard.
  * @module routes/api/game
  */
 
@@ -18,12 +18,12 @@ const app = express();
 /**
  * @route   GET /api/game/phrase
  * @method  GET
- * @desc    Genera una frase aleatoria en un idioma aleatorio para el modo de juego.
- *          El jugador debe adivinar qué país usa ese idioma.
+ * @desc    Generates a random phrase in a random language for the game mode.
+ *          The player must guess which country uses that language.
  * @access  Public
  * 
- * @returns {200} Success - Frase generada correctamente
- * @returns {500} Internal Server Error - Error en base de datos de frases
+ * @returns {200} Success - Phrase generated successfully
+ * @returns {500} Internal Server Error - Error in phrase database
  * 
  * @example Request
  * GET /api/game/phrase
@@ -36,37 +36,37 @@ const app = express();
  *   "validCountryCodes": ["FRA", "BEL", "CHE", "CAN"]
  * }
  * 
- * @example Response 500 (Error - Sin idiomas)
+ * @example Response 500 (Error - No languages)
  * {
- *   "error": "No hay idiomas disponibles en la base de datos"
+ *   "error": "No languages available in the database"
  * }
  * 
- * @example Response 500 (Error - Datos corruptos)
+ * @example Response 500 (Error - Corrupted data)
  * {
- *   "error": "Error al cargar datos del idioma"
+ *   "error": "Error loading language data"
  * }
  */
 router.get('/phrase', async (req, res) => {
   try {
-    // Obtener lista de idiomas disponibles
+    // Get list of available languages
     const languages = Object.keys(phrasesDatabase);
     
     if (languages.length === 0) {
-      return res.status(500).json({ error: 'No hay idiomas disponibles en la base de datos' });
+      return res.status(500).json({ error: 'No languages available in the database' });
     }
 
-    // Seleccionar idioma aleatorio
+    // Select random language
     const randomLangCode = languages[Math.floor(Math.random() * languages.length)];
     const langData = phrasesDatabase[randomLangCode];
 
     if (!langData || !langData.phrases || langData.phrases.length === 0) {
-      return res.status(500).json({ error: 'Error al cargar datos del idioma' });
+      return res.status(500).json({ error: 'Error loading language data' });
     }
 
-    // Seleccionar frase aleatoria
+    // Select random phrase
     const randomPhrase = langData.phrases[Math.floor(Math.random() * langData.phrases.length)];
 
-    // Construir respuesta
+    // Build response
     const response = {
       text: randomPhrase,
       languageCode: randomLangCode,
@@ -76,26 +76,25 @@ router.get('/phrase', async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error('Error al generar frase:', error);
     Sentry.captureException(error, {
       tags: {
         endpoint: '/api/game/phrase',
         operation: 'getPhrase',
       },
     });
-    res.status(500).json({ error: 'Error interno del servidor al generar frase' });
+    res.status(500).json({ error: 'Internal server error generating phrase' });
   }
 });
 
 /**
  * @route   GET /api/game/flag
  * @method  GET
- * @desc    Genera una bandera aleatoria de un país para el modo de juego.
- *          El jugador debe adivinar a qué país pertenece la bandera.
+ * @desc    Generates a random flag from a country for the game mode.
+ *          The player must guess which country the flag belongs to.
  * @access  Public
  * 
- * @returns {200} Success - Bandera generada correctamente
- * @returns {500} Internal Server Error - Error en base de datos de países
+ * @returns {200} Success - Flag generated successfully
+ * @returns {500} Internal Server Error - Error in country database
  * 
  * @example Request
  * GET /api/game/flag
@@ -108,35 +107,35 @@ router.get('/phrase', async (req, res) => {
  *   "flagUrl": "https://flagcdn.com/w320/fr.png"
  * }
  * 
- * @example Response 500 (Error - Sin países)
+ * @example Response 500 (Error - No countries)
  * {
- *   "error": "No hay países disponibles en la base de datos"
+ *   "error": "No countries available in the database"
  * }
  * 
- * @example Response 500 (Error - Datos corruptos)
+ * @example Response 500 (Error - Corrupted data)
  * {
- *   "error": "Error al cargar datos del país"
+ *   "error": "Error loading country data"
  * }
  */
 router.get('/flag', async (req, res) => {
   try {
-    // Obtener lista de países disponibles
+    // Get list of available countries
     const countryCodes = Object.keys(countriesDatabase);
     
     if (countryCodes.length === 0) {
-      return res.status(500).json({ error: 'No hay países disponibles en la base de datos' });
+      return res.status(500).json({ error: 'No countries available in the database' });
     }
 
-    // Seleccionar país aleatorio
+    // Select random country
     const randomCountryCode = countryCodes[Math.floor(Math.random() * countryCodes.length)];
     const countryData = countriesDatabase[randomCountryCode];
     const flagUrl = getFlagUrl(randomCountryCode);
 
     if (!countryData || !flagUrl) {
-      return res.status(500).json({ error: 'Error al cargar datos del país' });
+      return res.status(500).json({ error: 'Error loading country data' });
     }
 
-    // Construir respuesta
+    // Build response
     const response = {
       countryCode: randomCountryCode,
       countryName: countryData.name,
@@ -146,32 +145,31 @@ router.get('/flag', async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error('Error al generar bandera:', error);
     Sentry.captureException(error, {
       tags: {
         endpoint: '/api/game/flag',
         operation: 'getFlag',
       },
     });
-    res.status(500).json({ error: 'Error interno del servidor al generar bandera' });
+    res.status(500).json({ error: 'Internal server error generating flag' });
   }
 });
 
 /**
  * @route   POST /api/game/validate-flag
  * @method  POST
- * @desc    Valida si el país seleccionado por el jugador corresponde a la bandera mostrada.
- *          Devuelve si es correcto y el nombre del país correcto.
+ * @desc    Validates if the country selected by the player corresponds to the shown flag.
+ *          Returns if correct and the name of the correct country.
  * @access  Public
  * 
- * @param   {Object} req.body - Cuerpo de la petición
- * @param   {string} req.body.targetCountryCode - Código ISO Alpha-3 del país correcto (ej: "FRA")
- * @param   {string} req.body.guessedCountryCode - Código ISO Alpha-3 del país seleccionado
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.targetCountryCode - ISO Alpha-3 code of the correct country (e.g.: "FRA")
+ * @param   {string} req.body.guessedCountryCode - ISO Alpha-3 code of the selected country
  * 
- * @returns {200} Success - Validación completada
- * @returns {400} Bad Request - Faltan parámetros requeridos
- * @returns {404} Not Found - País no existe en base de datos
- * @returns {500} Internal Server Error - Error en validación
+ * @returns {200} Success - Validation completed
+ * @returns {400} Bad Request - Missing required parameters
+ * @returns {404} Not Found - Country does not exist in database
+ * @returns {500} Internal Server Error - Validation error
  * 
  * @example Request
  * POST /api/game/validate-flag
@@ -196,38 +194,38 @@ router.get('/flag', async (req, res) => {
  * 
  * @example Response 400 (Bad Request)
  * {
- *   "error": "Faltan parámetros requeridos",
- *   "details": "Se requiere targetCountryCode y guessedCountryCode"
+ *   "error": "Missing required parameters",
+ *   "details": "targetCountryCode and guessedCountryCode are required"
  * }
  * 
  * @example Response 404 (Not Found)
  * {
- *   "error": "País no encontrado",
- *   "details": "El código de país 'XXX' no existe en la base de datos"
+ *   "error": "Country not found",
+ *   "details": "Country code 'XXX' does not exist in the database"
  * }
  */
 router.post('/validate-flag', async (req, res) => {
   try {
     const { targetCountryCode, guessedCountryCode } = req.body;
 
-    // Validar entrada
+    // Validate input
     if (!targetCountryCode || !guessedCountryCode) {
       return res.status(400).json({ 
-        error: 'Faltan parámetros requeridos',
-        details: 'Se requiere targetCountryCode y guessedCountryCode' 
+        error: 'Missing required parameters',
+        details: 'targetCountryCode and guessedCountryCode are required' 
       });
     }
 
-    // Verificar que el país objetivo existe
+    // Verify that the target country exists
     const targetCountry = countriesDatabase[targetCountryCode];
     if (!targetCountry) {
       return res.status(404).json({ 
-        error: 'País no encontrado',
-        details: `El código de país '${targetCountryCode}' no existe en la base de datos` 
+        error: 'Country not found',
+        details: `Country code '${targetCountryCode}' does not exist in the database` 
       });
     }
 
-    // Validar si el país es correcto
+    // Validate if the country is correct
     const isCorrect = targetCountryCode === guessedCountryCode;
 
     res.json({
@@ -235,26 +233,25 @@ router.post('/validate-flag', async (req, res) => {
       correctCountryName: targetCountry.name,
     });
   } catch (error) {
-    console.error('Error al validar respuesta:', error);
-    res.status(500).json({ error: 'Error interno del servidor al validar respuesta' });
+    res.status(500).json({ error: 'Internal server error validating answer' });
   }
 });
 
 /**
  * @route   POST /api/game/validate
  * @method  POST
- * @desc    Valida si el país seleccionado por el jugador habla el idioma de la frase mostrada.
- *          Devuelve si es correcto, el nombre del idioma y los países válidos.
+ * @desc    Validates if the country selected by the player speaks the language of the shown phrase.
+ *          Returns if correct, the language name and the valid countries.
  * @access  Public
  * 
- * @param   {Object} req.body - Cuerpo de la petición
- * @param   {string} req.body.languageCode - Código ISO 639-1 del idioma (ej: "fr", "es", "en")
- * @param   {string} req.body.countryCode - Código ISO Alpha-3 del país seleccionado (ej: "FRA")
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.languageCode - ISO 639-1 language code (e.g.: "fr", "es", "en")
+ * @param   {string} req.body.countryCode - ISO Alpha-3 code of the selected country (e.g.: "FRA")
  * 
- * @returns {200} Success - Validación completada
- * @returns {400} Bad Request - Faltan parámetros requeridos
- * @returns {404} Not Found - Idioma no existe en base de datos
- * @returns {500} Internal Server Error - Error en validación
+ * @returns {200} Success - Validation completed
+ * @returns {400} Bad Request - Missing required parameters
+ * @returns {404} Not Found - Language does not exist in database
+ * @returns {500} Internal Server Error - Validation error
  * 
  * @example Request
  * POST /api/game/validate
@@ -281,38 +278,38 @@ router.post('/validate-flag', async (req, res) => {
  * 
  * @example Response 400 (Bad Request)
  * {
- *   "error": "Faltan parámetros requeridos",
- *   "details": "Se requiere languageCode y countryCode"
+ *   "error": "Missing required parameters",
+ *   "details": "languageCode and countryCode are required"
  * }
  * 
  * @example Response 404 (Not Found)
  * {
- *   "error": "Idioma no encontrado",
- *   "details": "El código de idioma 'xx' no existe en la base de datos"
+ *   "error": "Language not found",
+ *   "details": "Language code 'xx' does not exist in the database"
  * }
  */
 router.post('/validate', async (req, res) => {
   try {
     const { languageCode, countryCode } = req.body;
 
-    // Validar entrada
+    // Validate input
     if (!languageCode || !countryCode) {
       return res.status(400).json({ 
-        error: 'Faltan parámetros requeridos',
-        details: 'Se requiere languageCode y countryCode' 
+        error: 'Missing required parameters',
+        details: 'languageCode and countryCode are required' 
       });
     }
 
-    // Verificar que el idioma existe
+    // Verify that the language exists
     const langData = phrasesDatabase[languageCode];
     if (!langData) {
       return res.status(404).json({ 
-        error: 'Idioma no encontrado',
-        details: `El código de idioma '${languageCode}' no existe en la base de datos` 
+        error: 'Language not found',
+        details: `Language code '${languageCode}' does not exist in the database` 
       });
     }
 
-    // Validar si el país es correcto
+    // Validate if the country is correct
     const isCorrect = langData.countryCodes.includes(countryCode);
 
     res.json({
@@ -321,20 +318,19 @@ router.post('/validate', async (req, res) => {
       validCountryCodes: langData.countryCodes,
     });
   } catch (error) {
-    console.error('Error al validar respuesta:', error);
-    res.status(500).json({ error: 'Error interno del servidor al validar respuesta' });
+    res.status(500).json({ error: 'Internal server error validating answer' });
   }
 });
 
 /**
  * @route   GET /api/game/languages
  * @method  GET
- * @desc    Obtiene la lista completa de todos los idiomas disponibles en el modo de juego,
- *          incluyendo metadatos como número de países y frases disponibles.
+ * @desc    Gets the complete list of all available languages in the game mode,
+ *          including metadata like number of countries and phrases available.
  * @access  Public
  * 
- * @returns {200} Success - Lista de idiomas obtenida
- * @returns {500} Internal Server Error - Error al consultar base de datos
+ * @returns {200} Success - Language list obtained
+ * @returns {500} Internal Server Error - Error querying database
  * 
  * @example Request
  * GET /api/game/languages
@@ -360,7 +356,7 @@ router.post('/validate', async (req, res) => {
  * 
  * @example Response 500 (Internal Server Error)
  * {
- *   "error": "Error interno del servidor al obtener idiomas"
+ *   "error": "Internal server error getting languages"
  * }
  */
 router.get('/languages', async (req, res) => {
@@ -377,32 +373,31 @@ router.get('/languages', async (req, res) => {
       languages,
     });
   } catch (error) {
-    console.error('Error al obtener idiomas:', error);
-    res.status(500).json({ error: 'Error interno del servidor al obtener idiomas' });
+    res.status(500).json({ error: 'Internal server error getting languages' });
   }
 });
 
 /**
  * @route   POST /api/game/stats
  * @method  POST
- * @desc    Guarda o actualiza las estadísticas de una sesión de juego en MongoDB.
- *          Si es la primera vez, crea una nueva entrada. Si ya existe, actualiza los datos.
- *          Cuando gameOver=true, calcula la puntuación final automáticamente.
+ * @desc    Saves or updates game session statistics in MongoDB.
+ *          If first time, creates a new entry. If exists, updates data.
+ *          When gameOver=true, calculates final score automatically.
  * @access  Public
  * 
- * @param   {Object} req.body - Cuerpo de la petición
- * @param   {string} req.body.sessionId - ID único de la sesión (requerido)
- * @param   {number} [req.body.correct] - Número de respuestas correctas
- * @param   {number} [req.body.attempts] - Número total de intentos
- * @param   {boolean} [req.body.gameOver] - Indica si el juego ha terminado
- * @param   {number} [req.body.duration] - Duración del juego en segundos
- * @param   {Object} [req.body.*] - Cualquier otro campo del modelo GameStats
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.sessionId - Unique session ID (required)
+ * @param   {number} [req.body.correct] - Number of correct answers
+ * @param   {number} [req.body.attempts] - Total number of attempts
+ * @param   {boolean} [req.body.gameOver] - Indicates if game has ended
+ * @param   {number} [req.body.duration] - Game duration in seconds
+ * @param   {Object} [req.body.*] - Any other field from GameStats model
  * 
- * @returns {200} Success - Estadísticas guardadas/actualizadas
- * @returns {400} Bad Request - Falta sessionId
- * @returns {500} Internal Server Error - Error en base de datos
+ * @returns {200} Success - Statistics saved/updated
+ * @returns {400} Bad Request - Missing sessionId
+ * @returns {500} Internal Server Error - Database error
  * 
- * @example Request (Nueva sesión)
+ * @example Request (New session)
  * POST /api/game/stats
  * Content-Type: application/json
  * 
@@ -413,7 +408,7 @@ router.get('/languages', async (req, res) => {
  *   "gameOver": false
  * }
  * 
- * @example Request (Actualizar durante juego)
+ * @example Request (Update during game)
  * POST /api/game/stats
  * Content-Type: application/json
  * 
@@ -424,7 +419,7 @@ router.get('/languages', async (req, res) => {
  *   "gameOver": false
  * }
  * 
- * @example Request (Finalizar juego)
+ * @example Request (End game)
  * POST /api/game/stats
  * Content-Type: application/json
  * 
@@ -453,12 +448,12 @@ router.get('/languages', async (req, res) => {
  * 
  * @example Response 400 (Bad Request)
  * {
- *   "error": "Se requiere sessionId"
+ *   "error": "sessionId is required"
  * }
  * 
  * @example Response 500 (Internal Server Error)
  * {
- *   "error": "Error interno del servidor al guardar estadísticas"
+ *   "error": "Internal server error saving statistics"
  * }
  */
 router.post('/stats', async (req, res) => {
@@ -468,25 +463,25 @@ router.post('/stats', async (req, res) => {
 
     if (!sessionId) {
       return res.status(400).json({ 
-        error: 'Se requiere sessionId' 
+        error: 'sessionId is required' 
       });
     }
 
-    // Buscar sesión existente o crear nueva
+    // Find existing session or create new
     let gameStats = await GameStats.findOne({ sessionId });
 
     if (gameStats) {
-      // Actualizar estadísticas existentes
+      // Update existing statistics
       Object.assign(gameStats, statsData);
     } else {
-      // Crear nueva sesión
+      // Create new session
       gameStats = new GameStats({
         sessionId,
         ...statsData,
       });
     }
 
-    // Si el juego terminó, calcular puntuación final
+    // If game ended, calculate final score
     if (statsData.gameOver) {
       gameStats.endedAt = new Date();
       gameStats.calculateFinalScore();
@@ -499,23 +494,22 @@ router.post('/stats', async (req, res) => {
       stats: gameStats,
     });
   } catch (error) {
-    console.error('Error al guardar estadísticas:', error);
-    res.status(500).json({ error: 'Error interno del servidor al guardar estadísticas' });
+    res.status(500).json({ error: 'Internal server error saving statistics' });
   }
 });
 
 /**
  * @route   GET /api/game/stats/:sessionId
  * @method  GET
- * @desc    Obtiene las estadísticas completas de una sesión de juego específica.
- *          Útil para recuperar el progreso de una partida guardada.
+ * @desc    Gets the complete statistics of a specific game session.
+ *          Useful for recovering the progress of a saved game.
  * @access  Public
  * 
- * @param   {string} req.params.sessionId - ID único de la sesión
+ * @param   {string} req.params.sessionId - Unique session ID
  * 
- * @returns {200} Success - Estadísticas obtenidas
- * @returns {404} Not Found - Sesión no existe
- * @returns {500} Internal Server Error - Error en base de datos
+ * @returns {200} Success - Statistics obtained
+ * @returns {404} Not Found - Session does not exist
+ * @returns {500} Internal Server Error - Database error
  * 
  * @example Request
  * GET /api/game/stats/abc123-def456
@@ -534,12 +528,12 @@ router.post('/stats', async (req, res) => {
  * 
  * @example Response 404 (Not Found)
  * {
- *   "error": "Sesión no encontrada"
+ *   "error": "Session not found"
  * }
  * 
  * @example Response 500 (Internal Server Error)
  * {
- *   "error": "Error interno del servidor al obtener estadísticas"
+ *   "error": "Internal server error getting statistics"
  * }
  */
 router.get('/stats/:sessionId', async (req, res) => {
@@ -551,30 +545,29 @@ router.get('/stats/:sessionId', async (req, res) => {
 
     if (!gameStats) {
       return res.status(404).json({ 
-        error: 'Sesión no encontrada' 
+        error: 'Session not found' 
       });
     }
 
     res.json(gameStats);
   } catch (error) {
-    console.error('Error al obtener estadísticas:', error);
-    res.status(500).json({ error: 'Error interno del servidor al obtener estadísticas' });
+    res.status(500).json({ error: 'Internal server error getting statistics' });
   }
 });
 
 /**
  * @route   GET /api/game/leaderboard
  * @method  GET
- * @desc    Obtiene el ranking global de mejores puntuaciones de todos los jugadores.
- *          Solo incluye sesiones finalizadas (gameOver=true), ordenadas por puntuación final.
+ * @desc    Gets the global ranking of best scores from all players.
+ *          Only includes finished sessions (gameOver=true), sorted by final score.
  * @access  Public
  * 
- * @query   {number} [limit=10] - Número máximo de resultados a devolver (por defecto: 10)
+ * @query   {number} [limit=10] - Maximum number of results to return (default: 10)
  * 
- * @returns {200} Success - Leaderboard obtenido
- * @returns {500} Internal Server Error - Error en base de datos
+ * @returns {200} Success - Leaderboard obtained
+ * @returns {500} Internal Server Error - Database error
  * 
- * @example Request (Por defecto - Top 10)
+ * @example Request (Default - Top 10)
  * GET /api/game/leaderboard
  * 
  * @example Request (Top 50)
@@ -603,7 +596,7 @@ router.get('/stats/:sessionId', async (req, res) => {
  *   ]
  * }
  * 
- * @example Response 200 (Success - Vacío)
+ * @example Response 200 (Success - Empty)
  * {
  *   "total": 0,
  *   "leaderboard": []
@@ -611,7 +604,7 @@ router.get('/stats/:sessionId', async (req, res) => {
  * 
  * @example Response 500 (Internal Server Error)
  * {
- *   "error": "Error interno del servidor al obtener leaderboard"
+ *   "error": "Internal server error getting leaderboard"
  * }
  */
 router.get('/leaderboard', async (req, res) => {
@@ -629,19 +622,18 @@ router.get('/leaderboard', async (req, res) => {
       leaderboard,
     });
   } catch (error) {
-    console.error('Error al obtener leaderboard:', error);
-    res.status(500).json({ error: 'Error interno del servidor al obtener leaderboard' });
+    res.status(500).json({ error: 'Internal server error getting leaderboard' });
   }
 });
 
 /**
  * @route   GET /api/game/test-error
  * @method  GET
- * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
- *          Esta ruta NO debe usarse en producción.
+ * @desc    Test route that intentionally generates an error to verify that Sentry captures errors.
+ *          This route should NOT be used in production.
  * @access  Public
  * 
- * @returns {500} Internal Server Error - Error capturado por Sentry
+ * @returns {500} Internal Server Error - Error captured by Sentry
  * 
  * @example Request
  * GET /api/game/test-error

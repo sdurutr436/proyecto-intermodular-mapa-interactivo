@@ -1,6 +1,6 @@
 /**
  * @file ErrorBoundary.tsx
- * @description Error Boundary con integración de Sentry
+ * @description Error Boundary with Sentry integration
  * @module components/ErrorBoundary
  */
 
@@ -58,10 +58,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             textAlign: 'center',
           }}>
             <h1 style={{ color: '#d32f2f', marginBottom: '10px' }}>
-              ❌ Algo salió mal
+              ❌ Something went wrong
             </h1>
             <p style={{ color: '#666', marginBottom: '20px', lineHeight: '1.6' }}>
-              Ha ocurrido un error inesperado. Por favor, recarga la página.
+              An unexpected error has occurred. Please reload the page.
             </p>
             <button
               onClick={() => window.location.reload()}
@@ -76,7 +76,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                 fontWeight: 'bold',
               }}
             >
-              Recargar página
+              Reload page
             </button>
           </div>
         </div>

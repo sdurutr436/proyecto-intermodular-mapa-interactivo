@@ -1,4 +1,4 @@
-/* Estilos del componente WorldMap */
+/* WorldMap component styles */
 
 .world-map-container {
   position: relative;
@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-/* Controles de Zoom */
+/* Zoom Controls */
 .zoom-controls {
   position: absolute;
   top: 20px;
@@ -82,7 +82,7 @@ body.dark-mode .zoom-separator {
   background-color: #4a5568;
 }
 
-/* Indicador de Nivel de Zoom */
+/* Zoom Level Indicator */
 .zoom-indicator {
   position: absolute;
   bottom: 85px;
@@ -105,7 +105,7 @@ body.dark-mode .zoom-indicator {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Indicador de País - Debajo del zoom */
+/* Country Indicator - Below the zoom */
 .country-indicator {
   position: absolute;
   bottom: 20px;
@@ -157,16 +157,16 @@ body.dark-mode .country-indicator-name {
   color: #60a5fa;
 }
 
-/* Estilos del Mapa */
+/* Map Styles */
 .world-map-svg {
   width: 100%;
   height: 100%;
   outline: none;
 }
 
-/* Estilos por defecto de los países */
+/* Default styles for countries */
 .world-map-svg path {
-  /* Los colores se aplican individualmente por país */
+  /* Colors are applied individually per country */
   stroke: #1F2937;
   stroke-width: 0.8;
   transition: all 0.3s ease;
@@ -184,12 +184,12 @@ body.dark-mode .country-indicator-name {
 }
 
 .world-map-svg path:hover {
-  /* El hover se maneja con filter: brightness en el componente */
+  /* Hover is handled with filter: brightness in the component */
   stroke: #111827;
   stroke-width: 1.5;
 }
 
-/* -------- País bloqueado "rallado" --------- */
+/* -------- Blocked country "striped" --------- */
 .country-blocked {
   fill: url(#horizontal-stripe) !important;
   stroke: #e74c3c !important;

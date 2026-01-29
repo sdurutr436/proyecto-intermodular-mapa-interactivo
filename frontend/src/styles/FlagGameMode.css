@@ -1,7 +1,7 @@
-/* Estilos del modo de juego Adivinar Bandera */
-/* La mayoría de estilos se comparten con GuessGameMode.css */
+/* Guess Flag game mode styles */
+/* Most styles are shared with GuessGameMode.css */
 
-/* Contenedor de la bandera flotante */
+/* Floating flag container */
 .flag-display-floating {
   position: absolute;
   top: 20px;
@@ -31,7 +31,7 @@ body.dark-mode .flag-display-floating {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* Imagen de la bandera */
+/* Flag image */
 .flag-image-container {
   width: 140px;
   height: 93px;
@@ -61,7 +61,7 @@ body.dark-mode .flag-image-container {
   transform: scale(1.02);
 }
 
-/* Loading de bandera */
+/* Flag loading */
 .flag-loading-floating {
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ body.dark-mode .flag-loading-floating .loading-spinner-small {
   border-top-color: #a5b4fc;
 }
 
-/* Error de bandera */
+/* Flag error */
 .flag-error-floating {
   color: #ef4444;
   font-weight: 700;
@@ -106,7 +106,7 @@ body.dark-mode .flag-loading-floating .loading-spinner-small {
   padding: 1rem;
 }
 
-/* Título del modo bandera */
+/* Flag mode title */
 .flag-game-mode-title {
   font-size: 1.15rem;
   font-weight: 600;
@@ -121,7 +121,7 @@ body.dark-mode .flag-game-mode-title {
   color: #a5b4fc;
 }
 
-/* Toast de pista para banderas (continente) */
+/* Hint toast for flags (continent) */
 .hint-toast-flag {
   position: absolute;
   top: 190px;

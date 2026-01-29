@@ -1,7 +1,7 @@
 /**
  * @file WorldMap.tsx
- * @description Componente interactivo de mapa mundial con zoom, pan y selección de países.
- * Utiliza react-simple-maps para renderizar un mapa vectorial con soporte para países bloqueados.
+ * @description Interactive world map component with zoom, pan and country selection.
+ * Uses react-simple-maps to render a vector map with support for blocked countries.
  * @module components/WorldMap
  */
 
@@ -18,7 +18,7 @@ import { countryColors } from '../data/countryColors';
 import { useLanguage } from '../contexts/LanguageContext';
 
 /**
- * URL del atlas mundial en formato TopoJSON
+ * World atlas URL in TopoJSON format
  * @constant
  */
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
@@ -26,14 +26,14 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 import { Feature, GeometryObject } from 'geojson';
 
 /**
- * Props del componente WorldMap
+ * WorldMap component props
  */
 interface WorldMapProps {
-  /** Callback ejecutado cuando se hace clic en un país */
+  /** Callback executed when a country is clicked */
   onCountryClick: (geo: Feature<GeometryObject>) => void;
-  /** Array de códigos ISO Alpha-3 de países bloqueados (se muestran con patrón de rayas) */
+  /** Array of ISO Alpha-3 codes of blocked countries (displayed with stripe pattern) */
   blockedCountries?: string[];
-  /** Indica si el mapa está en modo de juego (afecta el estilo visual) */
+  /** Indicates if the map is in game mode (affects visual style) */
   isGameMode?: boolean;
 }
 
@@ -54,23 +54,23 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
   const handleResetZoom = () => setPosition({ coordinates: [0, 0], zoom: 1 });
 
   return (
-    <div className="world-map-container">
+    <section className="world-map-container" aria-label="Interactive World Map">
       {/* Controles de Zoom */}
-      <div className="zoom-controls">
+      <nav className="zoom-controls" aria-label="Map zoom controls">
         <button onClick={handleZoomIn} disabled={position.zoom >= 10} className="zoom-button" title={t.zoomIn}>+</button>
         <button onClick={handleZoomOut} disabled={position.zoom <= 1} className="zoom-button" title={t.zoomOut}>−</button>
-        <div className="zoom-separator"></div>
+        <span className="zoom-separator" aria-hidden="true"></span>
         <button onClick={handleResetZoom} className="zoom-button reset" title={t.resetView}>⌂</button>
-      </div>
+      </nav>
 
-      {/* Indicador de Zoom - esquina inferior derecha */}
-      <div className="zoom-indicator">{t.zoom}: {position.zoom.toFixed(1)}x</div>
+      {/* Zoom Indicator - bottom right corner */}
+      <output className="zoom-indicator" aria-live="polite">{t.zoom}: {position.zoom.toFixed(1)}x</output>
       
-      {/* Indicador de País - a la izquierda del zoom */}
-      <div className="country-indicator">
+      {/* Country Indicator - to the left of zoom */}
+      <output className="country-indicator" aria-live="polite">
         <span className="country-indicator-label">{t.country}:</span>
         <span className="country-indicator-name">{hoveredCountry || ''}</span>
-      </div>
+      </output>
 
       {/* Mapa */}
       <ComposableMap
@@ -78,7 +78,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
         projectionConfig={{ scale: 140, center: [10, 45] }}
         className="world-map-svg"
       >
-        {/* Definición del patrón de rayas horizontales */}
+        {/* Definition of horizontal stripe pattern */}
         <defs>
           <pattern id="horizontal-stripe" width="8" height="8" patternUnits="userSpaceOnUse">
             <rect width="8" height="8" fill="#bdc3c7" />
@@ -100,14 +100,14 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
               geographies
                 .filter((geo: Feature<GeometryObject>) => geo.properties?.name !== "Antarctica")
                 .map((geo: Feature<GeometryObject>) => {
-                  // Mapeamos el nombre del país (del geo) a su código ISO Alpha-3
+                  // Map the country name (from geo) to its ISO Alpha-3 code
                   const countryCode = countryNameToCode[geo.properties?.name];
-                  // ¿Está bloqueado?
+                  // Is it blocked?
                   const isBlocked = blockedCountries.includes(countryCode);
 
                   const countryColor = countryColors[geo.properties?.name] || '#f8e292';
                   
-                  // Generar un data-testid único para el país (convertir a kebab-case)
+                  // Generate a unique data-testid for the country (convert to kebab-case)
                   const countryTestId = geo.properties?.name 
                     ? `country-${geo.properties.name.toLowerCase().replace(/\s+/g, '-')}`
                     : undefined;
@@ -145,7 +145,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ onCountryClick, blockedCountries = 
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
-    </div>
+    </section>
   );
 };
 

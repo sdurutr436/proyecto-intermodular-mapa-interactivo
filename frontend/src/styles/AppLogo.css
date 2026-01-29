@@ -1,20 +1,20 @@
 /* client/src/styles/AppLogo.css */
-/* Estilos adicionales para el componente AppLogo reutilizable */
-/* Las clases principales (.logo-container, .logo-wrapper, .logo-globe, etc.) */
-/* están definidas en App.css y se reutilizan aquí */
+/* Additional styles for the reusable AppLogo component */
+/* Main classes (.logo-container, .logo-wrapper, .logo-globe, etc.) */
+/* are defined in App.css and reused here */
 
 /* ============================================
-   BASE PARA EL COMPONENTE REUTILIZABLE
+   BASE FOR THE REUSABLE COMPONENT
    ============================================ */
 
-/* El componente usa .logo-container de App.css pero necesita */
-/* flex-direction: column para tamaño grande (landing page) */
+/* The component uses .logo-container from App.css but needs */
+/* flex-direction: column for large size (landing page) */
 .app-logo--large.logo-container {
   flex-direction: column;
   gap: 0.75rem;
 }
 
-/* Tamaño grande - para landing page */
+/* Large size - for landing page */
 .app-logo--large .logo-globe {
   width: 80px !important;
   height: 80px !important;
@@ -50,7 +50,7 @@
   font-size: 3.5rem;
 }
 
-/* Tamaño mediano */
+/* Medium size */
 .app-logo--medium .logo-globe {
   width: 50px !important;
   height: 50px !important;
@@ -65,7 +65,7 @@
 }
 
 /* ============================================
-   RESPONSIVE PARA LANDING
+   RESPONSIVE FOR LANDING
    ============================================ */
 
 @media (max-width: 768px) {

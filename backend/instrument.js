@@ -17,7 +17,4 @@ if (SENTRY_DSN) {
     // Configurar sample rate para no enviar todos los errores en desarrollo
     tracesSampleRate: process.env.NODE_ENV === 'production' ? 1.0 : 0.1,
   });
-  console.log('✅ Sentry inicializado correctamente');
-} else {
-  console.log('⚠️ Sentry DSN no configurado - Monitoreo de errores deshabilitado');
 }

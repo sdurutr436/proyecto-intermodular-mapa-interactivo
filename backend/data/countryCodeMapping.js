@@ -1,13 +1,13 @@
 /**
  * @file countryCodeMapping.js
- * @description Mapeo bidireccional entre nombres de países en inglés y códigos ISO Alpha-3.
- * Utilizado para conversión de nombres geográficos del mapa a códigos estándar.
+ * @description Bidirectional mapping between country names in English and ISO Alpha-3 codes.
+ * Used for conversion of geographic names from the map to standard codes.
  * @module data/countryCodeMapping
  */
 
 /**
- * Diccionario de nombres de países en inglés a códigos ISO Alpha-3.
- * Los nombres corresponden a los usados en los archivos GeoJSON del mapa.
+ * Dictionary of country names in English to ISO Alpha-3 codes.
+ * The names correspond to those used in the map's GeoJSON files.
  * 
  * @constant {Object.<string, string>}
  * @example
@@ -190,24 +190,24 @@ const countryNameToCode = {
   'Yemen': 'YEM',
   'Zambia': 'ZMB',
   'Zimbabwe': 'ZWE',
-  // Variantes adicionales y nombres abreviados del mapa
+  // Additional variants and abbreviated names from the map
   'USA': 'USA',
   'UK': 'GBR',
   'Brasil': 'BRA',
-  'Czechia': 'CZE', // Nombre alternativo de Czech Republic
-  'Bosnia and Herz.': 'BIH', // Nombre abreviado en el mapa
-  'Macedonia': 'MKD', // Nombre corto (también North Macedonia)
-  'Côte d\'Ivoire': 'CIV', // Nombre francés de Ivory Coast
-  'Cote d\'Ivoire': 'CIV', // Variante sin acento
-  'W. Sahara': 'ESH', // Nombre abreviado de Western Sahara
-  'Central African Rep.': 'CAF', // Nombre abreviado de Central African Republic
-  'Eq. Guinea': 'GNQ', // Nombre abreviado de Equatorial Guinea
-  'S. Sudan': 'SSD', // Nombre abreviado de South Sudan
-  'Somaliland': 'SOM', // Territorio de Somalia
-  'Dem. Rep. Congo': 'COD', // Nombre abreviado de Democratic Republic of the Congo
-  'eSwatini': 'SWZ', // Nombre alternativo de Eswatini/Swaziland
-  'Fr. S. Antarctic Lands': 'ATF', // Tierras Australes y Antárticas Francesas
-  'Dominican Rep.': 'DOM' // Nombre abreviado de Dominican Republic
+  'Czechia': 'CZE', // Alternative name for Czech Republic
+  'Bosnia and Herz.': 'BIH', // Abbreviated name on the map
+  'Macedonia': 'MKD', // Short name (also North Macedonia)
+  'Côte d\'Ivoire': 'CIV', // French name for Ivory Coast
+  'Cote d\'Ivoire': 'CIV', // Variant without accent
+  'W. Sahara': 'ESH', // Abbreviated name for Western Sahara
+  'Central African Rep.': 'CAF', // Abbreviated name for Central African Republic
+  'Eq. Guinea': 'GNQ', // Abbreviated name for Equatorial Guinea
+  'S. Sudan': 'SSD', // Abbreviated name for South Sudan
+  'Somaliland': 'SOM', // Territory of Somalia
+  'Dem. Rep. Congo': 'COD', // Abbreviated name for Democratic Republic of the Congo
+  'eSwatini': 'SWZ', // Alternative name for Eswatini/Swaziland
+  'Fr. S. Antarctic Lands': 'ATF', // French Southern and Antarctic Lands
+  'Dominican Rep.': 'DOM' // Abbreviated name for Dominican Republic
 };
 
 module.exports = { countryNameToCode };

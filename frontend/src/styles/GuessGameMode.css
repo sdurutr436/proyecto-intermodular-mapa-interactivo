@@ -1,6 +1,6 @@
-/* Estilos del modo de juego Adivinar País */
+/* Guess Country game mode styles */
 
-/* Estadísticas flotantes sobre el mapa */
+/* Floating stats on the map */
 .game-stats-floating {
   position: absolute;
   top: 12px;
@@ -81,7 +81,7 @@ body.dark-mode .stat-item-floating .stat-value {
   color: #ef4444;
 }
 
-/* Feedback visual */
+/* Visual feedback */
 .game-feedback {
   position: absolute;
   top: 50%;

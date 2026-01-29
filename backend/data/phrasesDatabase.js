@@ -1,25 +1,25 @@
 /**
  * @file phrasesDatabase.js
- * @description Base de datos de frases traducidas organizadas por idioma.
- * Cada idioma contiene frases de ejemplo y los países donde se habla oficialmente.
- * Usado para el modo de juego "Adivina el idioma".
+ * @description Database of translated phrases organized by language.
+ * Each language contains example phrases and the countries where it is officially spoken.
+ * Used for the "Guess the language" game mode.
  * @module data/phrasesDatabase
  */
 
 /**
- * Base de datos de frases por código de idioma ISO 639-1.
+ * Database of phrases by ISO 639-1 language code.
  * 
  * @constant {Object.<string, {languageName: string, countryCodes: string[], phrases: string[]}>}
- * @property {string} languageName - Nombre completo del idioma
- * @property {string[]} countryCodes - Códigos ISO Alpha-3 de países donde se habla
- * @property {string[]} phrases - Frases de ejemplo en ese idioma
+ * @property {string} languageName - Full name of the language
+ * @property {string[]} countryCodes - ISO Alpha-3 codes of countries where it is spoken
+ * @property {string[]} phrases - Example phrases in that language
  * 
  * @example
- * phrasesDatabase['es']
+ * phrasesDatabase['es'] // Spanish language entry:
  * // {
- * //   languageName: 'Español',
+ * //   languageName: 'Español', // Display name
  * //   countryCodes: ['ESP', 'MEX', 'ARG', ...],
- * //   phrases: ['Hola, ¿cómo estás?', ...]
+ * //   phrases: ['Hola, ¿cómo estás?', ...] // Sample phrases
  * // }
  */
 const phrasesDatabase = {

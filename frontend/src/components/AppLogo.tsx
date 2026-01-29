@@ -1,57 +1,57 @@
 /**
- * @fileoverview Componente del logo de Transkarte
+ * @fileoverview Transkarte logo component
  * @module components/AppLogo
- * @description Logo SVG reutilizable de la aplicación con globo terráqueo
- * animado, caracteres flotantes y soporte para múltiples tamaños.
+ * @description Reusable SVG logo of the application with animated globe,
+ * floating characters and support for multiple sizes.
  */
 
 // client/src/components/AppLogo.tsx
-// Componente reutilizable del logo de Transkarte
-// Basado en el logo original del header de la aplicación
+// Reusable Transkarte logo component
+// Based on the original logo from the application header
 
 import React from 'react';
 import '../styles/AppLogo.css';
 
 /**
- * Propiedades del componente AppLogo
+ * AppLogo component properties
  * @interface AppLogoProps
  */
 interface AppLogoProps {
-  /** Tamaño del logo: 'small' (36px), 'medium' (50px), 'large' (80px) */
+  /** Logo size: 'small' (36px), 'medium' (50px), 'large' (80px) */
   size?: 'small' | 'medium' | 'large';
-  /** Si debe mostrar el título "Transkarte" junto al logo */
+  /** Whether to show the title "Transkarte" next to the logo */
   showTitle?: boolean;
-  /** Clases CSS adicionales */
+  /** Additional CSS classes */
   className?: string;
-  /** ID único para gradientes SVG (evita conflictos con múltiples instancias) */
+  /** Unique ID for SVG gradients (avoids conflicts with multiple instances) */
   gradientId?: string;
 }
 
 /**
- * Logo animado de Transkarte
+ * Animated Transkarte logo
  * 
  * @component
- * @description Componente que renderiza el logo de la aplicación con:
- * - Globo terráqueo SVG con continentes estilizados
- * - Gradientes y efectos de brillo
- * - Caracteres flotantes de diferentes idiomas (japonés, árabe, ruso)
- * - Título opcional "Transkarte"
- * - Soporte para tres tamaños predefinidos
+ * @description Component that renders the application logo with:
+ * - SVG globe with stylized continents
+ * - Gradients and glow effects
+ * - Floating characters from different languages (Japanese, Arabic, Russian)
+ * - Optional "Transkarte" title
+ * - Support for three predefined sizes
  * 
- * Los gradientes SVG usan IDs únicos para evitar conflictos cuando
- * hay múltiples instancias del logo en la misma página.
+ * SVG gradients use unique IDs to avoid conflicts when
+ * there are multiple logo instances on the same page.
  * 
  * @example
  * ```tsx
- * // Logo pequeño para el header
+ * // Small logo for the header
  * <AppLogo size="small" />
  * 
- * // Logo grande con título para landing page
+ * // Large logo with title for landing page
  * <AppLogo size="large" showTitle gradientId="landing" />
  * ```
  * 
- * @param {AppLogoProps} props - Las propiedades del componente
- * @returns {JSX.Element} Logo SVG con animaciones
+ * @param {AppLogoProps} props - The component properties
+ * @returns {JSX.Element} Animated SVG logo
  */
 const AppLogo: React.FC<AppLogoProps> = ({ 
   size = 'medium', 
@@ -59,23 +59,23 @@ const AppLogo: React.FC<AppLogoProps> = ({
   className = '',
   gradientId = 'default'
 }) => {
-  // Tamaños del globo según el prop (basado en el original: 36px para header)
+  // Globe sizes according to the prop (based on original: 36px for header)
   const globeSizes = {
-    small: 36,   // Header original
+    small: 36,   // Original header
     medium: 50,
     large: 80,   // Landing page
   };
 
   const globeSize = globeSizes[size];
   
-  // IDs únicos para los gradientes (evita conflictos cuando hay múltiples logos)
+  // Unique IDs for gradients (avoids conflicts when there are multiple logos)
   const gradientIdMain = `globeGradient-${gradientId}`;
   const shineIdMain = `globeShine-${gradientId}`;
 
   return (
     <div className={`logo-container app-logo app-logo--${size} ${className}`}>
       <div className="logo-wrapper">
-        {/* Globo terráqueo SVG - Exactamente igual al original del header */}
+        {/* Globe SVG - Exactly the same as the original in the header */}
         <svg 
           className="logo-globe" 
           width={globeSize} 
@@ -96,50 +96,50 @@ const AppLogo: React.FC<AppLogoProps> = ({
             </radialGradient>
           </defs>
           
-          {/* Sombra del globo */}
+          {/* Globe shadow */}
           <ellipse cx="50" cy="90" rx="38" ry="6" fill="#000000" opacity="0.15"/>
           
-          {/* Círculo principal del globo */}
+          {/* Main globe circle */}
           <circle cx="50" cy="50" r="44" fill={`url(#${gradientIdMain})`} stroke="#2c5aa0" strokeWidth="2.5"/>
           
-          {/* Líneas de latitud con diferentes grosores */}
+          {/* Latitude lines with different thicknesses */}
           <ellipse cx="50" cy="50" rx="44" ry="12" fill="none" stroke="#ffffff" strokeWidth="1.2" opacity="0.7"/>
           <ellipse cx="50" cy="50" rx="44" ry="26" fill="none" stroke="#ffffff" strokeWidth="1" opacity="0.5"/>
           <ellipse cx="50" cy="50" rx="44" ry="38" fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.3"/>
           
-          {/* Línea del ecuador - más prominente */}
+          {/* Equator line - more prominent */}
           <line x1="6" y1="50" x2="94" y2="50" stroke="#ffffff" strokeWidth="2.2" opacity="0.85" strokeLinecap="round"/>
           
-          {/* Líneas de longitud */}
+          {/* Longitude lines */}
           <ellipse cx="50" cy="50" rx="12" ry="44" fill="none" stroke="#ffffff" strokeWidth="1.2" opacity="0.7"/>
           <ellipse cx="50" cy="50" rx="26" ry="44" fill="none" stroke="#ffffff" strokeWidth="1" opacity="0.5"/>
           <ellipse cx="50" cy="50" rx="38" ry="44" fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.3"/>
           
-          {/* Meridiano principal */}
+          {/* Prime meridian */}
           <line x1="50" y1="6" x2="50" y2="94" stroke="#ffffff" strokeWidth="2.2" opacity="0.85" strokeLinecap="round"/>
           
-          {/* Continentes más detallados */}
-          {/* América */}
+          {/* More detailed continents */}
+          {/* America */}
           <path d="M 28 30 Q 30 25, 32 28 L 34 26 Q 36 28, 35 32 L 37 35 Q 38 38, 36 40 L 35 45 Q 33 48, 31 50 L 29 55 Q 27 58, 25 55 L 24 50 Q 23 45, 25 42 L 26 38 Q 27 33, 28 30 Z" 
                 fill="#4CAF7E" opacity="0.85" stroke="#2d8659" strokeWidth="0.5"/>
-          {/* Europa/África */}
+          {/* Europe/Africa */}
           <path d="M 48 25 L 52 24 Q 55 25, 56 28 L 58 30 L 60 33 Q 61 36, 59 38 L 58 42 Q 56 45, 54 47 L 52 52 Q 51 56, 53 59 L 55 63 Q 56 67, 54 70 L 52 73 Q 50 75, 48 72 L 47 68 Q 46 64, 48 61 L 49 56 Q 50 52, 48 49 L 46 45 Q 45 41, 47 38 L 48 33 Q 49 28, 48 25 Z" 
                 fill="#E86B5C" opacity="0.85" stroke="#c14a3f" strokeWidth="0.5"/>
           {/* Asia */}
           <path d="M 65 28 L 68 27 Q 71 28, 72 31 L 74 35 Q 75 39, 73 42 L 70 46 Q 68 50, 65 48 L 62 45 Q 61 41, 63 38 L 64 33 Q 65 30, 65 28 Z" 
                 fill="#F2C957" opacity="0.85" stroke="#d4a83d" strokeWidth="0.5"/>
-          {/* Oceanía */}
+          {/* Oceania */}
           <path d="M 70 58 L 72 57 Q 74 58, 73 60 L 72 62 Q 70 63, 69 61 L 70 58 Z" 
                 fill="#5983C9" opacity="0.85" stroke="#4267a3" strokeWidth="0.5"/>
           
-          {/* Efecto de brillo/reflejo */}
+          {/* Glow/reflection effect */}
           <circle cx="50" cy="50" r="44" fill={`url(#${shineIdMain})`} pointerEvents="none"/>
           
-          {/* Brillo superior */}
+          {/* Upper glow */}
           <ellipse cx="38" cy="32" rx="12" ry="8" fill="#ffffff" opacity="0.4" transform="rotate(-25 38 32)"/>
         </svg>
         
-        {/* Caracteres flotantes alrededor del globo - Clases originales */}
+        {/* Floating characters around the globe - Original classes */}
         <span className="kanji kanji-top">翻</span>
         <span className="kanji kanji-bottom">訳</span>
         <span className="lang-char lang-arabic">ت</span>

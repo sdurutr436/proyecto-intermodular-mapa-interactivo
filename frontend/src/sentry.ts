@@ -1,6 +1,6 @@
 /**
  * @file sentry.ts
- * @description Configuración de Sentry para el frontend React
+ * @description Sentry configuration for the React frontend
  * @module sentry
  */
 
@@ -14,7 +14,6 @@ export const initSentry = () => {
 
   // Solo inicializar si hay DSN configurado
   if (!SENTRY_DSN) {
-    console.warn('⚠️ VITE_SENTRY_DSN no configurado - Monitoreo de errores deshabilitado');
     return;
   }
 
@@ -33,6 +32,4 @@ export const initSentry = () => {
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
   });
-
-  console.log('✅ Sentry inicializado correctamente en frontend');
 };

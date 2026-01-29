@@ -1,11 +1,11 @@
 // client/src/data/countryCodeMapping.ts
 
 /**
- * Mapeo nombre de país a código ISO Alpha-3
- * Uso: import { countryNameToCode } from '../data/countryCodeMapping';
+ * Country name to ISO Alpha-3 code mapping
+ * Usage: import { countryNameToCode } from '../data/countryCodeMapping';
  */
 
-// Países base
+// Base countries
 const _countryNameToCode: Record<string, string> = {
   'Afghanistan': 'AFG',
   'Albania': 'ALB',
@@ -184,7 +184,7 @@ const _countryNameToCode: Record<string, string> = {
   'Zimbabwe': 'ZWE'
 };
 
-// Variantes/alias de nombre de país
+// Country name variants/aliases
 const countryNameVariants: Record<string, string> = {
   'USA': 'USA',
   'UK': 'GBR',
@@ -206,8 +206,8 @@ const countryNameVariants: Record<string, string> = {
   // Nombres abreviados que usa el atlas mundial (react-simple-maps)
   'Czechia': 'CZE', // Nombre alternativo de Czech Republic
   'Bosnia and Herz.': 'BIH', // Nombre abreviado en el mapa
-  'Macedonia': 'MKD', // Nombre corto (también North Macedonia)
-  'Côte d\'Ivoire': 'CIV', // Nombre francés de Ivory Coast
+  'Macedonia': 'MKD', // Short name (also North Macedonia)
+  'Côte d\'Ivoire': 'CIV', // French name of Ivory Coast
   'Cote d\'Ivoire': 'CIV', // Variante sin acento
   'W. Sahara': 'ESH', // Nombre abreviado de Western Sahara
   'Central African Rep.': 'CAF', // Nombre abreviado de Central African Republic
@@ -216,11 +216,11 @@ const countryNameVariants: Record<string, string> = {
   'Somaliland': 'SOM', // Territorio de Somalia
   'Dem. Rep. Congo': 'COD', // Nombre abreviado de Democratic Republic of the Congo
   'eSwatini': 'SWZ', // Nombre alternativo de Eswatini/Swaziland
-  'Fr. S. Antarctic Lands': 'ATF', // Tierras Australes y Antárticas Francesas
-  'Dominican Rep.': 'DOM' // Nombre abreviado de Dominican Republic
+  'Fr. S. Antarctic Lands': 'ATF', // French Southern and Antarctic Lands
+  'Dominican Rep.': 'DOM' // Abbreviated name of Dominican Republic
 };
 
-// Exporta la unión de ambos (base + alias)
+// Exports the union of both (base + aliases)
 export const countryNameToCode: Record<string, string> = {
   ..._countryNameToCode,
   ...countryNameVariants

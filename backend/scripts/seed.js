@@ -1,6 +1,6 @@
 /**
  * @file seed.js
- * @description Script para poblar la base de datos con datos iniciales de traducciones.
+ * @description Script to populate the database with initial translation data.
  * @module scripts/seed
  */
 
@@ -9,11 +9,11 @@ const mongoose = require('mongoose');
 const Translation = require('../models/Translation');
 
 /**
- * Datos de traducciones iniciales para el caché
+ * Initial translation data for cache
  * @constant {Array<Object>}
  */
 const initialTranslations = [
-  // Español -> Otros idiomas
+  // Spanish -> Other languages
   {
     originalText: 'hello',
     alpha3Code: 'ESP',
@@ -170,66 +170,66 @@ const initialTranslations = [
 ];
 
 /**
- * Conecta a la base de datos MongoDB
+ * Connects to the MongoDB database
  * @async
  * @function connectDB
  * @returns {Promise<void>}
- * @throws {Error} Si la conexión falla
+ * @throws {Error} If connection fails
  */
 async function connectDB() {
   try {
     const mongoURI = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/translator';
     await mongoose.connect(mongoURI);
-    console.log('✅ Conectado a MongoDB');
+    console.log('✅ Connected to MongoDB');
   } catch (error) {
-    console.error('❌ Error conectando a MongoDB:', error.message);
+    console.error('❌ Error connecting to MongoDB:', error.message);
     process.exit(1);
   }
 }
 
 /**
- * Pobla la colección de traducciones con datos iniciales
+ * Populates the translations collection with initial data
  * @async
  * @function seedTranslations
- * @returns {Promise<number>} Número de traducciones insertadas
+ * @returns {Promise<number>} Number of translations inserted
  */
 async function seedTranslations() {
   try {
-    // Limpiar colección existente
+    // Clear existing collection
     await Translation.deleteMany({});
-    console.log('🗑️  Colección de traducciones limpiada');
+    console.log('🗑️  Translations collection cleared');
 
-    // Insertar nuevos datos
+    // Insert new data
     const result = await Translation.insertMany(initialTranslations);
-    console.log(`✅ ${result.length} traducciones insertadas`);
+    console.log(`✅ ${result.length} translations inserted`);
     return result.length;
   } catch (error) {
-    console.error('❌ Error poblando traducciones:', error.message);
+    console.error('❌ Error populating translations:', error.message);
     throw error;
   }
 }
 
 /**
- * Ejecuta el proceso completo de seeding
+ * Executes the complete seeding process
  * @async
  * @function runSeed
  */
 async function runSeed() {
-  console.log('🌱 Iniciando proceso de seeding...\n');
+  console.log('🌱 Starting seeding process...\n');
 
   try {
     await connectDB();
     
     const translationsCount = await seedTranslations();
 
-    console.log('\n✨ Proceso de seeding completado exitosamente!');
-    console.log(`📊 Total: ${translationsCount} traducciones insertadas\n`);
+    console.log('\n✨ Seeding process completed successfully!');
+    console.log(`📊 Total: ${translationsCount} translations inserted\n`);
   } catch (error) {
-    console.error('\n❌ Error en el proceso de seeding:', error.message);
+    console.error('\n❌ Error in seeding process:', error.message);
     process.exit(1);
   } finally {
     await mongoose.connection.close();
-    console.log('🔌 Conexión a MongoDB cerrada');
+    console.log('🔌 MongoDB connection closed');
   }
 }
 

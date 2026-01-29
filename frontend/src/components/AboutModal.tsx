@@ -1,44 +1,44 @@
 /**
- * @fileoverview Modal informativo "Sobre nosotros" de Transkarte
+ * @fileoverview "About us" informational modal for Transkarte
  * @module components/AboutModal
- * @description Modal accesible que presenta información detallada sobre
- * la aplicación, sus modos de juego y características principales.
+ * @description Accessible modal that presents detailed information about
+ * the application, its game modes and main features.
  */
 
 // client/src/components/AboutModal.tsx
-// Modal de información "Sobre nosotros" con descripción de la aplicación
+// "About us" informational modal with application description
 
 import React, { useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/AboutModal.css';
 
 /**
- * Propiedades del componente AboutModal
+ * AboutModal component properties
  * @interface AboutModalProps
  */
 interface AboutModalProps {
-  /** Controla si el modal está visible */
+  /** Controls whether the modal is visible */
   isOpen: boolean;
-  /** Callback para cerrar el modal */
+  /** Callback to close the modal */
   onClose: () => void;
-  /** Indica si el modo oscuro está activo */
+  /** Indicates if dark mode is active */
   isDarkMode: boolean;
 }
 
 /**
- * Modal informativo "Sobre nosotros"
+ * "About us" informational modal
  * 
  * @component
- * @description Modal accesible que muestra información sobre Transkarte:
- * - Descripción general de la aplicación
- * - Los tres modos de juego disponibles
- * - Características especiales (modo oscuro, mapa interactivo, etc.)
+ * @description Accessible modal that displays information about Transkarte:
+ * - General description of the application
+ * - The three available game modes
+ * - Special features (dark mode, interactive map, etc.)
  * 
- * Características de accesibilidad:
- * - Se cierra con la tecla Escape
- * - Se cierra al hacer clic fuera del contenido
- * - Bloquea el scroll del body cuando está abierto
- * - Incluye roles ARIA apropiados
+ * Accessibility features:
+ * - Closes with the Escape key
+ * - Closes when clicking outside the content
+ * - Blocks body scroll when open
+ * - Includes appropriate ARIA roles
  * 
  * @example
  * ```tsx
@@ -49,14 +49,14 @@ interface AboutModalProps {
  * />
  * ```
  * 
- * @param {AboutModalProps} props - Las propiedades del componente
- * @returns {JSX.Element | null} Modal renderizado o null si está cerrado
+ * @param {AboutModalProps} props - The component properties
+ * @returns {JSX.Element | null} Rendered modal or null if closed
  */
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) => {
   const { t } = useLanguage();
   const modalContentRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar modal con tecla Escape
+  // Close modal with Escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -66,7 +66,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      // Prevenir scroll del body
+      // Prevent body scroll
       document.body.style.overflow = 'hidden';
     }
 
@@ -76,7 +76,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
     };
   }, [isOpen, onClose]);
 
-  // Cerrar al hacer clic en el overlay (fuera del contenido)
+  // Close when clicking on the overlay (outside the content)
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -97,7 +97,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
         aria-modal="true"
         aria-labelledby="about-modal-title"
       >
-        {/* Botón de cerrar */}
+        {/* Close button */}
         <button 
           className="about-modal-close"
           onClick={onClose}
@@ -109,9 +109,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
           </svg>
         </button>
 
-        {/* Contenido scrolleable */}
+        {/* Scrollable content */}
         <div className="about-modal-scroll">
-          {/* Cabecera */}
+          {/* Header */}
           <header className="about-modal-header">
             <div className="about-modal-logo">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -123,14 +123,14 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
             <h2 id="about-modal-title" className="about-modal-title">{t.aboutTitle}</h2>
           </header>
 
-          {/* Descripción principal */}
+          {/* Main description */}
           <section className="about-modal-section">
             <p className="about-modal-intro">
               <strong>Transkarte</strong> {t.aboutIntro}
             </p>
           </section>
 
-          {/* Modos de juego */}
+          {/* Game modes */}
           <section className="about-modal-section">
             <h3 className="about-modal-section-title">
               <span className="section-icon">🎮</span>
@@ -164,7 +164,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
             </div>
           </section>
 
-          {/* Características */}
+          {/* Features */}
           <section className="about-modal-section">
             <h3 className="about-modal-section-title">
               <span className="section-icon">✨</span>
@@ -173,26 +173,26 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, isDarkMode }) 
             <div className="about-features-grid">
               <div className="about-feature">
                 <span className="feature-icon">🌙</span>
-                <span>Modo oscuro</span>
+                <span>Dark mode</span>
               </div>
               <div className="about-feature">
                 <span className="feature-icon">🗺️</span>
-                <span>Mapa interactivo</span>
+                <span>Interactive map</span>
               </div>
               <div className="about-feature">
                 <span className="feature-icon">🔍</span>
-                <span>Zoom avanzado</span>
+                <span>Advanced zoom</span>
               </div>
               <div className="about-feature">
                 <span className="feature-icon">💾</span>
-                <span>Guarda preferencias</span>
+                <span>Saves preferences</span>
               </div>
             </div>
           </section>
 
-          {/* Footer del modal */}
+          {/* Modal footer */}
           <footer className="about-modal-footer">
-            <p>Desarrollado con ❤️ para el aprendizaje de idiomas</p>
+            <p>Developed with ❤️ for language learning</p>
           </footer>
         </div>
       </div>

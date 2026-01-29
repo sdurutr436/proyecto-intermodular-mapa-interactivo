@@ -1,20 +1,20 @@
 /**
  * @file Translation.js
- * @description Modelo de Mongoose para almacenar traducciones en caché.
- * Optimiza el rendimiento evitando traducciones repetidas.
+ * @description Mongoose model to store translations in cache.
+ * Optimizes performance by avoiding repeated translations.
  * @module models/Translation
  */
 
 const mongoose = require('mongoose');
 
 /**
- * Esquema de traducción para caché
+ * Translation schema for cache
  * @typedef {Object} Translation
- * @property {string} originalText - Texto original a traducir (indexado)
- * @property {string} alpha3Code - Código ISO Alpha-3 del país destino (indexado)
- * @property {string} language - Nombre del idioma destino
- * @property {string} translation - Texto traducido
- * @property {Date} createdAt - Fecha de creación del registro
+ * @property {string} originalText - Original text to translate (indexed)
+ * @property {string} alpha3Code - ISO Alpha-3 code of destination country (indexed)
+ * @property {string} language - Name of destination language
+ * @property {string} translation - Translated text
+ * @property {Date} createdAt - Record creation date
  */
 const TranslationSchema = new mongoose.Schema({
     originalText: {
@@ -42,10 +42,10 @@ const TranslationSchema = new mongoose.Schema({
 });
 
 /**
- * Índice compuesto para búsquedas eficientes de traducciones.
- * Garantiza que no haya traducciones duplicadas para la misma combinación
- * de texto original y país destino.
- * @index {originalText, alpha3Code} - Índice único compuesto
+ * Compound index for efficient translation lookups.
+ * Ensures there are no duplicate translations for the same combination
+ * of original text and destination country.
+ * @index {originalText, alpha3Code} - Unique compound index
  */
 TranslationSchema.index({ originalText: 1, alpha3Code: 1 }, { unique: true });
 

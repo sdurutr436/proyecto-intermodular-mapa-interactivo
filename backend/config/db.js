@@ -1,33 +1,31 @@
 /**
  * @file db.js
- * @description Configuración y conexión a la base de datos MongoDB usando Mongoose.
+ * @description MongoDB database configuration and connection using Mongoose.
  * @module config/db
  */
 
 const mongoose = require('mongoose');
 
 /**
- * Establece la conexión con la base de datos MongoDB.
- * Lee la URI de conexión desde la variable de entorno MONGO_URI.
- * Si la conexión falla, el proceso termina con código de error 1.
+ * Establishes connection with MongoDB database.
+ * Reads connection URI from MONGO_URI environment variable.
+ * If connection fails, process exits with error code 1.
  * 
  * @async
  * @function connectDB
- * @returns {Promise<void>} Promesa que se resuelve cuando la conexión se establece correctamente
- * @throws {Error} Si no se puede establecer la conexión con MongoDB
+ * @returns {Promise<void>} Promise that resolves when connection is established successfully
+ * @throws {Error} If unable to establish connection with MongoDB
  * 
  * @example
- * // Uso típico en server.js
+ * // Typical usage in server.js
  * const connectDB = require('./config/db');
  * connectDB();
  */
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log('MongoDB Connected...');
     } catch (err) {
-        console.error(err.message);
-        // Exit process with failure
+        // Critical error - server cannot function without database
         process.exit(1);
     }
 };

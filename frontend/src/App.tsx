@@ -1,7 +1,7 @@
 /**
  * @file App.tsx
- * @description Componente raíz de la aplicación refactorizado con Zustand.
- * Maneja la navegación entre modos de juego usando el store centralizado.
+ * @description Root component of the application refactored with Zustand.
+ * Handles navigation between game modes using the centralized store.
  * @module components/App
  */
 
@@ -24,7 +24,7 @@ import './styles/App.css';
 import './styles/FlagGameMode.css';
 
 const App: React.FC = () => {
-  // Hook de idioma
+  // Language hook
   const { language, setLanguage, t } = useLanguage();
   
   // Zustand store
@@ -74,7 +74,7 @@ const App: React.FC = () => {
     resetGame
   } = useAppStore();
 
-  // Aplicar modo oscuro inicial al cargar
+  // Apply initial dark mode on load
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -83,7 +83,7 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // Consultar países bloqueados cada vez que cambia el texto
+  // Query blocked countries each time the text changes
   useEffect(() => {
     if (!inputText.trim()) {
       setBlockedCountries([]);
@@ -94,14 +94,14 @@ const App: React.FC = () => {
       .catch(() => setBlockedCountries([]));
   }, [inputText, setBlockedCountries]);
 
-  // Callback para clic en país
+  // Callback for country click
   const handleCountryClick = useCallback(async (geo: any) => {
     if (!inputText.trim()) {
       alert(t.writeTextFirst);
       return;
     }
 
-    // Bloqueo visual: país rallado
+    // Visual block: striped country
     const code = countryNameToCode[geo.properties.name];
     if (blockedCountries.includes(code)) {
       alert(t.countryBlocked);
@@ -129,80 +129,62 @@ const App: React.FC = () => {
     }
   }, [inputText, blockedCountries, t, setSelectedCountry, setIsLoading, setError, setTranslationResult]);
 
-  // Cargar frase al entrar en modo juego de adivinar idioma
+  // Generic function to load new content based on mode
+  const loadNewContent = useCallback(async () => {
+    if (gameMode === 'guess') {
+      setIsPhraseLoading(true);
+      try {
+        const phrase = await generateRandomPhrase();
+        setCurrentPhrase(phrase);
+      } catch (error) {
+        // Error handled silently
+      } finally {
+        setIsPhraseLoading(false);
+      }
+    } else if (gameMode === 'flag') {
+      setIsFlagLoading(true);
+      try {
+        const flag = await generateRandomFlag();
+        setCurrentFlag(flag);
+      } catch (error) {
+        // Error handled silently
+      } finally {
+        setIsFlagLoading(false);
+      }
+    }
+  }, [gameMode, setIsPhraseLoading, setCurrentPhrase, setIsFlagLoading, setCurrentFlag]);
+
+  // Load content when entering game mode
   useEffect(() => {
-    if (gameMode === 'guess' && !currentPhrase && !gameOver) {
-      loadNewPhrase();
+    const needsPhrase = gameMode === 'guess' && !currentPhrase && !gameOver;
+    const needsFlag = gameMode === 'flag' && !currentFlag && !gameOver;
+    
+    if (needsPhrase || needsFlag) {
+      loadNewContent();
     }
-  }, [gameMode, currentPhrase, gameOver]);
-
-  // Cargar bandera al entrar en modo juego de adivinar bandera
-  useEffect(() => {
-    if (gameMode === 'flag' && !currentFlag && !gameOver) {
-      loadNewFlag();
-    }
-  }, [gameMode, currentFlag, gameOver]);
-
-  const loadNewPhrase = async () => {
-    setIsPhraseLoading(true);
-    try {
-      const phrase = await generateRandomPhrase();
-      setCurrentPhrase(phrase);
-    } catch (error) {
-      console.error('Error loading phrase:', error);
-    } finally {
-      setIsPhraseLoading(false);
-    }
-  };
-
-  const loadNewFlag = async () => {
-    setIsFlagLoading(true);
-    try {
-      const flag = await generateRandomFlag();
-      setCurrentFlag(flag);
-    } catch (error) {
-      console.error('Error loading flag:', error);
-    } finally {
-      setIsFlagLoading(false);
-    }
-  };
+  }, [gameMode, currentPhrase, currentFlag, gameOver, loadNewContent]);
 
   const handleCountryGuess = (isCorrect: boolean, countryName: string) => {
     handleGuess(isCorrect);
 
     if (isCorrect) {
-      // Cargar nueva frase/bandera después de un breve delay
-      setTimeout(() => {
-        if (gameMode === 'guess') {
-          loadNewPhrase();
-        } else if (gameMode === 'flag') {
-          loadNewFlag();
-        }
-      }, 2000);
+      setTimeout(loadNewContent, 2000);
     }
   };
 
-  const handleSkipPhrase = () => {
+  const handleSkipQuestion = () => {
     skipQuestion();
     if (gameStats.lives > 1) {
-      if (gameMode === 'guess') {
-        loadNewPhrase();
-      } else if (gameMode === 'flag') {
-        loadNewFlag();
-      }
+      loadNewContent();
     }
   };
 
   const handleResetGame = () => {
     resetGame();
-    if (gameMode === 'guess') {
-      loadNewPhrase();
-    } else if (gameMode === 'flag') {
-      loadNewFlag();
-    }
+    loadNewContent();
   };
 
-  // Mostrar landing page si es la primera visita
+  // Show landing page if it's the first visit
   if (showLanding) {
     return (
       <ErrorBoundary>
@@ -217,7 +199,7 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className="app-container">
-      {/* Header fijo con 3 columnas */}
+      {/* Fixed header with 3 columns */}
       <header className="app-header">
         <div className="header-left">
           <AppLogo size="small" showTitle gradientId="header" />
@@ -250,7 +232,7 @@ const App: React.FC = () => {
         </div>
         
         <div className="header-right">
-          {/* Selector de modo de juego */}
+          {/* Game mode selector */}
           <div className="mode-selector">
             <button 
               className="mode-indicator" 
@@ -272,29 +254,32 @@ const App: React.FC = () => {
                 <path d="M6 8L2 4h8L6 8z" />
               </svg>
             </button>
-            <div className="mode-dropdown">
+            <div className="mode-dropdown" role="menu">
               <button 
                 className={`mode-option ${gameMode === 'translation' ? 'active' : ''}`}
                 onClick={() => setGameMode('translation')}
+                role="menuitem"
               >
                 {t.translation}
               </button>
               <button 
                 className={`mode-option ${gameMode === 'guess' ? 'active' : ''}`}
                 onClick={() => setGameMode('guess')}
+                role="menuitem"
               >
                 {t.guessLanguage}
               </button>
               <button 
                 className={`mode-option ${gameMode === 'flag' ? 'active' : ''}`}
                 onClick={() => setGameMode('flag')}
+                role="menuitem"
               >
                 {t.guessFlag}
               </button>
             </div>
           </div>
 
-          {/* Selector de idioma */}
+          {/* Language selector */}
           <div className="language-selector">
             <button className="language-indicator">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -307,22 +292,24 @@ const App: React.FC = () => {
                 <path d="M6 8L2 4h8L6 8z" />
               </svg>
             </button>
-            <div className="language-dropdown">
+            <nav className="language-dropdown" role="menu" aria-label="Language selection">
               <button 
                 className={`language-option ${language === 'en' ? 'active' : ''}`}
                 onClick={() => setLanguage('en')}
+                role="menuitem"
               >
-                <span className="lang-flag">🇬🇧</span>
+                <span className="lang-flag" aria-hidden="true">🇬🇧</span>
                 <span>English</span>
               </button>
               <button 
                 className={`language-option ${language === 'es' ? 'active' : ''}`}
                 onClick={() => setLanguage('es')}
+                role="menuitem"
               >
-                <span className="lang-flag">🇪🇸</span>
+                <span className="lang-flag" aria-hidden="true">🇪🇸</span>
                 <span>Español</span>
               </button>
-            </div>
+            </nav>
           </div>
           
           <button 
@@ -331,7 +318,7 @@ const App: React.FC = () => {
             onClick={toggleDarkMode}
             title={isDarkMode ? t.lightMode : t.darkMode}
           >
-            <div className={`toggle-switch ${isDarkMode ? 'active' : ''}`}>
+            <span className={`toggle-switch ${isDarkMode ? 'active' : ''}`} aria-hidden="true">
               <svg className="toggle-background-icon toggle-sun" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="5"/>
                 <path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/>
@@ -339,8 +326,8 @@ const App: React.FC = () => {
               <svg className="toggle-background-icon toggle-moon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
-              <div className="toggle-circle"></div>
-            </div>
+              <span className="toggle-circle"></span>
+            </span>
           </button>
         </div>
       </header>
@@ -348,10 +335,10 @@ const App: React.FC = () => {
       <main className="app-main">
         {gameMode === 'translation' ? (
           <>
-            {/* Modo Traducción */}
-            <div className="map-wrapper">
+            {/* Translation Mode */}
+            <section className="map-wrapper" aria-label="Translation mode">
               <WorldMap onCountryClick={handleCountryClick} blockedCountries={blockedCountries} />
-            </div>
+            </section>
             
             {selectedCountry && (
               <TranslationModal
@@ -365,23 +352,23 @@ const App: React.FC = () => {
             )}
           </>
         ) : gameMode === 'guess' ? (
-          <div className="game-map-wrapper">
-            {/* Frase del juego flotante */}
-            <div className="game-phrase-floating">
+          <section className="game-map-wrapper" aria-label="Guess language game">
+            {/* Floating game phrase */}
+            <article className="game-phrase-floating" aria-live="polite">
               {isPhraseLoading ? (
-                <div className="phrase-loading-floating">
-                  <div className="loading-spinner-small"></div>
-                  <span>{t.loading}</span>
-                </div>
+                <figure className="phrase-loading-floating">
+                  <span className="loading-spinner-small" aria-hidden="true"></span>
+                  <figcaption>{t.loading}</figcaption>
+                </figure>
               ) : currentPhrase ? (
-                <div className="phrase-text-floating">{currentPhrase.text}</div>
+                <blockquote className="phrase-text-floating">{currentPhrase.text}</blockquote>
               ) : (
-                <div className="phrase-error-floating">{t.loadError}</div>
+                <p className="phrase-error-floating" role="alert">{t.loadError}</p>
               )}
-            </div>
+            </article>
             
-            {/* Botones de acción flotantes */}
-            <div className="game-controls-floating">
+            {/* Floating action buttons */}
+            <nav className="game-controls-floating" aria-label="Game controls">
               <button 
                 className="game-floating-button hint-button"
                 onClick={showHintAction}
@@ -394,7 +381,7 @@ const App: React.FC = () => {
               </button>
               <button 
                 className="game-floating-button skip-button"
-                onClick={handleSkipPhrase}
+                onClick={handleSkipQuestion}
                 disabled={isPhraseLoading || gameOver}
                 title={t.nextWord}
               >
@@ -412,9 +399,9 @@ const App: React.FC = () => {
                   <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
                 </svg>
               </button>
-            </div>
+            </nav>
             
-            {/* Modo Adivinar País */}
+            {/* Guess Country Mode */}
             <GuessGameMode 
               currentPhrase={currentPhrase}
               isLoading={isPhraseLoading}
@@ -423,15 +410,15 @@ const App: React.FC = () => {
               showHint={showHint}
             />
             
-            {/* Toast de pista */}
+            {/* Hint toast */}
             {showHint && currentPhrase && (
-              <div className="hint-toast">
-                <div className="hint-toast-icon">💡</div>
-                <div className="hint-toast-content">
-                  <span className="hint-toast-label">{t.hint}:</span>
+              <aside className="hint-toast" role="status" aria-live="polite">
+                <span className="hint-toast-icon" aria-hidden="true">💡</span>
+                <p className="hint-toast-content">
+                  <strong className="hint-toast-label">{t.hint}:</strong>
                   <span className="hint-toast-language">{currentPhrase.languageName}</span>
-                </div>
-              </div>
+                </p>
+              </aside>
             )}
             
             {/* Modal de Game Over */}
@@ -441,48 +428,48 @@ const App: React.FC = () => {
                 onRestart={handleResetGame}
               />
             )}
-          </div>
+          </section>
         ) : (
-          <div className="game-map-wrapper">
-            {/* Bandera del juego flotante */}
-            <div className="flag-display-floating">
+          <section className="game-map-wrapper" aria-label="Guess flag game">
+            {/* Floating game flag */}
+            <figure className="flag-display-floating" aria-live="polite">
               {isFlagLoading ? (
-                <div className="flag-loading-floating">
-                  <div className="loading-spinner-small"></div>
+                <figcaption className="flag-loading-floating">
+                  <span className="loading-spinner-small" aria-hidden="true"></span>
                   <span>{t.loading}</span>
-                </div>
+                </figcaption>
               ) : currentFlag ? (
-                <div className="flag-image-container">
+                <picture className="flag-image-container">
                   <img 
                     src={currentFlag.flagUrl} 
                     alt={t.flagToGuess}
                     className="flag-image"
                   />
-                </div>
+                </picture>
               ) : (
-                <div className="flag-error-floating">{t.loadError}</div>
+                <figcaption className="flag-error-floating" role="alert">{t.loadError}</figcaption>
               )}
-            </div>
+            </figure>
             
-            {/* Botones de acción flotantes */}
-            <div className="game-controls-floating">
+            {/* Floating action buttons */}
+            <nav className="game-controls-floating" aria-label="Game controls">
               <button 
                 className="game-floating-button hint-button"
                 onClick={showHintAction}
                 disabled={hintUsed}
                 title={hintUsed ? t.hintUsed : t.showHintContinent}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
                 </svg>
               </button>
               <button 
                 className="game-floating-button skip-button"
-                onClick={handleSkipPhrase}
+                onClick={handleSkipQuestion}
                 disabled={isFlagLoading || gameOver}
                 title={t.nextFlag}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M6 4l12 8-12 8V4z"/>
                   <path d="M18 4h2v16h-2z"/>
                 </svg>
@@ -492,13 +479,13 @@ const App: React.FC = () => {
                 onClick={handleResetGame}
                 title={t.restartGame}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
                 </svg>
               </button>
-            </div>
+            </nav>
             
-            {/* Modo Adivinar Bandera */}
+            {/* Guess Flag Mode */}
             <FlagGameMode 
               currentFlag={currentFlag}
               isLoading={isFlagLoading}
@@ -507,25 +494,25 @@ const App: React.FC = () => {
               showHint={showHint}
             />
             
-            {/* Toast de pista - Continente */}
+            {/* Hint toast - Continent */}
             {showHint && currentFlag && (
-              <div className="hint-toast-flag">
-                <div className="hint-toast-icon">🌍</div>
-                <div className="hint-toast-content">
-                  <span className="hint-toast-label">{t.continent}:</span>
+              <aside className="hint-toast-flag" role="status" aria-live="polite">
+                <span className="hint-toast-icon" aria-hidden="true">🌍</span>
+                <p className="hint-toast-content">
+                  <strong className="hint-toast-label">{t.continent}:</strong>
                   <span className="hint-toast-continent">{currentFlag.continent}</span>
-                </div>
-              </div>
+                </p>
+              </aside>
             )}
             
-            {/* Modal de Game Over */}
+            {/* Game Over modal */}
             {gameOver && (
               <GameOverModal
                 stats={gameStats}
                 onRestart={handleResetGame}
               />
             )}
-          </div>
+          </section>
         )}
       </main>
       </div>

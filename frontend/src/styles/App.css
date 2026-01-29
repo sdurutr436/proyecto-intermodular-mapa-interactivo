@@ -1,4 +1,4 @@
-/* Estilos principales de la aplicación */
+/* Main application styles */
 
 .app-container {
   min-height: 100vh;
@@ -9,7 +9,7 @@
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Modo Oscuro */
+/* Dark Mode */
 body.dark-mode {
   background: #0f1419;
 }
@@ -19,7 +19,7 @@ body.dark-mode .app-container {
   color: #e2e8f0;
 }
 
-/* Header fijo con 3 columnas */
+/* Fixed header with 3 columns */
 .app-header {
   position: fixed;
   top: 0;
@@ -85,7 +85,7 @@ body.dark-mode .logo-globe:hover {
   filter: drop-shadow(0 4px 10px rgba(102, 126, 234, 0.7));
 }
 
-/* Kanjis decorativos */
+/* Decorative kanjis */
 .kanji {
   position: absolute;
   font-size: 0.9rem;
@@ -149,7 +149,7 @@ body.dark-mode .logo-wrapper:hover .kanji {
   color: #c7d2fe;
 }
 
-/* Caracteres de otros idiomas */
+/* Characters from other languages */
 .lang-char {
   position: absolute;
   font-size: 0.85rem;
@@ -353,7 +353,7 @@ body.dark-mode .mode-option.active {
   gap: 1rem;
 }
 
-/* Botón Toggle para Modo Oscuro */
+/* Toggle Button for Dark Mode */
 .dark-mode-toggle {
   background: none;
   border: none;
@@ -374,7 +374,7 @@ body.dark-mode .dark-mode-toggle:hover {
   background-color: #2d3748;
 }
 
-/* Selector de idioma */
+/* Language selector */
 .language-selector {
   position: relative;
   z-index: 200000;
@@ -490,7 +490,7 @@ body.dark-mode .language-option.active {
   color: #60a5fa;
 }
 
-/* Botón de información (i) en el header */
+/* Information button (i) in the header */
 .home-button {
   display: flex;
   align-items: center;
@@ -643,7 +643,7 @@ body.dark-mode .map-wrapper {
   }
 }
 
-/* Visualización de frase en el header (modo juego) */
+/* Phrase display in the header (game mode) */
 .game-phrase-display {
   display: flex;
   flex-direction: column;
@@ -696,7 +696,7 @@ body.dark-mode .phrase-text-header {
   color: #60a5fa;
 }
 
-/* Toast de pista debajo de estadísticas */
+/* Hint toast below statistics */
 .hint-toast {
   position: absolute;
   top: 190px;
@@ -780,7 +780,7 @@ body.dark-mode .game-mode-title {
   color: #a5b4fc;
 }
 
-/* Botones de acción del juego en header */
+/* Game action buttons in header */
 .game-action-buttons {
   display: flex;
   gap: 0.5rem;
@@ -897,7 +897,7 @@ body.dark-mode .reset-button:hover:not(:disabled) {
   }
 }
 
-/* Contenedor del mapa en modo juego */
+/* Map container in game mode */
 .game-map-wrapper {
   width: 100%;
   max-width: 1600px;
@@ -916,7 +916,7 @@ body.dark-mode .game-map-wrapper {
   border-color: rgba(79, 70, 229, 0.4);
 }
 
-/* Frase flotante dentro del mapa */
+/* Floating phrase inside the map */
 .game-phrase-floating {
   position: absolute;
   top: 20px;
@@ -989,7 +989,7 @@ body.dark-mode .phrase-loading-floating {
   font-size: 1.25rem;
 }
 
-/* Botones de control flotantes */
+/* Floating control buttons */
 .game-controls-floating {
   position: absolute;
   bottom: 20px;
@@ -1083,7 +1083,7 @@ body.dark-mode .game-floating-button.reset-button:hover:not(:disabled) {
   background: rgba(254, 226, 226, 0.2);
 }
 
-/* Responsive para elementos flotantes del juego */
+/* Responsive for floating game elements */
 @media (max-width: 768px) {
   .game-phrase-floating {
     min-width: 90%;

@@ -1,7 +1,7 @@
 /**
  * @file LanguageContext.tsx
- * @description Context de React para manejo de idioma de la interfaz (i18n).
- * Proporciona funcionalidad de cambio de idioma y traducciones a toda la aplicación.
+ * @description React context for interface language handling (i18n).
+ * Provides language switching functionality and translations to the entire application.
  * @module contexts/LanguageContext
  */
 
@@ -9,30 +9,30 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { Language, Translations, getTranslation } from '../i18n/translations';
 
 /**
- * Clave de localStorage para persistir el idioma seleccionado
+ * localStorage key to persist the selected language
  * @constant
  */
 const STORAGE_KEY_LANGUAGE = 'transkarte_language';
 
 /**
- * Tipo del contexto de idioma
+ * Language context type
  */
 interface LanguageContextType {
-  /** Idioma actual ('es' o 'en') */
+  /** Current language ('es' or 'en') */
   language: Language;
-  /** Función para cambiar el idioma */
+  /** Function to change the language */
   setLanguage: (lang: Language) => void;
-  /** Objeto con todas las traducciones del idioma actual */
+  /** Object with all translations for the current language */
   t: Translations;
 }
 
 /**
- * Contexto de idioma
+ * Language context
  */
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 /**
- * Props del proveedor de idioma
+ * Language provider props
  */
 interface LanguageProviderProps {
   children: ReactNode;

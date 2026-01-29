@@ -1,7 +1,7 @@
 /**
  * @file translationService.ts
- * @description Servicio para comunicación con la API de traducción del backend usando Axios.
- * Maneja traducciones de texto y consultas de países bloqueados.
+ * @description Service for communication with the backend translation API using Axios.
+ * Handles text translations and blocked countries queries.
  * @module services/translationService
  */
 
@@ -9,7 +9,7 @@ import apiClient, { getErrorMessage } from './apiClient';
 import type { TranslationResult } from '../types';
 
 /**
- * Objeto geográfico con información de país del mapa
+ * Geographic object with country information from the map
  */
 interface GeoObject {
   id: string;
@@ -19,14 +19,14 @@ interface GeoObject {
 }
 
 /**
- * Traduce un texto al idioma oficial del país seleccionado.
- * Envía una petición POST al backend con el texto y datos geográficos.
+ * Translates text to the official language of the selected country.
+ * Sends a POST request to the backend with the text and geographic data.
  * 
  * @async
- * @param {string} text - Texto a traducir
- * @param {GeoObject} geo - Objeto geográfico del país destino
- * @returns {Promise<TranslationResult>} Resultado de la traducción con idioma y metadata
- * @throws {Error} Si la API falla o devuelve datos inválidos
+ * @param {string} text - Text to translate
+ * @param {GeoObject} geo - Geographic object of the destination country
+ * @returns {Promise<TranslationResult>} Translation result with language and metadata
+ * @throws {Error} If the API fails or returns invalid data
  * 
  * @example
  * ```ts
@@ -43,11 +43,8 @@ export const translateText = async (text: string, geo: GeoObject): Promise<Trans
 
     const result = response.data;
     
-    console.log('📦 Respuesta del servidor:', result);
-    console.log('✅ fromCache:', result.fromCache);
-    
     if (!result.translation) {
-      throw new Error('La respuesta del servidor no contiene una traducción válida');
+      throw new Error('The server response does not contain a valid translation');
     }
     
     return result;
@@ -57,13 +54,13 @@ export const translateText = async (text: string, geo: GeoObject): Promise<Trans
 };
 
 /**
- * Obtiene la lista de países bloqueados para traducción basado en el idioma detectado del texto.
- * Países bloqueados son aquellos donde el idioma del texto es el idioma oficial.
+ * Gets the list of blocked countries for translation based on the detected language of the text.
+ * Blocked countries are those where the text's language is the official language.
  * 
  * @async
- * @param {string} text - Texto para detectar idioma y determinar bloqueos
- * @returns {Promise<{blockedCountries: string[], sourceLang: string}>} Países bloqueados e idioma detectado
- * @throws {Error} Si la API no responde correctamente
+ * @param {string} text - Text to detect language and determine blocks
+ * @returns {Promise<{blockedCountries: string[], sourceLang: string}>} Blocked countries and detected language
+ * @throws {Error} If the API does not respond correctly
  * 
  * @example
  * ```ts

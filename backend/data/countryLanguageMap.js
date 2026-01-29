@@ -1,16 +1,16 @@
 /**
  * @file countryLanguageMap.js
- * @description Mapeo de códigos de países (ISO Alpha-3) a sus idiomas oficiales principales.
- * Usado para determinar el idioma de traducción según el país seleccionado.
+ * @description Mapping of country codes (ISO Alpha-3) to their main official languages.
+ * Used to determine the translation language based on the selected country.
  * @module data/countryLanguageMap
  */
 
 /**
- * Diccionario de países a sus idiomas oficiales.
+ * Dictionary of countries to their official languages.
  * 
  * @constant {Object.<string, {code: string, name: string}>}
- * @property {string} code - Código ISO 639-1 del idioma
- * @property {string} name - Nombre del idioma en inglés
+ * @property {string} code - ISO 639-1 code of the language
+ * @property {string} name - Name of the language in English
  * 
  * @example
  * countryLanguageMap['ESP'] // { code: 'es', name: 'Spanish' }
@@ -21,7 +21,7 @@ const countryLanguageMap = {
     ALB: { code: 'sq', name: 'Albanian' },
     DZA: { code: 'ar', name: 'Arabic' },
     AND: { code: 'ca', name: 'Catalan' },
-    ATA: { code: 'en', name: 'English' }, // Antarctica (investigación internacional, inglés como lingua franca)
+    ATA: { code: 'en', name: 'English' }, // Antarctica (international research, English as lingua franca)
     ATF: { code: 'fr', name: 'French' }, // French Southern and Antarctic Lands
     AGO: { code: 'pt', name: 'Portuguese' },
     ARG: { code: 'es', name: 'Spanish' },
@@ -86,7 +86,7 @@ const countryLanguageMap = {
     DEU: { code: 'de', name: 'German' },
     GHA: { code: 'en', name: 'English' },
     GRC: { code: 'el', name: 'Greek' },
-    GRL: { code: 'da', name: 'Danish' }, // Greenland (también hablan Kalaallisut, pero usamos danés por compatibilidad)
+    GRL: { code: 'da', name: 'Danish' }, // Greenland (also speaks Kalaallisut, but using Danish for compatibility)
     GTM: { code: 'es', name: 'Spanish' },
     GIN: { code: 'fr', name: 'French' },
     GNB: { code: 'pt', name: 'Portuguese' },

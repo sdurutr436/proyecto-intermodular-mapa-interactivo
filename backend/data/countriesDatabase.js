@@ -1,24 +1,24 @@
 /**
  * @file countriesDatabase.js
- * @description Base de datos estática de países del mundo con sus códigos ISO Alpha-3,
- * nombres localizados en español y continentes. Incluye función para obtener URLs de banderas.
+ * @description Static database of world countries with ISO Alpha-3 codes,
+ * localized names in Spanish and continents. Includes function to get flag URLs.
  * @module data/countriesDatabase
  */
 
 /**
- * Base de datos de países organizados por código ISO Alpha-3.
- * Cada entrada contiene nombre localizado y continente.
+ * Database of countries organized by ISO Alpha-3 code.
+ * Each entry contains the localized name and continent.
  * 
  * @constant {Object.<string, {name: string, continent: string}>}
- * @property {string} name - Nombre del país en español
- * @property {string} continent - Continente al que pertenece
+ * @property {string} name - Country name in Spanish
+ * @property {string} continent - Continent it belongs to
  * 
  * @example
- * countriesDatabase['ESP'] // { name: 'España', continent: 'Europa' }
+ * countriesDatabase['ESP'] // { name: 'España', continent: 'Europa' } (Spanish display values)
  * countriesDatabase['USA'] // { name: 'Estados Unidos', continent: 'América del Norte' }
  */
 const countriesDatabase = {
-  // Europa
+  // Europe
   'ESP': { name: 'España', continent: 'Europa' },
   'FRA': { name: 'Francia', continent: 'Europa' },
   'DEU': { name: 'Alemania', continent: 'Europa' },
@@ -58,12 +58,12 @@ const countriesDatabase = {
   'LUX': { name: 'Luxemburgo', continent: 'Europa' },
   'CYP': { name: 'Chipre', continent: 'Europa' },
 
-  // América del Norte
+  // North America
   'USA': { name: 'Estados Unidos', continent: 'América del Norte' },
   'CAN': { name: 'Canadá', continent: 'América del Norte' },
   'MEX': { name: 'México', continent: 'América del Norte' },
 
-  // América Central y Caribe
+  // Central America and Caribbean
   'GTM': { name: 'Guatemala', continent: 'América Central' },
   'CUB': { name: 'Cuba', continent: 'América Central' },
   'DOM': { name: 'República Dominicana', continent: 'América Central' },
@@ -76,7 +76,7 @@ const countriesDatabase = {
   'HTI': { name: 'Haití', continent: 'América Central' },
   'BLZ': { name: 'Belice', continent: 'América Central' },
 
-  // América del Sur
+  // South America
   'ARG': { name: 'Argentina', continent: 'América del Sur' },
   'BRA': { name: 'Brasil', continent: 'América del Sur' },
   'COL': { name: 'Colombia', continent: 'América del Sur' },
@@ -118,7 +118,7 @@ const countriesDatabase = {
   'TJK': { name: 'Tayikistán', continent: 'Asia' },
   'AFG': { name: 'Afganistán', continent: 'Asia' },
 
-  // Oriente Medio
+  // Middle East
   'TUR': { name: 'Turquía', continent: 'Oriente Medio' },
   'IRN': { name: 'Irán', continent: 'Oriente Medio' },
   'IRQ': { name: 'Irak', continent: 'Oriente Medio' },
@@ -136,7 +136,7 @@ const countriesDatabase = {
   'ARM': { name: 'Armenia', continent: 'Oriente Medio' },
   'AZE': { name: 'Azerbaiyán', continent: 'Oriente Medio' },
 
-  // África
+  // Africa
   'EGY': { name: 'Egipto', continent: 'África' },
   'ZAF': { name: 'Sudáfrica', continent: 'África' },
   'NGA': { name: 'Nigeria', continent: 'África' },
@@ -185,24 +185,24 @@ const countriesDatabase = {
   'CAF': { name: 'Rep. Centroafricana', continent: 'África' },
   'SSD': { name: 'Sudán del Sur', continent: 'África' },
 
-  // Oceanía
+  // Oceania
   'AUS': { name: 'Australia', continent: 'Oceanía' },
   'NZL': { name: 'Nueva Zelanda', continent: 'Oceanía' },
   'PNG': { name: 'Papúa Nueva Guinea', continent: 'Oceanía' },
   'FJI': { name: 'Fiyi', continent: 'Oceanía' },
 
-  // Rusia (Transcontinental)
+  // Russia (Transcontinental)
   'RUS': { name: 'Rusia', continent: 'Europa/Asia' },
 };
 
 /**
- * Función para obtener la URL de la bandera de un país
- * Usa la API de flagcdn.com
- * @param {string} countryCode - Código ISO Alpha-3 del país
- * @returns {string} URL de la bandera
+ * Function to get the flag URL of a country
+ * Uses the flagcdn.com API
+ * @param {string} countryCode - ISO Alpha-3 code of the country
+ * @returns {string} Flag URL
  */
 const getFlagUrl = (countryCode) => {
-  // Mapeo de ISO Alpha-3 a ISO Alpha-2 para la API de banderas
+  // Mapping from ISO Alpha-3 to ISO Alpha-2 for the flag API
   const alpha3ToAlpha2 = {
     'AFG': 'af', 'ALB': 'al', 'DZA': 'dz', 'AGO': 'ao', 'ARG': 'ar',
     'ARM': 'am', 'AUS': 'au', 'AUT': 'at', 'AZE': 'az', 'BGD': 'bd',
@@ -243,12 +243,12 @@ const getFlagUrl = (countryCode) => {
     return null;
   }
   
-  // Usar flagcdn.com para obtener las banderas
+  // Use flagcdn.com to get the flags
   return `https://flagcdn.com/w320/${alpha2}.png`;
 };
 
 /**
- * Exporta la base de datos de países y la función para obtener URLs de banderas
+ * Exports the countries database and the function to get flag URLs
  * @exports countriesDatabase
  * @exports getFlagUrl
  */

@@ -1,7 +1,7 @@
 /* client/src/styles/LandingPage.css */
 
 /* ============================================
-   LANDING PAGE - Estilos principales
+   LANDING PAGE - Main styles
    ============================================ */
 
 .landing-page {
@@ -16,20 +16,20 @@
   z-index: 999999;
 }
 
-/* Tema claro */
+/* Light theme */
 .landing-page.light {
   background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
   color: #2c3e50;
 }
 
-/* Tema oscuro */
+/* Dark theme */
 .landing-page.dark {
   background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
   color: #e2e8f0;
 }
 
 /* ============================================
-   FONDO - Mapa y animación del mar
+   BACKGROUND - Map and sea animation
    ============================================ */
 
 .landing-background {
@@ -39,7 +39,7 @@
   overflow: hidden;
 }
 
-/* Contenedor del mapa de Europa - desplazado más a la derecha */
+/* Europe map container - shifted more to the right */
 .europe-map-container {
   position: absolute;
   right: -20%;
@@ -56,11 +56,11 @@
 }
 
 .europe-country {
-  /* La transición se maneja desde JS para mayor control */
+  /* The transition is handled from JS for better control */
 }
 
 /* ============================================
-   ANIMACIÓN DEL MAR - más a la izquierda
+   SEA ANIMATION - more to the left
    ============================================ */
 
 .sea-animation {
@@ -122,7 +122,7 @@
 }
 
 /* ============================================
-   CAPA DE DESENFOQUE
+   BLUR LAYER
    ============================================ */
 
 .landing-blur-overlay {
@@ -134,7 +134,7 @@
 }
 
 /* ============================================
-   CONTENIDO PRINCIPAL - 3 filas más compactas
+   MAIN CONTENT - 3 more compact rows
    ============================================ */
 
 .landing-content {
@@ -152,7 +152,7 @@
 }
 
 /* ============================================
-   FILA 1: Logo y título - más compacto
+   ROW 1: Logo and title - more compact
    ============================================ */
 
 .landing-header {
@@ -164,7 +164,7 @@
   align-items: center;
 }
 
-/* Botón "Sobre nosotros" - Dentro del contenedor de botones superiores */
+/* "About us" button - Inside the top buttons container */
 .landing-about-button {
   display: flex;
   align-items: center;
@@ -211,7 +211,7 @@
 }
 
 /* ============================================
-   CONTENEDOR DE BOTONES SUPERIORES (idioma + sobre nosotros)
+   TOP BUTTONS CONTAINER (language + about us)
    ============================================ */
 
 .landing-top-buttons {
@@ -225,7 +225,7 @@
 }
 
 /* ============================================
-   SELECTOR DE IDIOMA
+   LANGUAGE SELECTOR
    ============================================ */
 
 .landing-language-selector {
@@ -386,7 +386,7 @@
   }
 }
 
-/* Caracteres flotantes alrededor del logo */
+/* Floating characters around the logo */
 .landing-kanji {
   position: absolute;
   font-size: 1.4rem;
@@ -418,7 +418,7 @@
   animation-delay: 1.5s;
 }
 
-/* Caracteres de otros idiomas */
+/* Characters from other languages */
 .landing-lang-char {
   position: absolute;
   font-size: 1.2rem;
@@ -484,7 +484,7 @@
 
 /* ============================================
 /* ============================================
-   FILA 2: Descripción - más compacta
+   ROW 2: Description - more compact
    ============================================ */
 
 .landing-description {
@@ -513,7 +513,7 @@
 }
 
 /* ============================================
-   FILA 3: Botones de acción - más compacta
+   ROW 3: Action buttons - more compact
    ============================================ */
 
 .landing-actions {
@@ -525,7 +525,7 @@
   padding-bottom: 1rem;
 }
 
-/* Botón principal "Empezar" */
+/* Main "Start" button */
 .landing-start-button {
   padding: 1rem 3rem;
   font-size: 1.3rem;
@@ -569,7 +569,7 @@
   transform: translateY(-1px);
 }
 
-/* Contenedor de modos */
+/* Modes container */
 .landing-modes-container {
   display: flex;
   flex-direction: column;
@@ -590,7 +590,7 @@
   justify-content: center;
 }
 
-/* Botones de modo individual */
+/* Individual mode buttons */
 .landing-mode-button {
   display: flex;
   flex-direction: column;
@@ -622,7 +622,7 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Iconos SVG en botones de modo */
+/* SVG icons in mode buttons */
 .mode-icon {
   display: flex;
   align-items: center;
@@ -644,7 +644,7 @@
   stroke: #a5b4fc;
 }
 
-/* Fallback emoji si el SVG falla */
+/* Fallback emoji if SVG fails */
 .icon-fallback {
   font-size: 1.5rem;
 }

@@ -1,9 +1,9 @@
 ﻿/**
  * @file translate.js
- * @description Rutas de la API para el servicio de traducción.
- * Implementa un sistema híbrido de traducción usando DeepL como servicio principal
- * y Google Translate como fallback gratuito. Incluye detección automática de idioma,
- * caché de traducciones y bloqueo de países según idioma fuente.
+ * @description API routes for the translation service.
+ * Implements a hybrid translation system using DeepL as the primary service
+ * and Google Translate as a free fallback. Includes automatic language detection,
+ * translation caching and country blocking based on source language.
  * @module routes/api/translate
  */
 
@@ -19,22 +19,22 @@ const deepl = require('deepl-node');
 const app = express();
 
 /**
- * Configuración del traductor DeepL
+ * DeepL translator configuration
  * @type {deepl.Translator|null}
  */
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 const translator = DEEPL_API_KEY ? new deepl.Translator(DEEPL_API_KEY) : null;
 
-// ========== DETECCIÓN DE IDIOMA AUTOMÁTICA ==========
+// ========== AUTOMATIC LANGUAGE DETECTION ==========
 
 /**
- * Detecta el idioma de un texto usando la API gratuita de Google Translate.
- * No requiere autenticación y soporta todos los idiomas disponibles en Google Translate.
+ * Detects the language of text using the free Google Translate API.
+ * No authentication required and supports all languages available in Google Translate.
  * 
  * @async
  * @function detectLanguageWithGoogle
- * @param {string} text - Texto del cual detectar el idioma
- * @returns {Promise<string|null>} Código ISO 639-1 del idioma detectado (ej: 'es', 'en', 'fr') o null si falla
+ * @param {string} text - Text to detect the language of
+ * @returns {Promise<string|null>} ISO 639-1 language code (e.g., 'es', 'en', 'fr') or null if failed
  * 
  * @example
  * const lang = await detectLanguageWithGoogle('Hello world');
@@ -43,7 +43,7 @@ const translator = DEEPL_API_KEY ? new deepl.Translator(DEEPL_API_KEY) : null;
 const detectLanguageWithGoogle = async (text) => {
     try {
         const fetch = require('node-fetch');
-        // Usar la API de Google Translate para detectar idioma
+        // Use Google Translate API to detect language
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`;
         
         const response = await fetch(url, {
@@ -52,33 +52,31 @@ const detectLanguageWithGoogle = async (text) => {
         });
         
         if (!response.ok) {
-            throw new Error(`Error de API: ${response.status}`);
+            throw new Error(`API Error: ${response.status}`);
         }
         
         const data = await response.json();
         
-        // Google devuelve el idioma detectado en data[2]
+        // Google returns the detected language in data[2]
         if (data && data[2]) {
             const detectedLang = data[2];
-            console.log(`[Google Detect] Idioma detectado: ${detectedLang} para texto: "${text.substring(0, 50)}..."`);
             return detectedLang;
         }
         
         return null;
     } catch (error) {
-        console.error('[Google Detect] Error:', error.message);
         return null;
     }
 };
 
 /**
- * Función principal para detectar el idioma de un texto.
- * Utiliza Google Translate como motor de detección.
+ * Main function to detect the language of a text.
+ * Uses Google Translate as the detection engine.
  * 
  * @async
  * @function detectLanguage
- * @param {string} text - Texto a analizar
- * @returns {Promise<string|null>} Código base del idioma (sin variantes regionales) o null
+ * @param {string} text - Text to analyze
+ * @returns {Promise<string|null>} Base language code (without regional variants) or null
  * 
  * @example
  * const lang = await detectLanguage('Bonjour le monde');
@@ -90,36 +88,32 @@ const detectLanguage = async (text) => {
         
         // Si el texto es muy corto (menos de 2 caracteres), no podemos detectar bien
         if (normalizedText.length < 2) {
-            console.log('Texto muy corto para detectar idioma, devolviendo null');
             return null;
         }
         
-        // Usar Google Translate API para detección automática
+        // Use Google Translate API for automatic detection
         const detectedLang = await detectLanguageWithGoogle(normalizedText);
         
         if (detectedLang) {
-            // Normalizar el código de idioma (algunos vienen como zh-CN, pt-BR, etc.)
+            // Normalize language code (some come as zh-CN, pt-BR, etc.)
             const baseLang = detectedLang.split('-')[0].toLowerCase();
-            console.log(`[detectLanguage] Resultado final: ${baseLang}`);
             return baseLang;
         }
         
-        console.log('[detectLanguage] No se pudo detectar el idioma');
         return null;
     } catch (error) {
-        console.error('Error en detección de idioma:', error.message);
         return null;
     }
 };
 
 /**
- * Obtiene la lista de países que deben ser bloqueados para traducción
- * basado en el idioma fuente detectado. Bloquea países donde el idioma
- * fuente es el idioma oficial para evitar traducciones sin sentido.
+ * Gets the list of countries that should be blocked for translation
+ * based on the detected source language. Blocks countries where the source
+ * language is the official language to avoid meaningless translations.
  * 
  * @function getBlockedCountriesBySourceLang
- * @param {string} sourceLangCode - Código ISO del idioma fuente (ej: 'es', 'en', 'pt-BR')
- * @returns {string[]} Array de códigos ISO Alpha-3 de países bloqueados
+ * @param {string} sourceLangCode - ISO code of source language (e.g., 'es', 'en', 'pt-BR')
+ * @returns {string[]} Array of ISO Alpha-3 codes of blocked countries
  * 
  * @example
  * const blocked = getBlockedCountriesBySourceLang('es');
@@ -130,10 +124,10 @@ function getBlockedCountriesBySourceLang(sourceLangCode) {
     
     const normalizedSourceLang = sourceLangCode.toLowerCase().split('-')[0]; // 'pt-BR' -> 'pt'
     
-    // Devuelve ISO alpha3 de los países donde ese idioma es oficial
+    // Returns ISO alpha3 of countries where that language is official
     return Object.entries(countryLanguageMap)
         .filter(([countryCode, langObj]) => {
-            // Normalizar el código del país también
+            // Normalize country code too
             const countryLang = langObj.code.toLowerCase().split('-')[0];
             return countryLang === normalizedSourceLang;
         })
@@ -141,8 +135,8 @@ function getBlockedCountriesBySourceLang(sourceLangCode) {
 }
 
 /**
- * Lista de códigos de idiomas soportados por la API de DeepL.
- * Incluye variantes regionales como pt-BR (Portugués de Brasil) y zh-CN (Chino simplificado).
+ * List of language codes supported by the DeepL API.
+ * Includes regional variants like pt-BR (Brazilian Portuguese) and zh-CN (Simplified Chinese).
  * 
  * @constant {string[]}
  */
@@ -153,27 +147,25 @@ const DEEPL_SUPPORTED_LANGS = [
 ];
 
 /**
- * Traduce texto usando la API gratuita de Google Translate.
- * Se usa como fallback cuando DeepL no está disponible o no soporta el idioma.
+ * Translates text using the free Google Translate API.
+ * Used as fallback when DeepL is not available or doesn't support the language.
  * 
  * @async
  * @function translateWithGoogleFallback
- * @param {string} text - Texto a traducir
- * @param {string} sourceLang - Código del idioma fuente
- * @param {string} targetLang - Código del idioma destino
- * @returns {Promise<string>} Texto traducido
- * @throws {Error} Si la traducción falla o la respuesta es inválida
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise<string>} Translated text
+ * @throws {Error} If translation fails or response is invalid
  * 
  * @example
  * const translated = await translateWithGoogleFallback('Hello', 'en', 'es');
  * console.log(translated); // 'Hola'
  */
 const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
-    console.log(`[Google Fallback] Traduciendo de ${sourceLang} a ${targetLang}`);
-    console.log(`[Google Fallback] Texto original: "${text}"`);
     try {
         const fetch = require('node-fetch');
-        // API de Google Translate gratuita (sin autenticación)
+        // Free Google Translate API (no authentication)
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
         const response = await fetch(url, {
             method: 'GET',
@@ -182,33 +174,31 @@ const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
             }
         });
         if (!response.ok) {
-            throw new Error(`Error de API: ${response.status}`);
+            throw new Error(`API Error: ${response.status}`);
         }
         const data = await response.json();
         if (!data || !data[0] || !data[0][0] || !data[0][0][0]) {
-            throw new Error('Respuesta de traducción inválida');
+            throw new Error('Invalid translation response');
         }
-        // Google devuelve un array de arrays, concatenamos todas las traducciones
+        // Google returns an array of arrays, we concatenate all translations
         const translatedText = data[0].map(item => item[0]).join('').trim();
-        console.log(`[Google Fallback] Traducción exitosa: "${translatedText}"`);
         return translatedText;
     } catch (error) {
-        console.error('[Google Fallback] Error:', error.message);
-        throw new Error(`Error en Google Fallback: ${error.message}`);
+        throw new Error(`Google Fallback Error: ${error.message}`);
     }
 };
 
 /**
- * Traduce texto usando la API de DeepL (servicio premium de mayor calidad).
- * Requiere API key válida configurada en DEEPL_API_KEY.
+ * Translates text using the DeepL API (premium higher quality service).
+ * Requires valid API key configured in DEEPL_API_KEY.
  * 
  * @async
  * @function translateWithDeepL
- * @param {string} text - Texto a traducir
- * @param {string} sourceLang - Código del idioma fuente
- * @param {string} targetLang - Código del idioma destino
- * @returns {Promise<string>} Texto traducido con alta calidad
- * @throws {Error} Si la API key es inválida, se excede la cuota, o el idioma no está soportado
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise<string>} High quality translated text
+ * @throws {Error} If API key is invalid, quota exceeded, or language not supported
  * 
  * @example
  * const translated = await translateWithDeepL('Hello world', 'en', 'es');
@@ -216,13 +206,11 @@ const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
  */
 const translateWithDeepL = async (text, sourceLang, targetLang) => {
     if (!translator) {
-        throw new Error('UNSUPPORTED_LANGUAGE'); // Forzar uso de Google Fallback
+        throw new Error('UNSUPPORTED_LANGUAGE'); // Force use of Google Fallback
     }
-    console.log(`[DeepL] Traduciendo de ${sourceLang} a ${targetLang}`);
-    console.log(`[DeepL] Texto original: "${text}"`);
     try {
-        // Mapeo de códigos de idioma para DeepL (solo para idioma DESTINO)
-        // Para idioma FUENTE, DeepL solo acepta códigos base sin variantes
+        // Language code mapping for DeepL (only for TARGET language)
+        // For SOURCE language, DeepL only accepts base codes without variants
         const deeplTargetLangMap = {
             'en': 'EN-US', 'es': 'ES', 'fr': 'FR', 'de': 'DE', 'it': 'IT',
             'pt': 'PT-PT', 'pt-BR': 'PT-BR', 'ru': 'RU', 'ja': 'JA', 'zh': 'ZH', 'zh-CN': 'ZH',
@@ -231,81 +219,74 @@ const translateWithDeepL = async (text, sourceLang, targetLang) => {
             'ko': 'KO', 'no': 'NB', 'et': 'ET', 'lv': 'LV', 'lt': 'LT', 'sl': 'SL', 'ar': 'AR',
         };
         
-        // Para idioma fuente, usar siempre código base (sin variantes regionales)
+        // For source language, always use base code (without regional variants)
         const sourceDeepL = sourceLang.toUpperCase();
-        // Para idioma destino, usar el mapeo con variantes
+        // For target language, use the mapping with variants
         const targetDeepL = deeplTargetLangMap[targetLang] || targetLang.toUpperCase();
         
-        console.log(`[DeepL] Códigos ajustados: ${sourceLang} -> ${sourceDeepL}, ${targetLang} -> ${targetDeepL}`);
-        // Realizar traducción con DeepL
+        // Perform translation with DeepL
         const result = await translator.translateText(
             text,
             sourceDeepL,
             targetDeepL
         );
         if (!result || !result.text) {
-            throw new Error('Respuesta de traducción inválida');
+            throw new Error('Invalid translation response');
         }
         const translatedText = result.text.trim();
-        console.log(`[DeepL] Traducción exitosa: "${translatedText}"`);
-        console.log(`[DeepL] Idioma detectado: ${result.detectedSourceLang || sourceLang}`);
         return translatedText;
     } catch (error) {
-        console.error('[DeepL] Error:', error.message);
-        // Mensajes de error más específicos
+        // More specific error messages
         if (error.message.includes('Authorization') || error.message.includes('403')) {
-            throw new Error('API Key de DeepL inválida o expirada. Por favor verifica tu configuración.');
+            throw new Error('Invalid or expired DeepL API Key. Please check your configuration.');
         }
         if (error.message.includes('quota') || error.message.includes('limit')) {
-            throw new Error('Límite de caracteres de DeepL alcanzado. Por favor espera o actualiza tu plan.');
+            throw new Error('DeepL character limit reached. Please wait or upgrade your plan.');
         }
         if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
-            throw new Error('Tiempo de espera agotado al conectar con DeepL');
+            throw new Error('Connection timeout while connecting to DeepL');
         }
         if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
-            throw new Error('No se pudo conectar con el servicio de traducción');
+            throw new Error('Could not connect to translation service');
         }
         if (error.message.includes('not supported') || error.message.includes('language')) {
-            // Si el idioma no está soportado, lanzar error para usar fallback
+            // If language is not supported, throw error to use fallback
             throw new Error('UNSUPPORTED_LANGUAGE');
         }
-        throw new Error(`Error en DeepL: ${error.message}`);
+        throw new Error(`DeepL Error: ${error.message}`);
     }
 };
 
 /**
- * Función híbrida de traducción que selecciona automáticamente el mejor servicio.
- * Intenta usar DeepL primero (mayor calidad) y usa Google Translate como fallback.
+ * Hybrid translation function that automatically selects the best service.
+ * Tries DeepL first (higher quality) and uses Google Translate as fallback.
  * 
  * @async
  * @function translateText
- * @param {string} text - Texto a traducir
- * @param {string} sourceLang - Código del idioma fuente
- * @param {string} targetLang - Código del idioma destino
- * @returns {Promise<string>} Texto traducido
- * @throws {Error} Si ambos servicios fallan
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise<string>} Translated text
+ * @throws {Error} If both services fail
  * 
  * @example
  * const result = await translateText('Hello', 'en', 'ja');
  * console.log(result); // 'こんにちは'
  */
 const translateText = async (text, sourceLang, targetLang) => {
-    // Verificar si ambos idiomas están soportados por DeepL
+    // Check if both languages are supported by DeepL
     const sourceSupported = DEEPL_SUPPORTED_LANGS.includes(sourceLang);
     const targetSupported = DEEPL_SUPPORTED_LANGS.includes(targetLang) || targetLang.split('-')[0] && DEEPL_SUPPORTED_LANGS.includes(targetLang.split('-')[0]);
     if (sourceSupported && targetSupported) {
         try {
-            console.log('[Sistema Híbrido] Intentando con DeepL (mejor calidad)...');
             return await translateWithDeepL(text, sourceLang, targetLang);
         } catch (error) {
             if (error.message === 'UNSUPPORTED_LANGUAGE') {
-                console.log('[Sistema Híbrido] Idioma no soportado por DeepL, usando Google Fallback...');
                 return await translateWithGoogleFallback(text, sourceLang, targetLang);
             }
             throw error;
         }
     } else {
-        console.log(`[Sistema Híbrido] Idioma ${!sourceSupported ? sourceLang : targetLang} no soportado por DeepL, usando Google Fallback...`);
         return await translateWithGoogleFallback(text, sourceLang, targetLang);
     }
 };
@@ -313,17 +294,17 @@ const translateText = async (text, sourceLang, targetLang) => {
 /**
  * @route   POST /api/translate/blocked-countries
  * @method  POST
- * @desc    Detecta automáticamente el idioma de un texto y devuelve la lista de países bloqueados
- *          para evitar traducciones al mismo idioma. Útil para validación previa de países antes
- *          de realizar una traducción.
+ * @desc    Automatically detects the language of a text and returns the list of blocked countries
+ *          to avoid translations to the same language. Useful for pre-validation of countries before
+ *          performing a translation.
  * @access  Public
  * 
- * @param   {Object} req.body - Cuerpo de la petición
- * @param   {string} req.body.text - Texto para detectar idioma (mínimo 2 caracteres)
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.text - Text for language detection (minimum 2 characters)
  * 
- * @returns {200} Success - Países bloqueados detectados correctamente
- * @returns {400} Bad Request - Texto inválido o vacío
- * @returns {500} Internal Server Error - Error en el servicio de detección
+ * @returns {200} Success - Blocked countries detected correctly
+ * @returns {400} Bad Request - Invalid or empty text
+ * @returns {500} Internal Server Error - Detection service error
  * 
  * @example Request
  * POST /api/translate/blocked-countries
@@ -340,79 +321,76 @@ const translateText = async (text, sourceLang, targetLang) => {
  *   "message": "OK"
  * }
  * 
- * @example Response 200 (Texto muy corto)
+ * @example Response 200 (Text too short)
  * {
  *   "blockedCountries": [],
  *   "sourceLang": null,
- *   "message": "Texto muy corto para detectar idioma"
+ *   "message": "Text too short to detect language"
  * }
  * 
  * @example Response 400 (Bad Request)
  * {
  *   "success": false,
- *   "message": "Texto inválido"
+ *   "message": "Invalid text"
  * }
  * 
- * @example Response 200 (No se pudo detectar)
+ * @example Response 200 (Could not detect)
  * {
  *   "blockedCountries": [],
  *   "sourceLang": null,
- *   "message": "No se pudo detectar el idioma"
+ *   "message": "Could not detect language"
  * }
  */
 router.post('/blocked-countries', async (req, res) => {
     const { text } = req.body;
     if (!text || typeof text !== 'string') {
-        return res.status(400).json({ success: false, message: 'Texto inválido' });
+        return res.status(400).json({ success: false, message: 'Invalid text' });
     }
     
-    // Si el texto es muy corto, no bloquear nada
+    // If the text is too short, don't block anything
     const trimmedText = text.trim();
     if (trimmedText.length < 2) {
-        return res.json({ blockedCountries: [], sourceLang: null, message: 'Texto muy corto para detectar idioma' });
+        return res.json({ blockedCountries: [], sourceLang: null, message: 'Text too short to detect language' });
     }
     
     try {
         const sourceLang = await detectLanguage(trimmedText);
         
-        // Si no se pudo detectar el idioma, devolver lista vacía
+        // If language couldn't be detected, return empty list
         if (!sourceLang) {
-            console.log(`[blocked-countries] No se pudo detectar idioma para: "${trimmedText.substring(0, 50)}..."`);
-            return res.json({ blockedCountries: [], sourceLang: null, message: 'No se pudo detectar el idioma' });
+            return res.json({ blockedCountries: [], sourceLang: null, message: 'Could not detect language' });
         }
         
         const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
-        console.log(`[blocked-countries] Idioma: ${sourceLang}, Países bloqueados: ${blockedCountries.length}`);
         res.json({ blockedCountries, sourceLang });
     } catch (error) {
-        console.error('[blocked-countries] Error:', error.message);
-        res.json({ blockedCountries: [], sourceLang: null, message: 'Error al detectar idioma' });
+        res.json({ blockedCountries: [], sourceLang: null, message: 'Error detecting language' });
     }
 });
 
 /**
  * @route   POST /api/translate
  * @method  POST
- * @desc    Traduce un texto al idioma oficial del país seleccionado usando sistema híbrido
- *          (DeepL para mejor calidad, Google Translate como fallback gratuito). Incluye
- *          detección automática de idioma fuente, bloqueo de países con mismo idioma,
- *          sistema de caché MongoDB y validación completa de parámetros.
+ * @desc    Translates a text to the official language of the selected country using a hybrid system
+ *          (DeepL for better quality, Google Translate as free fallback). Includes
+ *          automatic source language detection, blocking countries with the same language,
+ *          MongoDB cache system and complete parameter validation.
  * @access  Public
  * 
- * @param   {Object} req.body - Cuerpo de la petición
- * @param   {string} req.body.text - Texto a traducir (máximo 500 caracteres, mínimo 1)
- * @param   {Object} req.body.geo - Información geográfica del país destino
- * @param   {Object} req.body.geo.properties - Propiedades del país
- * @param   {string} req.body.geo.properties.name - Nombre del país en inglés (ej: "Spain", "France")
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.text - Text to translate (maximum 500 characters, minimum 1)
+ * @param   {Object} req.body.geo - Geographic information of the destination country
+ * @param   {Object} req.body.geo.properties - Country properties
+ * @param   {string} req.body.geo.properties.name - Country name in English (e.g.: "Spain", "France")
  * 
- * @returns {200} Success - Traducción realizada correctamente
- * @returns {400} Bad Request - Parámetros inválidos o texto demasiado largo
- * @returns {403} Forbidden - País bloqueado porque habla el mismo idioma del texto
- * @returns {404} Not Found - País no soportado o idioma no configurado
- * @returns {429} Too Many Requests - Cuota de API excedida
- * @returns {500} Internal Server Error - Error en servicio de traducción
- * @returns {502} Bad Gateway - No se pudo conectar con el servicio externo
- * @returns {504} Gateway Timeout - Tiempo de espera agotado
+ * @returns {200} Success - Translation completed successfully
+ * @returns {400} Bad Request - Invalid parameters or text too long
+ * @returns {403} Forbidden - Country blocked because it speaks the same language as the text
+ * @returns {404} Not Found - Unsupported country or language not configured
+ * @returns {429} Too Many Requests - API quota exceeded
+ * @returns {500} Internal Server Error - Translation service error
+ * @returns {502} Bad Gateway - Could not connect to external service
+ * @returns {504} Gateway Timeout - Request timed out
  * 
  * @example Request
  * POST /api/translate
@@ -425,7 +403,7 @@ router.post('/blocked-countries', async (req, res) => {
  *   }
  * }
  * 
- * @example Response 200 (Success - Nueva traducción)
+ * @example Response 200 (Success - New translation)
  * {
  *   "success": true,
  *   "translation": "Hola mundo",
@@ -436,7 +414,7 @@ router.post('/blocked-countries', async (req, res) => {
  *   "blockedCountries": ["USA", "GBR", "AUS"]
  * }
  * 
- * @example Response 200 (Success - Desde caché)
+ * @example Response 200 (Success - From cache)
  * {
  *   "success": true,
  *   "translation": "Hola mundo",
@@ -446,7 +424,7 @@ router.post('/blocked-countries', async (req, res) => {
  *   "fromCache": true
  * }
  * 
- * @example Response 200 (Success - Mismo idioma)
+ * @example Response 200 (Success - Same language)
  * {
  *   "success": true,
  *   "translation": "Hola mundo",
@@ -454,57 +432,57 @@ router.post('/blocked-countries', async (req, res) => {
  *   "country": "Spain",
  *   "languageCode": "es",
  *   "fromCache": false,
- *   "note": "El texto ya está en el idioma del país seleccionado"
+ *   "note": "The text is already in the language of the selected country"
  * }
  * 
- * @example Response 400 (Bad Request - Texto inválido)
+ * @example Response 400 (Bad Request - Invalid text)
  * {
  *   "success": false,
- *   "message": "Texto inválido",
- *   "details": "Se requiere un texto válido para traducir"
+ *   "message": "Invalid text",
+ *   "details": "A valid text is required for translation"
  * }
  * 
- * @example Response 400 (Bad Request - Texto muy largo)
+ * @example Response 400 (Bad Request - Text too long)
  * {
  *   "success": false,
- *   "message": "Texto demasiado largo",
- *   "details": "El texto no puede exceder los 500 caracteres"
+ *   "message": "Text too long",
+ *   "details": "Text cannot exceed 500 characters"
  * }
  * 
- * @example Response 400 (Bad Request - Datos incompletos)
+ * @example Response 400 (Bad Request - Incomplete data)
  * {
  *   "success": false,
- *   "message": "Datos incompletos",
- *   "details": "Se requiere información del país destino"
+ *   "message": "Incomplete data",
+ *   "details": "Destination country information is required"
  * }
  * 
- * @example Response 403 (Forbidden - País bloqueado)
+ * @example Response 403 (Forbidden - Country blocked)
  * {
  *   "success": false,
- *   "message": "El país 'Spain' está bloqueado porque su idioma principal coincide con el idioma fuente.",
+ *   "message": "Country 'Spain' is blocked because its main language matches the source language.",
  *   "blockedCountries": ["ESP", "MEX", "ARG"],
  *   "sourceLang": "es",
- *   "details": "Debes elegir un país diferente donde no se hable ese idioma como principal."
+ *   "details": "You must choose a different country where that language is not spoken as the main language."
  * }
  * 
- * @example Response 404 (Not Found - País no soportado)
+ * @example Response 404 (Not Found - Unsupported country)
  * {
  *   "success": false,
- *   "message": "País no soportado: Antarctica",
- *   "details": "El país no está en nuestra base de datos"
+ *   "message": "Unsupported country: Antarctica",
+ *   "details": "Country not in our database"
  * }
  * 
- * @example Response 404 (Not Found - Idioma no configurado)
+ * @example Response 404 (Not Found - Language not configured)
  * {
  *   "success": false,
- *   "message": "Idioma no configurado para: Vatican City",
- *   "details": "No se encontró el idioma asociado al país"
+ *   "message": "Language not configured for: Vatican City",
+ *   "details": "Could not find the language associated with the country"
  * }
  * 
  * @example Response 429 (Too Many Requests)
  * {
  *   "success": false,
- *   "message": "Cuota de traducción excedida",
+ *   "message": "Translation quota exceeded",
  *   "details": "quota exceeded for DeepL API",
  *   "timestamp": "2025-12-10T00:45:23.123Z"
  * }
@@ -512,7 +490,7 @@ router.post('/blocked-countries', async (req, res) => {
  * @example Response 500 (Internal Server Error)
  * {
  *   "success": false,
- *   "message": "Error interno del servidor",
+ *   "message": "Internal server error",
  *   "details": "Database connection failed",
  *   "timestamp": "2025-12-10T00:45:23.123Z"
  * }
@@ -520,7 +498,7 @@ router.post('/blocked-countries', async (req, res) => {
  * @example Response 502 (Bad Gateway)
  * {
  *   "success": false,
- *   "message": "No se pudo conectar con el servicio de traducción",
+ *   "message": "Could not connect to the translation service",
  *   "details": "ENOTFOUND api.deepl.com",
  *   "timestamp": "2025-12-10T00:45:23.123Z"
  * }
@@ -528,7 +506,7 @@ router.post('/blocked-countries', async (req, res) => {
  * @example Response 504 (Gateway Timeout)
  * {
  *   "success": false,
- *   "message": "Tiempo de espera agotado",
+ *   "message": "Request timed out",
  *   "details": "Request timeout after 30s",
  *   "timestamp": "2025-12-10T00:45:23.123Z"
  * }
@@ -536,71 +514,65 @@ router.post('/blocked-countries', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { text, geo } = req.body;
-    console.log('Solicitud de traducción recibida:', {
-      text,
-      country: geo?.properties?.name,
-      timestamp: new Date().toISOString()
-    });
 
-        // Validaciones
+        // Validations
         if (!text || typeof text !== 'string') {
             return res.status(400).json({
                 success: false,
-                message: 'Texto inválido',
-                details: 'Se requiere un texto válido para traducir'
+                message: 'Invalid text',
+                details: 'A valid text is required for translation'
             });
         }
 
         if (!geo?.properties?.name) {
             return res.status(400).json({
                 success: false,
-                message: 'Datos incompletos',
-                details: 'Se requiere información del país destino'
+                message: 'Incomplete data',
+                details: 'Destination country information is required'
             });
         }
 
-        // Validar longitud del texto
+        // Validate text length
         if (text.length > 500) {
             return res.status(400).json({
                 success: false,
-                message: 'Texto demasiado largo',
-                details: 'El texto no puede exceder los 500 caracteres'
+                message: 'Text too long',
+                details: 'Text cannot exceed 500 characters'
             });
         }
 
-        // Obtener código de país
+        // Get country code
         const alpha3Code = countryNameToCode[geo.properties.name];
         if (!alpha3Code) {
             return res.status(404).json({
                 success: false,
-                message: `País no soportado: ${geo.properties.name}`,
-                details: 'El país no está en nuestra base de datos'
+                message: `Unsupported country: ${geo.properties.name}`,
+                details: 'Country not in our database'
             });
         }
 
-        // Obtener información del idioma
+        // Get language information
         const languageInfo = countryLanguageMap[alpha3Code];
         if (!languageInfo) {
             return res.status(404).json({
                 success: false,
-                message: `Idioma no configurado para: ${geo.properties.name}`,
-                details: 'No se encontró el idioma asociado al país'
+                message: `Language not configured for: ${geo.properties.name}`,
+                details: 'Could not find the language associated with the country'
             });
         }
 
-        // Ajustar el código de idioma para MyMemory
+        // Adjust language code for MyMemory
         let targetLang = languageInfo.code.toLowerCase();
-        if (targetLang === 'zh') targetLang = 'zh-CN';  // Chino simplificado
-        if (targetLang === 'pt') targetLang = 'pt-BR';  // Portugués de Brasil
+        if (targetLang === 'zh') targetLang = 'zh-CN';  // Simplified Chinese
+        if (targetLang === 'pt') targetLang = 'pt-BR';  // Brazilian Portuguese
 
-        // Buscar en caché
+        // Search in cache
         const cachedTranslation = await Translation.findOne({
             originalText: text.toLowerCase().trim(),
             alpha3Code: alpha3Code
         });
 
         if (cachedTranslation) {
-            console.log('Traducción encontrada en caché');
             return res.json({
                 success: true,
                 translation: cachedTranslation.translation,
@@ -611,27 +583,23 @@ router.post('/', async (req, res) => {
             });
         }
 
-        // --- BLOQUEO DE PAÍSES aquí ---
+        // --- COUNTRY BLOCKING here ---
         const sourceLang = await detectLanguage(text);
         const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
         
         if (blockedCountries.includes(alpha3Code)) {
-            console.log(`[BLOQUEO] ❌ País bloqueado: ${geo.properties.name} (${alpha3Code}) - Idioma fuente: ${sourceLang}`);
             return res.status(403).json({
                 success: false,
-                message: `El país "${geo.properties.name}" está bloqueado porque su idioma principal coincide con el idioma fuente.`,
+                message: `Country "${geo.properties.name}" is blocked because its main language matches the source language.`,
                 blockedCountries,
                 sourceLang,
-                details: 'Debes elegir un país diferente donde no se hable ese idioma como principal.'
+                details: 'You must choose a different country where that language is not spoken as the main language.'
             });
         }
 
-        // Traducir con sistema híbrido (DeepL + Google Fallback)
-        console.log(`Traduciendo con sistema híbrido al idioma ${languageInfo.name} (${targetLang})`);
-        console.log(`Texto original en: ${sourceLang}, traduciendo a: ${targetLang}`);
-        // Si el idioma de origen es el mismo que el destino, no traducir
+        // Translate with hybrid system (DeepL + Google Fallback)
+        // If source language is the same as target, don't translate
         if (sourceLang === targetLang || sourceLang === targetLang.split('-')[0]) {
-            console.log('El texto ya está en el idioma destino, no se traduce');
             return res.json({
                 success: true,
                 translation: text,
@@ -639,17 +607,17 @@ router.post('/', async (req, res) => {
                 country: geo.properties.name,
                 languageCode: targetLang,
                 fromCache: false,
-                note: 'El texto ya está en el idioma del país seleccionado'
+                note: 'The text is already in the language of the selected country'
             });
         }
         const translatedText = await translateText(text, sourceLang, targetLang);
 
-        // Validar que la traducción sea válida
+        // Validate that the translation is valid
         if (!translatedText || translatedText.trim() === '') {
-            throw new Error('La traducción devuelta está vacía');
+            throw new Error('The returned translation is empty');
         }
 
-        // Guardar en caché
+        // Save to cache
         try {
             const newTranslation = new Translation({
                 originalText: text.toLowerCase().trim(),
@@ -658,12 +626,11 @@ router.post('/', async (req, res) => {
                 translation: translatedText
             });
             await newTranslation.save();
-            console.log('Traducción guardada en caché');
         } catch (cacheError) {
-            console.error('Error al guardar en caché:', cacheError);
+            // Cache error ignored - translation already completed
         }
 
-        // Enviar respuesta
+        // Send response
         return res.json({
             success: true,
             translation: translatedText,
@@ -675,13 +642,7 @@ router.post('/', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error en el servicio de traducción:', {
-            error: error.message,
-            stack: error.stack,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Capturar excepción en Sentry
+        // Capture exception in Sentry
         Sentry.captureException(error, {
           tags: {
             endpoint: '/api/translate',
@@ -690,16 +651,16 @@ router.post('/', async (req, res) => {
         });
 
         let statusCode = 500;
-        let errorMessage = 'Error interno del servidor';
+        let errorMessage = 'Internal server error';
         let errorDetails = error.message;
         const errorMap = {
-            'autenticación': { status: 401, message: 'Error de autenticación con el servicio de traducción' },
-            'Tiempo de espera': { status: 504, message: 'Tiempo de espera agotado' },
-            'quota exceeded': { status: 429, message: 'Cuota de traducción excedida' },
-            'Too many requests': { status: 429, message: 'Demasiadas solicitudes' },
-            'conectar': { status: 502, message: 'No se pudo conectar con el servicio de traducción' },
-            'Language not supported': { status: 400, message: 'Idioma no soportado' },
-            'Text too long': { status: 400, message: 'Texto demasiado largo' }
+            'authentication': { status: 401, message: 'Authentication error with translation service' },
+            'timeout': { status: 504, message: 'Request timed out' },
+            'quota exceeded': { status: 429, message: 'Translation quota exceeded' },
+            'Too many requests': { status: 429, message: 'Too many requests' },
+            'connect': { status: 502, message: 'Could not connect to the translation service' },
+            'Language not supported': { status: 400, message: 'Language not supported' },
+            'Text too long': { status: 400, message: 'Text too long' }
         };
         for (const [key, value] of Object.entries(errorMap)) {
             if (error.message.toLowerCase().includes(key.toLowerCase())) {
@@ -720,11 +681,11 @@ router.post('/', async (req, res) => {
 /**
  * @route   GET /api/translate/test-error
  * @method  GET
- * @desc    Ruta de prueba que genera un error intencionalmente para verificar que Sentry captura errores.
- *          Esta ruta NO debe usarse en producción.
+ * @desc    Test route that intentionally generates an error to verify that Sentry captures errors.
+ *          This route should NOT be used in production.
  * @access  Public
  * 
- * @returns {500} Internal Server Error - Error capturado por Sentry
+ * @returns {500} Internal Server Error - Error captured by Sentry
  * 
  * @example Request
  * GET /api/translate/test-error

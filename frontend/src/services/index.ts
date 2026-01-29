@@ -1,21 +1,21 @@
 /**
- * @fileoverview Índice de servicios API
+ * @fileoverview API services index
  * @module services
- * @description Exporta todos los servicios de API para fácil importación.
- * Punto de entrada centralizado para todas las funciones de comunicación con el backend.
+ * @description Exports all API services for easy importing.
+ * Centralized entry point for all backend communication functions.
  */
 
-// Cliente HTTP base
+// Base HTTP client
 export { default as apiClient, getErrorMessage } from './apiClient';
 export type { ApiError } from './apiClient';
 
-// Servicio de traducción
+// Translation service
 export {
   translateText,
   getBlockedCountries
 } from './translationService';
 
-// Servicio de juego
+// Game service
 export {
   generateRandomPhrase,
   generateRandomFlag,

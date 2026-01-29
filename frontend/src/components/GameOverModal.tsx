@@ -1,8 +1,8 @@
 /**
- * @fileoverview Modal de fin de juego que muestra estadísticas finales
+ * @fileoverview Game over modal that displays final statistics
  * @module components/GameOverModal
- * @description Componente modal que se muestra cuando el jugador pierde
- * todas sus vidas, presentando estadísticas de la partida y opción de reiniciar.
+ * @description Modal component that is displayed when the player loses
+ * all their lives, presenting game statistics and the option to restart.
  */
 
 // src/components/GameOverModal.tsx
@@ -12,32 +12,32 @@ import { useLanguage } from '../contexts/LanguageContext';
 import '../styles/GameOverModal.css';
 
 /**
- * Propiedades del componente GameOverModal
+ * GameOverModal component properties
  * @interface GameOverModalProps
  */
 interface GameOverModalProps {
-  /** Estadísticas del juego finalizado */
+  /** Statistics of the finished game */
   stats: {
-    /** Número total de intentos realizados */
+    /** Total number of attempts made */
     attempts: number;
-    /** Número de respuestas correctas */
+    /** Number of correct answers */
     correct: number;
   };
-  /** Callback para reiniciar el juego */
+  /** Callback to restart the game */
   onRestart: () => void;
 }
 
 /**
- * Modal de fin de juego con estadísticas
+ * Game over modal with statistics
  * 
  * @component
- * @description Muestra un overlay modal cuando el juego termina, presentando:
- * - Número total de intentos
- * - Respuestas correctas
- * - Porcentaje de precisión calculado
- * - Botón para reiniciar el juego
+ * @description Displays an overlay modal when the game ends, presenting:
+ * - Total number of attempts
+ * - Correct answers
+ * - Calculated accuracy percentage
+ * - Button to restart the game
  * 
- * El modal utiliza el contexto de idioma para textos localizados.
+ * The modal uses the language context for localized texts.
  * 
  * @example
  * ```tsx
@@ -47,41 +47,41 @@ interface GameOverModalProps {
  * />
  * ```
  * 
- * @param {GameOverModalProps} props - Las propiedades del componente
- * @returns {JSX.Element} Modal con estadísticas finales del juego
+ * @param {GameOverModalProps} props - The component properties
+ * @returns {JSX.Element} Modal with final game statistics
  */
 const GameOverModal: React.FC<GameOverModalProps> = ({ stats, onRestart }) => {
   const { t } = useLanguage();
   const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
 
   return (
-    <div className="gameover-overlay">
-      <div className="gameover-content">
-        <div className="gameover-title">😵 {t.gameOver}!</div>
+    <aside className="gameover-overlay" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+      <article className="gameover-content">
+        <h2 id="gameover-title" className="gameover-title">😵 {t.gameOver}!</h2>
         
-        <div className="gameover-stats">
-          <div className="gameover-stat">
-            <span className="gameover-stat-label">{t.attempts}</span>
-            <span className="gameover-stat-value">{stats.attempts}</span>
-          </div>
-          <div className="gameover-stat">
-            <span className="gameover-stat-label">{t.correct}</span>
-            <span className="gameover-stat-value success">{stats.correct}</span>
-          </div>
-          <div className="gameover-stat">
-            <span className="gameover-stat-label">{t.finalScore}</span>
-            <span className="gameover-stat-value">{accuracy}%</span>
-          </div>
-        </div>
+        <section className="gameover-stats" aria-label="Game statistics">
+          <dl className="gameover-stat">
+            <dt className="gameover-stat-label">{t.attempts}</dt>
+            <dd className="gameover-stat-value">{stats.attempts}</dd>
+          </dl>
+          <dl className="gameover-stat">
+            <dt className="gameover-stat-label">{t.correct}</dt>
+            <dd className="gameover-stat-value success">{stats.correct}</dd>
+          </dl>
+          <dl className="gameover-stat">
+            <dt className="gameover-stat-label">{t.finalScore}</dt>
+            <dd className="gameover-stat-value">{accuracy}%</dd>
+          </dl>
+        </section>
 
         <button className="gameover-restart-button" onClick={onRestart}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
           </svg>
           {t.playAgain}
         </button>
-      </div>
-    </div>
+      </article>
+    </aside>
   );
 };
 

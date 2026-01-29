@@ -4,10 +4,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: http://localhost:5000
+        VITE_API_URL: ""
         VITE_SENTRY_DSN: ${VITE_SENTRY_DSN}
     environment:
-      VITE_API_URL: http://localhost:5000
+      VITE_API_URL: ""
       VITE_SENTRY_DSN: ${VITE_SENTRY_DSN}
     ports:
       - "3000:80"

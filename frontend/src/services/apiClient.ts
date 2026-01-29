@@ -1,46 +1,42 @@
 /**
- * @fileoverview Cliente HTTP centralizado con Axios
+ * @fileoverview Centralized HTTP client with Axios
  * @module services/apiClient
- * @description Configuración de axios con interceptores, timeouts y manejo de errores.
- * Punto único de configuración para todas las llamadas API del frontend.
+ * @description Axios configuration with interceptors, timeouts and error handling.
+ * Single configuration point for all frontend API calls.
  */
 
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import * as Sentry from '@sentry/react';
 
 /**
- * URL base de la API backend obtenida de variables de entorno
+ * Base URL of the backend API obtained from environment variables
+ * If empty or undefined, uses relative routes to leverage the nginx proxy
  * @constant
  */
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * Instancia de axios configurada con valores por defecto
+ * Axios instance configured with default values
  * @constant
  * @type {AxiosInstance}
  */
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000, // 15 segundos
+  timeout: 15000, // 15 seconds
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: false, // Cambiar a true si usas cookies/sesiones
+  withCredentials: false, // Change to true if you use cookies/sessions
 });
 
 /**
- * Interceptor de peticiones
- * Se ejecuta antes de cada petición HTTP
- * Útil para añadir tokens de autenticación, logging, etc.
+ * Request interceptor
+ * Runs before each HTTP request
+ * Useful for adding authentication tokens, logging, etc.
  */
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // Logging en desarrollo
-    if (import.meta.env.DEV) {
-      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`);
-    }
-
-    // Aquí puedes añadir headers de autenticación si los necesitas:
+    // You can add authentication headers here if needed:
     // const token = localStorage.getItem('auth_token');
     // if (token && config.headers) {
     //   config.headers.Authorization = `Bearer ${token}`;
@@ -49,32 +45,20 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error: AxiosError) => {
-    console.error('[API Request Error]', error);
     return Promise.reject(error);
   }
 );
 
 /**
- * Interceptor de respuestas
- * Se ejecuta después de cada respuesta HTTP
- * Maneja errores globalmente y transforma respuestas
+ * Response interceptor
+ * Runs after each HTTP response
+ * Handles errors globally and transforms responses
  */
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Logging en desarrollo
-    if (import.meta.env.DEV) {
-      console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status);
-    }
-
-    // Retornar directamente los datos
     return response;
   },
   (error: AxiosError) => {
-    // Logging de errores
-    if (import.meta.env.DEV) {
-      console.error('[API Response Error]', error.response?.status, error.message);
-    }
-
     // Capturar error en Sentry
     if (error.response) {
       Sentry.captureException(error, {
@@ -95,37 +79,37 @@ apiClient.interceptors.response.use(
       });
     }
 
-    // Manejo de errores específicos
+    // Handling specific errors
     if (error.response) {
-      // El servidor respondió con un código de estado fuera del rango 2xx
+      // The server responded with a status code outside the 2xx range
       const status = error.response.status;
       const data = error.response.data as any;
 
       switch (status) {
         case 400:
-          throw new Error(data?.message || 'Solicitud incorrecta. Verifica los datos enviados.');
+          throw new Error(data?.message || 'Bad request. Please verify the data sent.');
         case 401:
-          throw new Error('No autorizado. Por favor, inicia sesión.');
+          throw new Error('Unauthorized. Please log in.');
         case 403:
-          // Para 403, priorizar el mensaje del servidor (ej: país bloqueado)
-          throw new Error(data?.message || data?.details || 'Acceso prohibido. No tienes permisos para esta acción.');
+          // For 403, prioritize the server message (e.g.: blocked country)
+          throw new Error(data?.message || data?.details || 'Access forbidden. You do not have permission for this action.');
         case 404:
-          throw new Error(data?.message || 'Recurso no encontrado.');
+          throw new Error(data?.message || 'Resource not found.');
         case 429:
-          throw new Error('Demasiadas peticiones. Por favor, espera un momento.');
+          throw new Error('Too many requests. Please wait a moment.');
         case 500:
-          throw new Error('Error del servidor. Por favor, intenta más tarde.');
+          throw new Error('Server error. Please try again later.');
         case 503:
-          throw new Error('Servicio no disponible. El servidor está en mantenimiento.');
+          throw new Error('Service unavailable. The server is under maintenance.');
         default:
-          throw new Error(data?.message || data?.details || `Error del servidor (${status})`);
+          throw new Error(data?.message || data?.details || `Server error (${status})`);
       }
     } else if (error.request) {
-      // La petición se hizo pero no se recibió respuesta
-      throw new Error('No se pudo conectar con el servidor. Verifica tu conexión a internet.');
+      // The request was made but no response was received
+      throw new Error('Could not connect to the server. Please check your internet connection.');
     } else {
-      // Algo sucedió al configurar la petición
-      throw new Error('Error al procesar la petición: ' + error.message);
+      // Something happened while setting up the request
+      throw new Error('Error processing the request: ' + error.message);
     }
   }
 );
@@ -143,22 +127,22 @@ apiClient.interceptors.response.use(
 export default apiClient;
 
 /**
- * Tipos de error personalizados para mejor manejo
+ * Custom error types for better handling
  * @interface ApiError
  */
 export interface ApiError {
-  /** Mensaje de error legible para el usuario */
+  /** User-readable error message */
   message: string;
-  /** Código de estado HTTP */
+  /** HTTP status code */
   status?: number;
-  /** Detalles adicionales del error */
+  /** Additional error details */
   details?: any;
 }
 
 /**
- * Helper para extraer mensaje de error de forma segura
- * @param {unknown} error - Error capturado
- * @returns {string} Mensaje de error formateado
+ * Helper to safely extract error message
+ * @param {unknown} error - Captured error
+ * @returns {string} Formatted error message
  */
 export const getErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
@@ -167,5 +151,5 @@ export const getErrorMessage = (error: unknown): string => {
   if (typeof error === 'string') {
     return error;
   }
-  return 'Error desconocido';
+  return 'Unknown error';
 };

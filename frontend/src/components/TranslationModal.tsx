@@ -1,7 +1,7 @@
 /**
  * @file TranslationModal.tsx
- * @description Modal que muestra el resultado de una traducción.
- * Incluye el texto original, la traducción y estados de carga/error.
+ * @description Modal that displays the result of a translation.
+ * Includes the original text, the translation and loading/error states.
  * @module components/TranslationModal
  */
 
@@ -10,25 +10,25 @@ import type { TranslationResult } from '../types';
 import '../styles/TranslationModal.css';
 
 /**
- * Props del componente TranslationModal
+ * TranslationModal component props
  */
 interface TranslationModalProps {
-    /** Nombre del país al que se tradujo el texto */
+    /** Name of the country the text was translated to */
     countryName: string;
-    /** Texto original ingresado por el usuario */
+    /** Original text entered by the user */
     originalText: string;
-    /** Resultado de la traducción (null si aún no hay resultado) */
+    /** Translation result (null if no result yet) */
     result: TranslationResult | null;
-    /** Indica si la traducción está en proceso */
+    /** Indicates if translation is in progress */
     isLoading: boolean;
-    /** Mensaje de error si la traducción falló */
+    /** Error message if translation failed */
     error: string | null;
-    /** Callback para cerrar el modal */
+    /** Callback to close the modal */
     onClose: () => void;
 }
 
 /**
- * Componente spinner de carga animado
+ * Animated loading spinner component
  * @component
  */
 const Spinner: React.FC = () => (
@@ -44,53 +44,57 @@ const TranslationModal: React.FC<TranslationModalProps> = ({
     onClose,
 }) => {
     return (
-        <div 
+        <aside 
             className="modal-overlay"
             onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="translation-modal-title"
         >
-            <div 
+            <article 
                 className="modal-content"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="modal-body">
+                <header className="modal-body">
                     <button 
                         onClick={onClose} 
                         className="modal-close-button"
+                        aria-label="Close modal"
                     >
                         <svg className="modal-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
 
-                    <h2 className="modal-title">
-                        Traducción para {countryName}
+                    <h2 id="translation-modal-title" className="modal-title">
+                        Translation for {countryName}
                     </h2>
                     
-                    <div className="modal-sections">
-                        <div className="modal-section">
-                            <p className="section-label">Texto Original</p>
-                            <p className="section-text">"{originalText}"</p>
-                        </div>
+                    <section className="modal-sections">
+                        <article className="modal-section">
+                            <h3 className="section-label">Original Text</h3>
+                            <blockquote className="section-text">"{originalText}"</blockquote>
+                        </article>
                         
-                        <div className="modal-section loading-section">
+                        <article className="modal-section loading-section">
                             {isLoading && <Spinner />}
-                            {error && <p className="error-text">{error}</p>}
+                            {error && <p className="error-text" role="alert">{error}</p>}
                             {result && (
-                                <div>
-                                    <div className="section-header">
-                                        <p className="section-label">Traducción ({result.language})</p>
+                                <figure>
+                                    <figcaption className="section-header">
+                                        <h3 className="section-label">Translation ({result.language})</h3>
                                         {result.fromCache && (
-                                            <span title="Resultado obtenido de la caché" className="cache-badge">
-                                                Caché ⚡️
-                                            </span>
+                                            <mark title="Result obtained from cache" className="cache-badge">
+                                                Cache ⚡️
+                                            </mark>
                                         )}
-                                    </div>
-                                    <p className="translation-text">"{result.translation}"</p>
-                                </div>
+                                    </figcaption>
+                                    <blockquote className="translation-text">"{result.translation}"</blockquote>
+                                </figure>
                             )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </article>
+                    </section>
+                </header>
+            </article>
+        </aside>
     );
 };
 

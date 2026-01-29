@@ -1,44 +1,44 @@
 /**
- * @fileoverview Componente de barra de búsqueda reutilizable
+ * @fileoverview Reusable search bar component
  * @module components/SearchBar
- * @description Proporciona una interfaz de búsqueda con icono de lupa
- * para filtrar países en el mapa interactivo.
+ * @description Provides a search interface with magnifying glass icon
+ * for filtering countries on the interactive map.
  */
 
 import React from 'react';
 import '../styles/SearchBar.css';
 
 /**
- * Propiedades del componente SearchBar
+ * SearchBar component properties
  * @interface SearchBarProps
  */
 interface SearchBarProps {
-    /** Valor actual del campo de búsqueda */
+    /** Current value of the search field */
     value: string;
-    /** Callback que se ejecuta cuando el valor cambia */
+    /** Callback executed when the value changes */
     onChange: (value: string) => void;
-    /** Texto placeholder del input (opcional) */
+    /** Input placeholder text (optional) */
     placeholder?: string;
 }
 
 /**
- * Componente de barra de búsqueda con icono de lupa integrado
+ * Search bar component with integrated magnifying glass icon
  * 
  * @component
- * @description Renderiza un input de texto estilizado con un icono SVG de búsqueda.
- * Se utiliza principalmente para filtrar países en el mapa interactivo.
+ * @description Renders a styled text input with an SVG search icon.
+ * Primarily used to filter countries on the interactive map.
  * 
  * @example
  * ```tsx
  * <SearchBar 
  *   value={searchTerm}
  *   onChange={setSearchTerm}
- *   placeholder="Buscar país..."
+ *   placeholder="Search country..."
  * />
  * ```
  * 
- * @param {SearchBarProps} props - Las propiedades del componente
- * @returns {JSX.Element} Input de búsqueda con icono de lupa
+ * @param {SearchBarProps} props - The component properties
+ * @returns {JSX.Element} Search input with magnifying glass icon
  */
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, placeholder }) => {
     return (

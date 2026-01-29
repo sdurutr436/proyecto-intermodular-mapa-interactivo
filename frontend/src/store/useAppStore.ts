@@ -1,8 +1,8 @@
 /**
- * @fileoverview Store principal de Zustand para gestión de estado global
+ * @fileoverview Main Zustand store for global state management
  * @module store/useAppStore
- * @description Store centralizado que maneja todo el estado de la aplicación:
- * UI, juego, traducciones, configuraciones y preferencias del usuario.
+ * @description Centralized store that handles all application state:
+ * UI, game, translations, settings and user preferences.
  */
 
 import { create } from 'zustand';
@@ -10,123 +10,123 @@ import { persist } from 'zustand/middleware';
 import type { TranslationResult, GamePhrase, FlagQuestion } from '../types';
 
 /**
- * Tipo de modo de juego disponible
+ * Available game mode type
  */
 type GameMode = 'translation' | 'guess' | 'flag';
 
 /**
- * Estadísticas del juego
+ * Game statistics
  * @interface GameStats
  */
 interface GameStats {
-  /** Número total de intentos */
+  /** Total number of attempts */
   attempts: number;
-  /** Número de respuestas correctas */
+  /** Number of correct answers */
   correct: number;
-  /** Vidas restantes */
+  /** Remaining lives */
   lives: number;
 }
 
 /**
- * Estado de la aplicación
+ * Application state
  * @interface AppState
  */
 interface AppState {
   // ===== UI STATE =====
-  /** Indica si se debe mostrar la landing page */
+  /** Indicates whether to show the landing page */
   showLanding: boolean;
-  /** Indica si el modo oscuro está activo */
+  /** Indicates whether dark mode is active */
   isDarkMode: boolean;
-  /** Modo de juego actual */
+  /** Current game mode */
   gameMode: GameMode;
   
   // ===== TRANSLATION STATE =====
-  /** Texto de entrada para traducción */
+  /** Input text for translation */
   inputText: string;
-  /** País seleccionado en el mapa */
+  /** Selected country on the map */
   selectedCountry: any | null;
-  /** Resultado de la traducción */
+  /** Translation result */
   translationResult: TranslationResult | null;
-  /** Indica si está cargando traducción */
+  /** Indicates if translation is loading */
   isLoading: boolean;
-  /** Mensaje de error de traducción */
+  /** Translation error message */
   error: string | null;
-  /** Lista de países bloqueados (rallados) */
+  /** List of blocked (scratched) countries */
   blockedCountries: string[];
   
   // ===== GAME STATE =====
-  /** Frase actual en modo adivinar idioma */
+  /** Current phrase in guess language mode */
   currentPhrase: GamePhrase | null;
-  /** Bandera actual en modo adivinar bandera */
+  /** Current flag in guess flag mode */
   currentFlag: FlagQuestion | null;
-  /** Indica si está cargando frase */
+  /** Indicates if phrase is loading */
   isPhraseLoading: boolean;
-  /** Indica si está cargando bandera */
+  /** Indicates if flag is loading */
   isFlagLoading: boolean;
-  /** Estadísticas del juego */
+  /** Game statistics */
   gameStats: GameStats;
-  /** Indica si se está mostrando la pista */
+  /** Indicates if hint is being shown */
   showHint: boolean;
-  /** Indica si el juego ha terminado */
+  /** Indicates if the game is over */
   gameOver: boolean;
-  /** Indica si ya se usó la pista */
+  /** Indicates if hint has been used */
   hintUsed: boolean;
   
   // ===== ACTIONS =====
   // UI Actions
-  /** Establece si mostrar la landing page */
+  /** Sets whether to show the landing page */
   setShowLanding: (show: boolean) => void;
-  /** Alterna el modo oscuro */
+  /** Toggles dark mode */
   toggleDarkMode: () => void;
-  /** Establece el modo de juego */
+  /** Sets the game mode */
   setGameMode: (mode: GameMode) => void;
-  /** Inicia el juego desde la landing page */
+  /** Starts the game from the landing page */
   startFromLanding: (mode: GameMode) => void;
-  /** Vuelve a la landing page */
+  /** Returns to the landing page */
   backToLanding: () => void;
   
   // Translation Actions
-  /** Establece el texto de entrada */
+  /** Sets the input text */
   setInputText: (text: string) => void;
-  /** Establece el país seleccionado */
+  /** Sets the selected country */
   setSelectedCountry: (country: any | null) => void;
-  /** Establece el resultado de traducción */
+  /** Sets the translation result */
   setTranslationResult: (result: TranslationResult | null) => void;
-  /** Establece el estado de carga */
+  /** Sets the loading state */
   setIsLoading: (loading: boolean) => void;
-  /** Establece el mensaje de error */
+  /** Sets the error message */
   setError: (error: string | null) => void;
-  /** Establece los países bloqueados */
+  /** Sets the blocked countries */
   setBlockedCountries: (countries: string[]) => void;
-  /** Cierra el modal de traducción */
+  /** Closes the translation modal */
   closeTranslationModal: () => void;
   
   // Game Actions
-  /** Establece la frase actual */
+  /** Sets the current phrase */
   setCurrentPhrase: (phrase: GamePhrase | null) => void;
-  /** Establece la bandera actual */
+  /** Sets the current flag */
   setCurrentFlag: (flag: FlagQuestion | null) => void;
-  /** Establece el estado de carga de frase */
+  /** Sets the phrase loading state */
   setIsPhraseLoading: (loading: boolean) => void;
-  /** Establece el estado de carga de bandera */
+  /** Sets the flag loading state */
   setIsFlagLoading: (loading: boolean) => void;
-  /** Maneja la respuesta del jugador */
+  /** Handles the player's guess */
   handleGuess: (isCorrect: boolean) => void;
-  /** Salta la pregunta actual */
+  /** Skips the current question */
   skipQuestion: () => void;
-  /** Muestra la pista */
+  /** Shows the hint */
   showHintAction: () => void;
-  /** Oculta la pista */
+  /** Hides the hint */
   hideHint: () => void;
-  /** Reinicia el juego */
+  /** Resets the game */
   resetGame: () => void;
-  /** Reinicia las estadísticas al cambiar de modo */
+  /** Resets the stats when changing mode */
   resetGameStats: () => void;
 }
 
 /**
- * Detecta la preferencia de modo oscuro del sistema
- * @returns {boolean} true si el sistema prefiere modo oscuro
+ * Detects the system's dark mode preference
+ * @returns {boolean} true if the system prefers dark mode
  */
 const getSystemDarkMode = (): boolean => {
   if (typeof window !== 'undefined' && window.matchMedia) {
@@ -136,14 +136,14 @@ const getSystemDarkMode = (): boolean => {
 };
 
 /**
- * Store principal de la aplicación usando Zustand
+ * Main application store using Zustand
  * 
- * @description Gestiona todo el estado global de Transkarte incluyendo:
- * - Estado de UI (landing page, modo oscuro, modo de juego)
- * - Estado de traducción (input, país seleccionado, resultado)
- * - Estado de juego (frases, banderas, estadísticas, vidas)
+ * @description Manages all global state of Transkarte including:
+ * - UI state (landing page, dark mode, game mode)
+ * - Translation state (input, selected country, result)
+ * - Game state (phrases, flags, statistics, lives)
  * 
- * Utiliza middleware de persistencia para guardar preferencias en localStorage:
+ * Uses persistence middleware to save preferences in localStorage:
  * - showLanding
  * - isDarkMode
  * - gameMode
@@ -194,7 +194,7 @@ export const useAppStore = create<AppState>()(
         const newMode = !get().isDarkMode;
         set({ isDarkMode: newMode });
         
-        // Aplicar cambio al DOM
+        // Apply change to DOM
         if (newMode) {
           document.body.classList.add('dark-mode');
         } else {
@@ -204,7 +204,7 @@ export const useAppStore = create<AppState>()(
       
       setGameMode: (mode) => {
         set({ gameMode: mode });
-        // Reiniciar estadísticas al cambiar de modo
+        // Reset stats when changing mode
         get().resetGameStats();
       },
       
@@ -250,7 +250,7 @@ export const useAppStore = create<AppState>()(
       handleGuess: (isCorrect) => {
         const state = get();
         
-        // Incrementar intentos
+        // Increment attempts
         set({
           gameStats: {
             ...state.gameStats,
@@ -259,7 +259,7 @@ export const useAppStore = create<AppState>()(
           }
         });
         
-        // Si es incorrecto, perder una vida
+        // If incorrect, lose a life
         if (!isCorrect) {
           const newLives = state.gameStats.lives - 1;
           set({
@@ -291,7 +291,7 @@ export const useAppStore = create<AppState>()(
         if (!state.hintUsed) {
           set({ showHint: true, hintUsed: true });
           
-          // Ocultar pista después de 5 segundos
+          // Hide hint after 5 seconds
           setTimeout(() => {
             set({ showHint: false });
           }, 5000);
@@ -321,7 +321,7 @@ export const useAppStore = create<AppState>()(
     {
       name: 'transkarte-storage',
       partialize: (state) => ({
-        // Solo persistir preferencias del usuario
+        // Only persist user preferences
         showLanding: state.showLanding,
         isDarkMode: state.isDarkMode,
         gameMode: state.gameMode

@@ -1,7 +1,7 @@
 /**
  * @file gameService.ts
- * @description Servicio para comunicación con la API de juegos del backend usando Axios.
- * Maneja generación de preguntas, validación de respuestas y estadísticas.
+ * @description Service for communication with the backend game API using Axios.
+ * Handles question generation, answer validation and statistics.
  * @module services/gameService
  */
 
@@ -9,11 +9,11 @@ import apiClient, { getErrorMessage } from './apiClient';
 import type { GamePhrase, FlagQuestion } from '../types';
 
 /**
- * Genera una frase aleatoria en un idioma aleatorio desde el backend.
+ * Generates a random phrase in a random language from the backend.
  * 
  * @async
- * @returns {Promise<GamePhrase>} Frase aleatoria con idioma y códigos de países válidos
- * @throws {Error} Si el servidor no responde o devuelve error
+ * @returns {Promise<GamePhrase>} Random phrase with language and valid country codes
+ * @throws {Error} If the server does not respond or returns an error
  * 
  * @example
  * ```ts
@@ -27,17 +27,16 @@ export const generateRandomPhrase = async (): Promise<GamePhrase> => {
     const response = await apiClient.get<GamePhrase>('/api/game/phrase');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener frase del servidor:', error);
-    throw new Error('No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.');
+    throw new Error('Could not connect to the server. Please verify that the backend is running.');
   }
 };
 
 /**
- * Genera una pregunta aleatoria de bandera desde el backend.
+ * Generates a random flag question from the backend.
  * 
  * @async
- * @returns {Promise<FlagQuestion>} Pregunta con bandera, código de país y metadata
- * @throws {Error} Si el servidor no responde o devuelve error
+ * @returns {Promise<FlagQuestion>} Question with flag, country code and metadata
+ * @throws {Error} If the server does not respond or returns an error
  * 
  * @example
  * ```ts
@@ -51,19 +50,18 @@ export const generateRandomFlag = async (): Promise<FlagQuestion> => {
     const response = await apiClient.get<FlagQuestion>('/api/game/flag');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener bandera del servidor:', error);
-    throw new Error('No se pudo conectar con el servidor. Por favor, verifica que el backend esté en funcionamiento.');
+    throw new Error('Could not connect to the server. Please verify that the backend is running.');
   }
 };
 
 /**
- * Verifica si el país seleccionado es correcto para la bandera mostrada.
+ * Verifies if the selected country is correct for the displayed flag.
  * 
  * @async
- * @param {string} targetCountryCode - Código ISO del país correcto
- * @param {string} guessedCountryCode - Código ISO del país seleccionado por el jugador
- * @returns {Promise<{isCorrect: boolean, correctCountryName: string}>} Resultado de validación
- * @throws {Error} Si el servidor no responde o devuelve error
+ * @param {string} targetCountryCode - ISO code of the correct country
+ * @param {string} guessedCountryCode - ISO code of the country selected by the player
+ * @returns {Promise<{isCorrect: boolean, correctCountryName: string}>} Validation result
+ * @throws {Error} If the server does not respond or returns an error
  * 
  * @example
  * ```ts
@@ -87,19 +85,18 @@ export const checkFlagGuess = async (
     
     return response.data;
   } catch (error) {
-    console.error('Error al validar respuesta en el servidor:', error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 /**
- * Verifica si el país seleccionado es correcto para el idioma mostrado.
+ * Verifies if the selected country is correct for the displayed language.
  * 
  * @async
- * @param {string} languageCode - Código ISO del idioma de la frase
- * @param {string} guessedCountryCode - Código ISO del país seleccionado por el jugador
- * @returns {Promise<{isCorrect: boolean, languageName: string, validCountryCodes: string[]}>} Resultado con validación y países válidos
- * @throws {Error} Si el servidor no responde o devuelve error
+ * @param {string} languageCode - ISO code of the phrase's language
+ * @param {string} guessedCountryCode - ISO code of the country selected by the player
+ * @returns {Promise<{isCorrect: boolean, languageName: string, validCountryCodes: string[]}>} Result with validation and valid countries
+ * @throws {Error} If the server does not respond or returns an error
  * 
  * @example
  * ```ts
@@ -123,35 +120,33 @@ export const checkCountryGuess = async (
     
     return response.data;
   } catch (error) {
-    console.error('Error al validar respuesta en el servidor:', error);
-    throw new Error('No se pudo validar la respuesta. Por favor, verifica la conexión con el servidor.');
+    throw new Error('Could not validate the answer. Please check the connection to the server.');
   }
 };
 
 /**
- * Obtiene lista de todos los idiomas disponibles desde el backend
+ * Gets list of all available languages from the backend
  * 
  * @async
- * @returns {Promise<any>} Lista de idiomas disponibles
- * @throws {Error} Si el servidor no responde
+ * @returns {Promise<any>} List of available languages
+ * @throws {Error} If the server does not respond
  */
 export const getAvailableLanguages = async () => {
   try {
     const response = await apiClient.get('/api/game/languages');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener idiomas:', error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 /**
- * Guarda o actualiza estadísticas de juego en el backend
+ * Saves or updates game statistics in the backend
  * 
  * @async
- * @param {string} sessionId - ID único de la sesión de juego
- * @param {any} statsData - Datos de estadísticas a guardar
- * @returns {Promise<any>} Estadísticas guardadas o null si falla
+ * @param {string} sessionId - Unique game session ID
+ * @param {any} statsData - Statistics data to save
+ * @returns {Promise<any>} Saved statistics or null if it fails
  */
 export const saveGameStats = async (sessionId: string, statsData: any) => {
   try {
@@ -162,37 +157,35 @@ export const saveGameStats = async (sessionId: string, statsData: any) => {
     
     return response.data;
   } catch (error) {
-    console.error('Error al guardar estadísticas:', error);
-    // No lanzar error para no interrumpir el juego si falla el guardado
+    // Don't throw error to not interrupt the game if saving fails
     return null;
   }
 };
 
 /**
- * Obtiene estadísticas de una sesión específica
+ * Gets statistics of a specific session
  * 
  * @async
- * @param {string} sessionId - ID de la sesión
- * @returns {Promise<any>} Estadísticas de la sesión
- * @throws {Error} Si el servidor no responde
+ * @param {string} sessionId - Session ID
+ * @returns {Promise<any>} Session statistics
+ * @throws {Error} If the server does not respond
  */
 export const getGameStats = async (sessionId: string) => {
   try {
     const response = await apiClient.get(`/api/game/stats/${sessionId}`);
     return response.data;
   } catch (error) {
-    console.error('Error al obtener estadísticas:', error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 /**
- * Obtiene el ranking de mejores puntuaciones
+ * Gets the leaderboard of best scores
  * 
  * @async
- * @param {number} limit - Número máximo de resultados (default: 10)
- * @returns {Promise<any>} Lista de mejores puntuaciones
- * @throws {Error} Si el servidor no responde
+ * @param {number} limit - Maximum number of results (default: 10)
+ * @returns {Promise<any>} List of best scores
+ * @throws {Error} If the server does not respond
  */
 export const getLeaderboard = async (limit: number = 10) => {
   try {
@@ -202,15 +195,14 @@ export const getLeaderboard = async (limit: number = 10) => {
     
     return response.data;
   } catch (error) {
-    console.error('Error al obtener leaderboard:', error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 /**
- * Genera un ID único para la sesión de juego
+ * Generates a unique ID for the game session
  * 
- * @returns {string} ID único de sesión
+ * @returns {string} Unique session ID
  * 
  * @example
  * ```ts
