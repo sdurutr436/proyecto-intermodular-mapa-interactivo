@@ -11,7 +11,7 @@
     "seed": "node scripts/seed.js"
   },
   "dependencies": {
-    "@sentry/node": "^10.32.0",
+    "@sentry/node": "^10.37.0",
     "cors": "^2.8.5",
     "deepl-node": "^1.11.0",
     "dotenv": "^16.0.3",
