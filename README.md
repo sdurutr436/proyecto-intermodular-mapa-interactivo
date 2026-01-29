@@ -1,13 +1,17 @@
 <div align="center">
 
-
-
 <a id="inicio"></a>
 ![Logo Transkarte](./docs/img/logo.png)
 
 ### *Explora el mundo aprendiendo idiomas*
 
 **Aplicación web educativa que combina geografía y traducción interactiva**
+
+<!-- BADGES DE ESTADO -->
+![GitHub last commit](https://img.shields.io/github/last-commit/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square&color=blueviolet)
+![GitHub repo size](https://img.shields.io/github/repo-size/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/sdurutr436/ProyectoIntermodular-MapaInteractivo/jsdoc-generate.yml?style=flat-square&label=CI%20Build)
+[![Documentación](https://img.shields.io/badge/docs-TypeDoc-blue?style=flat-square)](https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/)
 
 </div>
 
@@ -75,42 +79,40 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 
 ## 🛠️ Stack Tecnológico
 
+<div align="center">
+
 ### Frontend
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-%2320232a.svg?style=for-the-badge)
 
-- **⚛️ React 18** - Librería UI con hooks y context
-- **📘 TypeScript** - Tipado estático para mayor robustez
-- **⚡ Vite** - Build tool ultrarrápido
-- **🗺️ react-simple-maps** - Visualización de mapas SVG interactivos
-- **🎨 CSS3** - Estilos personalizados con animaciones
-- **🐻 Zustand** - Gestión de estado global con middleware de persistencia
-- **📡 Axios** - Cliente HTTP con interceptores y manejo centralizado de errores
+### Backend & Database
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
-### Backend
+### DevOps & Tools
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Sentry](https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&logo=sentry&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)
 
-- **🟢 Node.js 20** - Runtime JavaScript
-- **🚂 Express.js** - Framework web minimalista
-- **🍃 MongoDB 7.0** - Base de datos NoSQL
-- **📦 Mongoose** - ODM para MongoDB con esquemas tipados
+</div>
+
+### Frontend Detalles
+- **react-simple-maps** - Visualización de mapas SVG interactivos
+- **Axios** - Cliente HTTP con interceptores y manejo centralizado de errores
 
 ### APIs Externas
-
 - **🔷 DeepL API** - Traducción de alta calidad (principal)
 - **🌐 Google Translate API** - Traducción gratuita (fallback)
-
-### DevOps e Infraestructura
-
-- **🐳 Docker & Docker Compose** - Contenedorización
-- **🔒 HTTPS** - Certificado SSL (Let's Encrypt en producción)
-- **📝 dotenv** - Gestión de variables de entorno
-- **🌱 Seeding Script** - Población automática de base de datos con datos iniciales
 
 ---
 
 ## 🚀 Demo en Producción
 
-<!-- TODO: Añadir enlace cuando la aplicación esté desplegada -->
-
-**URL de producción:** https://transkarte.up.railway.app/
+**URL de producción:** [https://transkarte.up.railway.app/](https://transkarte.up.railway.app/)
 
 ---
 
@@ -232,25 +234,6 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 - 📢 Textos legibles (tamaño mínimo 14px)
 - 🖱️ Áreas de clic amplias (mínimo 44x44px)
 - 🔊 Estados visuales claros (hover, focus, active)
-
----
-
-### 💡 Consejos de Uso
-
-**Para el Modo Traducción:**
-- 🔤 Usa frases cortas para traducciones más precisas
-- 🌍 Explora diferentes países para descubrir nuevos idiomas
-- 💾 Las traducciones se guardan, otros usuarios las aprovechan
-
-**Para los Modos de Juego:**
-- 🎯 Empieza con países/idiomas que conoces para ganar confianza
-- 📊 Observa tus estadísticas para mejorar tu conocimiento geográfico
-- 🔁 Juega varias veces para memorizar banderas e idiomas
-
-**Rendimiento:**
-- 🚀 Primera traducción puede tardar 1-2s (llamada a API)
-- ⚡ Traducciones repetidas son instantáneas (caché en base de datos)
-- 🌐 Conexión a internet requerida para traducción
 
 ---
 
