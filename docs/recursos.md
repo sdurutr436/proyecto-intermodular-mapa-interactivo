@@ -1,48 +1,53 @@
-# Distribución de Roles y Responsabilidades
+﻿#  Stack Tecnológico Completo - Transkarte
 
-| **Rol** | **Responsabilidades principales** |
-|----------|----------------------------------|
-| **Frontend Lead (React Developer)** | Diseñar y desarrollar la interfaz del usuario (UI) en React. Implementar el mapa interactivo y la comunicación con la API backend. Asegurar la accesibilidad y la experiencia de usuario (UX). |
-| **Backend Lead (Node.js / Express Developer)** | Diseñar y desarrollar la API REST. Gestionar la lógica de negocio, el sistema de caché, y la conexión con la base de datos. Implementar control de errores y endpoints seguros. |
-| **Database Manager (MongoDB)** | Diseñar el esquema de datos y mantener la integridad del almacenamiento. Optimizar consultas y asegurar la persistencia de las traducciones. |
-| **Fullstack / Integrador** | Coordinar la integración entre frontend y backend. Validar flujos de comunicación entre los módulos. |
-| **Project Manager / Documentación** | Planificar las fases del proyecto, coordinar tareas, mantener documentación técnica actualizada y controlar plazos. |
+## Frontend
 
----
+| Librería | Versión | Propósito |
+|----------|---------|-----------|
+| **React** | 18.2.0 | Framework principal de UI |
+| **React DOM** | 18.2.0 | Renderizado en navegador |
+| **TypeScript** | 4.9.3 | Tipado estático y seguridad |
+| **Vite** | 5.0+ | Build rápido y eficiente |
+| **react-simple-maps** | 3.0.0 | Renderización de mapas SVG |
+| **Zustand** | 4.4.7 | Gestión de estado minimalista |
+| **Axios** | 1.6.2 | Cliente HTTP |
+| **Franc** | 6.0.0 | Detección de idiomas |
+| **ESLint** | Latest | Linting de código |
+| **Prettier** | Latest | Formateo de código |
 
-# Stack Tecnológico Completo
+## Backend
 
-| **Capa** | **Tecnología** | **Uso principal** |
-|-----------|----------------|-------------------|
-| **Frontend** | React.js, HTML5, CSS3, JavaScript (ES6+) | Construcción de la interfaz de usuario y mapa interactivo. |
-| **Mapa interactivo** | react-simple-maps | Renderización y manipulación del mapa mundial. |
-| **Backend** | Node.js + Express.js | API REST para procesar peticiones de traducción y comunicarse con la base de datos. |
-| **Base de datos** | MongoDB | Almacenamiento de traducciones en caché (texto original, idioma, resultado, fecha). |
-| **Traducción automática** | API externa (Google Translate API o LibreTranslate) | Generación de traducciones multilingües. |
-| **Despliegue** | Aún por especificar | Hosting del frontend y backend en la nube. |
-| **Control de versiones** | Git + GitHub | Control del código, gestión de ramas y colaboración. |
+| Tecnología | Versión | Propósito |
+|-----------|---------|-----------|
+| **Node.js** | 20+ | Runtime JavaScript |
+| **Express** | 4.18+ | Framework web |
+| **MongoDB** | Atlas (Cloud) | Base de datos NoSQL |
+| **Mongoose** | 7.0+ | ODM para MongoDB |
+| **Dotenv** | Latest | Gestión de variables de entorno |
+| **Cors** | Latest | Control de acceso CORS |
+| **DeepL API** | - | Servicio de traducción principal |
+| **Google Translate API** | - | Fallback de traducción |
 
----
+## Herramientas DevOps
 
-# Servicios Externos y APIs a Utilizar
+| Herramienta | Propósito |
+|------------|-----------|
+| **Docker** | Containerización (Frontend + Backend) |
+| **Docker Compose** | Orquestación en desarrollo |
+| **Railway.app** | Hosting en producción |
+| **GitHub** | Control de versiones |
+| **Sentry** | Monitorización y error tracking |
 
-| **Servicio / API / Librería** | **Función** | **Tipo** |
-|-------------------------------|-------------|----------|
-| **Google Translate API** *(alternativa: LibreTranslate)* | Obtener traducciones automáticas de texto a múltiples idiomas. | API externa |
-| **REST Countries API** | Obtener información de países e idiomas oficiales. | API pública |
-| **react-simple-maps** | Renderizar el mapa mundial interactivo y manejar límites de países de forma sencilla en React. | Librería React / JS |
-| **world-atlas / topojson** | Proveer datos geográficos simplificados (límites de países) para usar con `react-simple-maps`. | Dataset / Librería JS |
+## Características Implementadas
 
----
-
-# Herramientas de Desarrollo y Gestión
-
-| **Herramienta** | **Uso principal** |
-|------------------|------------------|
-| **Visual Studio Code** | Entorno principal de desarrollo. |
-| **Postman / Thunder Client** | Pruebas de endpoints de la API. |
-| **MongoDB Compass / Atlas** | Visualización y gestión de la base de datos. |
-| **GitHub Projects / Trello** | Gestión de tareas, seguimiento de progreso y comunicación del equipo. |
-| **Figma / Excalidraw** | Diseño de interfaz y diagramas de arquitectura. |
-| **Discord / Slack** | Comunicación y coordinación del equipo. |
-| **Render / Vercel** | Despliegue del backend y frontend. |
+ Mapa interactivo mundial  
+ Traducción en tiempo real  
+ Sistema de caché  
+ Detección automática de idiomas  
+ Modo oscuro  
+ Multi-idioma (ES/EN)  
+ Minijuegos educativos  
+ Interfaz responsive  
+ Docker containerización  
+ Despliegue automático  
+ Monitorización de errores  
