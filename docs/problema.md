@@ -1,35 +1,35 @@
-## Descripción detallada del problema
-Muchos estudiantes y personas interesadas en idiomas enfrentan dificultades al relacionar palabras con sus traducciones en distintos países de manera visual y contextual. Las herramientas tradicionales de traducción suelen ser lineales o listas de palabras, lo que dificulta la comprensión geográfica de la distribución de idiomas. Además, los mapas convencionales muestran información geográfica, pero rara vez permiten integrar contenido textual traducido directamente dentro de cada país.
+## Detailed Problem Description
+Many students and people interested in languages face difficulties relating words with their translations in different countries in a visual and contextual way. Traditional translation tools are usually linear or word lists, making it difficult to understand the geographical distribution of languages. Additionally, conventional maps show geographical information, but rarely allow integrating translated textual content directly within each country.
 
-## Usuarios objetivo (User Personas)
-- **Estudiantes de idiomas (16-25 años):** Buscan herramientas interactivas que les ayuden a aprender vocabulario en diferentes idiomas mientras comprenden la distribución geográfica.  
-- **Docentes y educadores:** Necesitan recursos visuales y didácticos para enseñar idiomas y cultura de manera más atractiva.  
-- **Curiosos de culturas y lingüística:** Personas que quieren explorar idiomas de manera divertida y visual.
+## Target Users (User Personas)
+- **Language students (16-25 years):** Seek interactive tools that help them learn vocabulary in different languages while understanding geographical distribution.  
+- **Teachers and educators:** Need visual and didactic resources to teach languages and culture in a more attractive way.  
+- **Culture and linguistics enthusiasts:** People who want to explore languages in a fun and visual way.
 
-## Evidencias de investigación
-- **Observaciones:**   
-Herramientas existentes muestran traducciones en texto o aplicaciones separadas, pero no integran mapa + traducción simultáneamente.
+## Research Evidence
+- **Observations:**   
+Existing tools show translations in text or separate applications, but do not integrate map + translation simultaneously.
 
-#### Herramientas comparativas
+#### Comparative Tools
 
 1. **European Word Translator**  
-   Permite traducir palabras del inglés a más de 30 idiomas europeos y muestra los resultados en un mapa interactivo. Sin embargo, se limita a una sola palabra por país y no ofrece traducciones completas ni contexto adicional. Nuestro proyecto busca traducir frases o textos completos integrados en un mapa, ofreciendo así una experiencia más rica y contextualizada.
+   Allows translating words from English to over 30 European languages and displays results on an interactive map. However, it is limited to a single word per country and does not offer complete translations or additional context. Our project seeks to translate complete phrases or texts integrated in a map, thus offering a richer and more contextualized experience.
 
 2. **Map Translator**  
-   Convierte contenido textual en representaciones simbólicas sobre un mapa. Se centra más en la visualización simbólica que en la traducción lingüística directa. Nuestro proyecto se enfoca en traducciones precisas y contextualizadas dentro del mapa interactivo.
+   Converts textual content into symbolic representations on a map. Focuses more on symbolic visualization than on direct linguistic translation. Our project focuses on accurate and contextualized translations within the interactive map.
 
 3. **Textomap**  
-   Permite crear mapas interactivos personalizados a partir de contenido textual, soportando múltiples idiomas. No se centra en la traducción de textos ni en la integración lingüística profunda. Nuestro proyecto combina traducción precisa con representación geográfica en un mapa interactivo.
+   Allows creating custom interactive maps from textual content, supporting multiple languages. It does not focus on text translation or deep linguistic integration. Our project combines accurate translation with geographical representation on an interactive map.
 
 4. **Interactive Language World Map**  
-   Muestra un mapa interactivo donde se visualiza la comunicación posible según los idiomas hablados. Visualmente atractivo, pero no ofrece traducciones ni contexto lingüístico detallado. Nuestro proyecto proporciona traducciones completas y precisas dentro del mapa, enriqueciendo la experiencia educativa.
+   Shows an interactive map where possible communication is visualized according to spoken languages. Visually attractive, but does not offer translations or detailed linguistic context. Our project provides complete and accurate translations within the map, enriching the educational experience.
 
 
-## Análisis de competencia
-- **Google Translate:** Excelente para traducciones individuales, pero no integra contexto geográfico.  
-- **Duolingo:** Gamificación del aprendizaje, pero no ofrece visualización en mapa mundial.  
-- **Herramientas comparativas:** Ya detalladas en el punto anterior.
-> Ninguna de estas herramientas combina **traducción automática + visualización geográfica dinámica**, dejando un espacio para un producto novedoso.
+## Competition Analysis
+- **Google Translate:** Excellent for individual translations, but does not integrate geographical context.  
+- **Duolingo:** Gamification of learning, but does not offer world map visualization.  
+- **Comparative tools:** Already detailed in the previous point.
+> None of these tools combine **automatic translation + dynamic geographical visualization**, leaving a space for a novel product.
 
-## Propuesta de valor
-Crear un **mapa mundial interactivo** donde los usuarios puedan introducir cualquier palabra y verla traducida automáticamente dentro de cada país según su idioma oficial. Esto combina **aprendizaje de idiomas, visualización geográfica y experiencia interactiva**, ofreciendo una herramienta educativa única, intuitiva y atractiva para estudiantes, docentes y curiosos de la lingüística.
+## Value Proposition
+Create an **interactive world map** where users can enter any word and see it automatically translated within each country according to its official language. This combines **language learning, geographical visualization and interactive experience**, offering a unique, intuitive and attractive educational tool for students, teachers and linguistics enthusiasts.

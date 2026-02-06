@@ -1,244 +1,244 @@
-# Dependencias del Proyecto Transkarte
+# Transkarte Project Dependencies
 
-## Índice
-1. [Frontend - Dependencias de Producción](#frontend---dependencias-de-producción)
-2. [Frontend - Dependencias de Desarrollo](#frontend---dependencias-de-desarrollo)
-3. [Backend - Dependencias de Producción](#backend---dependencias-de-producción)
-4. [Backend - Dependencias de Desarrollo](#backend---dependencias-de-desarrollo)
-5. [Justificación de la Integración](#justificación-de-la-integración)
+## Index
+1. [Frontend - Production Dependencies](#frontend---production-dependencies)
+2. [Frontend - Development Dependencies](#frontend---development-dependencies)
+3. [Backend - Production Dependencies](#backend---production-dependencies)
+4. [Backend - Development Dependencies](#backend---development-dependencies)
+5. [Integration Justification](#integration-justification)
 
 ---
 
-## Frontend - Dependencias de Producción
+## Frontend - Production Dependencies
 
 ### React 18.2.0
-**Propósito:** Biblioteca principal para construir la interfaz de usuario con componentes reutilizables.
+**Purpose:** Main library to build the user interface with reusable components.
 
-**Justificación:**
-- Framework moderno con arquitectura basada en componentes
-- Excelente rendimiento gracias al Virtual DOM
-- Gran ecosistema y comunidad activa
-- Hooks modernos para gestión de estado
-- Compatible con TypeScript para mayor seguridad de tipos
+**Justification:**
+- Modern framework with component-based architecture
+- Excellent performance thanks to Virtual DOM
+- Large ecosystem and active community
+- Modern Hooks for state management
+- Compatible with TypeScript for greater type safety
 
-**Integración:** Se utiliza como base de toda la aplicación frontend, desde `App.tsx` hasta componentes individuales como `WorldMap.tsx`, `SearchBar.tsx` y `TranslationModal.tsx`.
+**Integration:** Used as the base of the entire frontend application, from `App.tsx` to individual components like `WorldMap.tsx`, `SearchBar.tsx` and `TranslationModal.tsx`.
 
 ---
 
 ### React DOM 18.2.0
-**Propósito:** Renderizado de componentes React en el navegador web.
+**Purpose:** Rendering of React components in the web browser.
 
-**Justificación:**
-- Librería oficial de React para manipulación del DOM
-- Necesaria para renderizar la aplicación en navegadores
-- Optimizada para React 18 con renderizado concurrente
+**Justification:**
+- Official React library for DOM manipulation
+- Necessary to render the application in browsers
+- Optimized for React 18 with concurrent rendering
 
-**Integración:** Se usa en `index.tsx` para renderizar el componente raíz de la aplicación en el contenedor HTML.
+**Integration:** Used in `index.tsx` to render the application's root component in the HTML container.
 
 ---
 
 ### React Simple Maps 3.0.0
-**Propósito:** Renderizado de mapas interactivos basados en SVG con datos GeoJSON.
+**Purpose:** Rendering of interactive maps based on SVG with GeoJSON data.
 
-**Justificación:**
-- Especializada en visualización de mapas mundiales
-- Uso de SVG para escalabilidad sin pérdida de calidad
-- Rendimiento óptimo con proyecciones geográficas
-- API simple y declarativa compatible con React
-- Alternativa ligera vs Google Maps o Mapbox (sin necesidad de API keys)
+**Justification:**
+- Specialized in world map visualization
+- Use of SVG for scalability without quality loss
+- Optimal performance with geographical projections
+- Simple and declarative API compatible with React
+- Lightweight alternative vs Google Maps or Mapbox (no API keys needed)
 
-**Integración:** En `WorldMap.tsx` se utiliza para:
-- Renderizar la geografía mundial con `ComposableMap` y `Geographies`
-- Manejar eventos de clic en países con `Geography`
-- Aplicar estilos dinámicos según estado (hover, seleccionado, bloqueado)
-- Proyección Mercator para visualización estándar
+**Integration:** In `WorldMap.tsx` it is used to:
+- Render world geography with `ComposableMap` and `Geographies`
+- Handle click events on countries with `Geography`
+- Apply dynamic styles according to state (hover, selected, blocked)
+- Mercator projection for standard visualization
 
 ---
 
 ### Axios 1.6.2
-**Propósito:** Cliente HTTP para realizar peticiones al backend.
+**Purpose:** HTTP client to make requests to the backend.
 
-**Justificación:**
-- API más intuitiva que Fetch nativa
-- Manejo automático de JSON
-- Interceptores para gestión global de errores
-- Cancelación de peticiones (útil para evitar race conditions)
-- Compatibilidad con TypeScript
+**Justification:**
+- More intuitive API than native Fetch
+- Automatic JSON handling
+- Interceptors for global error management
+- Request cancellation (useful to avoid race conditions)
+- TypeScript compatibility
 
-**Integración:** En `translationService.ts` para comunicación con el backend:
+**Integration:** In `translationService.ts` for communication with the backend:
 ```typescript
-- POST /api/translate - Traducción de texto
-- POST /api/translate/blocked-countries - Obtener países bloqueados
-- GET /api/game/* - Endpoints del modo de juego
+- POST /api/translate - Text translation
+- POST /api/translate/blocked-countries - Get blocked countries
+- GET /api/game/* - Game mode endpoints
 ```
 
 ---
 
 ### Zustand 4.4.7
-**Propósito:** Gestión de estado global minimalista sin boilerplate.
+**Purpose:** Minimalist global state management without boilerplate.
 
-**Justificación:**
-- Alternativa ligera a Redux (solo 1KB)
-- API simple basada en hooks
-- Sin context providers anidados
-- TypeScript-first con tipos inferidos automáticamente
-- Devtools para debugging
+**Justification:**
+- Lightweight alternative to Redux (only 1KB)
+- Simple API based on hooks
+- No nested context providers
+- TypeScript-first with automatically inferred types
+- Devtools for debugging
 
-**Integración:** Gestión de estado global en toda la aplicación:
-- Idioma de interfaz (español/inglés)
-- Modo oscuro/claro
-- Estado de traducción actual
-- Países bloqueados dinámicamente
-- Persistencia en `localStorage`
+**Integration:** Global state management throughout the application:
+- Interface language (Spanish/English)
+- Dark/light mode
+- Current translation state
+- Dynamically blocked countries
+- Persistence in `localStorage`
 
 ---
 
-## Frontend - Dependencias de Desarrollo
+## Frontend - Development Dependencies
 
 ### TypeScript 4.9.3
-**Propósito:** Superset de JavaScript con tipado estático.
+**Purpose:** JavaScript superset with static typing.
 
-**Justificación:**
-- Detección de errores en tiempo de desarrollo
-- Autocompletado inteligente en IDE
-- Refactorización segura
-- Documentación implícita con tipos
-- Interfaces claras para componentes y props
+**Justification:**
+- Error detection at development time
+- Intelligent autocompletion in IDE
+- Safe refactoring
+- Implicit documentation with types
+- Clear interfaces for components and props
 
-**Integración:** Todos los archivos `.tsx` y `.ts` utilizan TypeScript. Configurado en `tsconfig.json` con modo estricto.
+**Integration:** All `.tsx` and `.ts` files use TypeScript. Configured in `tsconfig.json` with strict mode.
 
 ---
 
 ### Vite 4.1.0
-**Propósito:** Build tool y servidor de desarrollo ultrarrápido.
+**Purpose:** Ultra-fast build tool and development server.
 
-**Justificación:**
-- Hot Module Replacement (HMR) instantáneo
-- Build de producción optimizado con Rollup
-- Soporte nativo para TypeScript, JSX, CSS
-- Sin configuración compleja (zero-config)
-- Hasta 100x más rápido que Webpack en desarrollo
+**Justification:**
+- Instant Hot Module Replacement (HMR)
+- Production build optimized with Rollup
+- Native support for TypeScript, JSX, CSS
+- Zero-config
+- Up to 100x faster than Webpack in development
 
-**Integración:** Configurado en `vite.config.ts` para:
-- Servidor de desarrollo en puerto 3000
-- Compilación de TypeScript y React
-- Optimización de assets para producción
-- Proxy de API hacia backend en desarrollo
+**Integration:** Configured in `vite.config.ts` for:
+- Development server on port 3000
+- TypeScript and React compilation
+- Asset optimization for production
+- API proxy to backend in development
 
 ---
 
 ### @vitejs/plugin-react 3.1.0
-**Propósito:** Plugin oficial de Vite para soporte de React con Fast Refresh.
+**Purpose:** Official Vite plugin for React support with Fast Refresh.
 
-**Justificación:**
-- Habilita Fast Refresh (recarga sin perder estado)
-- Transformación automática de JSX
-- Optimizado específicamente para React
+**Justification:**
+- Enables Fast Refresh (reload without losing state)
+- Automatic JSX transformation
+- Specifically optimized for React
 
-**Integración:** Configurado en `vite.config.ts` como plugin principal para compilar React.
+**Integration:** Configured in `vite.config.ts` as the main plugin to compile React.
 
 ---
 
 ### @types/* (react, react-dom, react-simple-maps, geojson)
-**Propósito:** Definiciones de tipos TypeScript para librerías JavaScript.
+**Purpose:** TypeScript type definitions for JavaScript libraries.
 
-**Justificación:**
-- Autocompletado y validación de tipos en IDE
-- Detección de errores de uso de API
-- Documentación inline de librerías externas
+**Justification:**
+- Autocompletion and type validation in IDE
+- API usage error detection
+- Inline documentation of external libraries
 
-**Integración:** Instalados como devDependencies para soporte de TypeScript en tiempo de desarrollo.
+**Integration:** Installed as devDependencies for TypeScript support at development time.
 
 ---
 
-## Backend - Dependencias de Producción
+## Backend - Production Dependencies
 
 ### Express 4.18.2
-**Propósito:** Framework web minimalista para Node.js.
+**Purpose:** Minimalist web framework for Node.js.
 
-**Justificación:**
-- Routing simple y declarativo
-- Middleware para lógica transversal (CORS, JSON parsing)
-- Amplia adopción en la industria
-- Excelente rendimiento para APIs REST
-- Ecosistema maduro con miles de middlewares
+**Justification:**
+- Simple and declarative routing
+- Middleware for transversal logic (CORS, JSON parsing)
+- Wide industry adoption
+- Excellent performance for REST APIs
+- Mature ecosystem with thousands of middlewares
 
-**Integración:** En `server.js` como servidor principal:
+**Integration:** In `server.js` as main server:
 ```javascript
-- Rutas de API (/api/translate, /api/game)
-- Middleware de CORS
-- Parsing de JSON
-- Manejo de errores global
+- API routes (/api/translate, /api/game)
+- CORS middleware
+- JSON parsing
+- Global error handling
 ```
 
 ---
 
 ### Mongoose 7.0.0
-**Propósito:** ODM (Object-Document Mapper) para MongoDB.
+**Purpose:** ODM (Object-Document Mapper) for MongoDB.
 
-**Justificación:**
-- Modelado de datos con esquemas tipados
-- Validación automática de datos
-- Queries con sintaxis intuitiva
-- Middleware para hooks (pre/post save)
-- Conexión y pooling automático
+**Justification:**
+- Data modeling with typed schemas
+- Automatic data validation
+- Queries with intuitive syntax
+- Middleware for hooks (pre/post save)
+- Automatic connection and pooling
 
-**Integración:** 
-- Modelo `Translation.js` para caché de traducciones
-- Modelo `GameStats.js` para estadísticas de juego
-- Conexión a MongoDB configurada en `config/db.js`
-- Índices para optimización de consultas
+**Integration:** 
+- `Translation.js` model for translation cache
+- `GameStats.js` model for game statistics
+- MongoDB connection configured in `config/db.js`
+- Indexes for query optimization
 
 ---
 
 ### DeepL Node 1.11.0
-**Propósito:** Cliente oficial de la API de DeepL Translator.
+**Purpose:** Official DeepL Translator API client.
 
-**Justificación:**
-- Calidad de traducción superior a Google Translate
-- API oficial con soporte garantizado
-- Manejo automático de rate limiting
-- Detección automática de idioma fuente
-- Soporte para 31 idiomas con alta precisión
+**Justification:**
+- Translation quality superior to Google Translate
+- Official API with guaranteed support
+- Automatic rate limiting handling
+- Automatic language detection
+- Support for 31 languages with high accuracy
 
-**Integración:** En `routes/api/translate.js`:
+**Integration:** In `routes/api/translate.js`:
 ```javascript
-- Traductor principal (mejor calidad)
-- Fallback a Google Translate si falla
-- Configurado con DEEPL_API_KEY desde .env
-- Mapeo de códigos de idioma (ej: pt-BR, zh-CN)
+- Main translator (best quality)
+- Fallback to Google Translate if fails
+- Configured with DEEPL_API_KEY from .env
+- Language code mapping (e.g.: pt-BR, zh-CN)
 ```
 
 ---
 
 ### Node Fetch 2.6.9
-**Propósito:** Implementación de Fetch API para Node.js.
+**Purpose:** Implementation of Fetch API for Node.js.
 
-**Justificación:**
-- API estándar de navegadores disponible en Node.js
-- Necesaria para llamadas a Google Translate (fallback gratuito)
-- Alternativa ligera a Axios en backend
-- Compatible con async/await
+**Justification:**
+- Standard browser API available in Node.js
+- Necessary for calls to Google Translate (free fallback)
+- Lightweight alternative to Axios in backend
+- Compatible with async/await
 
-**Integración:** En `routes/api/translate.js` para:
+**Integration:** In `routes/api/translate.js` for:
 ```javascript
-- Google Translate API como fallback gratuito
-- Detección de idioma con Google
-- No requiere API key (servicio público)
+- Google Translate API as free fallback
+- Language detection with Google
+- No API key required (public service)
 ```
 
 ---
 
 ### CORS 2.8.5
-**Propósito:** Middleware para habilitar Cross-Origin Resource Sharing.
+**Purpose:** Middleware to enable Cross-Origin Resource Sharing.
 
-**Justificación:**
-- Permite peticiones desde frontend (localhost:3000) a backend (localhost:5000)
-- Configuración flexible de orígenes permitidos
-- Manejo de preflight requests (OPTIONS)
-- Esencial para arquitectura separada frontend/backend
+**Justification:**
+- Allows requests from frontend (localhost:3000) to backend (localhost:5000)
+- Flexible configuration of allowed origins
+- Preflight request handling (OPTIONS)
+- Essential for separated frontend/backend architecture
 
-**Integración:** En `server.js` como middleware global:
+**Integration:** In `server.js` as global middleware:
 ```javascript
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000'
@@ -248,15 +248,15 @@ app.use(cors({
 ---
 
 ### Dotenv 16.0.3
-**Propósito:** Carga de variables de entorno desde archivo `.env`.
+**Purpose:** Loading environment variables from `.env` file.
 
-**Justificación:**
-- Separación de configuración del código fuente
-- Seguridad (secrets no committed en Git)
-- Configuración diferente por entorno (dev/prod)
-- Estándar de facto en Node.js
+**Justification:**
+- Separation of configuration from source code
+- Security (secrets not committed in Git)
+- Different configuration per environment (dev/prod)
+- De facto standard in Node.js
 
-**Integración:** Cargado en `server.js`:
+**Integration:** Loaded in `server.js`:
 ```javascript
 require('dotenv').config();
 // Variables: MONGO_URI, DEEPL_API_KEY, PORT
@@ -265,31 +265,31 @@ require('dotenv').config();
 ---
 
 ### Franc-min 6.1.0
-**Propósito:** Detección de idioma a partir de texto (versión ligera de Franc).
+**Purpose:** Language detection from text (lightweight version of Franc).
 
-**Justificación:**
-- Detección offline sin llamadas a API
-- Soporte para 82+ idiomas
-- Algoritmo basado en n-gramas (alta precisión)
-- Versión "min" para reducir tamaño del bundle
-- Backup si Google Translate falla
+**Justification:**
+- Offline detection without API calls
+- Support for 82+ languages
+- Algorithm based on n-grams (high accuracy)
+- "Min" version to reduce bundle size
+- Backup if Google Translate fails
 
-**Integración:** En `routes/api/translate.js` como sistema de detección secundario (actualmente Google Translate es primario por mayor precisión en textos cortos).
+**Integration:** In `routes/api/translate.js` as secondary detection system (currently Google Translate is primary for greater accuracy in short texts).
 
 ---
 
-## Backend - Dependencias de Desarrollo
+## Backend - Development Dependencies
 
 ### Nodemon 2.0.20
-**Propósito:** Recarga automática del servidor al detectar cambios en código.
+**Purpose:** Automatic server reload when detecting code changes.
 
-**Justificación:**
-- Mejora productividad en desarrollo
-- Reinicio automático sin intervención manual
-- Configurable para ignorar archivos específicos
-- Estándar en desarrollo Node.js
+**Justification:**
+- Improves development productivity
+- Automatic restart without manual intervention
+- Configurable to ignore specific files
+- Standard in Node.js development
 
-**Integración:** Script `npm run dev` en `package.json`:
+**Integration:** `npm run dev` script in `package.json`:
 ```bash
 nodemon server.js
 ```
@@ -297,93 +297,93 @@ nodemon server.js
 ---
 
 ### JSDoc 4.0.2 + Docdash 2.0.2
-**Propósito:** Generador de documentación automática a partir de comentarios en código.
+**Purpose:** Automatic documentation generator from code comments.
 
-**Justificación:**
-- Documentación HTML navegable autogenerada
-- Estándar de comentarios JavaScript
-- Compatible con workflows de CI/CD
-- Template Docdash para interfaz moderna
+**Justification:**
+- Navigable HTML documentation autogenerated
+- Standard for JavaScript comments
+- Compatible with CI/CD workflows
+- Docdash template for modern interface
 
-**Integración:** 
-- Configurado en `jsdoc.json`
-- Script `npm run docs` genera documentación
-- Comentarios JSDoc en todos los endpoints (completados en esta sesión)
+**Integration:** 
+- Configured in `jsdoc.json`
+- `npm run docs` script generates documentation
+- JSDoc comments in all endpoints (completed in this session)
 
 ---
 
-## Justificación de la Integración
+## Integration Justification
 
-### Arquitectura General
-El proyecto sigue una arquitectura **MERN** (MongoDB, Express, React, Node.js) con TypeScript en frontend para mayor seguridad de tipos.
+### General Architecture
+The project follows a **MERN** architecture (MongoDB, Express, React, Node.js) with TypeScript in the frontend for greater type safety.
 
-**Decisiones clave:**
-1. **Separación frontend/backend:** Permite escalabilidad independiente y despliegue en diferentes servidores
-2. **Docker Compose:** Orquestación de 3 servicios (frontend Nginx, backend Node, MongoDB)
-3. **Sistema híbrido de traducción:** DeepL para calidad + Google Translate gratuito como fallback
+**Key decisions:**
+1. **Frontend/backend separation:** Allows independent scalability and deployment on different servers
+2. **Docker Compose:** Orchestration of 3 services (Nginx frontend, Node backend, MongoDB)
+3. **Hybrid translation system:** DeepL for quality + Google Translate free as fallback
 
-### Integración de Librerías Externas
+### External Library Integration
 
 #### Frontend
-- **React + TypeScript:** Base moderna para desarrollo con seguridad de tipos
-- **Vite:** Build tool moderno que supera a Create React App en velocidad
-- **Zustand:** Estado global sin complejidad de Redux
-- **React Simple Maps:** Especializada en mapas vs alternativas pesadas (Leaflet, Google Maps)
-- **Axios:** Cliente HTTP robusto con mejores features que Fetch nativo
+- **React + TypeScript:** Modern base for development with type safety
+- **Vite:** Modern build tool that surpasses Create React App in speed
+- **Zustand:** Global state without Redux complexity
+- **React Simple Maps:** Specialized in maps vs heavy alternatives (Leaflet, Google Maps)
+- **Axios:** Robust HTTP client with better features than native Fetch
 
 #### Backend
-- **Express:** Framework minimalista estándar de la industria
-- **Mongoose:** ODM robusto para MongoDB con validación incorporada
-- **DeepL Node:** Cliente oficial para traducción de alta calidad (31 idiomas)
-- **Node Fetch:** Fetch API en Node.js para llamadas HTTP a Google Translate
-- **Franc-min:** Detección de idioma offline como backup
+- **Express:** Minimalist framework, industry standard
+- **Mongoose:** Robust ODM for MongoDB with built-in validation
+- **DeepL Node:** Official client for high-quality translation (31 languages)
+- **Node Fetch:** Fetch API in Node.js for HTTP calls to Google Translate
+- **Franc-min:** Offline language detection as backup
 
-### Alternativas Consideradas y Rechazadas
+### Alternatives Considered and Rejected
 
-| Librería Actual | Alternativa Considerada | Razón del Rechazo |
+| Current Library | Alternative Considered | Rejection Reason |
 |----------------|------------------------|-------------------|
-| React Simple Maps | Leaflet / Mapbox | Requieren API keys, más pesadas, excesivas para el caso de uso |
-| Zustand | Redux / Context API | Redux tiene demasiado boilerplate, Context tiene problemas de rendimiento |
-| Vite | Webpack / Create React App | Vite es 10-100x más rápido en desarrollo |
-| Mongoose | Prisma / TypeORM | Mongoose es estándar para MongoDB, mejor documentación |
-| DeepL | Solo Google Translate | DeepL ofrece mejor calidad (evaluado en pruebas) |
-| Axios | Fetch nativo | Axios tiene mejor API y manejo de errores |
+| React Simple Maps | Leaflet / Mapbox | Require API keys, heavier, excessive for the use case |
+| Zustand | Redux / Context API | Redux has too much boilerplate, Context has performance issues |
+| Vite | Webpack / Create React App | Vite is 10-100x faster in development |
+| Mongoose | Prisma / TypeORM | Mongoose is standard for MongoDB, better documentation |
+| DeepL | Google Translate only | DeepL offers better quality (evaluated in tests) |
+| Axios | Native Fetch | Axios has better API and error handling |
 
-### Integración con Docker
+### Docker Integration
 
-**Dockerfile Frontend:**
-- Stage 1: Build con Node 20 Alpine (instala dependencias, compila TypeScript/Vite)
-- Stage 2: Nginx Alpine (sirve estáticos optimizados)
-- Variables dinámicas: `PORT`, `BACKEND_URL`
+**Frontend Dockerfile:**
+- Stage 1: Build with Node 20 Alpine (installs dependencies, compiles TypeScript/Vite)
+- Stage 2: Nginx Alpine (serves optimized statics)
+- Dynamic variables: `PORT`, `BACKEND_URL`
 
-**Dockerfile Backend:**
+**Backend Dockerfile:**
 - Node 20 Alpine base
-- npm install de dependencias de producción
-- Expone puerto 5000
-- Variables de entorno desde Railway
+- npm install of production dependencies
+- Exposes port 5000
+- Environment variables from Railway
 
-### Gestión de Dependencias
+### Dependency Management
 
-**Versionado:**
-- Versiones fijas en `package.json` (no `^` ni `~`) para reproducibilidad
-- Lock files (`package-lock.json`) committed en Git
-- Auditorías periódicas con `npm audit`
+**Versioning:**
+- Fixed versions in `package.json` (no `^` or `~`) for reproducibility
+- Lock files (`package-lock.json`) committed in Git
+- Periodic audits with `npm audit`
 
-**Seguridad:**
-- Dependencias actualizadas a últimas versiones estables
-- Sin vulnerabilidades conocidas (verificado con `npm audit`)
-- Variables sensibles en `.env` (no en código)
+**Security:**
+- Dependencies updated to latest stable versions
+- No known vulnerabilities (verified with `npm audit`)
+- Sensitive variables in `.env` (not in code)
 
 ---
 
-## Resumen de Totales
+## Summary of Totals
 
-| Categoría | Cantidad | Tamaño Aproximado |
+| Category | Quantity | Approximate Size |
 |-----------|----------|-------------------|
-| Frontend - Producción | 5 | ~500 KB |
-| Frontend - Desarrollo | 6 | ~50 MB (no se incluyen en build) |
-| Backend - Producción | 7 | ~15 MB |
-| Backend - Desarrollo | 3 | ~30 MB (no se incluyen en producción) |
-| **Total Producción** | **12** | **~15.5 MB** |
+| Frontend - Production | 5 | ~500 KB |
+| Frontend - Development | 6 | ~50 MB (not included in build) |
+| Backend - Production | 7 | ~15 MB |
+| Backend - Development | 3 | ~30 MB (not included in production) |
+| **Total Production** | **12** | **~15.5 MB** |
 
-**Nota:** El tamaño de producción es óptimo gracias a tree-shaking de Vite (frontend) y exclusión de devDependencies en Docker (backend).
+**Note:** Production size is optimal thanks to Vite tree-shaking (frontend) and devDependencies exclusion in Docker (backend).

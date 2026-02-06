@@ -1,48 +1,48 @@
-﻿#  Historial de Desarrollo - Transkarte
+﻿# Development History - Transkarte
 
-##  Desglose de Sprints
+## Sprint Breakdown
 
-El proyecto fue desarrollado en 6 sprints utilizando metodología Scrum, con las siguientes características:
+The project was developed in 6 sprints using Scrum methodology, with the following characteristics:
 
-| Sprint | Período | Horas | Componentes Principales |
+| Sprint | Period | Hours | Main Components |
 |--------|---------|-------|------------------------|
-| **1** | 31 Oct - 6 Nov | 60.21 h | Configuración inicial, setup tecnológico, Docker |
-| **2** | 7 Nov - 13 Nov | 71.02 h | Sistemas de traducción, APIs, componentes React |
-| **3** | 14 Nov - 20 Nov | 56.03 h | Interfaz interactiva, mapa mundial, caché |
-| **4** | 21 Nov - 27 Nov | 9.94 h | Modo oscuro, nuevos minijuegos |
-| **5** | 28 Nov - 4 Dic | 17.90 h | Landing page, modo multi-idioma |
-| **6** | 5 Dic - 11 Dic | 25.00 h | Testing, documentación, optimizaciones |
-| **TOTAL** | | **244.35 h** | Producto MVP completo y funcional |
+| **1** | Oct 31 - Nov 6 | 60.21 h | Initial setup, tech setup, Docker |
+| **2** | Nov 7 - Nov 13 | 71.02 h | Translation systems, APIs, React components |
+| **3** | Nov 14 - Nov 20 | 56.03 h | Interactive interface, world map, cache |
+| **4** | Nov 21 - Nov 27 | 9.94 h | Dark mode, new mini-games |
+| **5** | Nov 28 - Dec 4 | 17.90 h | Landing page, multi-language mode |
+| **6** | Dec 5 - Dec 11 | 25.00 h | Testing, documentation, optimizations |
+| **TOTAL** | | **244.35 h** | Complete and functional MVP product |
 
-##  Servicios y Costes Operativos
+## Services and Operational Costs
 
-### Infraestructura Recurrente
+### Recurring Infrastructure
 
-| Servicio | Proveedor | Coste Mensual | Propósito |
+| Service | Provider | Monthly Cost | Purpose |
 |----------|-----------|---------------|-----------|
-|  Hosting | Railway | 5 €/mes | Backend + Frontend |
-|  Base de datos | MongoDB Atlas | Gratis | Almacenamiento (Free Tier) |
-|  Dominio | Namecheap | ~1 €/mes | dominio .com |
-|  Traducción | DeepL API | 5 €/mes | Servicio de traducción |
-|  Monitorización | Sentry | Gratis | Error tracking (Free Tier) |
-| **TOTAL** | | **~11 €/mes** | **~132 €/año** |
+| Hosting | Railway | 5 €/month | Backend + Frontend |
+| Database | MongoDB Atlas | Free | Storage (Free Tier) |
+| Domain | Namecheap | ~1 €/month | .com domain |
+| Translation | DeepL API | 5 €/month | Translation service |
+| Monitoring | Sentry | Free | Error tracking (Free Tier) |
+| **TOTAL** | | **~11 €/month** | **~132 €/year** |
 
-### Escala de Costes por Usuarios
+### Cost Scale by Users
 
-El modelo de costes está diseñado para escalar progresivamente según el número de usuarios activos:
+The cost model is designed to scale progressively according to the number of active users:
 
-- **0-1.000 usuarios**: ~10 €/mes
-- **1.000-5.000 usuarios**: ~20 €/mes
-- **5.000-10.000 usuarios**: ~54 €/mes
-- **10.000-50.000 usuarios**: ~125 €/mes
+- **0-1,000 users**: ~10 €/month
+- **1,000-5,000 users**: ~20 €/month
+- **5,000-10,000 users**: ~54 €/month
+- **10,000-50,000 users**: ~125 €/month
 
-##  Tecnologías Implementadas
+## Implemented Technologies
 
-El desarrollo ha utilizado exclusivamente tecnologías open-source y servicios económicos, minimizando los costes operativos:
+Development has used exclusively open-source technologies and economic services, minimizing operational costs:
 
-- **Frontend**: React 18 + TypeScript + Vite (build eficiente)
-- **Backend**: Node.js + Express (ligero y escalable)
-- **Base de datos**: MongoDB (flexible y gratuita en fase inicial)
-- **Traducción**: APIs externas (DeepL + Google Translate como fallback)
-- **Hosting**: Railway (económico y simple)
-- **Monitorización**: Sentry (detección de errores)
+- **Frontend**: React 18 + TypeScript + Vite (efficient build)
+- **Backend**: Node.js + Express (lightweight and scalable)
+- **Database**: MongoDB (flexible and free in initial phase)
+- **Translation**: External APIs (DeepL + Google Translate as fallback)
+- **Hosting**: Railway (economic and simple)
+- **Monitoring**: Sentry (error detection)

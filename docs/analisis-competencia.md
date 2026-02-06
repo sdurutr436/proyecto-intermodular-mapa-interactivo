@@ -1,81 +1,81 @@
-# 📊 Análisis de Competencia - Transkarte
+# 📊 Competitive Analysis - Transkarte
 
-> **Fecha de análisis:** Diciembre 2025  
-> **Sector:** EdTech / Herramientas de Traducción / Visualización Geográfica / Minijuegos Educativos
-
----
-
-## 📋 Índice
-
-1. [Introducción](#-introducción)
-2. [Metodología de análisis](#-metodología-de-análisis)
-3. [Identificación de competidores](#-identificación-de-competidores)
-4. [Tabla comparativa](#-tabla-comparativa)
-5. [Análisis detallado de cada competidor](#-análisis-detallado-de-cada-competidor)
-6. [Análisis DAFO del mercado](#-análisis-dafo-del-mercado)
-7. [Oportunidades detectadas](#-oportunidades-detectadas)
-8. [Conclusiones](#-conclusiones)
+> **Analysis date:** December 2025  
+> **Sector:** EdTech / Translation Tools / Geographic Visualization / Educational Mini-games
 
 ---
 
-## 🎯 Introducción
+## 📋 Table of Contents
 
-Este documento analiza el ecosistema competitivo en el que se posiciona nuestro proyecto **Transkarte**. El objetivo es identificar las fortalezas y debilidades de los competidores para detectar oportunidades de diferenciación y posicionamiento en el mercado.
-
-**Transkarte** es una aplicación interactiva que permite explorar el mundo a través de los idiomas, combinando geografía con aprendizaje lingüístico de manera visual y divertida. La aplicación ofrece tres modos de uso:
-
-1. **🌍 Modo Traducción** (producto principal): Traduce palabras o frases al idioma oficial de cualquier país del mundo haciendo clic en el mapa interactivo.
-2. **🎯 Modo Adivinar Idioma**: Minijuego educativo donde el usuario debe identificar en qué país se habla un idioma a partir de una frase mostrada.
-3. **🚩 Modo Adivinar Bandera**: Minijuego educativo donde el usuario debe localizar en el mapa el país correspondiente a una bandera mostrada.
-
-Nuestro producto se sitúa en la intersección de cuatro sectores:
-- **EdTech** (Tecnología Educativa)
-- **Servicios de Traducción**
-- **Visualización Geográfica Interactiva**
-- **Gamificación Educativa**
+1. [Introduction](#-introducción)
+2. [Analysis methodology](#-metodología-de-análisis)
+3. [Competitor identification](#-identificación-de-competidores)
+4. [Comparative table](#-tabla-comparativa)
+5. [Detailed analysis of each competitor](#-análisis-detallado-de-cada-competidor)
+6. [Market SWOT analysis](#-análisis-dafo-del-mercado)
+7. [Identified opportunities](#-oportunidades-detectadas)
+8. [Conclusions](#-conclusiones)
 
 ---
 
-## 🔍 Metodología de análisis
+## 🎯 Introduction
 
-Para realizar este análisis se han seguido los siguientes criterios:
+This document analyzes the competitive ecosystem in which our **Transkarte** project is positioned. The objective is to identify the strengths and weaknesses of competitors to detect differentiation and market positioning opportunities.
 
-1. **Identificación de competidores:** Directos (mismo producto/servicio) e indirectos (solución alternativa al mismo problema)
-2. **Clasificación empresarial:** Tamaño, modelo de negocio, alcance geográfico
-3. **Análisis de características organizativas:** Estructura, empleados, tecnologías
-4. **Evaluación del producto/servicio:** Funcionalidades, precios, propuesta de valor
+**Transkarte** is an interactive application that allows exploring the world through languages, combining geography with language learning in a visual and fun way. The application offers three usage modes:
+
+1. **🌍 Translation Mode** (main product): Translates words or phrases into the official language of any country in the world by clicking on the interactive map.
+2. **🎯 Guess the Language Mode**: Educational mini-game where users must identify which country speaks a language based on a displayed phrase.
+3. **🚩 Guess the Flag Mode**: Educational mini-game where users must locate on the map the country corresponding to a displayed flag.
+
+Our product is positioned at the intersection of four sectors:
+- **EdTech** (Educational Technology)
+- **Translation Services**
+- **Interactive Geographic Visualization**
+- **Educational Gamification**
 
 ---
 
-## 🏢 Identificación de competidores
+## 🔍 Analysis Methodology
 
-### Competidores Directos
-Empresas que ofrecen soluciones que combinan traducción, visualización geográfica y/o gamificación educativa:
+The following criteria were used to perform this analysis:
 
-| # | Empresa | Producto | Tipo |
+1. **Competitor identification:** Direct (same product/service) and indirect (alternative solution to the same problem)
+2. **Business classification:** Size, business model, geographic scope
+3. **Organizational characteristics analysis:** Structure, employees, technologies
+4. **Product/service evaluation:** Features, prices, value proposition
+
+---
+
+## 🏢 Competitor Identification
+
+### Direct Competitors
+Companies offering solutions that combine translation, geographic visualization, and/or educational gamification:
+
+| # | Company | Product | Type |
 |---|---------|----------|------|
-| 1 | James Trimble (Independiente) | European Word Translator | Directo |
-| 2 | Textomap | Textomap | Directo |
-| 3 | Interactive Language Map | World Language Map | Directo |
-| 4 | Seterra | Seterra Geography Games | Directo (para minijuegos) |
+| 1 | James Trimble (Independent) | European Word Translator | Direct |
+| 2 | Textomap | Textomap | Direct |
+| 3 | Interactive Language Map | World Language Map | Direct |
+| 4 | Seterra | Seterra Geography Games | Direct (for mini-games) |
 
-### Competidores Indirectos
-Empresas que resuelven parte del problema (traducción, aprendizaje de idiomas o geografía):
+### Indirect Competitors
+Companies that solve part of the problem (translation, language learning, or geography):
 
-| # | Empresa | Producto | Tipo |
+| # | Company | Product | Type |
 |---|---------|----------|------|
-| 5 | Google LLC | Google Translate | Indirecto |
-| 6 | Duolingo Inc. | Duolingo | Indirecto |
-| 7 | DeepL SE | DeepL Translator | Indirecto |
-| 8 | Babbel GmbH | Babbel | Indirecto |
+| 5 | Google LLC | Google Translate | Indirect |
+| 6 | Duolingo Inc. | Duolingo | Indirect |
+| 7 | DeepL SE | DeepL Translator | Indirect |
+| 8 | Babbel GmbH | Babbel | Indirect |
 
 ---
 
-## 📊 Tabla Comparativa
+## 📊 Comparative Table
 
-### Clasificación Empresarial
+### Business Classification
 
-| Empresa | Tamaño | Modelo de Negocio | Alcance Geográfico | Fundación | Empleados (aprox.) |
+| Company | Size | Business Model | Geographic Scope | Founded | Employees (approx.) |
 |---------|--------|-------------------|--------------------|-----------|--------------------|
 | **Google Translate** | Gran Empresa | B2C / B2B (API) / Freemium | Internacional | 2006 | 180,000+ (Google total) |
 | **Duolingo** | Gran Empresa | B2C / Freemium + Suscripción | Internacional | 2011 | ~700 |
@@ -86,107 +86,107 @@ Empresas que resuelven parte del problema (traducción, aprendizaje de idiomas o
 | **Interactive Language Map** | Proyecto Académico | B2C / Gratuito | Internacional | 2019 | <5 |
 | **Seterra** | PYME | B2C / Freemium + Ads | Internacional | 1997 | ~15-30 |
 
-### Estructura Organizativa
+### Organizational Structure
 
-| Empresa | Tipo de Estructura | Tecnologías Principales |
+| Company | Structure Type | Main Technologies |
 |---------|-------------------|------------------------|
-| **Google Translate** | Matricial/Divisional | TensorFlow, Neural MT, Cloud |
-| **Duolingo** | Horizontal/Ágil | React Native, Python, AWS |
-| **DeepL** | Horizontal | Redes Neuronales propietarias, Python |
-| **Babbel** | Jerárquica | React, Ruby on Rails, AWS |
+| **Google Translate** | Matrix/Divisional | TensorFlow, Neural MT, Cloud |
+| **Duolingo** | Horizontal/Agile | React Native, Python, AWS |
+| **DeepL** | Horizontal | Proprietary Neural Networks, Python |
+| **Babbel** | Hierarchical | React, Ruby on Rails, AWS |
 | **European Word Translator** | Individual | JavaScript, SVG Maps |
 | **Textomap** | Horizontal/Startup | React, Node.js, Mapbox |
-| **Interactive Language Map** | Académica | D3.js, JavaScript |
-| **Seterra** | PYME tradicional | JavaScript, SVG, HTML5 |
+| **Interactive Language Map** | Academic | D3.js, JavaScript |
+| **Seterra** | Traditional SME | JavaScript, SVG, HTML5 |
 
-### Análisis de Producto/Servicio
+### Product/Service Analysis
 
-| Empresa | Funcionalidades Principales | Precio | Puntos Fuertes | Puntos Débiles |
+| Company | Main Features | Price | Strengths | Weaknesses |
 |---------|----------------------------|--------|----------------|----------------|
-| **Google Translate** | Traducción texto/voz/imagen, 130+ idiomas, API | Gratis (límites) / API pago | Precisión, cobertura idiomas, integración | Sin visualización geográfica, UI básica |
-| **Duolingo** | Gamificación, lecciones estructuradas, 40+ idiomas | Gratis / Super: 7.99€/mes | Engagement, gamificación, accesibilidad | Sin mapas, curva aprendizaje lenta |
-| **DeepL** | Traducción texto/documentos, 30+ idiomas | Gratis (límites) / Pro: 8.99€/mes | Alta precisión, matices | Menos idiomas, sin elemento visual |
-| **Babbel** | Cursos estructurados, reconocimiento voz | 6.99€ - 12.99€/mes | Metodología estructurada, certificados | Sin mapas, pago obligatorio |
-| **European Word Translator** | Mapa Europa + traducción palabras | Gratis | Visual, intuitivo | Solo Europa, solo palabras sueltas |
-| **Textomap** | Mapas desde texto, múltiples idiomas | Freemium | Personalización mapas | No traducción directa |
-| **Interactive Language Map** | Visualización idiomas por país | Gratis | Informativo | Sin traducción, solo info estática |
-| **Seterra** | Quizzes de geografía, mapas interactivos, banderas | Gratis con ads / Premium | Gamificación geográfica, educativo | Sin traducción, solo geografía |
+| **Google Translate** | Text/voice/image translation, 130+ languages, API | Free (limits) / Paid API | Accuracy, language coverage, integration | No geographic visualization, basic UI |
+| **Duolingo** | Gamification, structured lessons, 40+ languages | Free / Super: €7.99/mo | Engagement, gamification, accessibility | No maps, slow learning curve |
+| **DeepL** | Text/document translation, 30+ languages | Free (limits) / Pro: €8.99/mo | High accuracy, nuances | Fewer languages, no visual element |
+| **Babbel** | Structured courses, voice recognition | €6.99 - €12.99/mo | Structured methodology, certificates | No maps, mandatory payment |
+| **European Word Translator** | Europe map + word translation | Free | Visual, intuitive | Europe only, single words only |
+| **Textomap** | Maps from text, multiple languages | Freemium | Map customization | No direct translation |
+| **Interactive Language Map** | Language visualization by country | Free | Informative | No translation, static info only |
+| **Seterra** | Geography quizzes, interactive maps, flags | Free with ads / Premium | Geographic gamification, educational | No translation, geography only |
 
 ---
 
-## 🔎 Análisis Detallado de Cada Competidor
+## 🔎 Detailed Analysis of Each Competitor
 
 ### 1. Google Translate (Google LLC)
 
-**Clasificación:**
-- **Tamaño:** Gran empresa multinacional (Alphabet Inc.)
-- **Modelo de negocio:** B2C gratuito con límites / B2B mediante Cloud Translation API
-- **Alcance:** Internacional (200+ países)
+**Classification:**
+- **Size:** Large multinational enterprise (Alphabet Inc.)
+- **Business model:** Free B2C with limits / B2B via Cloud Translation API
+- **Scope:** International (200+ countries)
 
-**Estructura organizativa:**
-- Estructura matricial dentro de la división Google Cloud
-- Equipos multidisciplinares organizados por producto
-- Cultura de innovación con 20% tiempo para proyectos personales
+**Organizational structure:**
+- Matrix structure within Google Cloud division
+- Multidisciplinary teams organized by product
+- Innovation culture with 20% time for personal projects
 
-**Tecnologías:**
+**Technologies:**
 - Google Neural Machine Translation (GNMT)
-- TensorFlow para modelos de ML
-- Google Cloud Platform para infraestructura
-- APIs RESTful
+- TensorFlow for ML models
+- Google Cloud Platform for infrastructure
+- RESTful APIs
 
-**Propuesta de valor:**
-> "Rompe las barreras del idioma con traducción instantánea en más de 130 idiomas"
+**Value proposition:**
+> "Break down language barriers with instant translation in over 130 languages"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Funcionalidades | ⭐⭐⭐⭐⭐ (Texto, voz, imagen, documentos, tiempo real) |
-| Precisión | ⭐⭐⭐⭐ (Muy buena, aunque con errores en contextos específicos) |
-| UX/UI | ⭐⭐⭐ (Funcional pero básica) |
-| Visualización geográfica | ⭐ (Inexistente) |
-| Precio | ⭐⭐⭐⭐⭐ (Gratuito para uso personal) |
+| Features | ⭐⭐⭐⭐⭐ (Text, voice, image, documents, real-time) |
+| Accuracy | ⭐⭐⭐⭐ (Very good, though with errors in specific contexts) |
+| UX/UI | ⭐⭐⭐ (Functional but basic) |
+| Geographic visualization | ⭐ (Non-existent) |
+| Price | ⭐⭐⭐⭐⭐ (Free for personal use) |
 
-**Debilidades explotables:**
-- No ofrece contexto geográfico visual
-- Interfaz puramente funcional sin componente educativo
-- No gamificación ni engagement
+**Exploitable weaknesses:**
+- Does not offer visual geographic context
+- Purely functional interface without educational component
+- No gamification or engagement
 
 ---
 
 ### 2. Duolingo Inc.
 
-**Clasificación:**
-- **Tamaño:** Gran empresa (Cotiza en NASDAQ: DUOL)
-- **Modelo de negocio:** B2C Freemium + Suscripción (Duolingo Plus/Super)
-- **Alcance:** Internacional (+500 millones de usuarios)
+**Classification:**
+- **Size:** Large enterprise (NASDAQ: DUOL)
+- **Business model:** B2C Freemium + Subscription (Duolingo Plus/Super)
+- **Scope:** International (+500 million users)
 
-**Estructura organizativa:**
-- Estructura horizontal con equipos ágiles
-- Squads organizados por funcionalidad
-- Fuerte cultura de A/B testing
+**Organizational structure:**
+- Horizontal structure with agile teams
+- Squads organized by functionality
+- Strong A/B testing culture
 
-**Tecnologías:**
-- React Native (móvil)
+**Technologies:**
+- React Native (mobile)
 - Python/Django (backend)
-- AWS para infraestructura
-- Machine Learning para personalización
+- AWS for infrastructure
+- Machine Learning for personalization
 
-**Propuesta de valor:**
-> "Aprende idiomas gratis. Para siempre."
+**Value proposition:**
+> "Learn languages for free. Forever."
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Gamificación | ⭐⭐⭐⭐⭐ (Referente en el sector) |
-| Metodología | ⭐⭐⭐⭐ (Basada en repetición espaciada) |
-| Engagement | ⭐⭐⭐⭐⭐ (Streaks, ligas, recompensas) |
-| Visualización geográfica | ⭐ (No existe) |
-| Precio | ⭐⭐⭐⭐ (Versión gratuita muy completa) |
+| Gamification | ⭐⭐⭐⭐⭐ (Industry benchmark) |
+| Methodology | ⭐⭐⭐⭐ (Based on spaced repetition) |
+| Engagement | ⭐⭐⭐⭐⭐ (Streaks, leagues, rewards) |
+| Geographic visualization | ⭐ (Does not exist) |
+| Price | ⭐⭐⭐⭐ (Very complete free version) |
 
-**Debilidades explotables:**
-- No integra visualización en mapa mundial
-- Aprendizaje lento y progresivo (no inmediato)
-- No traduce frases personalizadas del usuario
+**Exploitable weaknesses:**
+- Does not integrate world map visualization
+- Slow and progressive learning (not immediate)
+- Does not translate user's custom phrases
 
 ---
 
@@ -197,270 +197,270 @@ Empresas que resuelven parte del problema (traducción, aprendizaje de idiomas o
 - **Modelo de negocio:** B2C / B2B, Freemium + Suscripción
 - **Alcance:** Internacional (principalmente Europa y América)
 
-**Estructura organizativa:**
-- Estructura horizontal típica de empresa alemana tech
-- Equipos especializados en NLP y ML
-- Sede en Colonia, Alemania
+**Organizational structure:**
+- Horizontal structure typical of German tech companies
+- Teams specialized in NLP and ML
+- Headquarters in Cologne, Germany
 
-**Tecnologías:**
-- Redes neuronales propietarias
-- Python para ML
-- Infraestructura propia en Europa
+**Technologies:**
+- Proprietary neural networks
+- Python for ML
+- Own infrastructure in Europe
 
-**Propuesta de valor:**
-> "La traducción más precisa del mundo"
+**Value proposition:**
+> "The world's most accurate translation"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Precisión | ⭐⭐⭐⭐⭐ (Superior a competidores en muchos idiomas europeos) |
-| Matices/Contexto | ⭐⭐⭐⭐⭐ (Excelente comprensión contextual) |
-| Cobertura idiomas | ⭐⭐⭐ (30+ idiomas, menos que Google) |
-| Visualización geográfica | ⭐ (No existe) |
-| Precio | ⭐⭐⭐⭐ (Generoso plan gratuito) |
+| Accuracy | ⭐⭐⭐⭐⭐ (Superior to competitors in many European languages) |
+| Nuances/Context | ⭐⭐⭐⭐⭐ (Excellent contextual understanding) |
+| Language coverage | ⭐⭐⭐ (30+ languages, less than Google) |
+| Geographic visualization | ⭐ (Non-existent) |
+| Price | ⭐⭐⭐⭐ (Generous free plan) |
 
-**Debilidades explotables:**
-- Enfoque puramente en traducción sin componente visual/educativo
-- Menos idiomas que Google
-- Sin gamificación
+**Exploitable weaknesses:**
+- Focus purely on translation without visual/educational component
+- Fewer languages than Google
+- No gamification
 
 ---
 
 ### 4. Babbel GmbH
 
-**Clasificación:**
-- **Tamaño:** Scale-up / PYME grande
-- **Modelo de negocio:** B2C Suscripción pura
-- **Alcance:** Internacional
+**Classification:**
+- **Size:** Scale-up / Large SME
+- **Business model:** B2C Pure Subscription
+- **Scope:** International
 
-**Estructura organizativa:**
-- Estructura jerárquica con departamentos definidos
-- Equipos de contenido lingüístico extensos
-- Sede en Berlín, Alemania
+**Organizational structure:**
+- Hierarchical structure with defined departments
+- Extensive linguistic content teams
+- Headquarters in Berlin, Germany
 
-**Tecnologías:**
-- React (frontend web)
+**Technologies:**
+- React (web frontend)
 - Ruby on Rails (backend)
 - AWS
 
-**Propuesta de valor:**
-> "Aprende a hablar un nuevo idioma con confianza"
+**Value proposition:**
+> "Learn to speak a new language with confidence"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Metodología | ⭐⭐⭐⭐⭐ (Cursos estructurados por lingüistas) |
-| Reconocimiento voz | ⭐⭐⭐⭐ (Buena tecnología) |
-| Certificaciones | ⭐⭐⭐⭐ (Ofrece certificados) |
-| Visualización geográfica | ⭐ (No existe) |
-| Precio | ⭐⭐ (Solo modelo de pago) |
+| Methodology | ⭐⭐⭐⭐⭐ (Structured courses by linguists) |
+| Voice recognition | ⭐⭐⭐⭐ (Good technology) |
+| Certifications | ⭐⭐⭐⭐ (Offers certificates) |
+| Geographic visualization | ⭐ (Non-existent) |
+| Price | ⭐⭐ (Only paid model) |
 
-**Debilidades explotables:**
-- Sin versión gratuita significativa
-- Sin mapas ni visualización geográfica
-- Enfoque muy estructurado (menos flexible)
+**Exploitable weaknesses:**
+- No significant free version
+- No maps or geographic visualization
+- Very structured approach (less flexible)
 
 ---
 
 ### 5. European Word Translator
 
-**Clasificación:**
-- **Tamaño:** Proyecto individual/independiente
-- **Modelo de negocio:** B2C Gratuito (sin monetización)
-- **Alcance:** Internacional (enfocado en Europa)
+**Classification:**
+- **Size:** Individual/independent project
+- **Business model:** B2C Free (no monetization)
+- **Scope:** International (focused on Europe)
 
-**Estructura organizativa:**
-- Desarrollador individual (James Trimble)
-- Sin estructura empresarial formal
+**Organizational structure:**
+- Individual developer (James Trimble)
+- No formal business structure
 
-**Tecnologías:**
-- JavaScript vanilla
-- SVG para mapas
-- APIs de traducción externas
+**Technologies:**
+- Vanilla JavaScript
+- SVG for maps
+- External translation APIs
 
-**Propuesta de valor:**
-> "Ve cómo se traduce una palabra en toda Europa de un vistazo"
+**Value proposition:**
+> "See how a word translates across all of Europe at a glance"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Concepto | ⭐⭐⭐⭐⭐ (Innovador y visual) |
-| Cobertura | ⭐⭐ (Solo Europa, ~30 países) |
-| Funcionalidades | ⭐⭐ (Solo palabras sueltas) |
-| UX/UI | ⭐⭐⭐ (Simple pero efectivo) |
-| Escalabilidad | ⭐ (Proyecto personal sin roadmap) |
+| Concept | ⭐⭐⭐⭐⭐ (Innovative and visual) |
+| Coverage | ⭐⭐ (Europe only, ~30 countries) |
+| Features | ⭐⭐ (Single words only) |
+| UX/UI | ⭐⭐⭐ (Simple but effective) |
+| Scalability | ⭐ (Personal project without roadmap) |
 
-**Debilidades explotables:**
-- Solo cubre Europa (no mundial)
-- Solo traduce palabras sueltas, no frases
-- Sin mantenimiento activo
-- Sin funcionalidades adicionales
+**Exploitable weaknesses:**
+- Only covers Europe (not worldwide)
+- Only translates single words, not phrases
+- No active maintenance
+- No additional functionalities
 
 ---
 
 ### 6. Textomap
 
-**Clasificación:**
-- **Tamaño:** Startup
-- **Modelo de negocio:** B2C / B2B Freemium
-- **Alcance:** Internacional
+**Classification:**
+- **Size:** Startup
+- **Business model:** B2C / B2B Freemium
+- **Scope:** International
 
-**Estructura organizativa:**
-- Estructura startup horizontal
-- Equipo pequeño multidisciplinar
+**Organizational structure:**
+- Horizontal startup structure
+- Small multidisciplinary team
 
-**Tecnologías:**
+**Technologies:**
 - React
 - Node.js
 - Mapbox/Leaflet
 
-**Propuesta de valor:**
-> "Convierte texto en mapas interactivos"
+**Value proposition:**
+> "Turn text into interactive maps"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Creación mapas | ⭐⭐⭐⭐ (Fácil desde texto) |
-| Personalización | ⭐⭐⭐⭐ (Muchas opciones) |
-| Traducción | ⭐ (No es su foco) |
-| Educativo | ⭐⭐ (Uso genérico) |
+| Map creation | ⭐⭐⭐⭐ (Easy from text) |
+| Customization | ⭐⭐⭐⭐ (Many options) |
+| Translation | ⭐ (Not its focus) |
+| Educational | ⭐⭐ (Generic use) |
 
-**Debilidades explotables:**
-- No enfocado en traducción lingüística
-- No visualiza idiomas por país
-- Producto genérico, no especializado
+**Exploitable weaknesses:**
+- Not focused on linguistic translation
+- Does not visualize languages by country
+- Generic product, not specialized
 
 ---
 
 ### 7. Interactive Language World Map
 
-**Clasificación:**
-- **Tamaño:** Proyecto académico/individual
-- **Modelo de negocio:** B2C Gratuito
-- **Alcance:** Internacional
+**Classification:**
+- **Size:** Academic/individual project
+- **Business model:** B2C Free
+- **Scope:** International
 
-**Estructura organizativa:**
-- Proyecto académico/de investigación
-- Sin estructura empresarial
+**Organizational structure:**
+- Academic/research project
+- No business structure
 
-**Tecnologías:**
+**Technologies:**
 - D3.js
 - JavaScript
 
-**Propuesta de valor:**
-> "Explora los idiomas del mundo visualmente"
+**Value proposition:**
+> "Explore the world's languages visually"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Visualización | ⭐⭐⭐⭐ (Atractivo visualmente) |
-| Información | ⭐⭐⭐ (Datos sobre idiomas) |
-| Traducción | ⭐ (No traduce, solo informa) |
-| Interactividad | ⭐⭐ (Limitada) |
+| Visualization | ⭐⭐⭐⭐ (Visually appealing) |
+| Information | ⭐⭐⭐ (Data about languages) |
+| Translation | ⭐ (Does not translate, only informs) |
+| Interactivity | ⭐⭐ (Limited) |
 
-**Debilidades explotables:**
-- No ofrece traducción
-- Solo muestra información estática
-- Sin input del usuario
+**Exploitable weaknesses:**
+- Does not offer translation
+- Only shows static information
+- No user input
 
 ---
 
 ### 8. Seterra (GeoGuessr AB)
 
-**Clasificación:**
-- **Tamaño:** PYME establecida
-- **Modelo de negocio:** B2C Freemium con publicidad + versión premium
-- **Alcance:** Internacional (disponible en 40+ idiomas)
+**Classification:**
+- **Size:** Established SME
+- **Business model:** B2C Freemium with ads + premium version
+- **Scope:** International (available in 40+ languages)
 
-**Estructura organizativa:**
-- Empresa sueca con estructura PYME tradicional
-- Adquirida por GeoGuessr en 2022
-- Equipo pequeño pero consolidado
+**Organizational structure:**
+- Swedish company with traditional SME structure
+- Acquired by GeoGuessr in 2022
+- Small but consolidated team
 
-**Tecnologías:**
+**Technologies:**
 - JavaScript/HTML5
-- SVG para mapas
-- Plataforma web + apps móviles
+- SVG for maps
+- Web platform + mobile apps
 
-**Propuesta de valor:**
-> "Aprende geografía jugando con mapas interactivos"
+**Value proposition:**
+> "Learn geography by playing with interactive maps"
 
-**Análisis producto:**
-| Aspecto | Evaluación |
+**Product analysis:**
+| Aspect | Rating |
 |---------|------------|
-| Gamificación | ⭐⭐⭐⭐⭐ (Muy bien lograda) |
-| Mapas interactivos | ⭐⭐⭐⭐⭐ (Excelente implementación) |
-| Quiz de banderas | ⭐⭐⭐⭐⭐ (Referente en el sector) |
-| Traducción | ⭐ (No ofrece) |
-| Aprendizaje idiomas | ⭐ (No es su foco) |
+| Gamification | ⭐⭐⭐⭐⭐ (Very well achieved) |
+| Interactive maps | ⭐⭐⭐⭐⭐ (Excellent implementation) |
+| Flag quiz | ⭐⭐⭐⭐⭐ (Sector benchmark) |
+| Translation | ⭐ (Does not offer) |
+| Language learning | ⭐ (Not its focus) |
 
-**Debilidades explotables:**
-- No integra traducción de idiomas
-- Enfocado solo en geografía, no en lingüística
-- Sin modo de "adivinar idioma por frase"
-- No combina banderas con aprendizaje de idiomas
+**Exploitable weaknesses:**
+- Does not integrate language translation
+- Focused only on geography, not linguistics
+- No "guess language by phrase" mode
+- Does not combine flags with language learning
 
-**Por qué es competidor relevante:**
-Seterra es el referente en minijuegos de geografía con mapas. Nuestros modos "Adivinar Bandera" y "Adivinar Idioma" compiten parcialmente con su propuesta, pero **Transkarte se diferencia** al combinar geografía + idiomas + traducción en una sola plataforma.
+**Why it's a relevant competitor:**
+Seterra is the benchmark in geography mini-games with maps. Our "Guess the Flag" and "Guess the Language" modes partially compete with their proposal, but **Transkarte differentiates** by combining geography + languages + translation in a single platform.
 
 ---
 
-## 🎯 Análisis DAFO del Mercado
+## 🎯 Market SWOT Analysis
 
-### Oportunidades del Mercado
+### Market Opportunities
 
-| Oportunidad | Descripción |
+| Opportunity | Description |
 |-------------|-------------|
-| **Nicho sin explotar** | No existe producto que combine traducción + mapa mundial + minijuegos de idiomas |
-| **Crecimiento EdTech** | Mercado EdTech en crecimiento constante (+16% CAGR) |
-| **Aprendizaje visual** | 65% de la población son aprendices visuales |
-| **Globalización** | Aumento de interés en idiomas por trabajo remoto internacional |
-| **APIs accesibles** | APIs de traducción cada vez más accesibles y precisas |
-| **Gamificación** | La gamificación educativa demuestra mayor retención (+40% engagement) |
+| **Untapped niche** | No product exists that combines translation + world map + language mini-games |
+| **EdTech growth** | EdTech market in constant growth (+16% CAGR) |
+| **Visual learning** | 65% of the population are visual learners |
+| **Globalization** | Increased interest in languages due to international remote work |
+| **Accessible APIs** | Translation APIs increasingly accessible and accurate |
+| **Gamification** | Educational gamification demonstrates higher retention (+40% engagement) |
 
-### Amenazas del Mercado
+### Market Threats
 
-| Amenaza | Descripción |
+| Threat | Description |
 |---------|-------------|
-| **Grandes players** | Google/Duolingo podrían desarrollar funcionalidad similar |
-| **Dependencia APIs** | Dependencia de APIs externas de traducción |
-| **Saturación apps educativas** | Mercado con muchas opciones |
-| **Costes de traducción** | APIs de traducción pueden ser costosas a escala |
-| **Seterra/GeoGuessr** | Podrían expandir a idiomas |
+| **Large players** | Google/Duolingo could develop similar functionality |
+| **API dependency** | Dependence on external translation APIs |
+| **Educational app saturation** | Market with many options |
+| **Translation costs** | Translation APIs can be expensive at scale |
+| **Seterra/GeoGuessr** | Could expand to languages |
 
 ---
 
-## 💡 Oportunidades Detectadas
+## 💡 Identified Opportunities
 
-### 1. **Diferenciación por combinación única**
-> **Ningún competidor** ofrece actualmente la combinación de traducción automática + mapa mundial interactivo + minijuegos educativos de idiomas.
+### 1. **Differentiation by unique combination**
+> **No competitor** currently offers the combination of automatic translation + interactive world map + educational language mini-games.
 
-**Acción:** Posicionar Transkarte como "la única herramienta que combina traducción, geografía y gamificación lingüística".
+**Action:** Position Transkarte as "the only tool that combines translation, geography, and linguistic gamification".
 
-### 2. **Expansión sobre European Word Translator**
-> El concepto de European Word Translator es popular pero limitado a Europa y palabras sueltas.
+### 2. **Expansion on European Word Translator**
+> The European Word Translator concept is popular but limited to Europe and single words.
 
-**Acción:** Ofrecer cobertura mundial (150+ países) y traducción de frases completas.
+**Action:** Offer worldwide coverage (150+ countries) and complete phrase translation.
 
-### 3. **Gamificación ya implementada**
-> Duolingo ha demostrado el poder de la gamificación. Seterra domina los quizzes geográficos. Transkarte combina ambos enfoques.
+### 3. **Gamification already implemented**
+> Duolingo has demonstrated the power of gamification. Seterra dominates geographic quizzes. Transkarte combines both approaches.
 
-**Acción:** Los modos "Adivinar Idioma" y "Adivinar Bandera" ya implementados nos posicionan con ventaja competitiva. Expandir con más modos de juego y sistema de puntuación/logros.
+**Action:** The "Guess the Language" and "Guess the Flag" modes already implemented position us with competitive advantage. Expand with more game modes and scoring/achievements system.
 
-### 4. **Modelo Freemium diferenciado**
-> La mayoría de competidores educativos usan freemium con funcionalidades limitadas.
+### 4. **Differentiated Freemium model**
+> Most educational competitors use freemium with limited functionalities.
 
-**Acción:** Ofrecer modelo gratuito generoso + funcionalidades premium (API para educadores, estadísticas avanzadas, modos de juego adicionales).
+**Action:** Offer generous free model + premium functionalities (API for educators, advanced statistics, additional game modes).
 
-### 5. **Nicho educativo B2B**
-> Centros educativos buscan herramientas visuales para enseñar idiomas y geografía.
+### 5. **B2B educational niche**
+> Educational institutions seek visual tools to teach languages and geography.
 
-**Acción:** Desarrollar versión para instituciones educativas con gestión de clases y seguimiento de progreso.
+**Action:** Develop version for educational institutions with class management and progress tracking.
 
-### 6. **SEO y contenido**
-> Búsquedas como "traducción + mapa" y "juego adivinar banderas" tienen competencia moderada.
+### 6. **SEO and content**
+> Searches like "translation + map" and "flag guessing game" have moderate competition.
 
-**Acción:** Posicionar contenido educativo para captar tráfico orgánico.
+**Action:** Position educational content to capture organic traffic.
 
 ---
 
@@ -486,28 +486,28 @@ Seterra es el referente en minijuegos de geografía con mapas. Nuestros modos "A
 
 5. **Modelo de negocio viable:** El modelo freemium con opciones B2B para educación representa una oportunidad de monetización sostenible.
 
-### Ventajas competitivas de Transkarte
+### Transkarte's competitive advantages
 
-| Ventaja | Descripción |
+| Advantage | Description |
 |---------|-------------|
-| ✅ **Cobertura global** | 150+ países vs 30 de European Word Translator |
-| ✅ **Frases completas** | Traduce textos, no solo palabras sueltas |
-| ✅ **Triple funcionalidad** | Traducción + Adivinar Idioma + Adivinar Bandera |
-| ✅ **Gamificación integrada** | Sistema de vidas, puntuación y pistas |
-| ✅ **Stack moderno** | MERN stack (MongoDB, Express, React, Node.js) |
-| ✅ **Sistema de caché** | Optimización de costes y rendimiento |
-| ✅ **UX/UI cuidada** | Modo oscuro, multiidioma, responsive |
-| ✅ **Open source friendly** | Posibilidad de comunidad de contribuidores |
+| ✅ **Global coverage** | 150+ countries vs 30 from European Word Translator |
+| ✅ **Complete phrases** | Translates texts, not just single words |
+| ✅ **Triple functionality** | Translation + Guess Language + Guess Flag |
+| ✅ **Integrated gamification** | Lives, scoring, and hints system |
+| ✅ **Modern stack** | MERN stack (MongoDB, Express, React, Node.js) |
+| ✅ **Cache system** | Cost and performance optimization |
+| ✅ **Polished UX/UI** | Dark mode, multilingual, responsive |
+| ✅ **Open source friendly** | Possibility of contributor community |
 
-### Recomendaciones estratégicas
+### Strategic recommendations
 
-1. **Corto plazo:** Consolidar los tres modos actuales y optimizar la experiencia de usuario
-2. **Medio plazo:** Añadir más modos de juego (ej: "Adivinar capital", "Relacionar país-idioma") y sistema de logros
-3. **Largo plazo:** Explorar modelo B2B para instituciones educativas y API pública
+1. **Short term:** Consolidate the three current modes and optimize user experience
+2. **Medium term:** Add more game modes (e.g., "Guess capital", "Match country-language") and achievements system
+3. **Long term:** Explore B2B model for educational institutions and public API
 
 ---
 
-## 📚 Referencias
+## 📚 References
 
 - [Google Translate](https://translate.google.com/)
 - [Duolingo](https://www.duolingo.com/)
@@ -516,9 +516,9 @@ Seterra es el referente en minijuegos de geografía con mapas. Nuestros modos "A
 - [European Word Translator](https://ukdataexplorer.com/european-translator/)
 - [Textomap](https://www.textomap.com/)
 - [Seterra](https://www.seterra.com/)
-- Crunchbase para datos empresariales
-- LinkedIn para estimaciones de empleados
+- Crunchbase for business data
+- LinkedIn for employee estimates
 
 ---
 
-*Documento elaborado para el proyecto Transkarte - Fase 1: Análisis del Sector*
+*Document prepared for the Transkarte project - Phase 1: Sector Analysis*

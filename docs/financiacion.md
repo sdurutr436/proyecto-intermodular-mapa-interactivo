@@ -1,37 +1,37 @@
-﻿#  Información de Operación - Transkarte
+﻿# Operation Information - Transkarte
 
-##  Modelo Económico Actual
+## Current Economic Model
 
-El proyecto opera con **costes mínimos** (~11 €/mes) gracias a:
+The project operates with **minimal costs** (~11 €/month) thanks to:
 
-1. **Servicios gratuitos**: MongoDB Atlas, Sentry (Free Tier)
-2. **Stack económico**: Node.js, Express, React (open-source)
-3. **Hosting eficiente**: Railway (5 €/mes)
-4. **Escalabilidad progresiva**: Los costes crecen solo según la demanda
+1. **Free services**: MongoDB Atlas, Sentry (Free Tier)
+2. **Economic stack**: Node.js, Express, React (open-source)
+3. **Efficient hosting**: Railway (5 €/month)
+4. **Progressive scalability**: Costs grow only according to demand
 
-##  Proyección de Viabilidad
+## Viability Projection
 
-### Escenario Realista: Crecimiento Orgánico
+### Realistic Scenario: Organic Growth
 
-| Período | Usuarios | Modelo | Ingresos Estimados |
+| Period | Users | Model | Estimated Revenue |
 |---------|----------|--------|-------------------|
-| **Año 1** (0-6 meses) | 1K - 5K | Freemium | Validación de mercado |
-| **Año 1** (6-12 meses) | 5K - 15K | Premium 1.99€/mes | 200€/mes (+1% conversión) |
-| **Año 2** | 15K - 50K | Modelo educativo | 500-2000€/mes |
-| **Año 3** | 50K - 100K | B2B + Premium | 2000-5000€/mes |
+| **Year 1** (0-6 months) | 1K - 5K | Freemium | Market validation |
+| **Year 1** (6-12 months) | 5K - 15K | Premium 1.99€/month | 200€/month (+1% conversion) |
+| **Year 2** | 15K - 50K | Educational model | 500-2000€/month |
+| **Year 3** | 50K - 100K | B2B + Premium | 2000-5000€/month |
 
-### Opciones de Monetización
+### Monetization Options
 
-1. **Freemium**: Versión gratuita limitada, premium sin anuncios
-2. **Educativo**: Licencias para escuelas/institutos (99-299€/año)
-3. **API**: Acceso a traducción para desarrolladores
-4. **Anuncios**: Banner discreto en versión gratuita
+1. **Freemium**: Limited free version, premium without ads
+2. **Educational**: Licenses for schools/institutes (99-299€/year)
+3. **API**: Translation access for developers
+4. **Ads**: Discreet banner in free version
 
-##  Próximos Pasos
+## Next Steps
 
-Para optimizar la viabilidad económica:
+To optimize economic viability:
 
-1. Validar adopción en comunidades educativas
-2. Implementar modelo de ingresos (recomendado: Premium a 1.99€/mes)
-3. Explorar acuerdos con instituciones educativas
-4. Expandir a mercados hispanohablantes
+1. Validate adoption in educational communities
+2. Implement revenue model (recommended: Premium at 1.99€/month)
+3. Explore agreements with educational institutions
+4. Expand to Spanish-speaking markets

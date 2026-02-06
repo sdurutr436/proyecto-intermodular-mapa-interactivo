@@ -1,53 +1,53 @@
-﻿#  Stack Tecnológico Completo - Transkarte
+﻿# Complete Tech Stack - Transkarte
 
 ## Frontend
 
-| Librería | Versión | Propósito |
+| Library | Version | Purpose |
 |----------|---------|-----------|
-| **React** | 18.2.0 | Framework principal de UI |
-| **React DOM** | 18.2.0 | Renderizado en navegador |
-| **TypeScript** | 4.9.3 | Tipado estático y seguridad |
-| **Vite** | 5.0+ | Build rápido y eficiente |
-| **react-simple-maps** | 3.0.0 | Renderización de mapas SVG |
-| **Zustand** | 4.4.7 | Gestión de estado minimalista |
-| **Axios** | 1.6.2 | Cliente HTTP |
-| **Franc** | 6.0.0 | Detección de idiomas |
-| **ESLint** | Latest | Linting de código |
-| **Prettier** | Latest | Formateo de código |
+| **React** | 18.2.0 | Main UI framework |
+| **React DOM** | 18.2.0 | Browser rendering |
+| **TypeScript** | 4.9.3 | Static typing and security |
+| **Vite** | 5.0+ | Fast and efficient build |
+| **react-simple-maps** | 3.0.0 | SVG map rendering |
+| **Zustand** | 4.4.7 | Minimalist state management |
+| **Axios** | 1.6.2 | HTTP client |
+| **Franc** | 6.0.0 | Language detection |
+| **ESLint** | Latest | Code linting |
+| **Prettier** | Latest | Code formatting |
 
 ## Backend
 
-| Tecnología | Versión | Propósito |
+| Technology | Version | Purpose |
 |-----------|---------|-----------|
-| **Node.js** | 20+ | Runtime JavaScript |
-| **Express** | 4.18+ | Framework web |
-| **MongoDB** | Atlas (Cloud) | Base de datos NoSQL |
-| **Mongoose** | 7.0+ | ODM para MongoDB |
-| **Dotenv** | Latest | Gestión de variables de entorno |
-| **Cors** | Latest | Control de acceso CORS |
-| **DeepL API** | - | Servicio de traducción principal |
-| **Google Translate API** | - | Fallback de traducción |
+| **Node.js** | 20+ | JavaScript runtime |
+| **Express** | 4.18+ | Web framework |
+| **MongoDB** | Atlas (Cloud) | NoSQL database |
+| **Mongoose** | 7.0+ | ODM for MongoDB |
+| **Dotenv** | Latest | Environment variable management |
+| **Cors** | Latest | CORS access control |
+| **DeepL API** | - | Main translation service |
+| **Google Translate API** | - | Translation fallback |
 
-## Herramientas DevOps
+## DevOps Tools
 
-| Herramienta | Propósito |
+| Tool | Purpose |
 |------------|-----------|
-| **Docker** | Containerización (Frontend + Backend) |
-| **Docker Compose** | Orquestación en desarrollo |
-| **Railway.app** | Hosting en producción |
-| **GitHub** | Control de versiones |
-| **Sentry** | Monitorización y error tracking |
+| **Docker** | Containerization (Frontend + Backend) |
+| **Docker Compose** | Orchestration in development |
+| **Railway.app** | Production hosting |
+| **GitHub** | Version control |
+| **Sentry** | Monitoring and error tracking |
 
-## Características Implementadas
+## Implemented Features
 
- Mapa interactivo mundial  
- Traducción en tiempo real  
- Sistema de caché  
- Detección automática de idiomas  
- Modo oscuro  
- Multi-idioma (ES/EN)  
- Minijuegos educativos  
- Interfaz responsive  
- Docker containerización  
- Despliegue automático  
- Monitorización de errores  
+✅ Interactive world map  
+✅ Real-time translation  
+✅ Cache system  
+✅ Automatic language detection  
+✅ Dark mode  
+✅ Multi-language (ES/EN)  
+✅ Educational mini-games  
+✅ Responsive interface  
+✅ Docker containerization  
+✅ Automatic deployment  
+✅ Error monitoring  

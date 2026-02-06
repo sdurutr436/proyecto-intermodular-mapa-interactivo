@@ -1,55 +1,55 @@
-# Objetivos SMART - Transkarte
+# SMART Objectives - Transkarte
 
-| **Objetivo** | **Descripción** |
+| **Objective** | **Description** |
 |---------------|----------------|
-| **S (Specific)** | Desarrollar una aplicación web interactiva que combine un mapa mundial con un sistema de traducción automática para mostrar una palabra o frase traducida en los idiomas oficiales de cada país. |
-| **M (Measurable)** | Lograr que el usuario pueda introducir una palabra o frase y visualizar las traducciones de al menos **50 países** correctamente en el mapa. |
-| **A (Achievable)** | Utilizar el stack MERN (MongoDB, Express, React, Node.js) junto con APIs de traducción existentes (como Google Translate o LibreTranslate) y librerías de visualización geográfica (Leaflet o D3.js). |
-| **R (Relevant)** | Facilitar la comprensión intercultural y el aprendizaje lingüístico de forma visual, intuitiva y rápida, integrando mapa + traducción en una sola interfaz. |
-| **T (Time-bound)** | Desarrollar el MVP funcional en un plazo máximo de **8 semanas**, incluyendo pruebas de rendimiento y despliegue inicial. |
+| **S (Specific)** | Develop an interactive web application that combines a world map with an automatic translation system to display a word or phrase translated into the official languages of each country. |
+| **M (Measurable)** | Achieve that the user can enter a word or phrase and visualize the translations of at least **50 countries** correctly on the map. |
+| **A (Achievable)** | Use the MERN stack (MongoDB, Express, React, Node.js) together with existing translation APIs (such as Google Translate or LibreTranslate) and geographical visualization libraries (Leaflet or D3.js). |
+| **R (Relevant)** | Facilitate intercultural understanding and language learning in a visual, intuitive and fast way, integrating map + translation in a single interface. |
+| **T (Time-bound)** | Develop the functional MVP within a maximum period of **8 weeks**, including performance testing and initial deployment. |
 
 ---
 
-# Definición del MVP (Producto Mínimo Viable)
+# MVP (Minimum Viable Product) Definition
 
-El **MVP** incluirá las siguientes características básicas:
+The **MVP** will include the following basic features:
 
-- ✅ Campo de búsqueda donde el usuario introduzca una palabra o frase.  
-- ✅ Traducción automática a los idiomas oficiales de cada país.  
-- ✅ Visualización de las traducciones al hacer clic sobre el **mapa mundial interactivo**.  
-- ✅ Sistema de **caché de traducciones** para evitar llamadas repetidas a la API.  
-- ✅ Diseño web responsivo y funcional en escritorio y dispositivos móviles.  
-- ✅ API propia en Node.js que gestione peticiones y base de datos.
-
----
-
-# Delimitación del alcance
-
-### **Qué SÍ incluye el proyecto**
-- Implementación de un mapa mundial interactivo (react-simple-maps).  
-- Integración con una API de traducción externa.  
-- Almacenamiento de búsquedas y traducciones en base de datos (MongoDB).  
-- Sistema de caché para optimizar el rendimiento.  
-- Interfaz de usuario sencilla e intuitiva.  
-- Despliegue funcional en un servidor.
-
-### **Qué NO incluye el proyecto**
-- Registro y autenticación de usuarios.  
-- Traducciones manuales o validadas por humanos.  
-- Soporte para idiomas minoritarios no reconocidos por la API.  
-- Funcionalidades sociales (comentarios, puntuaciones, etc.).  
-- Optimización avanzada para dispositivos de baja gama.  
-- Aplicación móvil nativa (solo versión web responsive).
+- ✅ Search field where the user enters a word or phrase.  
+- ✅ Automatic translation to the official languages of each country.  
+- ✅ Display of translations by clicking on the **interactive world map**.  
+- ✅ **Translation cache** system to avoid repeated calls to the API.  
+- ✅ Responsive and functional web design on desktop and mobile devices.  
+- ✅ Own API in Node.js that manages requests and database.
 
 ---
 
-# Criterios de éxito
+# Scope Delimitation
 
-| **Criterio** | **Indicador de cumplimiento** |
+### **What the project DOES include**
+- Implementation of an interactive world map (react-simple-maps).  
+- Integration with an external translation API.  
+- Storage of searches and translations in database (MongoDB).  
+- Cache system to optimize performance.  
+- Simple and intuitive user interface.  
+- Functional deployment on a server.
+
+### **What the project DOES NOT include**
+- User registration and authentication.  
+- Manual or human-validated translations.  
+- Support for minority languages not recognized by the API.  
+- Social functionalities (comments, ratings, etc.).  
+- Advanced optimization for low-end devices.  
+- Native mobile application (only responsive web version).
+
+---
+
+# Success Criteria
+
+| **Criterion** | **Compliance Indicator** |
 |--------------|-------------------------------|
-| **Usabilidad** | Los usuarios pueden realizar una búsqueda y visualizar las traducciones sin necesidad de ayuda externa. |
-| **Rendimiento** | El sistema responde con las traducciones en menos de **3 segundos** en promedio. |
-| **Estabilidad** | La aplicación se mantiene operativa sin errores críticos durante sesiones prolongadas. |
-| **Precisión** | Al menos el **90%** de las traducciones generadas son correctas o comprensibles según el idioma. |
-| **Optimización de recursos** | El sistema reutiliza las traducciones almacenadas, reduciendo las peticiones a la API externa en al menos un **50%**. |
-| **Despliegue funcional** | El MVP está disponible públicamente y accesible desde un navegador web. |
+| **Usability** | Users can perform a search and visualize translations without needing external help. |
+| **Performance** | The system responds with translations in less than **3 seconds** on average. |
+| **Stability** | The application remains operational without critical errors during prolonged sessions. |
+| **Accuracy** | At least **90%** of generated translations are correct or understandable according to the language. |
+| **Resource Optimization** | The system reuses stored translations, reducing requests to the external API by at least **50%**. |
+| **Functional Deployment** | The MVP is publicly available and accessible from a web browser. |

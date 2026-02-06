@@ -28,264 +28,264 @@ Este documento identifica las normativas aplicables a **Transkarte** y establece
 
 ---
 
-## 📜 Normativas Aplicables
+## 📜 Applicable Regulations
 
-### 1. 🇪🇺 RGPD (Reglamento General de Protección de Datos)
+### 1. 🇪🇺 GDPR (General Data Protection Regulation)
 
-**Aplicabilidad actual:** 🟢 Mínima  
-**Supuesto futuro:** 🔴 Alta (si se implementa registro)
+**Current applicability:** 🟢 Minimal  
+**Future assumption:** 🔴 High (if registration is implemented)
 
-**Estado actual:**
-- Solo almacena preferencias técnicas en `localStorage`
-- No hay datos personales identificables
-- Texto traducido no se asocia a usuarios
+**Current status:**
+- Only stores technical preferences in `localStorage`
+- No identifiable personal data
+- Translated text not associated with users
 
-**Supuesto de implementación futura:**
-- **Si se añade registro:** Sistema completo de derechos ARCO, consentimientos explícitos, política de privacidad extendida
-- **Estimación:** 3-4 semanas de desarrollo + 2.000-4.000€ en consultoría
-
----
-
-### 2. 🍪 Directiva ePrivacy / LSSI-CE (Ley de Cookies)
-
-**Aplicabilidad actual:** 🟡 Media  
-**Supuesto futuro:** 🔴 Alta (si se añaden cookies de terceros)
-
-**Estado actual:**
-- Usa `localStorage` para preferencias (no cookies HTTP)
-- Sin cookies de analytics (Google Analytics, etc.)
-- Sin cookies de publicidad
-
-**Supuesto de implementación futura:**
-- **Banner informativo básico:** Informar sobre uso de `localStorage` (1-2 días)
-- **Si se añade analytics/publicidad:** Banner complejo con gestión de consentimiento (2-3 semanas)
+**Future implementation assumption:**
+- **If registration is added:** Complete ARCO rights system, explicit consents, extended privacy policy
+- **Estimation:** 3-4 weeks of development + €2,000-4,000 in consulting
 
 ---
 
-### 3. ♿ Accesibilidad Web (WCAG 2.1)
+### 2. 🍪 ePrivacy Directive / LSSI-CE (Cookie Law)
 
-**Aplicabilidad actual:** 🟢 Recomendada  
-**Supuesto futuro:** 🔴 Obligatoria (sector público/educativo)
+**Current applicability:** 🟡 Medium  
+**Future assumption:** 🔴 High (if third-party cookies are added)
 
-**Estado actual:**
-- Aplicación educativa sin obligación legal
-- Accesibilidad básica implementada
+**Current status:**
+- Uses `localStorage` for preferences (not HTTP cookies)
+- No analytics cookies (Google Analytics, etc.)
+- No advertising cookies
 
-**Supuesto de implementación futura:**
-- **Auditoría WCAG 2.1 AA:** Contraste, navegación por teclado, alt text (3-4 días)
-- **Certificación profesional:** 1.000-3.000€ (si se requiere)
+**Future implementation assumption:**
+- **Basic informative banner:** Inform about `localStorage` use (1-2 days)
+- **If analytics/advertising is added:** Complex banner with consent management (2-3 weeks)
 
 ---
 
-### 4. 📚 Propiedad Intelectual
+### 3. ♿ Web Accessibility (WCAG 2.1)
 
-**Aplicabilidad actual:** 🟡 Media  
-**Supuesto futuro:** 🟡 Media (mantenimiento)
+**Current applicability:** 🟢 Recommended  
+**Future assumption:** 🔴 Mandatory (public/educational sector)
 
-**Recursos de terceros utilizados:**
-- **Mapas:** `react-simple-maps` (MIT License) ✅
-- **Datos geográficos:** Natural Earth Data (dominio público) ✅
-- **APIs traducción:** MyMemory, Google Translate (uso permitido) ✅
-- **Banderas SVG:** 🔴 **Pendiente verificar** origen y licencia
+**Current status:**
+- Educational application without legal obligation
+- Basic accessibility implemented
 
-**Acción requerida:**
-- Verificar licencias de banderas (2-3 horas)
-- Crear archivo `ATTRIBUTIONS.md` con todas las licencias
+**Future implementation assumption:**
+- **WCAG 2.1 AA Audit:** Contrast, keyboard navigation, alt text (3-4 days)
+- **Professional certification:** €1,000-3,000 (if required)
+
+---
+
+### 4. 📚 Intellectual Property
+
+**Current applicability:** 🟡 Medium  
+**Future assumption:** 🟡 Medium (maintenance)
+
+**Third-party resources used:**
+- **Maps:** `react-simple-maps` (MIT License) ✅
+- **Geographic data:** Natural Earth Data (public domain) ✅
+- **Translation APIs:** MyMemory, Google Translate (permitted use) ✅
+- **SVG Flags:** 🔴 **Pending verify** origin and license
+
+**Required action:**
+- Verify flag licenses (2-3 hours)
+- Create `ATTRIBUTIONS.md` file with all licenses
 
 ---
 
 ### 5. 💼 E-Commerce (LSSI-CE)
 
-**Aplicabilidad actual:** ⚪ No aplica  
-**Supuesto futuro:** 🔴 Alta (si se monetiza)
+**Current applicability:** ⚪ Does not apply  
+**Future assumption:** 🔴 High (if monetized)
 
-**Supuesto de implementación futura (modelo Premium/pago):**
-- Aviso legal completo con datos fiscales
-- Condiciones de contratación
-- Derecho de desistimiento (14 días)
-- Integración de pasarelas de pago (PCI-DSS)
-- **Estimación:** 2-3 semanas + 1.500-3.000€ consultoría
-
----
-
-### 6. 👶 COPPA (Protección de Menores - EE.UU.)
-
-**Aplicabilidad actual:** ⚪ No aplica  
-**Supuesto futuro:** 🟡 Media (expansión a EE.UU.)
-
-**Estado actual:**
-- Contenido educativo apropiado para todas las edades
-- Sin recopilación de datos personales
-
-**Supuesto de implementación futura:**
-- **Si se expande a EE.UU. con registro:** Age gate (verificación de edad), consentimiento parental
-- Solo necesario si se recopilan datos de menores de 13 años
+**Future implementation assumption (Premium/paid model):**
+- Complete legal notice with tax data
+- Contracting conditions
+- Right of withdrawal (14 days)
+- Payment gateway integration (PCI-DSS)
+- **Estimation:** 2-3 weeks + €1,500-3,000 consulting
 
 ---
 
-## 🔮 Supuestos de Implementación Futura
+### 6. 👶 COPPA (Child Protection - USA)
 
-### Escenario A: Registro de Usuarios
+**Current applicability:** ⚪ Does not apply  
+**Future assumption:** 🟡 Medium (expansion to USA)
 
-**Trigger:** Guardar progreso de juegos, perfiles personalizados
+**Current status:**
+- Educational content appropriate for all ages
+- No personal data collection
 
-**Impacto legal:**
-- 🔴 RGPD completo (sistema ARCO)
-- 🔴 Política de privacidad extendida
-- 🔴 Consentimientos explícitos
-- 🟡 Cifrado de contraseñas (bcrypt)
-- 🟡 HTTPS obligatorio
-
-**Estimación:** 4-6 semanas + 3.000-6.000€
+**Future implementation assumption:**
+- **If expanding to USA with registration:** Age gate (age verification), parental consent
+- Only necessary if data is collected from minors under 13 years
 
 ---
 
-### Escenario B: Monetización con Publicidad
+## 🔮 Future Implementation Scenarios
 
-**Trigger:** Modelo de ingresos con anuncios
+### Scenario A: User Registration
 
-**Impacto legal:**
-- 🔴 Banner de cookies avanzado
+**Trigger:** Save game progress, custom profiles
+
+**Legal impact:**
+- 🔴 Complete GDPR (ARCO system)
+- 🔴 Extended privacy policy
+- 🔴 Explicit consents
+- 🟡 Password encryption (bcrypt)
+- 🟡 Mandatory HTTPS
+
+**Estimation:** 4-6 weeks + €3,000-6,000
+
+---
+
+### Scenario B: Monetization with Advertising
+
+**Trigger:** Revenue model with ads
+
+**Legal impact:**
+- 🔴 Advanced cookie banner
 - 🔴 TCF 2.0 (Consent Management Platform)
-- 🔴 Política de cookies detallada
-- 🔴 Restricciones publicidad para menores
+- 🔴 Detailed cookie policy
+- 🔴 Advertising restrictions for minors
 
-**Estimación:** 3-4 semanas + 2.000-4.000€
-
----
-
-### Escenario C: Modelo Premium
-
-**Trigger:** Suscripción sin anuncios
-
-**Impacto legal:**
-- 🔴 LSSI-CE completa
-- 🔴 Condiciones de contratación
-- 🔴 Derecho de desistimiento
-- 🔴 PSD2 (autenticación fuerte de pagos)
-
-**Estimación:** 2-3 semanas + 2.000-4.000€
+**Estimation:** 3-4 weeks + €2,000-4,000
 
 ---
 
-## 📅 Plan de Implementación por Fases
+### Scenario C: Premium Model
 
-### Fase 0: MVP Actual (Q4 2025) ✅
-- Sin requisitos legales complejos
-- Solo verificación de licencias de recursos
+**Trigger:** Subscription without ads
 
-### Fase 1: Preparación Básica (Q1 2026)
-**Prioridad Media:**
-- [ ] Verificar licencias de banderas SVG
-- [ ] Crear archivo `ATTRIBUTIONS.md`
-- [ ] Banner informativo simple sobre `localStorage`
-- [ ] Política de privacidad básica (opcional)
+**Legal impact:**
+- 🔴 Complete LSSI-CE
+- 🔴 Contracting conditions
+- 🔴 Right of withdrawal
+- 🔴 PSD2 (strong payment authentication)
 
-**Tiempo estimado:** 2-3 días
-
-### Fase 2: Auditoría Accesibilidad (Q2 2026)
-**Prioridad Baja:**
-- [ ] Auditoría WCAG 2.1 (WAVE, Lighthouse)
-- [ ] Correcciones de contraste
-- [ ] Testing navegación por teclado
-
-**Tiempo estimado:** 3-4 días
-
-### Fase 3: Según Escenario Elegido (2026+)
-**Prioridad según decisión de negocio:**
-- Implementar según escenario A, B, C o mantener modelo actual
+**Estimation:** 2-3 weeks + €2,000-4,000
 
 ---
 
-## 📋 Checklist de Cumplimiento Legal
+## 📅 Phase Implementation Plan
 
-### Actual (MVP):
-- [x] Sin recopilación de datos personales
-- [x] Sin cookies de terceros
-- [x] Comunicación anónima con APIs
-- [ ] Verificar licencias de recursos (pendiente)
+### Phase 0: Current MVP (Q4 2025) ✅
+- No complex legal requirements
+- Only resource license verification
 
-### Futuro (si se implementan cambios):
-- [ ] Política de privacidad (`/legal/privacidad`)
-- [ ] Aviso legal (`/legal/aviso-legal`)
-- [ ] Términos de uso (`/legal/terminos`)
-- [ ] Banner de cookies/localStorage
-- [ ] Checkbox de consentimiento en registro
-- [ ] Endpoints para derechos ARCO (acceso, rectificación, supresión)
-- [ ] Cifrado HTTPS en producción
-- [ ] Auditoría de seguridad
+### Phase 1: Basic Preparation (Q1 2026)
+**Medium Priority:**
+- [ ] Verify SVG flag licenses
+- [ ] Create `ATTRIBUTIONS.md` file
+- [ ] Simple informative banner about `localStorage`
+- [ ] Basic privacy policy (optional)
 
----
+**Estimated time:** 2-3 days
 
-## 🎯 Matriz de Decisiones
+### Phase 2: Accessibility Audit (Q2 2026)
+**Low Priority:**
+- [ ] WCAG 2.1 audit (WAVE, Lighthouse)
+- [ ] Contrast corrections
+- [ ] Keyboard navigation testing
 
-| Criterio | Sin cambios | + Registro | + Publicidad | + Premium |
-|----------|-------------|------------|--------------|-----------|
-| **Complejidad legal** | 🟢 Muy baja | 🔴 Alta | 🔴 Alta | 🟡 Media |
-| **Coste implementación** | 0€ | 3.000-6.000€ | 2.000-4.000€ | 2.000-4.000€ |
-| **Tiempo desarrollo** | - | 4-6 semanas | 3-4 semanas | 2-3 semanas |
-| **Riesgo legal** | 🟢 Muy bajo | 🟡 Medio | 🟡 Medio | 🟢 Bajo |
+**Estimated time:** 3-4 days
+
+### Phase 3: According to Chosen Scenario (2026+)
+**Priority according to business decision:**
+- Implement according to scenario A, B, C or maintain current model
 
 ---
 
-## 📚 Recursos y Referencias
+## ✅ Legal Compliance Checklist
 
-### Documentación oficial:
-- **RGPD:** https://eur-lex.europa.eu/eli/reg/2016/679/oj
-- **AEPD (España):** https://www.aepd.es
+### Current (MVP):
+- [x] No personal data collection
+- [x] No third-party cookies
+- [x] Anonymous communication with APIs
+- [ ] Verify resource licenses (pending)
+
+### Future (if changes are implemented):
+- [ ] Privacy policy (`/legal/privacidad`)
+- [ ] Legal notice (`/legal/aviso-legal`)
+- [ ] Terms of use (`/legal/terminos`)
+- [ ] Cookies/localStorage banner
+- [ ] Consent checkbox on registration
+- [ ] Endpoints for ARCO rights (access, rectification, deletion)
+- [ ] HTTPS encryption in production
+- [ ] Security audit
+
+---
+
+## 🎯 Decision Matrix
+
+| Criteria | No changes | + Registration | + Advertising | + Premium |
+|----------|------------|----------------|---------------|-----------||
+| **Legal complexity** | 🟢 Very low | 🔴 High | 🔴 High | 🟡 Medium |
+| **Implementation cost** | €0 | €3,000-6,000 | €2,000-4,000 | €2,000-4,000 |
+| **Development time** | - | 4-6 weeks | 3-4 weeks | 2-3 weeks |
+| **Legal risk** | 🟢 Very low | 🟡 Medium | 🟡 Medium | 🟢 Low |
+
+---
+
+## 📚 Resources and References
+
+### Official documentation:
+- **GDPR:** https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- **AEPD (Spain):** https://www.aepd.es
 - **WCAG 2.1:** https://www.w3.org/WAI/WCAG21/quickref/
 
-### Herramientas útiles:
-- **Generador de políticas:** https://www.privacypolicies.com/
-- **Auditoría accesibilidad:** https://wave.webaim.org/
-- **Verificador de licencias:** https://choosealicense.com/
+### Useful tools:
+- **Policy generator:** https://www.privacypolicies.com/
+- **Accessibility audit:** https://wave.webaim.org/
+- **License checker:** https://choosealicense.com/
 
 ---
 
-## ✅ Conclusiones
+## ✅ Conclusions
 
-### Situación actual:
-**Transkarte tiene un perfil de riesgo legal MÍNIMO:**
-- Sin registro ni datos personales
-- Sin cookies de terceros
-- Uso educativo y gratuito
-- Contenido apropiado para todas las edades
+### Current situation:
+**Transkarte has a MINIMAL legal risk profile:**
+- No registration or personal data
+- No third-party cookies
+- Educational and free use
+- Content appropriate for all ages
 
-### Recomendaciones:
+### Recommendations:
 
-**Corto plazo (MVP):**
-- ✅ Verificar licencias de recursos de terceros (2-3 horas)
-- ⚠️ No es urgente implementar políticas legales completas
+**Short term (MVP):**
+- ✅ Verify third-party resource licenses (2-3 hours)
+- ⚠️ Not urgent to implement complete legal policies
 
-**Medio plazo (6 meses):**
-- 🟡 Banner informativo básico sobre `localStorage`
-- 🟡 Auditoría de accesibilidad
-- 🟡 Políticas legales básicas (si se escala)
+**Medium term (6 months):**
+- 🟡 Basic informative banner about `localStorage`
+- 🟡 Accessibility audit
+- 🟡 Basic legal policies (if scaling)
 
-**Largo plazo (1 año+):**
-- ⚪ Consultar este documento antes de añadir registro, publicidad o pagos
-- ⚪ Implementar según el escenario elegido
-- ⚪ Consultoría legal profesional si se escala comercialmente
+**Long term (1 year+):**
+- ⚪ Consult this document before adding registration, advertising, or payments
+- ⚪ Implement according to chosen scenario
+- ⚪ Professional legal consultation if scaling commercially
 
-### Ventaja estratégica:
-El diseño actual **sin registro** es una **fortaleza legal**:
-- ✅ Menor complejidad normativa
-- ✅ Menor coste de cumplimiento
-- ✅ Mayor privacidad para usuarios
-- ✅ Lanzamiento más rápido
-
----
-
-## 📝 Próximos Pasos
-
-1. **Completar verificación de licencias** (antes de lanzamiento)
-2. **Decidir modelo de negocio futuro** (determina requisitos legales)
-3. **Consultar este documento** antes de cambios significativos
-4. **Revisar anualmente** las normativas aplicables
+### Strategic advantage:
+The current **no-registration** design is a **legal strength**:
+- ✅ Lower regulatory complexity
+- ✅ Lower compliance cost
+- ✅ Greater privacy for users
+- ✅ Faster launch
 
 ---
 
-*Documento elaborado para el proyecto Transkarte - Supuestos y Planificación Legal Futura*  
-*Este documento NO describe implementaciones actuales, sino planificación prospectiva*  
-*Última actualización: Diciembre 2025*  
-*Autores: Sergio Durán, Manolo Cárdeno, Francisco J. Redondo*
+## 📝 Next Steps
+
+1. **Complete license verification** (before launch)
+2. **Decide future business model** (determines legal requirements)
+3. **Consult this document** before significant changes
+4. **Review annually** applicable regulations
+
+---
+
+*Document prepared for the Transkarte project - Legal Assumptions and Future Planning*  
+*This document does NOT describe current implementations, but prospective planning*  
+*Last update: December 2025*  
+*Authors: Sergio Durán, Manolo Cárdeno, Francisco J. Redondo*

@@ -3,9 +3,9 @@
 <a id="inicio"></a>
 ![Logo Transkarte](./docs/img/logo.png)
 
-### *Explora el mundo aprendiendo idiomas*
+### *Explore the world while learning languages*
 
-**Aplicación web educativa que combina geografía y traducción interactiva**
+**Educational web application that combines geography and interactive translation**
 
 <!-- BADGES DE ESTADO -->
 ![GitHub last commit](https://img.shields.io/github/last-commit/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square&color=blueviolet)
@@ -17,67 +17,67 @@
 
 ---
 
-## 📖 Sobre el Proyecto
+## 📖 About the Project
 
-**Transkarte** es una aplicación web educativa que transforma el aprendizaje de idiomas en una experiencia interactiva y visual. A través de un mapa mundial interactivo, los usuarios pueden:
+**Transkarte** is an educational web application that transforms language learning into an interactive and visual experience. Through an interactive world map, users can:
 
-- 🗺️ **Explorar** países con visualización interactiva y efectos visuales
-- 🔤 **Traducir** palabras y frases al idioma oficial de cada país
-- 🎮 **Jugar** modos educativos para aprender geografía e idiomas
-- 🌍 **Descubrir** más de 150 países y sus lenguas oficiales
+- 🗺️ **Explore** countries with interactive visualization and visual effects
+- 🔤 **Translate** words and phrases to the official language of each country
+- 🎮 **Play** educational modes to learn geography and languages
+- 🌍 **Discover** over 150 countries and their official languages
 
-La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para ofrecer una experiencia fluida y educativa. Desarrollada con Docker para facilitar el despliegue y sin necesidad de registro de usuarios, Transkarte pone la privacidad y la simplicidad en primer lugar.
+The application combines **React**, **TypeScript**, **Node.js**, and **MongoDB** to offer a smooth and educational experience. Developed with Docker for easy deployment and without requiring user registration, Transkarte puts privacy and simplicity first.
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-- [🚀 Demo en Producción](#-demo-en-producción)
-- [📸 Capturas de Pantalla](#-capturas-de-pantalla)
-- [💻 Instalación y Desarrollo Local](#-instalación-y-desarrollo-local)
-- [👥 Equipo de Desarrollo](#-equipo-de-desarrollo)
-- [📚 Documentación](#-documentación)
-- [📊 Estado del Proyecto](#-estado-del-proyecto)
-- [🔌 API Backend](#-api-backend)
-- [📄 Licencia](#-licencia)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🚀 Production Demo](#-production-demo)
+- [📸 Screenshots](#-screenshots)
+- [💻 Installation and Local Development](#-installation-and-local-development)
+- [👥 Development Team](#-development-team)
+- [📚 Documentation](#-documentation)
+- [📊 Project Status](#-project-status)
+- [🔌 Backend API](#-backend-api)
+- [📄 License](#-license)
 
 ---
 
-## 📊 Estado del Proyecto
+## 📊 Project Status
 
-### ✅ Proyecto Completado
+### ✅ Completed Project
 
 **Backend:**
-- [x] MongoDB configurado en Docker
-- [x] Modelos de datos (Translation, GameStats)
-- [x] Sistema de traducción con DeepL + Google Translate fallback
-- [x] Detección automática de idioma
-- [x] Sistema de caché de traducciones
-- [x] API de juegos (frases y banderas)
-- [x] Mapeos de 150+ países e idiomas
+- [x] MongoDB configured in Docker
+- [x] Data models (Translation, GameStats)
+- [x] Translation system with DeepL + Google Translate fallback
+- [x] Automatic language detection
+- [x] Translation cache system
+- [x] Game API (phrases and flags)
+- [x] Mappings of 150+ countries and languages
 
 **Frontend:**
 - [x] React 18 + TypeScript + Vite
-- [x] Mapa interactivo mundial (react-simple-maps)
-- [x] Modo Traducción: traduce al idioma del país clickeado
-- [x] Modo Adivina el Idioma: reconoce frases en diferentes idiomas
-- [x] Modo Adivina la Bandera: identifica países por su bandera
-- [x] Sistema de vidas y estadísticas en tiempo real
-- [x] Internacionalización (español/inglés)
-- [x] Modo oscuro/claro
-- [x] Landing page interactiva
-- [x] Diseño responsive
-- [x] Gestión de estado con Zustand (store centralizado con persistencia)
-- [x] API HTTP con Axios (interceptores, manejo de errores, timeouts)
+- [x] Interactive world map (react-simple-maps)
+- [x] Translation Mode: translate to the language of the clicked country
+- [x] Guess the Language Mode: recognize phrases in different languages
+- [x] Guess the Flag Mode: identify countries by their flag
+- [x] Lives and real-time statistics system
+- [x] Internationalization (Spanish/English)
+- [x] Dark/light mode
+- [x] Interactive landing page
+- [x] Responsive design
+- [x] State management with Zustand (centralized store with persistence)
+- [x] HTTP API with Axios (interceptors, error handling, timeouts)
 
-**Infraestructura:**
-- [x] Dockerización completa (frontend + backend + MongoDB)
-- [x] Variables de entorno configuradas
-- [x] CORS y seguridad básica
-- [x] Script de seeding para datos iniciales de traducciones
+**Infrastructure:**
+- [x] Complete Dockerization (frontend + backend + MongoDB)
+- [x] Configured environment variables
+- [x] CORS and basic security
+- [x] Seeding script for initial translation data
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
 <div align="center">
 
@@ -110,146 +110,146 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 
 ---
 
-## 🚀 Demo en Producción
+## 🚀 Production Demo
 
-**URL de producción:** [https://transkarte.up.railway.app/](https://transkarte.up.railway.app/)
+**Production URL:** [https://transkarte.up.railway.app/](https://transkarte.up.railway.app/)
 
 ---
 
-## 📸 Capturas de Pantalla y Guía de Usuario
+## 📸 Screenshots and User Guide
 
-### 🏠 Página de Inicio (Landing Page)
+### 🏠 Landing Page
 
 <div align="center">
   <img src="./docs/img/landing-page.png" alt="Landing Page" width="700" />
 </div>
 
-**¿Qué puede hacer el usuario aquí?**
+**What can the user do here?**
 
-- 🌍 **Ver presentación animada** del proyecto con efectos visuales
-- 🎯 **Elegir modo de uso**: Traducción o Juego (2 modos)
-- 🌐 **Cambiar idioma de interfaz**: Español ↔️ Inglés (botón superior derecha)
-- 📖 **Leer descripción** de cada modo antes de empezar e información sobre nosotros
-- 🚀 **Comenzar experiencia** haciendo clic en cualquier tarjeta de modo
+- 🌍 **View animated presentation** of the project with visual effects
+- 🎯 **Choose mode**: Translation or Game (2 modes)
+- 🌐 **Change interface language**: Spanish ↔️ English (button top right)
+- 📖 **Read description** of each mode before starting and information about us
+- 🚀 **Start experience** by clicking on any mode card
 
 ---
 
-### 🗺️ Mapa Interactivo (Vista Principal)
+### 🗺️ Interactive Map (Main View)
 
 <div align="center">
-  <img src="./docs/img/mapa-interactivo.png" alt="Mapa interactivo" width="700" />
+  <img src="./docs/img/mapa-interactivo.png" alt="Interactive map" width="700" />
 </div>
 
 <div align="center">
-  <img src="./docs/img/modo-traduccion.png" alt="Modo traducción" width="700" />
+  <img src="./docs/img/modo-traduccion.png" alt="Translation mode" width="700" />
 </div>
 
-**¿Qué puede hacer el usuario aquí?**
+**What can the user do here?**
 
-- 🖱️ **Hacer hover sobre países**: Ver efecto de resaltado visual
-- 🔍 **Usar barra de búsqueda**: Para saber como se dice una frase o palabra en un pais cuando el usuario lo clique
-- ✍️ **Escribir texto**: Introducir palabra o frase (máximo 500 caracteres)
-- 🚫 **Ver bloqueo automático**: Los países que hablan el idioma del texto aparecen en rojo
-- 🌍 **Seleccionar país destino**: Clic en cualquier país del mapa
-- 🎨 **Navegar el mapa**: Scroll para zoom, arrastrar para mover
-- 🔄 **Ver traducción instantánea**: Resultado en modal con animación
-- 💾 **Caché automático**: Traducciones repetidas son instantáneas (guardadas en BD)
-- ❌ **Cerrar modal**: Hacer clic fuera del modal o botón de cerrar
-- 🏠 **Volver a la landing page**: Botón "i" en esquina superior izquierda al lado del logo para volver a la página principal
-- 🌐 **Cambiar idioma**: Selector ES/EN en barra superior
-- 🌓 **Cambiar tema**: Icono de sol/luna en barra superior
+- 🖱️ **Hover over countries**: See visual highlight effect
+- 🔍 **Use search bar**: To know how to say a phrase or word in a country when the user clicks on it
+- ✍️ **Write text**: Enter word or phrase (maximum 500 characters)
+- 🚫 **See automatic blocking**: Countries that speak the language of the text appear in red
+- 🌍 **Select destination country**: Click on any country on the map
+- 🎨 **Navigate the map**: Scroll to zoom, drag to move
+- 🔄 **See instant translation**: Result in modal with animation
+- 💾 **Automatic cache**: Repeated translations are instant (saved in DB)
+- ❌ **Close modal**: Click outside the modal or close button
+- 🏠 **Return to landing page**: "i" button in top left corner next to the logo to return to the main page
+- 🌐 **Change language**: ES/EN selector in top bar
+- 🌓 **Change theme**: Sun/moon icon in top bar
 
-**Ejemplo de uso:**
-1. Escribe "Hello world" en el campo de texto
-2. Los países anglófonos (USA, UK, Australia) se bloquean automáticamente en rojo
-3. Haz clic en España → Aparece "Hola mundo"
-4. Haz clic en Francia → Aparece "Bonjour le monde"
+**Usage example:**
+1. Type "Hello world" in the text field
+2. English-speaking countries (USA, UK, Australia) are automatically blocked in red
+3. Click on Spain → "Hola mundo" appears
+4. Click on France → "Bonjour le monde" appears
 
 ---
 
-### 🎮 Modo Juego: Adivina el Idioma
+### 🎮 Game Mode: Guess the Language
 
 <div align="center">
-  <img src="./docs/img/modo-adivina-idioma.png" alt="Modo Adivina el idioma" width="700" />
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Guess the language mode" width="700" />
 </div>
 
-**¿Qué puede hacer el usuario aquí?**
+**What can the user do here?**
 
-- 📖 **Leer frase en idioma desconocido**: Aparece en la parte superior
-- 🤔 **Adivinar el país correcto**: Clic en el país que habla ese idioma
-- ❤️ **Gestionar vidas**: Tienes 5 vidas (corazones), pierdes 1 por error
-- 📊 **Ver estadísticas en tiempo real**: Aciertos, fallos y puntos.
-- ✅ **Recibir feedback inmediato**: Animación verde si aciertas, roja si fallas
-- 🔄 **Nueva pregunta automática**: Después de cada respuesta (correcta o incorrecta)
-- 💀 **Game Over**: Al perder las 5 vidas, ver resumen de estadísticas
-- ➡️ **Pasar intento**: Botón para pasar la frase a una nueva, a costa de un intento
-- 🔁 **Reintentar**: Botón para comenzar nueva partida
-- 🏠 **Volver al menú**: Abandonar partida en cualquier momento
+- 📖 **Read phrase in unknown language**: Appears at the top
+- 🤔 **Guess the correct country**: Click on the country that speaks that language
+- ❤️ **Manage lives**: You have 5 lives (hearts), lose 1 per error
+- 📊 **See real-time statistics**: Hits, misses, and points.
+- ✅ **Receive immediate feedback**: Green animation if correct, red if wrong
+- 🔄 **New automatic question**: After each answer (correct or incorrect)
+- 💀 **Game Over**: When losing all 5 lives, see statistics summary
+- ➡️ **Skip attempt**: Button to skip the phrase to a new one, at the cost of one attempt
+- 🔁 **Retry**: Button to start new game
+- 🏠 **Return to menu**: Abandon game at any time
 
-**Mecánica del juego:**
-- Cada respuesta correcta suma +1 punto
-- Cada error resta 1 vida
-- Frases aleatorias en 50+ idiomas diferentes
-- Algunos idiomas tienen múltiples países válidos (ej: español → España, México, Argentina...)
+**Game mechanics:**
+- Each correct answer adds +1 point
+- Each error subtracts 1 life
+- Random phrases in 50+ different languages
+- Some languages have multiple valid countries (e.g., Spanish → Spain, Mexico, Argentina...)
 
 ---
 
-### 🏴 Modo Juego: Adivina la Bandera
+### 🏴 Game Mode: Guess the Flag
 
 <div align="center">
-  <img src="./docs/img/modo-adivina-bandera.png" alt="Modo Adivina la Bandera" width="700" />
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Guess the Flag mode" width="700" />
 </div>
 
-**¿Qué puede hacer el usuario aquí?**
+**What can the user do here?**
 
-- 🏴 **Ver bandera aleatoria**: Aparece en grande en la parte superior
-- 🗺️ **Adivinar el país**: Clic en el país correcto en el mapa
-- ❤️ **Gestionar vidas**: Tienes 5 vidas, pierdes 1 por error
-- 📊 **Ver estadísticas**: Aciertos, fallos, puntos, porcentaje de acierto al final de la partida
-- ✅ **Feedback visual**: Animación verde/roja + nombre del país correcto
-- 🌍 **Aprender geografía**: 195 banderas de países del mundo
-- 🔄 **Nueva bandera automática**: Después de cada intento
-- 💀 **Game Over**: Ver resumen completo al perder todas las vidas
-- ➡️ **Pasar intento**: Botón para pasar una bandera nueva, a costa de un intento
-- 🔁 **Jugar de nuevo**: Reiniciar partida con nuevas banderas aleatorias
+- 🏴 **See random flag**: Appears large at the top
+- 🗺️ **Guess the country**: Click on the correct country on the map
+- ❤️ **Manage lives**: You have 5 lives, lose 1 per error
+- 📊 **See statistics**: Hits, misses, points, success percentage at the end of the game
+- ✅ **Visual feedback**: Green/red animation + correct country name
+- 🌍 **Learn geography**: 195 flags of countries around the world
+- 🔄 **New automatic flag**: After each attempt
+- 💀 **Game Over**: See complete summary when losing all lives
+- ➡️ **Skip attempt**: Button to skip to a new flag, at the cost of one attempt
+- 🔁 **Play again**: Restart game with new random flags
 
-**Mecánica del juego:**
-- Cada acierto suma +1 punto
-- Cada fallo resta 1 vida
-- Banderas generadas aleatoriamente
-- Incluye países de todos los continentes
-- Dificultad variada: desde banderas icónicas hasta las más desafiantes
-
----
-
-### 🎨 Características Comunes en Todas las Pantallas
-
-**Controles Globales:**
-- 🌐 **Selector de idioma** (ES/EN) - Esquina superior derecha
-- 🌓 **Toggle tema oscuro/claro** - Icono de sol/luna
-- 🏠 **Botón "i"** - Volver a la landing page
-
-**Accesibilidad:**
-- 🎨 Alto contraste en modo oscuro
-- 📢 Textos legibles (tamaño mínimo 14px)
-- 🖱️ Áreas de clic amplias (mínimo 44x44px)
-- 🔊 Estados visuales claros (hover, focus, active)
+**Game mechanics:**
+- Each hit adds +1 point
+- Each miss subtracts 1 life
+- Randomly generated flags
+- Includes countries from all continents
+- Varied difficulty: from iconic flags to the most challenging
 
 ---
 
-## 💻 Instalación y Desarrollo Local
+### 🎨 Common Features in All Screens
 
-### Requisitos Previos
+**Global Controls:**
+- 🌐 **Language selector** (ES/EN) - Top right corner
+- 🌓 **Dark/light theme toggle** - Sun/moon icon
+- 🏠 **"i" button** - Return to landing page
 
-#### ⭐ Opción 1: Con Docker (Recomendado)
+**Accessibility:**
+- 🎨 High contrast in dark mode
+- 📢 Readable texts (minimum size 14px)
+- 🖱️ Large click areas (minimum 44x44px)
+- 🔊 Clear visual states (hover, focus, active)
 
-- ✅ **Docker Desktop** instalado y en ejecución
+---
+
+## 💻 Installation and Local Development
+
+### Prerequisites
+
+#### ⭐ Option 1: With Docker (Recommended)
+
+- ✅ **Docker Desktop** installed and running
 - ✅ **Git**
-- ❌ **NO necesitas** Node.js instalado
-- ❌ **NO necesitas** MongoDB instalado
-- ❌ **NO necesitas** ejecutar `npm install` manualmente
+- ❌ **You DON'T need** Node.js installed
+- ❌ **You DON'T need** MongoDB installed
+- ❌ **You DON'T need** to run `npm install` manually
 
-#### 📦 Opción 2: Sin Docker (Manual)
+#### 📦 Option 2: Without Docker (Manual)
 
 - ✅ **Node.js** 20+
 - ✅ **MongoDB** Community Edition
@@ -257,44 +257,44 @@ La aplicación combina **React**, **TypeScript**, **Node.js** y **MongoDB** para
 
 ---
 
-### 🐳 Instalación con Docker (Recomendado)
+### 🐳 Installation with Docker (Recommended)
 
-1️⃣ **Clonar el repositorio**
+1️⃣ **Clone the repository**
 
 ```bash
 git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
 cd ProyectoIntermodular-MapaInteractivo
 ```
 
-2️⃣ **Iniciar todos los servicios**
+2️⃣ **Start all services**
 
 ```bash
 docker-compose up -d --build
 ```
 
-> 🎉 **¡Listo!** Las dependencias se instalan automáticamente dentro de los contenedores.
+> 🎉 **Done!** Dependencies are automatically installed inside the containers.
 
-3️⃣ **Acceder a la aplicación**
+3️⃣ **Access the application**
 
 - **Frontend**: [http://localhost:3000](http://localhost:3000)
 - **Backend API**: [http://localhost:5000](http://localhost:5000)
 - **Health Check**: [http://localhost:5000/health](http://localhost:5000/health)
 - **MongoDB**: `localhost:27017`
 
-4️⃣ **Ver logs (opcional)**
+4️⃣ **View logs (optional)**
 
 ```bash
-# Logs de todos los servicios
+# Logs of all services
 docker-compose logs -f
 
-# Logs solo del servidor
+# Server logs only
 docker-compose logs -f server
 
-# Logs solo del cliente
+# Client logs only
 docker-compose logs -f client
 ```
 
-5️⃣ **Detener los servicios**
+5️⃣ **Stop services**
 
 ```bash
 docker-compose down
@@ -302,19 +302,19 @@ docker-compose down
 
 ---
 
-### 📦 Instalación Manual (Sin Docker)
+### 📦 Manual Installation (Without Docker)
 
 <details>
-<summary><b>Clic aquí para ver instrucciones sin Docker</b></summary>
+<summary><b>Click here for instructions without Docker</b></summary>
 
-1️⃣ **Clonar el repositorio**
+1️⃣ **Clone the repository**
 
 ```bash
 git clone https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git
 cd ProyectoIntermodular-MapaInteractivo
 ```
 
-2️⃣ **Instalar dependencias**
+2️⃣ **Install dependencies**
 
 ```bash
 # Backend
@@ -327,16 +327,16 @@ npm install
 cd ..
 ```
 
-3️⃣ **Configurar MongoDB**
+3️⃣ **Configure MongoDB**
 
-- Instalar [MongoDB Community Edition](https://www.mongodb.com/try/download/community)
-- Iniciar el servicio: `mongod`
-- Actualizar `MONGO_URI` en `server/.env`:
+- Install [MongoDB Community Edition](https://www.mongodb.com/try/download/community)
+- Start the service: `mongod`
+- Update `MONGO_URI` in `server/.env`:
   ```
   MONGO_URI=mongodb://localhost:27017/translator_db
   ```
 
-4️⃣ **Iniciar servicios**
+4️⃣ **Start services**
 
 ```bash
 # Terminal 1 - Backend
@@ -348,7 +348,7 @@ cd client
 npm run dev
 ```
 
-5️⃣ **Acceder a la aplicación**
+5️⃣ **Access the application**
 
 - **Frontend**: [http://localhost:5173](http://localhost:5173)
 - **Backend**: [http://localhost:5000](http://localhost:5000)
@@ -357,11 +357,11 @@ npm run dev
 
 ---
 
-## 👥 Equipo de Desarrollo
+## 👥 Development Team
 
 <div align="center">
 
-| Avatar | Nombre | Rol | GitHub |
+| Avatar | Name | Role | GitHub |
 |:------:|--------|-----|:------:|
 | <img src="https://github.com/sdurutr436.png" width="80" style="border-radius:50%"/> | **Sergio Durán Utrera** | Full Stack Developer | [![GitHub](https://img.shields.io/badge/GitHub-sdurutr436-181717?style=flat&logo=github)](https://github.com/sdurutr436) |
 | <img src="https://github.com/nolocardeno.png" width="80" style="border-radius:50%"/> | **Manolo Cárdeno Sánchez** | Full Stack Developer | [![GitHub](https://img.shields.io/badge/GitHub-nolocardeno-181717?style=flat&logo=github)](https://github.com/manolo-card) |
@@ -369,61 +369,61 @@ npm run dev
 
 </div>
 
-> 💡 Este proyecto fue desarrollado como parte del **Proyecto Intermodular** del ciclo de **Desarrollo de Aplicaciones Web (DAW)**.
+> 💡 This project was developed as part of the **Intermodular Project** of the **Web Application Development (DAW)** cycle.
 
 ---
 
-## 📚 Documentación
+## 📚 Documentation
 
-### 📖 Documentación de la API
+### 📖 API Documentation
 
-La documentación completa del código (Backend + Frontend) está disponible online en un solo lugar, generada automáticamente con TypeDoc:
+The complete code documentation (Backend + Frontend) is available online in one place, automatically generated with TypeDoc:
 
-- **🌐 Documentación Unificada**: [https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/](https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/)
+- **🌐 Unified Documentation**: [https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/](https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/)
 
-La documentación incluye:
-- ⚙️ **Backend**: API REST, modelos, servicios de traducción, rutas de juego
-- 🎨 **Frontend**: Componentes React, servicios, contextos, tipos TypeScript
+The documentation includes:
+- ⚙️ **Backend**: REST API, models, translation services, game routes
+- 🎨 **Frontend**: React components, services, contexts, TypeScript types
 
-Todo integrado en una única interfaz con menú lateral para fácil navegación entre módulos.
+Everything integrated in a single interface with sidebar menu for easy navigation between modules.
 
-La documentación se genera automáticamente en cada push a `main` usando GitHub Actions.
+Documentation is automatically generated on each push to `main` using GitHub Actions.
 
-### 📂 Documentación del Proyecto
+### 📂 Project Documentation
 
-Toda la documentación técnica y de planificación se encuentra en la carpeta [`/docs`](./docs):
+All technical and planning documentation is in the [`/docs`](./docs) folder:
 
-- 📄 [**Problema y Justificación**](./docs/problema.md) - Contexto y necesidad del proyecto
-- 🎯 [**Objetivos y Alcance**](./docs/objetivos-alcance.md) - Metas y límites del proyecto
-- 🔧 [**Viabilidad Técnica**](./docs/viabilidad-tecnica.md) - Análisis técnico y factibilidad
-- 💰 [**Recursos Necesarios**](./docs/recursos.md) - Recursos humanos y técnicos
-- ⚖️ [**Legislación y Cumplimiento**](./docs/legislacion.md) - RGPD, accesibilidad y normativas
+- 📄 [**Problem and Justification**](./docs/problema.md) - Context and project need
+- 🎯 [**Objectives and Scope**](./docs/objetivos-alcance.md) - Goals and project limits
+- 🔧 [**Technical Feasibility**](./docs/viabilidad-tecnica.md) - Technical analysis and feasibility
+- 💰 [**Required Resources**](./docs/recursos.md) - Human and technical resources
+- ⚖️ [**Legislation and Compliance**](./docs/legislacion.md) - GDPR, accessibility and regulations
 
-### 📖 Wiki del Proyecto
+### 📖 Project Wiki
 
-> 📚 **Wiki completa:** [https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki)
+> 📚 **Complete wiki:** [https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki)
 
-Páginas disponibles en la wiki:
-- [Home](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki) — Portada y presentación general del proyecto
-- [Actas de reuniones](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones) — Resúmenes y acuerdos de las reuniones del equipo
-- [Gestión de Recursos y Tiempos](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos) — Planificación de recursos, cronograma y asignación de tareas
-- [Metodología SCRUM](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM) — Explicación del marco de trabajo ágil utilizado
-- [Planificación de Sprints](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints) — Detalle de los sprints, objetivos y entregables
-- [Roles de equipo](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo) — Descripción de los roles y responsabilidades de cada miembro
+Pages available in the wiki:
+- [Home](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki) — Cover and general presentation of the project
+- [Meeting Minutes](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones) — Summaries and agreements from team meetings
+- [Resource and Time Management](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos) — Resource planning, schedule and task allocation
+- [SCRUM Methodology](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM) — Explanation of the agile framework used
+- [Sprint Planning](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints) — Detail of sprints, objectives and deliverables
+- [Team Roles](https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo) — Description of roles and responsibilities of each member
 
 ---
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto es parte de un **trabajo académico** desarrollado para el **Proyecto Intermodular** del ciclo de **Desarrollo de Aplicaciones Web (DAW)** en el **IES Rafael Alberti** (Cádiz, España).
+This project is part of an **academic work** developed for the **Intermodular Project** of the **Web Application Development (DAW)** cycle at **IES Rafael Alberti** (Cádiz, Spain).
 
-### Uso Educativo
+### Educational Use
 
-- ✅ **Permitido**: Uso con fines educativos y de aprendizaje
-- ✅ **Permitido**: Clonación y modificación para proyectos académicos
-- ⚠️ **Atribución requerida**: Si usas este código, menciona a los autores originales
+- ✅ **Allowed**: Use for educational and learning purposes
+- ✅ **Allowed**: Cloning and modification for academic projects
+- ⚠️ **Attribution required**: If you use this code, mention the original authors
 
-### Autores
+### Authors
 
 - Sergio Durán Utrera ([@sdurutr436](https://github.com/sdurutr436))
 - Manolo Cárdeno Sánchez ([@manolo-card](https://github.com/nolocardeno))
@@ -433,5 +433,5 @@ Este proyecto es parte de un **trabajo académico** desarrollado para el **Proye
 
 
 <p align="center">
-  <a href="#inicio">⬆️ Volver arriba</a>
+  <a href="#inicio">⬆️ Back to top</a>
 </p>

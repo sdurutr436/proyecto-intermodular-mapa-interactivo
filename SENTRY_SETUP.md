@@ -1,182 +1,182 @@
-# 🚀 Implementación de Sentry Completada
+# 🚀 Sentry Implementation Completed
 
-## ✅ Cambios Realizados
+## ✅ Changes Made
 
 ### Backend
-- ✅ Transacciones añadidas en `/api/game/phrase`
-- ✅ Transacciones añadidas en `/api/game/flag`
-- ✅ Transacciones añadidas en `/api/translate`
-- ✅ Captura de excepciones con contexto en todos los endpoints
+- ✅ Transactions added in `/api/game/phrase`
+- ✅ Transactions added in `/api/game/flag`
+- ✅ Transactions added in `/api/translate`
+- ✅ Exception capture with context in all endpoints
 
 ### Frontend
-- ✅ `src/sentry.ts` - Inicialización de Sentry
-- ✅ `src/components/ErrorBoundary.tsx` - Componente para capturar errores de React
-- ✅ `src/index.tsx` - Inicialización de Sentry antes de renderizar
-- ✅ `src/App.tsx` - Error Boundary envolviendo la aplicación
-- ✅ `src/services/apiClient.ts` - Captura de errores HTTP
+- ✅ `src/sentry.ts` - Sentry initialization
+- ✅ `src/components/ErrorBoundary.tsx` - Component to catch React errors
+- ✅ `src/index.tsx` - Sentry initialization before rendering
+- ✅ `src/App.tsx` - Error Boundary wrapping the application
+- ✅ `src/services/apiClient.ts` - HTTP error capture
 
-### Docker & Configuración
-- ✅ `docker-compose.yml` - Variables de entorno añadidas
-- ✅ `Dockerfile` (frontend) - ARG para `VITE_SENTRY_DSN`
-- ✅ `.env.example` - Actualizado con variables de Sentry
-- ✅ `frontend/.env.example` - Actualizado con `VITE_SENTRY_DSN`
-- ✅ `frontend/package.json` - Dependencia `@sentry/react` añadida
+### Docker & Configuration
+- ✅ `docker-compose.yml` - Environment variables added
+- ✅ `Dockerfile` (frontend) - ARG for `VITE_SENTRY_DSN`
+- ✅ `.env.example` - Updated with Sentry variables
+- ✅ `frontend/.env.example` - Updated with `VITE_SENTRY_DSN`
+- ✅ `frontend/package.json` - `@sentry/react` dependency added
 
 ---
 
-## 🔧 Setup Completo (Todo con Docker)
+## 🔧 Complete Setup (All with Docker)
 
-**No necesitas instalar dependencias localmente.** Docker se encarga de todo.
+**You don't need to install dependencies locally.** Docker takes care of everything.
 
-### 1. Crear Proyectos en Sentry.io
+### 1. Create Projects on Sentry.io
 
-1. Ve a https://sentry.io y crea una cuenta (gratis)
-2. Crea un proyecto **Node.js** (para backend)
-   - Copia el DSN que te proporciona
-3. Crea un proyecto **React** (para frontend)
-   - Copia el DSN que te proporciona
+1. Go to https://sentry.io and create an account (free)
+2. Create a **Node.js** project (for backend)
+   - Copy the DSN it provides
+3. Create a **React** project (for frontend)
+   - Copy the DSN it provides
 
-### 2. Configurar Variables de Entorno
+### 2. Configure Environment Variables
 
-Crea un archivo `.env` en la **raíz del proyecto**:
+Create a `.env` file in the **project root**:
 
 ```bash
 # Backend
-DEEPL_API_KEY=tu_clave_aqui
-SENTRY_DSN=https://tu-key-backend@sentry.io/tu-proyecto-backend-id
+DEEPL_API_KEY=your_key_here
+SENTRY_DSN=https://your-backend-key@sentry.io/your-backend-project-id
 
 # Frontend
-VITE_SENTRY_DSN=https://tu-key-frontend@sentry.io/tu-proyecto-frontend-id
+VITE_SENTRY_DSN=https://your-frontend-key@sentry.io/your-frontend-project-id
 ```
 
-**Eso es todo.** No necesitas crear `.env` en la carpeta `frontend/`.
+**That's it.** You don't need to create `.env` in the `frontend/` folder.
 
-### 3. Levantar el Proyecto con Docker
+### 3. Start the Project with Docker
 
 ```bash
 docker-compose up --build
 ```
 
-Docker hará automáticamente:
-- ✅ Instalar todas las dependencias (incluido `@sentry/react`)
-- ✅ Configurar las variables de entorno
-- ✅ Construir frontend y backend
-- ✅ Levantar todos los servicios
+Docker will automatically:
+- ✅ Install all dependencies (including `@sentry/react`)
+- ✅ Configure environment variables
+- ✅ Build frontend and backend
+- ✅ Start all services
 
-### 4. Verificar que Funciona
+### 4. Verify it Works
 
-**Backend**: Visita http://localhost:5000/api/game/debug-sentry
-- Generará un error intencional
-- Ve a tu dashboard de Sentry (proyecto Node.js) y verifica que apareció
+**Backend**: Visit http://localhost:5000/api/game/debug-sentry
+- Will generate an intentional error
+- Go to your Sentry dashboard (Node.js project) and verify it appeared
 
-**Frontend**: Abre http://localhost:3000 y la consola del navegador:
+**Frontend**: Open http://localhost:3000 and the browser console:
 ```javascript
 throw new Error("Test Sentry Frontend");
 ```
-- Ve a tu dashboard de Sentry (proyecto React) y verifica que apareció
+- Go to your Sentry dashboard (React project) and verify it appeared
 
 ---
 
-## 📊 Qué Monitorea Sentry Ahora
+## 📊 What Sentry Monitors Now
 
 ### Backend
-- ✅ Errores en generación de frases aleatorias
-- ✅ Errores en generación de banderas
-- ✅ Errores en traducción (DeepL/Google)
-- ✅ Tiempo de ejecución de operaciones (transacciones)
-- ✅ Información de endpoint y operación en cada error
+- ✅ Errors in random phrase generation
+- ✅ Errors in flag generation
+- ✅ Errors in translation (DeepL/Google)
+- ✅ Operation execution time (transactions)
+- ✅ Endpoint and operation information in each error
 
 ### Frontend
-- ✅ Errores de React (componentes)
-- ✅ Errores HTTP (4xx, 5xx)
-- ✅ Errores de red
-- ✅ Session Replay (10% de sesiones, 100% con errores)
+- ✅ React errors (components)
+- ✅ HTTP errors (4xx, 5xx)
+- ✅ Network errors
+- ✅ Session Replay (10% of sessions, 100% with errors)
 - ✅ Performance monitoring
 
 ---
 
-## 🎯 Cómo Funciona
+## 🎯 How It Works
 
-### Cuando ocurre un error:
+### When an error occurs:
 
-1. **Backend**: Sentry captura automáticamente el error con:
-   - Stack trace completo
-   - Endpoint que falló
-   - Operación que se estaba realizando
-   - Tiempo de ejecución (transacción)
+1. **Backend**: Sentry automatically captures the error with:
+   - Complete stack trace
+   - Endpoint that failed
+   - Operation being performed
+   - Execution time (transaction)
 
-2. **Frontend**: Sentry captura:
-   - Errores de componentes React (Error Boundary)
-   - Errores HTTP con status code y endpoint
-   - Errores de red
-   - Replay de la sesión (puedes ver qué hizo el usuario)
+2. **Frontend**: Sentry captures:
+   - React component errors (Error Boundary)
+   - HTTP errors with status code and endpoint
+   - Network errors
+   - Session replay (you can see what the user did)
 
-### Dónde ver los errores:
+### Where to see errors:
 
-Ve a https://sentry.io y entra a tus proyectos. Verás:
-- Lista de errores
-- Frecuencia
-- Usuarios afectados
+Go to https://sentry.io and enter your projects. You will see:
+- List of errors
+- Frequency
+- Affected users
 - Stack trace
-- Breadcrumbs (qué pasó antes del error)
-- Session Replay (para frontend)
+- Breadcrumbs (what happened before the error)
+- Session Replay (for frontend)
 
 ---
 
-## 🔍 Endpoints de Debug
+## 🔍 Debug Endpoints
 
-Ya existen endpoints para probar Sentry:
+Endpoints to test Sentry already exist:
 
 - `GET http://localhost:5000/api/game/debug-sentry`
 - `GET http://localhost:5000/api/translate/debug-sentry`
 
-Estos generan errores intencionalmente para verificar que Sentry funciona.
+These intentionally generate errors to verify that Sentry works.
 
 ---
 
-## ⚠️ Notas Importantes
+## ⚠️ Important Notes
 
-1. **Sin DSN configurado**: Si no configuras las variables `SENTRY_DSN` o `VITE_SENTRY_DSN`, la aplicación funcionará normalmente pero sin monitoreo.
+1. **Without configured DSN**: If you don't configure the `SENTRY_DSN` or `VITE_SENTRY_DSN` variables, the application will work normally but without monitoring.
 
-2. **Free Tier**: Sentry ofrece 5,000 eventos/mes gratis, suficiente para desarrollo y producción pequeña.
+2. **Free Tier**: Sentry offers 5,000 events/month free, enough for development and small production.
 
-3. **Performance**: El overhead de Sentry es mínimo (<1% performance impact).
+3. **Performance**: Sentry overhead is minimal (<1% performance impact).
 
-4. **Privacidad**: `sendDefaultPii` está en `false` en frontend para no enviar información personal.
+4. **Privacy**: `sendDefaultPii` is set to `false` in frontend to not send personal information.
 
-5. **Docker**: Todas las dependencias se instalan automáticamente en el contenedor, no pesa nada en tu PC.
+5. **Docker**: All dependencies are installed automatically in the container, weighs nothing on your PC.
 
 ---
 
-## 🐳 Comandos Docker Útiles
+## 🐳 Useful Docker Commands
 
 ```bash
-# Levantar todo
+# Start everything
 docker-compose up --build
 
-# Levantar en background
+# Start in background
 docker-compose up -d --build
 
-# Ver logs
+# View logs
 docker-compose logs -f
 
-# Parar todo
+# Stop everything
 docker-compose down
 
-# Reconstruir solo un servicio
+# Rebuild only one service
 docker-compose up --build frontend
 docker-compose up --build backend
 ```
 
 ---
 
-## ✅ Resumen
+## ✅ Summary
 
-- ✅ Backend tiene transacciones y captura de errores
-- ✅ Frontend tiene Error Boundary y captura HTTP
-- ✅ Docker instala todo automáticamente (incluido `@sentry/react`)
-- ✅ Solo necesitas: crear `.env` con DSNs y ejecutar `docker-compose up --build`
+- ✅ Backend has transactions and error capture
+- ✅ Frontend has Error Boundary and HTTP capture
+- ✅ Docker installs everything automatically (including `@sentry/react`)
+- ✅ You only need: create `.env` with DSNs and run `docker-compose up --build`
 
-**Tiempo total de setup**: ~5 minutos
+**Total setup time**: ~5 minutes
 
-**Peso en tu PC**: 0 KB (todo está en el contenedor Docker)
+**Weight on your PC**: 0 KB (everything is in the Docker container)
