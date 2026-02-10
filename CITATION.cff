@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+title: Transkarte
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Sergio
+    family-names: Durán Utrera
+    alias: sdurutr436
+  - given-names: Manolo
+    family-names: Cárdeno Sánchez
+    alias: nolocardeno
+  - given-names: Francisco J.
+    family-names: Redondo González
+    alias: Fjrg0309
+repository-code: >-
+  https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo
+url: https://transkarte.up.railway.app
+abstract: >-
+  Transkarte is an educational web application that combines
+  an interactive world map with real-time translation and
+  geography games. Users can explore over 150 countries,
+  translate words and phrases to each country's official
+  language, and play educational game modes to learn
+  geography and languages.
+keywords:
+  - interactive-map
+  - language-learning
+  - translation
+  - geography
+  - education
+  - react
+  - typescript
+  - nodejs
+  - mongodb
+  - docker
+license: MIT
+version: 1.0.0
+date-released: "2026-02-11"
