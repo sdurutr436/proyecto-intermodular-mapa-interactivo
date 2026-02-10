@@ -30,14 +30,16 @@ The application combines **React**, **TypeScript**, **Node.js**, and **MongoDB**
 
 ## 📋 Table of Contents
 
+- [� Project Status](#-project-status)
+- [🏗️ Architecture](#️-architecture)
+- [🧠 Technical Decisions](#-technical-decisions)
 - [🛠️ Tech Stack](#️-tech-stack)
+- [🔌 API Reference](#-api-reference)
 - [🚀 Production Demo](#-production-demo)
 - [📸 Screenshots](#-screenshots)
 - [💻 Installation and Local Development](#-installation-and-local-development)
 - [👥 Development Team](#-development-team)
 - [📚 Documentation](#-documentation)
-- [📊 Project Status](#-project-status)
-- [🔌 Backend API](#-backend-api)
 - [📄 License](#-license)
 
 ---
@@ -100,13 +102,120 @@ The application combines **React**, **TypeScript**, **Node.js**, and **MongoDB**
 
 </div>
 
-### Frontend Detalles
-- **react-simple-maps** - Visualización de mapas SVG interactivos
-- **Axios** - Cliente HTTP con interceptores y manejo centralizado de errores
+### Frontend Details
+- **react-simple-maps** — Interactive SVG map rendering
+- **Axios** — HTTP client with interceptors and centralized error handling
+- **Zustand** — Lightweight state management with persistence middleware
 
-### APIs Externas
-- **🔷 DeepL API** - Traducción de alta calidad (principal)
-- **🌐 Google Translate API** - Traducción gratuita (fallback)
+### External APIs
+- **🔷 DeepL API** — High-quality translation (primary)
+- **🌐 Google Translate API** — Free translation (fallback)
+
+---
+
+## 🏗️ Architecture
+
+### System Overview
+
+Transkarte follows a **three-tier client–server architecture** fully containerized with Docker Compose. The frontend communicates with the backend through an Nginx reverse proxy that forwards `/api` requests.
+
+```mermaid
+flowchart TB
+    subgraph Client ["Browser"]
+        UI[React 18 + TypeScript<br/>Vite • Zustand Store]
+    end
+
+    subgraph Docker ["Docker Compose"]
+        subgraph FE ["Frontend Container"]
+            NGINX[Nginx :80<br/>Static files + Reverse Proxy]
+        end
+
+        subgraph BE ["Backend Container"]
+            API[Express.js :5000<br/>REST API]
+            RL[Rate Limiter<br/>500 req/15 min general<br/>200 req/15 min translations]
+            HELM[Helmet.js<br/>Security Headers]
+        end
+
+        subgraph DB ["Database Container"]
+            MONGO[(MongoDB 7.0<br/>Translation Cache<br/>Game Statistics)]
+        end
+    end
+
+    subgraph External ["External Services"]
+        DEEPL[DeepL API<br/>Premium Translation]
+        GOOGLE[Google Translate<br/>Free Fallback]
+        SENTRY[Sentry<br/>Error Monitoring]
+        FLAGS[FlagCDN<br/>Country Flags]
+    end
+
+    UI -->|HTTPS| NGINX
+    NGINX -->|Static Assets| UI
+    NGINX -->|/api proxy_pass| API
+    API --> RL
+    API --> HELM
+    API -->|Mongoose| MONGO
+    API -->|Primary| DEEPL
+    API -->|Fallback| GOOGLE
+    API -->|Error Reports| SENTRY
+    UI -->|Flag Images| FLAGS
+    UI -->|Client Errors| SENTRY
+```
+
+### Data Flow — Translation Request
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant FE as React Frontend
+    participant BE as Express Backend
+    participant Cache as MongoDB Cache
+    participant DL as DeepL API
+    participant GG as Google Translate
+
+    U->>FE: Types text + clicks country
+    FE->>BE: POST /api/translate {text, geo}
+    BE->>BE: Validate input (length ≤ 500)
+    BE->>BE: Detect source language
+    BE->>BE: Check if country is blocked
+    BE->>Cache: Look up cached translation
+    alt Cache hit
+        Cache-->>BE: Return cached result
+        BE-->>FE: {translation, fromCache: true}
+    else Cache miss
+        BE->>DL: Translate (if language supported)
+        alt DeepL success
+            DL-->>BE: Translated text
+        else DeepL fails / unsupported
+            BE->>GG: Fallback translation
+            GG-->>BE: Translated text
+        end
+        BE->>Cache: Store translation
+        BE-->>FE: {translation, fromCache: false}
+    end
+    FE-->>U: Display translation modal
+```
+
+---
+
+## 🧠 Technical Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| **Frontend framework** | React 18 + TypeScript | Component-based UI with type safety; large ecosystem for map libraries |
+| **Build tool** | Vite | Near-instant HMR, native ESM, faster builds than CRA/Webpack |
+| **State management** | Zustand + `persist` middleware | Minimal boilerplate vs Redux; built-in localStorage persistence for theme/language |
+| **Map visualization** | react-simple-maps | Lightweight SVG-based maps; no external tile server required |
+| **HTTP client** | Axios with interceptors | Centralized error handling, request/response logging, configurable timeouts (15 s) |
+| **Backend framework** | Express.js | Mature, minimal, widely adopted; easy middleware composition |
+| **Translation strategy** | DeepL (primary) + Google (fallback) | DeepL provides superior quality for 30+ languages; Google covers all remaining languages at no cost |
+| **Translation cache** | MongoDB (same instance) | Avoids redundant API calls; translations are keyed by `(text, country)` pair |
+| **Security** | Helmet + CORS + rate limiting | Helmet sets secure HTTP headers; separate stricter rate limits for translation endpoint (200 req/15 min) |
+| **Database** | MongoDB 7.0 | Schema-flexible document store; good fit for translation and game stats models |
+| **Containerization** | Docker Compose (3 services) | Reproducible environment; single `docker-compose up` for full stack |
+| **Reverse proxy** | Nginx | Serves React SPA, gzip compression, proxies `/api` to backend — avoids CORS in production |
+| **Error monitoring** | Sentry (frontend + backend) | Real-time error tracking with source maps on both tiers |
+| **Deployment** | Railway | Free tier for academic projects; supports Docker-based deployments |
+| **No authentication** | By design | Educational tool with privacy-first approach; no user data collected |
 
 ---
 
@@ -373,7 +482,256 @@ npm run dev
 
 ---
 
-## 📚 Documentation
+## � API Reference
+
+Base URL: `https://transkarte.up.railway.app` (production) or `http://localhost:5000` (local)
+
+### Health Check
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Server health status, uptime, and environment |
+
+<details>
+<summary><b>Response example</b></summary>
+
+```json
+{
+  "status": "ok",
+  "timestamp": "2026-02-10T12:00:00.000Z",
+  "uptime": 86400,
+  "environment": "production"
+}
+```
+</details>
+
+### Translation API
+
+All translation endpoints are rate-limited to **200 requests per 15-minute window** per IP.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/translate` | Translate text to a country's official language |
+| `POST` | `/api/translate/blocked-countries` | Detect source language and return blocked countries |
+
+#### `POST /api/translate`
+
+Translates text using a hybrid engine (DeepL primary, Google Translate fallback). Includes automatic language detection, same-language country blocking, and MongoDB caching.
+
+**Request body:**
+
+```json
+{
+  "text": "Hello world",
+  "geo": {
+    "properties": { "name": "Spain" }
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `text` | `string` | Yes | Text to translate (1–500 characters) |
+| `geo.properties.name` | `string` | Yes | Destination country name in English |
+
+**Response (200):**
+
+```json
+{
+  "success": true,
+  "translation": "Hola mundo",
+  "language": "Spanish",
+  "country": "Spain",
+  "languageCode": "es",
+  "fromCache": false,
+  "blockedCountries": ["USA", "GBR", "AUS"]
+}
+```
+
+| Status | Description |
+|--------|-------------|
+| `200` | Translation successful |
+| `400` | Invalid text, text too long (>500 chars), or incomplete data |
+| `403` | Country blocked — speaks the same language as the source text |
+| `404` | Unsupported country or language not configured |
+| `429` | Rate limit or translation API quota exceeded |
+| `502` | Cannot connect to external translation service |
+| `504` | Request timed out |
+
+#### `POST /api/translate/blocked-countries`
+
+Detects the source language and returns the ISO Alpha-3 codes of countries that should be blocked.
+
+**Request body:**
+
+```json
+{
+  "text": "Hola mundo"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "blockedCountries": ["ESP", "MEX", "ARG", "COL", "CHL"],
+  "sourceLang": "es",
+  "message": "OK"
+}
+```
+
+---
+
+### Game API
+
+All game endpoints share the general rate limit of **500 requests per 15-minute window** per IP.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/game/phrase` | Get a random phrase in a random language |
+| `GET` | `/api/game/flag` | Get a random country flag |
+| `GET` | `/api/game/languages` | List all available game languages |
+| `POST` | `/api/game/validate` | Validate a language-guessing answer |
+| `POST` | `/api/game/validate-flag` | Validate a flag-guessing answer |
+| `POST` | `/api/game/stats` | Save or update game session statistics |
+| `GET` | `/api/game/stats/:sessionId` | Get statistics for a specific session |
+| `GET` | `/api/game/leaderboard` | Get global leaderboard (top scores) |
+
+#### `GET /api/game/phrase`
+
+Returns a random phrase in a random language with the list of valid countries.
+
+**Response (200):**
+
+```json
+{
+  "text": "Bonjour le monde",
+  "languageCode": "fr",
+  "languageName": "French",
+  "validCountryCodes": ["FRA", "BEL", "CHE", "CAN"]
+}
+```
+
+#### `GET /api/game/flag`
+
+Returns a random country with its flag URL.
+
+**Response (200):**
+
+```json
+{
+  "countryCode": "FRA",
+  "countryName": "France",
+  "continent": "Europe",
+  "flagUrl": "https://flagcdn.com/w320/fr.png"
+}
+```
+
+#### `POST /api/game/validate`
+
+Validates whether the selected country speaks the language of the shown phrase.
+
+**Request body:**
+
+```json
+{
+  "languageCode": "fr",
+  "countryCode": "FRA"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "isCorrect": true,
+  "languageName": "French",
+  "validCountryCodes": ["FRA", "BEL", "CHE", "CAN"]
+}
+```
+
+#### `POST /api/game/validate-flag`
+
+Validates whether the player selected the correct country for the shown flag.
+
+**Request body:**
+
+```json
+{
+  "targetCountryCode": "FRA",
+  "guessedCountryCode": "FRA"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "isCorrect": true,
+  "correctCountryName": "France"
+}
+```
+
+#### `GET /api/game/languages`
+
+Returns metadata for all available languages.
+
+**Response (200):**
+
+```json
+{
+  "total": 50,
+  "languages": [
+    {
+      "code": "es",
+      "name": "Spanish",
+      "countriesCount": 21,
+      "phrasesCount": 15
+    }
+  ]
+}
+```
+
+#### `POST /api/game/stats`
+
+Saves or updates session statistics. When `gameOver: true`, the server calculates the final score.
+
+**Request body:**
+
+```json
+{
+  "sessionId": "abc123-def456",
+  "correct": 10,
+  "attempts": 15,
+  "gameOver": true,
+  "duration": 180
+}
+```
+
+#### `GET /api/game/leaderboard`
+
+Returns top game scores. Accepts optional `?limit=N` query parameter (default: 10).
+
+**Response (200):**
+
+```json
+{
+  "total": 10,
+  "leaderboard": [
+    {
+      "sessionId": "xyz789",
+      "correct": 15,
+      "attempts": 18,
+      "finalScore": 1200,
+      "duration": 120
+    }
+  ]
+}
+```
+
+---
+
+## �📚 Documentation
 
 ### 📖 API Documentation
 
