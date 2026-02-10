@@ -415,13 +415,9 @@ Pages available in the wiki:
 
 ## 📄 License
 
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+
 This project is part of an **academic work** developed for the **Intermodular Project** of the **Web Application Development (DAW)** cycle at **IES Rafael Alberti** (Cádiz, Spain).
-
-### Educational Use
-
-- ✅ **Allowed**: Use for educational and learning purposes
-- ✅ **Allowed**: Cloning and modification for academic projects
-- ⚠️ **Attribution required**: If you use this code, mention the original authors
 
 ### Authors
 
