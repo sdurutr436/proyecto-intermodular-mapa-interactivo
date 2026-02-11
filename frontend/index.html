@@ -1,0 +1,638 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Transkarte Frontend</title><meta name="description" content="Documentation for Transkarte Frontend"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Transkarte Frontend</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>Transkarte Frontend</h2></div><div class="tsd-panel tsd-typography"><div align="center">
+
+<p><a id="inicio"></a>
+<img src="./docs/img/logo.png" alt="Logo Transkarte"></p>
+<a id="md:explore-the-world-while-learning-languages" class="tsd-anchor"></a><h3><a href="#md:explore-the-world-while-learning-languages"><em>Explore the world while learning languages</em></a></h3><p><strong>Educational web application that combines geography and interactive translation</strong></p>
+<!-- BADGES DE ESTADO -->
+<p><img src="https://img.shields.io/github/last-commit/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square&color=blueviolet" alt="GitHub last commit">
+<img src="https://img.shields.io/github/repo-size/sdurutr436/ProyectoIntermodular-MapaInteractivo?style=flat-square" alt="GitHub repo size">
+<img src="https://img.shields.io/github/actions/workflow/status/sdurutr436/ProyectoIntermodular-MapaInteractivo/jsdoc-generate.yml?style=flat-square&label=CI%20Build" alt="GitHub Actions Workflow Status">
+<a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/"><img src="https://img.shields.io/badge/docs-TypeDoc-blue?style=flat-square" alt="Documentación"></a></p>
+</div>
+
+<hr>
+<a id="md:📖-about-the-project" class="tsd-anchor"></a><h2><a href="#md:📖-about-the-project">📖 About the Project</a></h2><p><strong>Transkarte</strong> is an educational web application that transforms language learning into an interactive and visual experience. Through an interactive world map, users can:</p>
+<ul>
+<li>🗺️ <strong>Explore</strong> countries with interactive visualization and visual effects</li>
+<li>🔤 <strong>Translate</strong> words and phrases to the official language of each country</li>
+<li>🎮 <strong>Play</strong> educational modes to learn geography and languages</li>
+<li>🌍 <strong>Discover</strong> over 150 countries and their official languages</li>
+</ul>
+<p>The application combines <strong>React</strong>, <strong>TypeScript</strong>, <strong>Node.js</strong>, and <strong>MongoDB</strong> to offer a smooth and educational experience. Developed with Docker for easy deployment and without requiring user registration, Transkarte puts privacy and simplicity first.</p>
+<a id="md:📋-table-of-contents" class="tsd-anchor"></a><h2><a href="#md:📋-table-of-contents">📋 Table of Contents</a></h2><ul>
+<li><a href="#md:-project-status">� Project Status</a></li>
+<li><a href="#md:️-architecture">🏗️ Architecture</a></li>
+<li><a href="#md:-technical-decisions">🧠 Technical Decisions</a></li>
+<li><a href="#md:️-tech-stack">🛠️ Tech Stack</a></li>
+<li><a href="#md:-api-reference">🔌 API Reference</a></li>
+<li><a href="#md:-production-demo">🚀 Production Demo</a></li>
+<li><a href="#md:-screenshots">📸 Screenshots</a></li>
+<li><a href="#md:-installation-and-local-development">💻 Installation and Local Development</a></li>
+<li><a href="#md:-development-team">👥 Development Team</a></li>
+<li><a href="#md:-documentation">📚 Documentation</a></li>
+<li><a href="#md:-license">📄 License</a></li>
+</ul>
+<hr>
+<a id="md:📊-project-status" class="tsd-anchor"></a><h2><a href="#md:📊-project-status">📊 Project Status</a></h2><a id="md:✅-completed-project" class="tsd-anchor"></a><h3><a href="#md:✅-completed-project">✅ Completed Project</a></h3><p><strong>Backend:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> MongoDB configured in Docker</li>
+<li><input checked="" disabled="" type="checkbox"> Data models (Translation, GameStats)</li>
+<li><input checked="" disabled="" type="checkbox"> Translation system with DeepL + Google Translate fallback</li>
+<li><input checked="" disabled="" type="checkbox"> Automatic language detection</li>
+<li><input checked="" disabled="" type="checkbox"> Translation cache system</li>
+<li><input checked="" disabled="" type="checkbox"> Game API (phrases and flags)</li>
+<li><input checked="" disabled="" type="checkbox"> Mappings of 150+ countries and languages</li>
+</ul>
+<p><strong>Frontend:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> React 18 + TypeScript + Vite</li>
+<li><input checked="" disabled="" type="checkbox"> Interactive world map (react-simple-maps)</li>
+<li><input checked="" disabled="" type="checkbox"> Translation Mode: translate to the language of the clicked country</li>
+<li><input checked="" disabled="" type="checkbox"> Guess the Language Mode: recognize phrases in different languages</li>
+<li><input checked="" disabled="" type="checkbox"> Guess the Flag Mode: identify countries by their flag</li>
+<li><input checked="" disabled="" type="checkbox"> Lives and real-time statistics system</li>
+<li><input checked="" disabled="" type="checkbox"> Internationalization (Spanish/English)</li>
+<li><input checked="" disabled="" type="checkbox"> Dark/light mode</li>
+<li><input checked="" disabled="" type="checkbox"> Interactive landing page</li>
+<li><input checked="" disabled="" type="checkbox"> Responsive design</li>
+<li><input checked="" disabled="" type="checkbox"> State management with Zustand (centralized store with persistence)</li>
+<li><input checked="" disabled="" type="checkbox"> HTTP API with Axios (interceptors, error handling, timeouts)</li>
+</ul>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Complete Dockerization (frontend + backend + MongoDB)</li>
+<li><input checked="" disabled="" type="checkbox"> Configured environment variables</li>
+<li><input checked="" disabled="" type="checkbox"> CORS and basic security</li>
+<li><input checked="" disabled="" type="checkbox"> Seeding script for initial translation data</li>
+</ul>
+<hr>
+<a id="md:🛠️-tech-stack" class="tsd-anchor"></a><h2><a href="#md:🛠️-tech-stack">🛠️ Tech Stack</a></h2><div align="center">
+
+<a id="md:frontend" class="tsd-anchor"></a><h3><a href="#md:frontend">Frontend</a></h3><p><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+<img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+<img src="https://img.shields.io/badge/Zustand-%2320232a.svg?style=for-the-badge" alt="Zustand"></p>
+<a id="md:backend-amp-database" class="tsd-anchor"></a><h3><a href="#md:backend-amp-database">Backend &amp; Database</a></h3><p><img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS">
+<img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" alt="Express.js">
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"></p>
+<a id="md:devops-amp-tools" class="tsd-anchor"></a><h3><a href="#md:devops-amp-tools">DevOps &amp; Tools</a></h3><p><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+<img src="https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&logo=sentry&logoColor=white" alt="Sentry">
+<img src="https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white" alt="Railway"></p>
+</div>
+
+<a id="md:frontend-details" class="tsd-anchor"></a><h3><a href="#md:frontend-details">Frontend Details</a></h3><ul>
+<li><strong>react-simple-maps</strong> — Interactive SVG map rendering</li>
+<li><strong>Axios</strong> — HTTP client with interceptors and centralized error handling</li>
+<li><strong>Zustand</strong> — Lightweight state management with persistence middleware</li>
+</ul>
+<a id="md:external-apis" class="tsd-anchor"></a><h3><a href="#md:external-apis">External APIs</a></h3><ul>
+<li><strong>🔷 DeepL API</strong> — High-quality translation (primary)</li>
+<li><strong>🌐 Google Translate API</strong> — Free translation (fallback)</li>
+</ul>
+<hr>
+<a id="md:🏗️-architecture" class="tsd-anchor"></a><h2><a href="#md:🏗️-architecture">🏗️ Architecture</a></h2><a id="md:system-overview" class="tsd-anchor"></a><h3><a href="#md:system-overview">System Overview</a></h3><p>Transkarte follows a <strong>three-tier client–server architecture</strong> fully containerized with Docker Compose. The frontend communicates with the backend through an Nginx reverse proxy that forwards <code>/api</code> requests.</p>
+<pre><code class="language-mermaid"><span class="hl-0">flowchart</span><span class="hl-1"> </span><span class="hl-2">TB</span><br/><span class="hl-1">    </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">Client </span><span class="hl-1">[&quot;</span><span class="hl-3">Browser</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">        </span><span class="hl-3">UI</span><span class="hl-0">[</span><span class="hl-4">React 18 + TypeScript&lt;br/&gt;Vite </span><span class="hl-1">• </span><span class="hl-4">Zustand Store</span><span class="hl-0">]</span><br/><span class="hl-1">    </span><span class="hl-0">end</span><br/><br/><span class="hl-1">    </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">Docker </span><span class="hl-1">[&quot;</span><span class="hl-3">Docker Compose</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">        </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">FE </span><span class="hl-1">[&quot;</span><span class="hl-3">Frontend Container</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">            </span><span class="hl-3">NGINX</span><span class="hl-0">[</span><span class="hl-4">Nginx :80&lt;br/&gt;Static files + Reverse Proxy</span><span class="hl-0">]</span><br/><span class="hl-1">        </span><span class="hl-0">end</span><br/><br/><span class="hl-1">        </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">BE </span><span class="hl-1">[&quot;</span><span class="hl-3">Backend Container</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">            </span><span class="hl-3">API</span><span class="hl-0">[</span><span class="hl-4">Express.js :5000&lt;br/&gt;REST API</span><span class="hl-0">]</span><br/><span class="hl-1">            </span><span class="hl-0">RL</span><span class="hl-1">[</span><span class="hl-3">Rate Limiter</span><span class="hl-1">&lt;</span><span class="hl-3">br</span><span class="hl-1">/&gt;</span><span class="hl-3">500 req</span><span class="hl-1">/</span><span class="hl-3">15 min general</span><span class="hl-1">&lt;</span><span class="hl-3">br</span><span class="hl-1">/&gt;</span><span class="hl-3">200 req</span><span class="hl-1">/</span><span class="hl-3">15 min translations</span><span class="hl-1">]</span><br/><span class="hl-1">            </span><span class="hl-3">HELM</span><span class="hl-0">[</span><span class="hl-4">Helmet.js&lt;br/&gt;Security Headers</span><span class="hl-0">]</span><br/><span class="hl-1">        </span><span class="hl-0">end</span><br/><br/><span class="hl-1">        </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">DB </span><span class="hl-1">[&quot;</span><span class="hl-3">Database Container</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">            </span><span class="hl-3">MONGO</span><span class="hl-0">[(</span><span class="hl-4">MongoDB 7.0&lt;br/&gt;Translation Cache&lt;br/&gt;Game Statistics</span><span class="hl-0">)]</span><br/><span class="hl-1">        </span><span class="hl-0">end</span><br/><span class="hl-1">    </span><span class="hl-0">end</span><br/><br/><span class="hl-1">    </span><span class="hl-0">subgraph</span><span class="hl-1"> </span><span class="hl-2">External </span><span class="hl-1">[&quot;</span><span class="hl-3">External Services</span><span class="hl-1">&quot;]</span><br/><span class="hl-1">        </span><span class="hl-3">DEEPL</span><span class="hl-0">[</span><span class="hl-4">DeepL API&lt;br/&gt;Premium Translation</span><span class="hl-0">]</span><br/><span class="hl-1">        </span><span class="hl-3">GOOGLE</span><span class="hl-0">[</span><span class="hl-4">Google Translate&lt;br/&gt;Free Fallback</span><span class="hl-0">]</span><br/><span class="hl-1">        </span><span class="hl-3">SENTRY</span><span class="hl-0">[</span><span class="hl-4">Sentry&lt;br/&gt;Error Monitoring</span><span class="hl-0">]</span><br/><span class="hl-1">        </span><span class="hl-3">FLAGS</span><span class="hl-0">[</span><span class="hl-4">FlagCDN&lt;br/&gt;Country Flags</span><span class="hl-0">]</span><br/><span class="hl-1">    </span><span class="hl-0">end</span><br/><br/><span class="hl-1">    </span><span class="hl-3">UI </span><span class="hl-0">--&gt;|</span><span class="hl-4">HTTPS</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">NGINX</span><br/><span class="hl-1">    </span><span class="hl-3">NGINX </span><span class="hl-0">--&gt;|</span><span class="hl-4">Static Assets</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">UI</span><br/><span class="hl-1">    </span><span class="hl-3">NGINX </span><span class="hl-0">--&gt;|</span><span class="hl-4">/api proxy_pass</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">API</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;</span><span class="hl-1"> </span><span class="hl-0">RL</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;</span><span class="hl-1"> </span><span class="hl-3">HELM</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;|</span><span class="hl-4">Mongoose</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">MONGO</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;|</span><span class="hl-4">Primary</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">DEEPL</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;|</span><span class="hl-4">Fallback</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">GOOGLE</span><br/><span class="hl-1">    </span><span class="hl-3">API </span><span class="hl-0">--&gt;|</span><span class="hl-4">Error Reports</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">SENTRY</span><br/><span class="hl-1">    </span><span class="hl-3">UI </span><span class="hl-0">--&gt;|</span><span class="hl-4">Flag Images</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">FLAGS</span><br/><span class="hl-1">    </span><span class="hl-3">UI </span><span class="hl-0">--&gt;|</span><span class="hl-4">Client Errors</span><span class="hl-0">|</span><span class="hl-1"> </span><span class="hl-3">SENTRY</span>
+</code><button>Copy</button></pre>
+<a id="md:data-flow--translation-request" class="tsd-anchor"></a><h3><a href="#md:data-flow--translation-request">Data Flow — Translation Request</a></h3><pre><code class="language-mermaid"><span class="hl-0">sequenceDiagram</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">U</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">User</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">FE</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">React Frontend</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">BE</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">Express Backend</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">Cache</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">MongoDB Cache</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">DL</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">DeepL API</span><br/><span class="hl-1">    </span><span class="hl-0">participant</span><span class="hl-1"> </span><span class="hl-3">GG</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-4">Google Translate</span><br/><br/><span class="hl-1">    </span><span class="hl-3">U</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">FE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Types text + clicks country</span><br/><span class="hl-1">    </span><span class="hl-3">FE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">POST /api/translate {text, geo}</span><br/><span class="hl-1">    </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Validate input (length ≤ 500)</span><br/><span class="hl-1">    </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Detect source language</span><br/><span class="hl-1">    </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Check if country is blocked</span><br/><span class="hl-1">    </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">Cache</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Look up cached translation</span><br/><span class="hl-1">    </span><span class="hl-0">alt</span><span class="hl-1"> </span><span class="hl-4">Cache hit</span><br/><span class="hl-1">        </span><span class="hl-3">Cache</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Return cached result</span><br/><span class="hl-1">        </span><span class="hl-3">BE</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">FE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">{translation, fromCache: true}</span><br/><span class="hl-1">    </span><span class="hl-0">else</span><span class="hl-1"> </span><span class="hl-4">Cache miss</span><br/><span class="hl-1">        </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">DL</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Translate (if language supported)</span><br/><span class="hl-1">        </span><span class="hl-0">alt</span><span class="hl-1"> </span><span class="hl-4">DeepL success</span><br/><span class="hl-1">            </span><span class="hl-3">DL</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Translated text</span><br/><span class="hl-1">        </span><span class="hl-0">else</span><span class="hl-1"> </span><span class="hl-4">DeepL fails / unsupported</span><br/><span class="hl-1">            </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">GG</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Fallback translation</span><br/><span class="hl-1">            </span><span class="hl-3">GG</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">BE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Translated text</span><br/><span class="hl-1">        </span><span class="hl-0">end</span><br/><span class="hl-1">        </span><span class="hl-3">BE</span><span class="hl-0">-&gt;&gt;</span><span class="hl-3">Cache</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Store translation</span><br/><span class="hl-1">        </span><span class="hl-3">BE</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">FE</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">{translation, fromCache: false}</span><br/><span class="hl-1">    </span><span class="hl-0">end</span><br/><span class="hl-1">    </span><span class="hl-3">FE</span><span class="hl-0">--&gt;&gt;</span><span class="hl-3">U</span><span class="hl-0">:</span><span class="hl-1"> </span><span class="hl-4">Display translation modal</span>
+</code><button>Copy</button></pre>
+<hr>
+<a id="md:🧠-technical-decisions" class="tsd-anchor"></a><h2><a href="#md:🧠-technical-decisions">🧠 Technical Decisions</a></h2><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Choice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Frontend framework</strong></td>
+<td>React 18 + TypeScript</td>
+<td>Component-based UI with type safety; large ecosystem for map libraries</td>
+</tr>
+<tr>
+<td><strong>Build tool</strong></td>
+<td>Vite</td>
+<td>Near-instant HMR, native ESM, faster builds than CRA/Webpack</td>
+</tr>
+<tr>
+<td><strong>State management</strong></td>
+<td>Zustand + <code>persist</code> middleware</td>
+<td>Minimal boilerplate vs Redux; built-in localStorage persistence for theme/language</td>
+</tr>
+<tr>
+<td><strong>Map visualization</strong></td>
+<td>react-simple-maps</td>
+<td>Lightweight SVG-based maps; no external tile server required</td>
+</tr>
+<tr>
+<td><strong>HTTP client</strong></td>
+<td>Axios with interceptors</td>
+<td>Centralized error handling, request/response logging, configurable timeouts (15 s)</td>
+</tr>
+<tr>
+<td><strong>Backend framework</strong></td>
+<td>Express.js</td>
+<td>Mature, minimal, widely adopted; easy middleware composition</td>
+</tr>
+<tr>
+<td><strong>Translation strategy</strong></td>
+<td>DeepL (primary) + Google (fallback)</td>
+<td>DeepL provides superior quality for 30+ languages; Google covers all remaining languages at no cost</td>
+</tr>
+<tr>
+<td><strong>Translation cache</strong></td>
+<td>MongoDB (same instance)</td>
+<td>Avoids redundant API calls; translations are keyed by <code>(text, country)</code> pair</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Helmet + CORS + rate limiting</td>
+<td>Helmet sets secure HTTP headers; separate stricter rate limits for translation endpoint (200 req/15 min)</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>MongoDB 7.0</td>
+<td>Schema-flexible document store; good fit for translation and game stats models</td>
+</tr>
+<tr>
+<td><strong>Containerization</strong></td>
+<td>Docker Compose (3 services)</td>
+<td>Reproducible environment; single <code>docker-compose up</code> for full stack</td>
+</tr>
+<tr>
+<td><strong>Reverse proxy</strong></td>
+<td>Nginx</td>
+<td>Serves React SPA, gzip compression, proxies <code>/api</code> to backend — avoids CORS in production</td>
+</tr>
+<tr>
+<td><strong>Error monitoring</strong></td>
+<td>Sentry (frontend + backend)</td>
+<td>Real-time error tracking with source maps on both tiers</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Railway</td>
+<td>Free tier for academic projects; supports Docker-based deployments</td>
+</tr>
+<tr>
+<td><strong>No authentication</strong></td>
+<td>By design</td>
+<td>Educational tool with privacy-first approach; no user data collected</td>
+</tr>
+</tbody></table>
+<hr>
+<a id="md:🚀-production-demo" class="tsd-anchor"></a><h2><a href="#md:🚀-production-demo">🚀 Production Demo</a></h2><p><strong>Production URL:</strong> <a href="https://transkarte.up.railway.app/">https://transkarte.up.railway.app/</a></p>
+<hr>
+<a id="md:📸-screenshots-and-user-guide" class="tsd-anchor"></a><h2><a href="#md:📸-screenshots-and-user-guide">📸 Screenshots and User Guide</a></h2><a id="md:🏠-landing-page" class="tsd-anchor"></a><h3><a href="#md:🏠-landing-page">🏠 Landing Page</a></h3><div align="center">
+  <img src="./docs/img/landing-page.png" alt="Landing Page" width="700" />
+</div>
+
+<p><strong>What can the user do here?</strong></p>
+<ul>
+<li>🌍 <strong>View animated presentation</strong> of the project with visual effects</li>
+<li>🎯 <strong>Choose mode</strong>: Translation or Game (2 modes)</li>
+<li>🌐 <strong>Change interface language</strong>: Spanish ↔️ English (button top right)</li>
+<li>📖 <strong>Read description</strong> of each mode before starting and information about us</li>
+<li>🚀 <strong>Start experience</strong> by clicking on any mode card</li>
+</ul>
+<hr>
+<a id="md:🗺️-interactive-map-main-view" class="tsd-anchor"></a><h3><a href="#md:🗺️-interactive-map-main-view">🗺️ Interactive Map (Main View)</a></h3><div align="center">
+  <img src="./docs/img/mapa-interactivo.png" alt="Interactive map" width="700" />
+</div>
+
+<div align="center">
+  <img src="./docs/img/modo-traduccion.png" alt="Translation mode" width="700" />
+</div>
+
+<p><strong>What can the user do here?</strong></p>
+<ul>
+<li>🖱️ <strong>Hover over countries</strong>: See visual highlight effect</li>
+<li>🔍 <strong>Use search bar</strong>: To know how to say a phrase or word in a country when the user clicks on it</li>
+<li>✍️ <strong>Write text</strong>: Enter word or phrase (maximum 500 characters)</li>
+<li>🚫 <strong>See automatic blocking</strong>: Countries that speak the language of the text appear in red</li>
+<li>🌍 <strong>Select destination country</strong>: Click on any country on the map</li>
+<li>🎨 <strong>Navigate the map</strong>: Scroll to zoom, drag to move</li>
+<li>🔄 <strong>See instant translation</strong>: Result in modal with animation</li>
+<li>💾 <strong>Automatic cache</strong>: Repeated translations are instant (saved in DB)</li>
+<li>❌ <strong>Close modal</strong>: Click outside the modal or close button</li>
+<li>🏠 <strong>Return to landing page</strong>: &quot;i&quot; button in top left corner next to the logo to return to the main page</li>
+<li>🌐 <strong>Change language</strong>: ES/EN selector in top bar</li>
+<li>🌓 <strong>Change theme</strong>: Sun/moon icon in top bar</li>
+</ul>
+<p><strong>Usage example:</strong></p>
+<ol>
+<li>Type &quot;Hello world&quot; in the text field</li>
+<li>English-speaking countries (USA, UK, Australia) are automatically blocked in red</li>
+<li>Click on Spain → &quot;Hola mundo&quot; appears</li>
+<li>Click on France → &quot;Bonjour le monde&quot; appears</li>
+</ol>
+<hr>
+<a id="md:🎮-game-mode-guess-the-language" class="tsd-anchor"></a><h3><a href="#md:🎮-game-mode-guess-the-language">🎮 Game Mode: Guess the Language</a></h3><div align="center">
+  <img src="./docs/img/modo-adivina-idioma.png" alt="Guess the language mode" width="700" />
+</div>
+
+<p><strong>What can the user do here?</strong></p>
+<ul>
+<li>📖 <strong>Read phrase in unknown language</strong>: Appears at the top</li>
+<li>🤔 <strong>Guess the correct country</strong>: Click on the country that speaks that language</li>
+<li>❤️ <strong>Manage lives</strong>: You have 5 lives (hearts), lose 1 per error</li>
+<li>📊 <strong>See real-time statistics</strong>: Hits, misses, and points.</li>
+<li>✅ <strong>Receive immediate feedback</strong>: Green animation if correct, red if wrong</li>
+<li>🔄 <strong>New automatic question</strong>: After each answer (correct or incorrect)</li>
+<li>💀 <strong>Game Over</strong>: When losing all 5 lives, see statistics summary</li>
+<li>➡️ <strong>Skip attempt</strong>: Button to skip the phrase to a new one, at the cost of one attempt</li>
+<li>🔁 <strong>Retry</strong>: Button to start new game</li>
+<li>🏠 <strong>Return to menu</strong>: Abandon game at any time</li>
+</ul>
+<p><strong>Game mechanics:</strong></p>
+<ul>
+<li>Each correct answer adds +1 point</li>
+<li>Each error subtracts 1 life</li>
+<li>Random phrases in 50+ different languages</li>
+<li>Some languages have multiple valid countries (e.g., Spanish → Spain, Mexico, Argentina...)</li>
+</ul>
+<hr>
+<a id="md:🏴-game-mode-guess-the-flag" class="tsd-anchor"></a><h3><a href="#md:🏴-game-mode-guess-the-flag">🏴 Game Mode: Guess the Flag</a></h3><div align="center">
+  <img src="./docs/img/modo-adivina-bandera.png" alt="Guess the Flag mode" width="700" />
+</div>
+
+<p><strong>What can the user do here?</strong></p>
+<ul>
+<li>🏴 <strong>See random flag</strong>: Appears large at the top</li>
+<li>🗺️ <strong>Guess the country</strong>: Click on the correct country on the map</li>
+<li>❤️ <strong>Manage lives</strong>: You have 5 lives, lose 1 per error</li>
+<li>📊 <strong>See statistics</strong>: Hits, misses, points, success percentage at the end of the game</li>
+<li>✅ <strong>Visual feedback</strong>: Green/red animation + correct country name</li>
+<li>🌍 <strong>Learn geography</strong>: 195 flags of countries around the world</li>
+<li>🔄 <strong>New automatic flag</strong>: After each attempt</li>
+<li>💀 <strong>Game Over</strong>: See complete summary when losing all lives</li>
+<li>➡️ <strong>Skip attempt</strong>: Button to skip to a new flag, at the cost of one attempt</li>
+<li>🔁 <strong>Play again</strong>: Restart game with new random flags</li>
+</ul>
+<p><strong>Game mechanics:</strong></p>
+<ul>
+<li>Each hit adds +1 point</li>
+<li>Each miss subtracts 1 life</li>
+<li>Randomly generated flags</li>
+<li>Includes countries from all continents</li>
+<li>Varied difficulty: from iconic flags to the most challenging</li>
+</ul>
+<hr>
+<a id="md:🎨-common-features-in-all-screens" class="tsd-anchor"></a><h3><a href="#md:🎨-common-features-in-all-screens">🎨 Common Features in All Screens</a></h3><p><strong>Global Controls:</strong></p>
+<ul>
+<li>🌐 <strong>Language selector</strong> (ES/EN) - Top right corner</li>
+<li>🌓 <strong>Dark/light theme toggle</strong> - Sun/moon icon</li>
+<li>🏠 <strong>&quot;i&quot; button</strong> - Return to landing page</li>
+</ul>
+<p><strong>Accessibility:</strong></p>
+<ul>
+<li>🎨 High contrast in dark mode</li>
+<li>📢 Readable texts (minimum size 14px)</li>
+<li>🖱️ Large click areas (minimum 44x44px)</li>
+<li>🔊 Clear visual states (hover, focus, active)</li>
+</ul>
+<hr>
+<a id="md:💻-installation-and-local-development" class="tsd-anchor"></a><h2><a href="#md:💻-installation-and-local-development">💻 Installation and Local Development</a></h2><a id="md:prerequisites" class="tsd-anchor"></a><h3><a href="#md:prerequisites">Prerequisites</a></h3><a id="md:⭐-option-1-with-docker-recommended" class="tsd-anchor"></a><h4><a href="#md:⭐-option-1-with-docker-recommended">⭐ Option 1: With Docker (Recommended)</a></h4><ul>
+<li>✅ <strong>Docker Desktop</strong> installed and running</li>
+<li>✅ <strong>Git</strong></li>
+<li>❌ <strong>You DON&#39;T need</strong> Node.js installed</li>
+<li>❌ <strong>You DON&#39;T need</strong> MongoDB installed</li>
+<li>❌ <strong>You DON&#39;T need</strong> to run <code>npm install</code> manually</li>
+</ul>
+<a id="md:📦-option-2-without-docker-manual" class="tsd-anchor"></a><h4><a href="#md:📦-option-2-without-docker-manual">📦 Option 2: Without Docker (Manual)</a></h4><ul>
+<li>✅ <strong>Node.js</strong> 20+</li>
+<li>✅ <strong>MongoDB</strong> Community Edition</li>
+<li>✅ <strong>Git</strong></li>
+</ul>
+<hr>
+<a id="md:🐳-installation-with-docker-recommended" class="tsd-anchor"></a><h3><a href="#md:🐳-installation-with-docker-recommended">🐳 Installation with Docker (Recommended)</a></h3><p>1️⃣ <strong>Clone the repository</strong></p>
+<pre><code class="language-bash"><span class="hl-2">git</span><span class="hl-1"> </span><span class="hl-4">clone</span><span class="hl-1"> </span><span class="hl-4">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">ProyectoIntermodular-MapaInteractivo</span>
+</code><button>Copy</button></pre>
+<p>2️⃣ <strong>Start all services</strong></p>
+<pre><code class="language-bash"><span class="hl-2">docker-compose</span><span class="hl-1"> </span><span class="hl-4">up</span><span class="hl-1"> </span><span class="hl-5">-d</span><span class="hl-1"> </span><span class="hl-5">--build</span>
+</code><button>Copy</button></pre>
+<blockquote>
+<p>🎉 <strong>Done!</strong> Dependencies are automatically installed inside the containers.</p>
+</blockquote>
+<p>3️⃣ <strong>Access the application</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:3000">http://localhost:3000</a></li>
+<li><strong>Backend API</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+<li><strong>Health Check</strong>: <a href="http://localhost:5000/health">http://localhost:5000/health</a></li>
+<li><strong>MongoDB</strong>: <code>localhost:27017</code></li>
+</ul>
+<p>4️⃣ <strong>View logs (optional)</strong></p>
+<pre><code class="language-bash"><span class="hl-6"># Logs of all services</span><br/><span class="hl-2">docker-compose</span><span class="hl-1"> </span><span class="hl-4">logs</span><span class="hl-1"> </span><span class="hl-5">-f</span><br/><br/><span class="hl-6"># Server logs only</span><br/><span class="hl-2">docker-compose</span><span class="hl-1"> </span><span class="hl-4">logs</span><span class="hl-1"> </span><span class="hl-5">-f</span><span class="hl-1"> </span><span class="hl-4">server</span><br/><br/><span class="hl-6"># Client logs only</span><br/><span class="hl-2">docker-compose</span><span class="hl-1"> </span><span class="hl-4">logs</span><span class="hl-1"> </span><span class="hl-5">-f</span><span class="hl-1"> </span><span class="hl-4">client</span>
+</code><button>Copy</button></pre>
+<p>5️⃣ <strong>Stop services</strong></p>
+<pre><code class="language-bash"><span class="hl-2">docker-compose</span><span class="hl-1"> </span><span class="hl-4">down</span>
+</code><button>Copy</button></pre>
+<hr>
+<a id="md:📦-manual-installation-without-docker" class="tsd-anchor"></a><h3><a href="#md:📦-manual-installation-without-docker">📦 Manual Installation (Without Docker)</a></h3><details>
+<summary><b>Click here for instructions without Docker</b></summary>
+
+<p>1️⃣ <strong>Clone the repository</strong></p>
+<pre><code class="language-bash"><span class="hl-2">git</span><span class="hl-1"> </span><span class="hl-4">clone</span><span class="hl-1"> </span><span class="hl-4">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo.git</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">ProyectoIntermodular-MapaInteractivo</span>
+</code><button>Copy</button></pre>
+<p>2️⃣ <strong>Install dependencies</strong></p>
+<pre><code class="language-bash"><span class="hl-6"># Backend</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">server</span><br/><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">install</span><br/><br/><span class="hl-6"># Frontend</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">../client</span><br/><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">install</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">..</span>
+</code><button>Copy</button></pre>
+<p>3️⃣ <strong>Configure MongoDB</strong></p>
+<ul>
+<li>Install <a href="https://www.mongodb.com/try/download/community">MongoDB Community Edition</a></li>
+<li>Start the service: <code>mongod</code></li>
+<li>Update <code>MONGO_URI</code> in <code>server/.env</code>:<pre><code><span class="hl-7">MONGO_URI</span><span class="hl-1">=</span><span class="hl-8">mongodb</span><span class="hl-1">:</span><span class="hl-6">//localhost:27017/translator_db</span>
+</code><button>Copy</button></pre>
+</li>
+</ul>
+<p>4️⃣ <strong>Start services</strong></p>
+<pre><code class="language-bash"><span class="hl-6"># Terminal 1 - Backend</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">server</span><br/><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">dev</span><br/><br/><span class="hl-6"># Terminal 2 - Frontend</span><br/><span class="hl-2">cd</span><span class="hl-1"> </span><span class="hl-4">client</span><br/><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-4">run</span><span class="hl-1"> </span><span class="hl-4">dev</span>
+</code><button>Copy</button></pre>
+<p>5️⃣ <strong>Access the application</strong></p>
+<ul>
+<li><strong>Frontend</strong>: <a href="http://localhost:5173">http://localhost:5173</a></li>
+<li><strong>Backend</strong>: <a href="http://localhost:5000">http://localhost:5000</a></li>
+</ul>
+</details>
+
+<hr>
+<a id="md:👥-development-team" class="tsd-anchor"></a><h2><a href="#md:👥-development-team">👥 Development Team</a></h2><div align="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">Avatar</th>
+<th>Name</th>
+<th>Role</th>
+<th align="center">GitHub</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://github.com/sdurutr436.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Sergio Durán Utrera</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/sdurutr436"><img src="https://img.shields.io/badge/GitHub-sdurutr436-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td align="center"><img src="https://github.com/nolocardeno.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Manolo Cárdeno Sánchez</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/manolo-card"><img src="https://img.shields.io/badge/GitHub-nolocardeno-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+<tr>
+<td align="center"><img src="https://github.com/Fjrg0309.png" width="80" style="border-radius:50%"/></td>
+<td><strong>Francisco J. Redondo González</strong></td>
+<td>Full Stack Developer</td>
+<td align="center"><a href="https://github.com/FranRG96"><img src="https://img.shields.io/badge/GitHub-Fjrg0309-181717?style=flat&logo=github" alt="GitHub"></a></td>
+</tr>
+</tbody></table>
+</div>
+
+<blockquote>
+<p>💡 This project was developed as part of the <strong>Intermodular Project</strong> of the <strong>Web Application Development (DAW)</strong> cycle.</p>
+</blockquote>
+<hr>
+<a id="md:�-api-reference" class="tsd-anchor"></a><h2><a href="#md:�-api-reference">� API Reference</a></h2><p>Base URL: <code>https://transkarte.up.railway.app</code> (production) or <code>http://localhost:5000</code> (local)</p>
+<a id="md:health-check" class="tsd-anchor"></a><h3><a href="#md:health-check">Health Check</a></h3><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GET</code></td>
+<td><code>/health</code></td>
+<td>Server health status, uptime, and environment</td>
+</tr>
+</tbody></table>
+<details>
+<summary><b>Response example</b></summary>
+
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;status&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;ok&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;timestamp&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;2026-02-10T12:00:00.000Z&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;uptime&quot;</span><span class="hl-1">: </span><span class="hl-10">86400</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;environment&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;production&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+</details>
+
+<a id="md:translation-api" class="tsd-anchor"></a><h3><a href="#md:translation-api">Translation API</a></h3><p>All translation endpoints are rate-limited to <strong>200 requests per 15-minute window</strong> per IP.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>POST</code></td>
+<td><code>/api/translate</code></td>
+<td>Translate text to a country&#39;s official language</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/translate/blocked-countries</code></td>
+<td>Detect source language and return blocked countries</td>
+</tr>
+</tbody></table>
+<a id="md:post-apitranslate" class="tsd-anchor"></a><h4><a href="#md:post-apitranslate"><code>POST /api/translate</code></a></h4><p>Translates text using a hybrid engine (DeepL primary, Google Translate fallback). Includes automatic language detection, same-language country blocking, and MongoDB caching.</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;text&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Hello world&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;geo&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-9">&quot;properties&quot;</span><span class="hl-1">: { </span><span class="hl-9">&quot;name&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Spain&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Text to translate (1–500 characters)</td>
+</tr>
+<tr>
+<td><code>geo.properties.name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Destination country name in English</td>
+</tr>
+</tbody></table>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;success&quot;</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;translation&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Hola mundo&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;language&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Spanish&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;country&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Spain&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languageCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;es&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;fromCache&quot;</span><span class="hl-1">: </span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;blockedCountries&quot;</span><span class="hl-1">: [</span><span class="hl-4">&quot;USA&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;GBR&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;AUS&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>200</code></td>
+<td>Translation successful</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td>Invalid text, text too long (&gt;500 chars), or incomplete data</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td>Country blocked — speaks the same language as the source text</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Unsupported country or language not configured</td>
+</tr>
+<tr>
+<td><code>429</code></td>
+<td>Rate limit or translation API quota exceeded</td>
+</tr>
+<tr>
+<td><code>502</code></td>
+<td>Cannot connect to external translation service</td>
+</tr>
+<tr>
+<td><code>504</code></td>
+<td>Request timed out</td>
+</tr>
+</tbody></table>
+<a id="md:post-apitranslateblocked-countries" class="tsd-anchor"></a><h4><a href="#md:post-apitranslateblocked-countries"><code>POST /api/translate/blocked-countries</code></a></h4><p>Detects the source language and returns the ISO Alpha-3 codes of countries that should be blocked.</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;text&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Hola mundo&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;blockedCountries&quot;</span><span class="hl-1">: [</span><span class="hl-4">&quot;ESP&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;MEX&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;ARG&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;COL&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;CHL&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;sourceLang&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;es&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;message&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;OK&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<hr>
+<a id="md:game-api" class="tsd-anchor"></a><h3><a href="#md:game-api">Game API</a></h3><p>All game endpoints share the general rate limit of <strong>500 requests per 15-minute window</strong> per IP.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GET</code></td>
+<td><code>/api/game/phrase</code></td>
+<td>Get a random phrase in a random language</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/game/flag</code></td>
+<td>Get a random country flag</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/game/languages</code></td>
+<td>List all available game languages</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/game/validate</code></td>
+<td>Validate a language-guessing answer</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/game/validate-flag</code></td>
+<td>Validate a flag-guessing answer</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/game/stats</code></td>
+<td>Save or update game session statistics</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/game/stats/:sessionId</code></td>
+<td>Get statistics for a specific session</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/game/leaderboard</code></td>
+<td>Get global leaderboard (top scores)</td>
+</tr>
+</tbody></table>
+<a id="md:get-apigamephrase" class="tsd-anchor"></a><h4><a href="#md:get-apigamephrase"><code>GET /api/game/phrase</code></a></h4><p>Returns a random phrase in a random language with the list of valid countries.</p>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;text&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Bonjour le monde&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languageCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;fr&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languageName&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;French&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;validCountryCodes&quot;</span><span class="hl-1">: [</span><span class="hl-4">&quot;FRA&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;BEL&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;CHE&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;CAN&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:get-apigameflag" class="tsd-anchor"></a><h4><a href="#md:get-apigameflag"><code>GET /api/game/flag</code></a></h4><p>Returns a random country with its flag URL.</p>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;countryCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;FRA&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;countryName&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;France&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;continent&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Europe&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;flagUrl&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;https://flagcdn.com/w320/fr.png&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:post-apigamevalidate" class="tsd-anchor"></a><h4><a href="#md:post-apigamevalidate"><code>POST /api/game/validate</code></a></h4><p>Validates whether the selected country speaks the language of the shown phrase.</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languageCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;fr&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;countryCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;FRA&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;isCorrect&quot;</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languageName&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;French&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;validCountryCodes&quot;</span><span class="hl-1">: [</span><span class="hl-4">&quot;FRA&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;BEL&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;CHE&quot;</span><span class="hl-1">, </span><span class="hl-4">&quot;CAN&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:post-apigamevalidate-flag" class="tsd-anchor"></a><h4><a href="#md:post-apigamevalidate-flag"><code>POST /api/game/validate-flag</code></a></h4><p>Validates whether the player selected the correct country for the shown flag.</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;targetCountryCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;FRA&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;guessedCountryCode&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;FRA&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;isCorrect&quot;</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;correctCountryName&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;France&quot;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:get-apigamelanguages" class="tsd-anchor"></a><h4><a href="#md:get-apigamelanguages"><code>GET /api/game/languages</code></a></h4><p>Returns metadata for all available languages.</p>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;total&quot;</span><span class="hl-1">: </span><span class="hl-10">50</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;languages&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;code&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;es&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;name&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;Spanish&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;countriesCount&quot;</span><span class="hl-1">: </span><span class="hl-10">21</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;phrasesCount&quot;</span><span class="hl-1">: </span><span class="hl-10">15</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  ]</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:post-apigamestats" class="tsd-anchor"></a><h4><a href="#md:post-apigamestats"><code>POST /api/game/stats</code></a></h4><p>Saves or updates session statistics. When <code>gameOver: true</code>, the server calculates the final score.</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;sessionId&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;abc123-def456&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;correct&quot;</span><span class="hl-1">: </span><span class="hl-10">10</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;attempts&quot;</span><span class="hl-1">: </span><span class="hl-10">15</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;gameOver&quot;</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;duration&quot;</span><span class="hl-1">: </span><span class="hl-10">180</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:get-apigameleaderboard" class="tsd-anchor"></a><h4><a href="#md:get-apigameleaderboard"><code>GET /api/game/leaderboard</code></a></h4><p>Returns top game scores. Accepts optional <code>?limit=N</code> query parameter (default: 10).</p>
+<p><strong>Response (200):</strong></p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;total&quot;</span><span class="hl-1">: </span><span class="hl-10">10</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">&quot;leaderboard&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;sessionId&quot;</span><span class="hl-1">: </span><span class="hl-4">&quot;xyz789&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;correct&quot;</span><span class="hl-1">: </span><span class="hl-10">15</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;attempts&quot;</span><span class="hl-1">: </span><span class="hl-10">18</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;finalScore&quot;</span><span class="hl-1">: </span><span class="hl-10">1200</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-9">&quot;duration&quot;</span><span class="hl-1">: </span><span class="hl-10">120</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  ]</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<hr>
+<a id="md:�📚-documentation" class="tsd-anchor"></a><h2><a href="#md:�📚-documentation">�📚 Documentation</a></h2><a id="md:📖-api-documentation" class="tsd-anchor"></a><h3><a href="#md:📖-api-documentation">📖 API Documentation</a></h3><p>The complete code documentation (Backend + Frontend) is available online in one place, automatically generated with TypeDoc:</p>
+<ul>
+<li><strong>🌐 Unified Documentation</strong>: <a href="https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/">https://sdurutr436.github.io/ProyectoIntermodular-MapaInteractivo/</a></li>
+</ul>
+<p>The documentation includes:</p>
+<ul>
+<li>⚙️ <strong>Backend</strong>: REST API, models, translation services, game routes</li>
+<li>🎨 <strong>Frontend</strong>: React components, services, contexts, TypeScript types</li>
+</ul>
+<p>Everything integrated in a single interface with sidebar menu for easy navigation between modules.</p>
+<p>Documentation is automatically generated on each push to <code>main</code> using GitHub Actions.</p>
+<a id="md:📂-project-documentation" class="tsd-anchor"></a><h3><a href="#md:📂-project-documentation">📂 Project Documentation</a></h3><p>All technical and planning documentation is in the <a href="./docs"><code>/docs</code></a> folder:</p>
+<ul>
+<li>📄 <a href="./docs/problema.md"><strong>Problem and Justification</strong></a> - Context and project need</li>
+<li>🎯 <a href="./docs/objetivos-alcance.md"><strong>Objectives and Scope</strong></a> - Goals and project limits</li>
+<li>🔧 <a href="./docs/viabilidad-tecnica.md"><strong>Technical Feasibility</strong></a> - Technical analysis and feasibility</li>
+<li>💰 <a href="./docs/recursos.md"><strong>Required Resources</strong></a> - Human and technical resources</li>
+<li>⚖️ <a href="./docs/legislacion.md"><strong>Legislation and Compliance</strong></a> - GDPR, accessibility and regulations</li>
+</ul>
+<a id="md:📖-project-wiki" class="tsd-anchor"></a><h3><a href="#md:📖-project-wiki">📖 Project Wiki</a></h3><blockquote>
+<p>📚 <strong>Complete wiki:</strong> <a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki</a></p>
+</blockquote>
+<p>Pages available in the wiki:</p>
+<ul>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki">Home</a> — Cover and general presentation of the project</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Actas-de-reuniones">Meeting Minutes</a> — Summaries and agreements from team meetings</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Gesti%C3%B3n-de-Recursos-y-Tiempos">Resource and Time Management</a> — Resource planning, schedule and task allocation</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Metodolog%C3%ADa-SCRUM">SCRUM Methodology</a> — Explanation of the agile framework used</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Planificaci%C3%B3n-de-Sprints">Sprint Planning</a> — Detail of sprints, objectives and deliverables</li>
+<li><a href="https://github.com/sdurutr436/ProyectoIntermodular-MapaInteractivo/wiki/Roles-de-equipo">Team Roles</a> — Description of roles and responsibilities of each member</li>
+</ul>
+<hr>
+<a id="md:📄-license" class="tsd-anchor"></a><h2><a href="#md:📄-license">📄 License</a></h2><p>This project is licensed under the <strong>MIT License</strong> — see the <a href="./LICENSE">LICENSE</a> file for details.</p>
+<p>This project is part of an <strong>academic work</strong> developed for the <strong>Intermodular Project</strong> of the <strong>Web Application Development (DAW)</strong> cycle at <strong>IES Rafael Alberti</strong> (Cádiz, Spain).</p>
+<a id="md:authors" class="tsd-anchor"></a><h3><a href="#md:authors">Authors</a></h3><ul>
+<li>Sergio Durán Utrera (<a href="https://github.com/sdurutr436">@sdurutr436</a>)</li>
+<li>Manolo Cárdeno Sánchez (<a href="https://github.com/nolocardeno">@manolo-card</a>)</li>
+<li>Francisco J. Redondo González (<a href="https://github.com/Fjrg0309">@FranRG96</a>)</li>
+</ul>
+<hr>
+<p align="center">
+  <a href="#inicio">⬆️ Back to top</a>
+</p></div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><ul><li><a href="#md:explore-the-world-while-learning-languages"><span>Explore the world while learning languages</span></a></li></ul><a href="#md:📖-about-the-project"><span>📖 <wbr/>About the <wbr/>Project</span></a><a href="#md:📋-table-of-contents"><span>📋 <wbr/>Table of <wbr/>Contents</span></a><a href="#md:📊-project-status"><span>📊 <wbr/>Project <wbr/>Status</span></a><ul><li><a href="#md:✅-completed-project"><span>✅ <wbr/>Completed <wbr/>Project</span></a></li></ul><a href="#md:🛠️-tech-stack"><span>🛠️ <wbr/>Tech <wbr/>Stack</span></a><ul><li><a href="#md:frontend"><span>Frontend</span></a></li><li><a href="#md:backend-amp-database"><span>Backend &amp; <wbr/>Database</span></a></li><li><a href="#md:devops-amp-tools"><span>Dev<wbr/>Ops &amp; <wbr/>Tools</span></a></li><li><a href="#md:frontend-details"><span>Frontend <wbr/>Details</span></a></li><li><a href="#md:external-apis"><span>External APIs</span></a></li></ul><a href="#md:🏗️-architecture"><span>🏗️ <wbr/>Architecture</span></a><ul><li><a href="#md:system-overview"><span>System <wbr/>Overview</span></a></li><li><a href="#md:data-flow--translation-request"><span>Data <wbr/>Flow — <wbr/>Translation <wbr/>Request</span></a></li></ul><a href="#md:🧠-technical-decisions"><span>🧠 <wbr/>Technical <wbr/>Decisions</span></a><a href="#md:🚀-production-demo"><span>🚀 <wbr/>Production <wbr/>Demo</span></a><a href="#md:📸-screenshots-and-user-guide"><span>📸 <wbr/>Screenshots and <wbr/>User <wbr/>Guide</span></a><ul><li><a href="#md:🏠-landing-page"><span>🏠 <wbr/>Landing <wbr/>Page</span></a></li><li><a href="#md:🗺️-interactive-map-main-view"><span>🗺️ <wbr/>Interactive <wbr/>Map (<wbr/>Main <wbr/>View)</span></a></li><li><a href="#md:🎮-game-mode-guess-the-language"><span>🎮 <wbr/>Game <wbr/>Mode: <wbr/>Guess the <wbr/>Language</span></a></li><li><a href="#md:🏴-game-mode-guess-the-flag"><span>🏴 <wbr/>Game <wbr/>Mode: <wbr/>Guess the <wbr/>Flag</span></a></li><li><a href="#md:🎨-common-features-in-all-screens"><span>🎨 <wbr/>Common <wbr/>Features in <wbr/>All <wbr/>Screens</span></a></li></ul><a href="#md:💻-installation-and-local-development"><span>💻 <wbr/>Installation and <wbr/>Local <wbr/>Development</span></a><ul><li><a href="#md:prerequisites"><span>Prerequisites</span></a></li><li><ul><li><a href="#md:⭐-option-1-with-docker-recommended"><span>⭐ <wbr/>Option 1: <wbr/>With <wbr/>Docker (<wbr/>Recommended)</span></a></li><li><a href="#md:📦-option-2-without-docker-manual"><span>📦 <wbr/>Option 2: <wbr/>Without <wbr/>Docker (<wbr/>Manual)</span></a></li></ul></li><li><a href="#md:🐳-installation-with-docker-recommended"><span>🐳 <wbr/>Installation with <wbr/>Docker (<wbr/>Recommended)</span></a></li><li><a href="#md:📦-manual-installation-without-docker"><span>📦 <wbr/>Manual <wbr/>Installation (<wbr/>Without <wbr/>Docker)</span></a></li></ul><a href="#md:👥-development-team"><span>👥 <wbr/>Development <wbr/>Team</span></a><a href="#md:�-api-reference"><span>� API <wbr/>Reference</span></a><ul><li><a href="#md:health-check"><span>Health <wbr/>Check</span></a></li><li><a href="#md:translation-api"><span>Translation API</span></a></li><li><ul><li><a href="#md:post-apitranslate"><span>POST /api/translate</span></a></li><li><a href="#md:post-apitranslateblocked-countries"><span>POST /api/translate/blocked-<wbr/>countries</span></a></li></ul></li><li><a href="#md:game-api"><span>Game API</span></a></li><li><ul><li><a href="#md:get-apigamephrase"><span>GET /api/game/phrase</span></a></li><li><a href="#md:get-apigameflag"><span>GET /api/game/flag</span></a></li><li><a href="#md:post-apigamevalidate"><span>POST /api/game/validate</span></a></li><li><a href="#md:post-apigamevalidate-flag"><span>POST /api/game/validate-<wbr/>flag</span></a></li><li><a href="#md:get-apigamelanguages"><span>GET /api/game/languages</span></a></li><li><a href="#md:post-apigamestats"><span>POST /api/game/stats</span></a></li><li><a href="#md:get-apigameleaderboard"><span>GET /api/game/leaderboard</span></a></li></ul></li></ul><a href="#md:�📚-documentation"><span>�📚 <wbr/>Documentation</span></a><ul><li><a href="#md:📖-api-documentation"><span>📖 API <wbr/>Documentation</span></a></li><li><a href="#md:📂-project-documentation"><span>📂 <wbr/>Project <wbr/>Documentation</span></a></li><li><a href="#md:📖-project-wiki"><span>📖 <wbr/>Project <wbr/>Wiki</span></a></li></ul><a href="#md:📄-license"><span>📄 <wbr/>License</span></a><ul><li><a href="#md:authors"><span>Authors</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>Transkarte Frontend</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: data/countryCodeMapping.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: data/countryCodeMapping.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file countryCodeMapping.js
+ * @description Bidirectional mapping between country names in English and ISO Alpha-3 codes.
+ * Used for conversion of geographic names from the map to standard codes.
+ * @module data/countryCodeMapping
+ */
+
+/**
+ * Dictionary of country names in English to ISO Alpha-3 codes.
+ * The names correspond to those used in the map's GeoJSON files.
+ * 
+ * @constant {Object.&lt;string, string>}
+ * @example
+ * countryNameToCode['Spain'] // 'ESP'
+ * countryNameToCode['United States of America'] // 'USA'
+ */
+const countryNameToCode = {
+  'Afghanistan': 'AFG',
+  'Albania': 'ALB',
+  'Algeria': 'DZA',
+  'Angola': 'AGO',
+  'Antarctica': 'ATA',
+  'Argentina': 'ARG',
+  'Armenia': 'ARM',
+  'Australia': 'AUS',
+  'Austria': 'AUT',
+  'Azerbaijan': 'AZE',
+  'Bahamas': 'BHS',
+  'Bangladesh': 'BGD',
+  'Belarus': 'BLR',
+  'Belgium': 'BEL',
+  'Belize': 'BLZ',
+  'Benin': 'BEN',
+  'Bhutan': 'BTN',
+  'Bolivia': 'BOL',
+  'Bosnia and Herzegovina': 'BIH',
+  'Botswana': 'BWA',
+  'Brazil': 'BRA',
+  'Brunei': 'BRN',
+  'Bulgaria': 'BGR',
+  'Burkina Faso': 'BFA',
+  'Burundi': 'BDI',
+  'Cambodia': 'KHM',
+  'Cameroon': 'CMR',
+  'Canada': 'CAN',
+  'Central African Republic': 'CAF',
+  'Chad': 'TCD',
+  'Chile': 'CHL',
+  'China': 'CHN',
+  'Colombia': 'COL',
+  'Congo': 'COG',
+  'Democratic Republic of the Congo': 'COD',
+  'Costa Rica': 'CRI',
+  'Croatia': 'HRV',
+  'Cuba': 'CUB',
+  'Cyprus': 'CYP',
+  'Czech Republic': 'CZE',
+  'Denmark': 'DNK',
+  'Djibouti': 'DJI',
+  'Dominican Republic': 'DOM',
+  'Ecuador': 'ECU',
+  'Egypt': 'EGY',
+  'El Salvador': 'SLV',
+  'Equatorial Guinea': 'GNQ',
+  'Eritrea': 'ERI',
+  'Estonia': 'EST',
+  'Eswatini': 'SWZ',
+  'Ethiopia': 'ETH',
+  'Falkland Islands': 'FLK',
+  'Fiji': 'FJI',
+  'Finland': 'FIN',
+  'France': 'FRA',
+  'French Guiana': 'GUF',
+  'Gabon': 'GAB',
+  'Gambia': 'GMB',
+  'Georgia': 'GEO',
+  'Germany': 'DEU',
+  'Ghana': 'GHA',
+  'Greece': 'GRC',
+  'Greenland': 'GRL',
+  'Guatemala': 'GTM',
+  'Guinea': 'GIN',
+  'Guinea-Bissau': 'GNB',
+  'Guyana': 'GUY',
+  'Haiti': 'HTI',
+  'Honduras': 'HND',
+  'Hungary': 'HUN',
+  'Iceland': 'ISL',
+  'India': 'IND',
+  'Indonesia': 'IDN',
+  'Iran': 'IRN',
+  'Iraq': 'IRQ',
+  'Ireland': 'IRL',
+  'Israel': 'ISR',
+  'Italy': 'ITA',
+  'Ivory Coast': 'CIV',
+  'Jamaica': 'JAM',
+  'Japan': 'JPN',
+  'Jordan': 'JOR',
+  'Kazakhstan': 'KAZ',
+  'Kenya': 'KEN',
+  'Kosovo': 'XKX',
+  'Kuwait': 'KWT',
+  'Kyrgyzstan': 'KGZ',
+  'Laos': 'LAO',
+  'Latvia': 'LVA',
+  'Lebanon': 'LBN',
+  'Lesotho': 'LSO',
+  'Liberia': 'LBR',
+  'Libya': 'LBY',
+  'Lithuania': 'LTU',
+  'Luxembourg': 'LUX',
+  'Madagascar': 'MDG',
+  'Malawi': 'MWI',
+  'Malaysia': 'MYS',
+  'Mali': 'MLI',
+  'Mauritania': 'MRT',
+  'Mexico': 'MEX',
+  'Moldova': 'MDA',
+  'Mongolia': 'MNG',
+  'Montenegro': 'MNE',
+  'Morocco': 'MAR',
+  'Mozambique': 'MOZ',
+  'Myanmar': 'MMR',
+  'Namibia': 'NAM',
+  'Nepal': 'NPL',
+  'Netherlands': 'NLD',
+  'New Caledonia': 'NCL',
+  'New Zealand': 'NZL',
+  'Nicaragua': 'NIC',
+  'Niger': 'NER',
+  'Nigeria': 'NGA',
+  'North Korea': 'PRK',
+  'North Macedonia': 'MKD',
+  'Norway': 'NOR',
+  'Oman': 'OMN',
+  'Pakistan': 'PAK',
+  'Palestine': 'PSE',
+  'Panama': 'PAN',
+  'Papua New Guinea': 'PNG',
+  'Paraguay': 'PRY',
+  'Peru': 'PER',
+  'Philippines': 'PHL',
+  'Poland': 'POL',
+  'Portugal': 'PRT',
+  'Puerto Rico': 'PRI',
+  'Qatar': 'QAT',
+  'Romania': 'ROU',
+  'Russia': 'RUS',
+  'Rwanda': 'RWA',
+  'Saudi Arabia': 'SAU',
+  'Senegal': 'SEN',
+  'Serbia': 'SRB',
+  'Sierra Leone': 'SLE',
+  'Slovakia': 'SVK',
+  'Slovenia': 'SVN',
+  'Solomon Islands': 'SLB',
+  'Somalia': 'SOM',
+  'South Africa': 'ZAF',
+  'South Korea': 'KOR',
+  'South Sudan': 'SSD',
+  'Spain': 'ESP',
+  'Sri Lanka': 'LKA',
+  'Sudan': 'SDN',
+  'Suriname': 'SUR',
+  'Sweden': 'SWE',
+  'Switzerland': 'CHE',
+  'Syria': 'SYR',
+  'Taiwan': 'TWN',
+  'Tajikistan': 'TJK',
+  'Tanzania': 'TZA',
+  'Thailand': 'THA',
+  'Timor-Leste': 'TLS',
+  'Togo': 'TGO',
+  'Trinidad and Tobago': 'TTO',
+  'Tunisia': 'TUN',
+  'Turkey': 'TUR',
+  'Turkmenistan': 'TKM',
+  'Uganda': 'UGA',
+  'Ukraine': 'UKR',
+  'United Arab Emirates': 'ARE',
+  'United Kingdom': 'GBR',
+  'United States': 'USA',
+  'United States of America': 'USA',
+  'Uruguay': 'URY',
+  'Uzbekistan': 'UZB',
+  'Venezuela': 'VEN',
+  'Vietnam': 'VNM',
+  'Western Sahara': 'ESH',
+  'Yemen': 'YEM',
+  'Zambia': 'ZMB',
+  'Zimbabwe': 'ZWE',
+  // Additional variants and abbreviated names from the map
+  'USA': 'USA',
+  'UK': 'GBR',
+  'Brasil': 'BRA',
+  'Czechia': 'CZE', // Alternative name for Czech Republic
+  'Bosnia and Herz.': 'BIH', // Abbreviated name on the map
+  'Macedonia': 'MKD', // Short name (also North Macedonia)
+  'Côte d\'Ivoire': 'CIV', // French name for Ivory Coast
+  'Cote d\'Ivoire': 'CIV', // Variant without accent
+  'W. Sahara': 'ESH', // Abbreviated name for Western Sahara
+  'Central African Rep.': 'CAF', // Abbreviated name for Central African Republic
+  'Eq. Guinea': 'GNQ', // Abbreviated name for Equatorial Guinea
+  'S. Sudan': 'SSD', // Abbreviated name for South Sudan
+  'Somaliland': 'SOM', // Territory of Somalia
+  'Dem. Rep. Congo': 'COD', // Abbreviated name for Democratic Republic of the Congo
+  'eSwatini': 'SWZ', // Alternative name for Eswatini/Swaziland
+  'Fr. S. Antarctic Lands': 'ATF', // French Southern and Antarctic Lands
+  'Dominican Rep.': 'DOM' // Abbreviated name for Dominican Republic
+};
+
+module.exports = { countryNameToCode };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a></li><li><a href="module-data_countriesDatabase.html">data/countriesDatabase</a></li><li><a href="module-data_countryCodeMapping.html">data/countryCodeMapping</a></li><li><a href="module-data_countryLanguageMap.html">data/countryLanguageMap</a></li><li><a href="module-data_phrasesDatabase.html">data/phrasesDatabase</a></li><li><a href="module-getFlagUrl.html">getFlagUrl</a></li><li><a href="module-models_GameStats.html">models/GameStats</a></li><li><a href="module-models_Translation.html">models/Translation</a></li><li><a href="module-routes_api_game.html">routes/api/game</a></li><li><a href="module-routes_api_translate.html">routes/api/translate</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#corsOptions">corsOptions</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#translateLimiter">translateLimiter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Feb 11 2026 08:08:37 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

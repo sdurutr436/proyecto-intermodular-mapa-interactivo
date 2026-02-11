@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: data/countryLanguageMap.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: data/countryLanguageMap.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file countryLanguageMap.js
+ * @description Mapping of country codes (ISO Alpha-3) to their main official languages.
+ * Used to determine the translation language based on the selected country.
+ * @module data/countryLanguageMap
+ */
+
+/**
+ * Dictionary of countries to their official languages.
+ * 
+ * @constant {Object.&lt;string, {code: string, name: string}>}
+ * @property {string} code - ISO 639-1 code of the language
+ * @property {string} name - Name of the language in English
+ * 
+ * @example
+ * countryLanguageMap['ESP'] // { code: 'es', name: 'Spanish' }
+ * countryLanguageMap['JPN'] // { code: 'ja', name: 'Japanese' }
+ */
+const countryLanguageMap = {
+    AFG: { code: 'ps', name: 'Pashto' },
+    ALB: { code: 'sq', name: 'Albanian' },
+    DZA: { code: 'ar', name: 'Arabic' },
+    AND: { code: 'ca', name: 'Catalan' },
+    ATA: { code: 'en', name: 'English' }, // Antarctica (international research, English as lingua franca)
+    ATF: { code: 'fr', name: 'French' }, // French Southern and Antarctic Lands
+    AGO: { code: 'pt', name: 'Portuguese' },
+    ARG: { code: 'es', name: 'Spanish' },
+    ARM: { code: 'hy', name: 'Armenian' },
+    AUS: { code: 'en', name: 'English' },
+    AUT: { code: 'de', name: 'German' },
+    AZE: { code: 'az', name: 'Azerbaijani' },
+    BHS: { code: 'en', name: 'English' },
+    BHR: { code: 'ar', name: 'Arabic' },
+    BGD: { code: 'bn', name: 'Bengali' },
+    BRB: { code: 'en', name: 'English' },
+    BLR: { code: 'be', name: 'Belarusian' },
+    BEL: { code: 'nl', name: 'Dutch' },
+    BLZ: { code: 'en', name: 'English' },
+    BEN: { code: 'fr', name: 'French' },
+    BTN: { code: 'dz', name: 'Dzongkha' },
+    BOL: { code: 'es', name: 'Spanish' },
+    BIH: { code: 'bs', name: 'Bosnian' },
+    BWA: { code: 'en', name: 'English' },
+    BRA: { code: 'pt', name: 'Portuguese' },
+    BRN: { code: 'ms', name: 'Malay' },
+    BGR: { code: 'bg', name: 'Bulgarian' },
+    BFA: { code: 'fr', name: 'French' },
+    BDI: { code: 'fr', name: 'French' },
+    KHM: { code: 'km', name: 'Khmer' },
+    CMR: { code: 'fr', name: 'French' },
+    CAN: { code: 'en', name: 'English' },
+    CPV: { code: 'pt', name: 'Portuguese' },
+    CAF: { code: 'fr', name: 'French' },
+    TCD: { code: 'fr', name: 'French' },
+    CHL: { code: 'es', name: 'Spanish' },
+    CHN: { code: 'zh', name: 'Chinese' },
+    COL: { code: 'es', name: 'Spanish' },
+    COM: { code: 'ar', name: 'Arabic' },
+    COG: { code: 'fr', name: 'French' },
+    COD: { code: 'fr', name: 'French' },
+    CRI: { code: 'es', name: 'Spanish' },
+    CIV: { code: 'fr', name: 'French' },
+    HRV: { code: 'hr', name: 'Croatian' },
+    CUB: { code: 'es', name: 'Spanish' },
+    CYP: { code: 'el', name: 'Greek' },
+    CZE: { code: 'cs', name: 'Czech' },
+    DNK: { code: 'da', name: 'Danish' },
+    DJI: { code: 'fr', name: 'French' },
+    DOM: { code: 'es', name: 'Spanish' },
+    ECU: { code: 'es', name: 'Spanish' },
+    EGY: { code: 'ar', name: 'Arabic' },
+    SLV: { code: 'es', name: 'Spanish' },
+    GNQ: { code: 'es', name: 'Spanish' },
+    ERI: { code: 'ti', name: 'Tigrinya' },
+    EST: { code: 'et', name: 'Estonian' },
+    ETH: { code: 'am', name: 'Amharic' },
+    SWZ: { code: 'en', name: 'English' }, // Eswatini (formerly Swaziland)
+    FLK: { code: 'en', name: 'English' }, // Falkland Islands
+    FJI: { code: 'en', name: 'English' },
+    FIN: { code: 'fi', name: 'Finnish' },
+    FRA: { code: 'fr', name: 'French' },
+    GUF: { code: 'fr', name: 'French' }, // French Guiana
+    GAB: { code: 'fr', name: 'French' },
+    GMB: { code: 'en', name: 'English' },
+    GEO: { code: 'ka', name: 'Georgian' },
+    DEU: { code: 'de', name: 'German' },
+    GHA: { code: 'en', name: 'English' },
+    GRC: { code: 'el', name: 'Greek' },
+    GRL: { code: 'da', name: 'Danish' }, // Greenland (also speaks Kalaallisut, but using Danish for compatibility)
+    GTM: { code: 'es', name: 'Spanish' },
+    GIN: { code: 'fr', name: 'French' },
+    GNB: { code: 'pt', name: 'Portuguese' },
+    GUY: { code: 'en', name: 'English' },
+    HTI: { code: 'fr', name: 'French' },
+    HND: { code: 'es', name: 'Spanish' },
+    HUN: { code: 'hu', name: 'Hungarian' },
+    ISL: { code: 'is', name: 'Icelandic' },
+    IND: { code: 'hi', name: 'Hindi' },
+    IDN: { code: 'id', name: 'Indonesian' },
+    IRN: { code: 'fa', name: 'Persian' },
+    IRQ: { code: 'ar', name: 'Arabic' },
+    IRL: { code: 'en', name: 'English' },
+    ISR: { code: 'he', name: 'Hebrew' },
+    ITA: { code: 'it', name: 'Italian' },
+    JAM: { code: 'en', name: 'English' },
+    JPN: { code: 'ja', name: 'Japanese' },
+    JOR: { code: 'ar', name: 'Arabic' },
+    KAZ: { code: 'kk', name: 'Kazakh' },
+    KEN: { code: 'sw', name: 'Swahili' },
+    KWT: { code: 'ar', name: 'Arabic' },
+    XKX: { code: 'sq', name: 'Albanian' }, // Kosovo
+    KGZ: { code: 'ky', name: 'Kyrgyz' },
+    LAO: { code: 'lo', name: 'Lao' },
+    LVA: { code: 'lv', name: 'Latvian' },
+    LBN: { code: 'ar', name: 'Arabic' },
+    LSO: { code: 'en', name: 'English' },
+    LBR: { code: 'en', name: 'English' },
+    LBY: { code: 'ar', name: 'Arabic' },
+    LTU: { code: 'lt', name: 'Lithuanian' },
+    LUX: { code: 'fr', name: 'French' },
+    MDG: { code: 'mg', name: 'Malagasy' },
+    MWI: { code: 'en', name: 'English' },
+    MYS: { code: 'ms', name: 'Malay' },
+    MDV: { code: 'dv', name: 'Divehi' },
+    MLI: { code: 'fr', name: 'French' },
+    MLT: { code: 'mt', name: 'Maltese' },
+    MRT: { code: 'ar', name: 'Arabic' },
+    MUS: { code: 'en', name: 'English' },
+    MEX: { code: 'es', name: 'Spanish' },
+    MDA: { code: 'ro', name: 'Romanian' },
+    MNG: { code: 'mn', name: 'Mongolian' },
+    MKD: { code: 'mk', name: 'Macedonian' }, // North Macedonia
+    MNE: { code: 'sr', name: 'Serbian' },
+    MAR: { code: 'ar', name: 'Arabic' },
+    MOZ: { code: 'pt', name: 'Portuguese' },
+    MMR: { code: 'my', name: 'Burmese' },
+    NAM: { code: 'en', name: 'English' },
+    NPL: { code: 'ne', name: 'Nepali' },
+    NLD: { code: 'nl', name: 'Dutch' },
+    NCL: { code: 'fr', name: 'French' }, // New Caledonia
+    NZL: { code: 'en', name: 'English' },
+    NIC: { code: 'es', name: 'Spanish' },
+    NER: { code: 'fr', name: 'French' },
+    NGA: { code: 'en', name: 'English' },
+    PRK: { code: 'ko', name: 'Korean' },
+    NOR: { code: 'no', name: 'Norwegian' },
+    OMN: { code: 'ar', name: 'Arabic' },
+    PAK: { code: 'ur', name: 'Urdu' },
+    PSE: { code: 'ar', name: 'Arabic' },
+    PAN: { code: 'es', name: 'Spanish' },
+    PNG: { code: 'en', name: 'English' },
+    PRY: { code: 'es', name: 'Spanish' },
+    PER: { code: 'es', name: 'Spanish' },
+    PHL: { code: 'tl', name: 'Tagalog' },
+    POL: { code: 'pl', name: 'Polish' },
+    PRT: { code: 'pt', name: 'Portuguese' },
+    PRI: { code: 'es', name: 'Spanish' }, // Puerto Rico
+    QAT: { code: 'ar', name: 'Arabic' },
+    ROU: { code: 'ro', name: 'Romanian' },
+    RUS: { code: 'ru', name: 'Russian' },
+    RWA: { code: 'rw', name: 'Kinyarwanda' },
+    SAU: { code: 'ar', name: 'Arabic' },
+    SEN: { code: 'fr', name: 'French' },
+    SRB: { code: 'sr', name: 'Serbian' },
+    SLE: { code: 'en', name: 'English' },
+    SGP: { code: 'en', name: 'English' },
+    SVK: { code: 'sk', name: 'Slovak' },
+    SLB: { code: 'en', name: 'English' }, // Solomon Islands
+    SVN: { code: 'sl', name: 'Slovenian' },
+    SOM: { code: 'so', name: 'Somali' },
+    ZAF: { code: 'en', name: 'English' },
+    KOR: { code: 'ko', name: 'Korean' },
+    SSD: { code: 'en', name: 'English' },
+    ESP: { code: 'es', name: 'Spanish' },
+    LKA: { code: 'si', name: 'Sinhala' },
+    SDN: { code: 'ar', name: 'Arabic' },
+    SUR: { code: 'nl', name: 'Dutch' },
+    SWE: { code: 'sv', name: 'Swedish' },
+    CHE: { code: 'de', name: 'German' },
+    SYR: { code: 'ar', name: 'Arabic' },
+    TWN: { code: 'zh', name: 'Chinese' },
+    TJK: { code: 'tg', name: 'Tajik' },
+    TZA: { code: 'sw', name: 'Swahili' },
+    THA: { code: 'th', name: 'Thai' },
+    TLS: { code: 'pt', name: 'Portuguese' },
+    TGO: { code: 'fr', name: 'French' },
+    TUN: { code: 'ar', name: 'Arabic' },
+    TUR: { code: 'tr', name: 'Turkish' },
+    TKM: { code: 'tk', name: 'Turkmen' },
+    TTO: { code: 'en', name: 'English' }, // Trinidad and Tobago
+    UGA: { code: 'en', name: 'English' },
+    UKR: { code: 'uk', name: 'Ukrainian' },
+    ARE: { code: 'ar', name: 'Arabic' },
+    GBR: { code: 'en', name: 'English' },
+    USA: { code: 'en', name: 'English' },
+    URY: { code: 'es', name: 'Spanish' },
+    UZB: { code: 'uz', name: 'Uzbek' },
+    VEN: { code: 'es', name: 'Spanish' },
+    VNM: { code: 'vi', name: 'Vietnamese' },
+    ESH: { code: 'ar', name: 'Arabic' },
+    YEM: { code: 'ar', name: 'Arabic' },
+    ZMB: { code: 'en', name: 'English' },
+    ZWE: { code: 'en', name: 'English' }
+};
+
+module.exports = { countryLanguageMap };
+// NOTE: The full content of the original file should be here.
+// I'm omitting for brevity, but the file should be complete.
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a></li><li><a href="module-data_countriesDatabase.html">data/countriesDatabase</a></li><li><a href="module-data_countryCodeMapping.html">data/countryCodeMapping</a></li><li><a href="module-data_countryLanguageMap.html">data/countryLanguageMap</a></li><li><a href="module-data_phrasesDatabase.html">data/phrasesDatabase</a></li><li><a href="module-getFlagUrl.html">getFlagUrl</a></li><li><a href="module-models_GameStats.html">models/GameStats</a></li><li><a href="module-models_Translation.html">models/Translation</a></li><li><a href="module-routes_api_game.html">routes/api/game</a></li><li><a href="module-routes_api_translate.html">routes/api/translate</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#corsOptions">corsOptions</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#translateLimiter">translateLimiter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Feb 11 2026 08:08:37 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/api/translate.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/api/translate.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
+ * @file translate.js
+ * @description API routes for the translation service.
+ * Implements a hybrid translation system using DeepL as the primary service
+ * and Google Translate as a free fallback. Includes automatic language detection,
+ * translation caching and country blocking based on source language.
+ * @module routes/api/translate
+ */
+
+require("../../instrument.js");
+const express = require('express');
+const Sentry = require("@sentry/node");
+const router = express.Router();
+const Translation = require('../../models/Translation');
+const { countryLanguageMap } = require('../../data/countryLanguageMap');
+const { countryNameToCode } = require('../../data/countryCodeMapping');
+const deepl = require('deepl-node');
+
+const app = express();
+
+/**
+ * DeepL translator configuration
+ * @type {deepl.Translator|null}
+ */
+const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
+const translator = DEEPL_API_KEY ? new deepl.Translator(DEEPL_API_KEY) : null;
+
+// ========== AUTOMATIC LANGUAGE DETECTION ==========
+
+/**
+ * Detects the language of text using the free Google Translate API.
+ * No authentication required and supports all languages available in Google Translate.
+ * 
+ * @async
+ * @function detectLanguageWithGoogle
+ * @param {string} text - Text to detect the language of
+ * @returns {Promise&lt;string|null>} ISO 639-1 language code (e.g., 'es', 'en', 'fr') or null if failed
+ * 
+ * @example
+ * const lang = await detectLanguageWithGoogle('Hello world');
+ * console.log(lang); // 'en'
+ */
+const detectLanguageWithGoogle = async (text) => {
+    try {
+        const fetch = require('node-fetch');
+        // Use Google Translate API to detect language
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&amp;sl=auto&amp;tl=en&amp;dt=t&amp;q=${encodeURIComponent(text)}`;
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Google returns the detected language in data[2]
+        if (data &amp;&amp; data[2]) {
+            const detectedLang = data[2];
+            return detectedLang;
+        }
+        
+        return null;
+    } catch (error) {
+        return null;
+    }
+};
+
+/**
+ * Main function to detect the language of a text.
+ * Uses Google Translate as the detection engine.
+ * 
+ * @async
+ * @function detectLanguage
+ * @param {string} text - Text to analyze
+ * @returns {Promise&lt;string|null>} Base language code (without regional variants) or null
+ * 
+ * @example
+ * const lang = await detectLanguage('Bonjour le monde');
+ * console.log(lang); // 'fr'
+ */
+const detectLanguage = async (text) => {
+    try {
+        const normalizedText = text.trim();
+        
+        // Si el texto es muy corto (menos de 2 caracteres), no podemos detectar bien
+        if (normalizedText.length &lt; 2) {
+            return null;
+        }
+        
+        // Use Google Translate API for automatic detection
+        const detectedLang = await detectLanguageWithGoogle(normalizedText);
+        
+        if (detectedLang) {
+            // Normalize language code (some come as zh-CN, pt-BR, etc.)
+            const baseLang = detectedLang.split('-')[0].toLowerCase();
+            return baseLang;
+        }
+        
+        return null;
+    } catch (error) {
+        return null;
+    }
+};
+
+/**
+ * Gets the list of countries that should be blocked for translation
+ * based on the detected source language. Blocks countries where the source
+ * language is the official language to avoid meaningless translations.
+ * 
+ * @function getBlockedCountriesBySourceLang
+ * @param {string} sourceLangCode - ISO code of source language (e.g., 'es', 'en', 'pt-BR')
+ * @returns {string[]} Array of ISO Alpha-3 codes of blocked countries
+ * 
+ * @example
+ * const blocked = getBlockedCountriesBySourceLang('es');
+ * console.log(blocked); // ['ESP', 'MEX', 'ARG', 'COL', ...]
+ */
+function getBlockedCountriesBySourceLang(sourceLangCode) {
+    if (!sourceLangCode) return [];
+    
+    const normalizedSourceLang = sourceLangCode.toLowerCase().split('-')[0]; // 'pt-BR' -> 'pt'
+    
+    // Returns ISO alpha3 of countries where that language is official
+    return Object.entries(countryLanguageMap)
+        .filter(([countryCode, langObj]) => {
+            // Normalize country code too
+            const countryLang = langObj.code.toLowerCase().split('-')[0];
+            return countryLang === normalizedSourceLang;
+        })
+        .map(([countryCode]) => countryCode);
+}
+
+/**
+ * List of language codes supported by the DeepL API.
+ * Includes regional variants like pt-BR (Brazilian Portuguese) and zh-CN (Simplified Chinese).
+ * 
+ * @constant {string[]}
+ */
+const DEEPL_SUPPORTED_LANGS = [
+    'en', 'es', 'fr', 'de', 'it', 'pt', 'pt-BR', 'ru', 'ja', 'zh', 'zh-CN',
+    'nl', 'pl', 'tr', 'sv', 'da', 'fi', 'el', 'cs', 'ro', 'hu', 'sk', 'bg',
+    'uk', 'id', 'ko', 'no', 'et', 'lv', 'lt', 'sl', 'ar'
+];
+
+/**
+ * Translates text using the free Google Translate API.
+ * Used as fallback when DeepL is not available or doesn't support the language.
+ * 
+ * @async
+ * @function translateWithGoogleFallback
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise&lt;string>} Translated text
+ * @throws {Error} If translation fails or response is invalid
+ * 
+ * @example
+ * const translated = await translateWithGoogleFallback('Hello', 'en', 'es');
+ * console.log(translated); // 'Hola'
+ */
+const translateWithGoogleFallback = async (text, sourceLang, targetLang) => {
+    try {
+        const fetch = require('node-fetch');
+        // Free Google Translate API (no authentication)
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&amp;sl=${sourceLang}&amp;tl=${targetLang}&amp;dt=t&amp;q=${encodeURIComponent(text)}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Mozilla/5.0'
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+        const data = await response.json();
+        if (!data || !data[0] || !data[0][0] || !data[0][0][0]) {
+            throw new Error('Invalid translation response');
+        }
+        // Google returns an array of arrays, we concatenate all translations
+        const translatedText = data[0].map(item => item[0]).join('').trim();
+        return translatedText;
+    } catch (error) {
+        throw new Error(`Google Fallback Error: ${error.message}`);
+    }
+};
+
+/**
+ * Translates text using the DeepL API (premium higher quality service).
+ * Requires valid API key configured in DEEPL_API_KEY.
+ * 
+ * @async
+ * @function translateWithDeepL
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise&lt;string>} High quality translated text
+ * @throws {Error} If API key is invalid, quota exceeded, or language not supported
+ * 
+ * @example
+ * const translated = await translateWithDeepL('Hello world', 'en', 'es');
+ * console.log(translated); // 'Hola mundo'
+ */
+const translateWithDeepL = async (text, sourceLang, targetLang) => {
+    if (!translator) {
+        throw new Error('UNSUPPORTED_LANGUAGE'); // Force use of Google Fallback
+    }
+    try {
+        // Language code mapping for DeepL (only for TARGET language)
+        // For SOURCE language, DeepL only accepts base codes without variants
+        const deeplTargetLangMap = {
+            'en': 'EN-US', 'es': 'ES', 'fr': 'FR', 'de': 'DE', 'it': 'IT',
+            'pt': 'PT-PT', 'pt-BR': 'PT-BR', 'ru': 'RU', 'ja': 'JA', 'zh': 'ZH', 'zh-CN': 'ZH',
+            'nl': 'NL', 'pl': 'PL', 'tr': 'TR', 'sv': 'SV', 'da': 'DA', 'fi': 'FI', 'el': 'EL',
+            'cs': 'CS', 'ro': 'RO', 'hu': 'HU', 'sk': 'SK', 'bg': 'BG', 'uk': 'UK', 'id': 'ID',
+            'ko': 'KO', 'no': 'NB', 'et': 'ET', 'lv': 'LV', 'lt': 'LT', 'sl': 'SL', 'ar': 'AR',
+        };
+        
+        // For source language, always use base code (without regional variants)
+        const sourceDeepL = sourceLang.toUpperCase();
+        // For target language, use the mapping with variants
+        const targetDeepL = deeplTargetLangMap[targetLang] || targetLang.toUpperCase();
+        
+        // Perform translation with DeepL
+        const result = await translator.translateText(
+            text,
+            sourceDeepL,
+            targetDeepL
+        );
+        if (!result || !result.text) {
+            throw new Error('Invalid translation response');
+        }
+        const translatedText = result.text.trim();
+        return translatedText;
+    } catch (error) {
+        // More specific error messages
+        if (error.message.includes('Authorization') || error.message.includes('403')) {
+            throw new Error('Invalid or expired DeepL API Key. Please check your configuration.');
+        }
+        if (error.message.includes('quota') || error.message.includes('limit')) {
+            throw new Error('DeepL character limit reached. Please wait or upgrade your plan.');
+        }
+        if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+            throw new Error('Connection timeout while connecting to DeepL');
+        }
+        if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
+            throw new Error('Could not connect to translation service');
+        }
+        if (error.message.includes('not supported') || error.message.includes('language')) {
+            // If language is not supported, throw error to use fallback
+            throw new Error('UNSUPPORTED_LANGUAGE');
+        }
+        throw new Error(`DeepL Error: ${error.message}`);
+    }
+};
+
+/**
+ * Hybrid translation function that automatically selects the best service.
+ * Tries DeepL first (higher quality) and uses Google Translate as fallback.
+ * 
+ * @async
+ * @function translateText
+ * @param {string} text - Text to translate
+ * @param {string} sourceLang - Source language code
+ * @param {string} targetLang - Target language code
+ * @returns {Promise&lt;string>} Translated text
+ * @throws {Error} If both services fail
+ * 
+ * @example
+ * const result = await translateText('Hello', 'en', 'ja');
+ * console.log(result); // 'こんにちは'
+ */
+const translateText = async (text, sourceLang, targetLang) => {
+    // Check if both languages are supported by DeepL
+    const sourceSupported = DEEPL_SUPPORTED_LANGS.includes(sourceLang);
+    const targetSupported = DEEPL_SUPPORTED_LANGS.includes(targetLang) || targetLang.split('-')[0] &amp;&amp; DEEPL_SUPPORTED_LANGS.includes(targetLang.split('-')[0]);
+    if (sourceSupported &amp;&amp; targetSupported) {
+        try {
+            return await translateWithDeepL(text, sourceLang, targetLang);
+        } catch (error) {
+            if (error.message === 'UNSUPPORTED_LANGUAGE') {
+                return await translateWithGoogleFallback(text, sourceLang, targetLang);
+            }
+            throw error;
+        }
+    } else {
+        return await translateWithGoogleFallback(text, sourceLang, targetLang);
+    }
+};
+
+/**
+ * @route   POST /api/translate/blocked-countries
+ * @method  POST
+ * @desc    Automatically detects the language of a text and returns the list of blocked countries
+ *          to avoid translations to the same language. Useful for pre-validation of countries before
+ *          performing a translation.
+ * @access  Public
+ * 
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.text - Text for language detection (minimum 2 characters)
+ * 
+ * @returns {200} Success - Blocked countries detected correctly
+ * @returns {400} Bad Request - Invalid or empty text
+ * @returns {500} Internal Server Error - Detection service error
+ * 
+ * @example Request
+ * POST /api/translate/blocked-countries
+ * Content-Type: application/json
+ * 
+ * {
+ *   "text": "Hola mundo"
+ * }
+ * 
+ * @example Response 200 (Success)
+ * {
+ *   "blockedCountries": ["ESP", "MEX", "ARG", "COL", "CHL"],
+ *   "sourceLang": "es",
+ *   "message": "OK"
+ * }
+ * 
+ * @example Response 200 (Text too short)
+ * {
+ *   "blockedCountries": [],
+ *   "sourceLang": null,
+ *   "message": "Text too short to detect language"
+ * }
+ * 
+ * @example Response 400 (Bad Request)
+ * {
+ *   "success": false,
+ *   "message": "Invalid text"
+ * }
+ * 
+ * @example Response 200 (Could not detect)
+ * {
+ *   "blockedCountries": [],
+ *   "sourceLang": null,
+ *   "message": "Could not detect language"
+ * }
+ */
+router.post('/blocked-countries', async (req, res) => {
+    const { text } = req.body;
+    if (!text || typeof text !== 'string') {
+        return res.status(400).json({ success: false, message: 'Invalid text' });
+    }
+    
+    // If the text is too short, don't block anything
+    const trimmedText = text.trim();
+    if (trimmedText.length &lt; 2) {
+        return res.json({ blockedCountries: [], sourceLang: null, message: 'Text too short to detect language' });
+    }
+    
+    try {
+        const sourceLang = await detectLanguage(trimmedText);
+        
+        // If language couldn't be detected, return empty list
+        if (!sourceLang) {
+            return res.json({ blockedCountries: [], sourceLang: null, message: 'Could not detect language' });
+        }
+        
+        const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
+        res.json({ blockedCountries, sourceLang });
+    } catch (error) {
+        res.json({ blockedCountries: [], sourceLang: null, message: 'Error detecting language' });
+    }
+});
+
+/**
+ * @route   POST /api/translate
+ * @method  POST
+ * @desc    Translates a text to the official language of the selected country using a hybrid system
+ *          (DeepL for better quality, Google Translate as free fallback). Includes
+ *          automatic source language detection, blocking countries with the same language,
+ *          MongoDB cache system and complete parameter validation.
+ * @access  Public
+ * 
+ * @param   {Object} req.body - Request body
+ * @param   {string} req.body.text - Text to translate (maximum 500 characters, minimum 1)
+ * @param   {Object} req.body.geo - Geographic information of the destination country
+ * @param   {Object} req.body.geo.properties - Country properties
+ * @param   {string} req.body.geo.properties.name - Country name in English (e.g.: "Spain", "France")
+ * 
+ * @returns {200} Success - Translation completed successfully
+ * @returns {400} Bad Request - Invalid parameters or text too long
+ * @returns {403} Forbidden - Country blocked because it speaks the same language as the text
+ * @returns {404} Not Found - Unsupported country or language not configured
+ * @returns {429} Too Many Requests - API quota exceeded
+ * @returns {500} Internal Server Error - Translation service error
+ * @returns {502} Bad Gateway - Could not connect to external service
+ * @returns {504} Gateway Timeout - Request timed out
+ * 
+ * @example Request
+ * POST /api/translate
+ * Content-Type: application/json
+ * 
+ * {
+ *   "text": "Hello world",
+ *   "geo": {
+ *     "properties": { "name": "Spain" }
+ *   }
+ * }
+ * 
+ * @example Response 200 (Success - New translation)
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": false,
+ *   "blockedCountries": ["USA", "GBR", "AUS"]
+ * }
+ * 
+ * @example Response 200 (Success - From cache)
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": true
+ * }
+ * 
+ * @example Response 200 (Success - Same language)
+ * {
+ *   "success": true,
+ *   "translation": "Hola mundo",
+ *   "language": "Spanish",
+ *   "country": "Spain",
+ *   "languageCode": "es",
+ *   "fromCache": false,
+ *   "note": "The text is already in the language of the selected country"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Invalid text)
+ * {
+ *   "success": false,
+ *   "message": "Invalid text",
+ *   "details": "A valid text is required for translation"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Text too long)
+ * {
+ *   "success": false,
+ *   "message": "Text too long",
+ *   "details": "Text cannot exceed 500 characters"
+ * }
+ * 
+ * @example Response 400 (Bad Request - Incomplete data)
+ * {
+ *   "success": false,
+ *   "message": "Incomplete data",
+ *   "details": "Destination country information is required"
+ * }
+ * 
+ * @example Response 403 (Forbidden - Country blocked)
+ * {
+ *   "success": false,
+ *   "message": "Country 'Spain' is blocked because its main language matches the source language.",
+ *   "blockedCountries": ["ESP", "MEX", "ARG"],
+ *   "sourceLang": "es",
+ *   "details": "You must choose a different country where that language is not spoken as the main language."
+ * }
+ * 
+ * @example Response 404 (Not Found - Unsupported country)
+ * {
+ *   "success": false,
+ *   "message": "Unsupported country: Antarctica",
+ *   "details": "Country not in our database"
+ * }
+ * 
+ * @example Response 404 (Not Found - Language not configured)
+ * {
+ *   "success": false,
+ *   "message": "Language not configured for: Vatican City",
+ *   "details": "Could not find the language associated with the country"
+ * }
+ * 
+ * @example Response 429 (Too Many Requests)
+ * {
+ *   "success": false,
+ *   "message": "Translation quota exceeded",
+ *   "details": "quota exceeded for DeepL API",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 500 (Internal Server Error)
+ * {
+ *   "success": false,
+ *   "message": "Internal server error",
+ *   "details": "Database connection failed",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 502 (Bad Gateway)
+ * {
+ *   "success": false,
+ *   "message": "Could not connect to the translation service",
+ *   "details": "ENOTFOUND api.deepl.com",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ * 
+ * @example Response 504 (Gateway Timeout)
+ * {
+ *   "success": false,
+ *   "message": "Request timed out",
+ *   "details": "Request timeout after 30s",
+ *   "timestamp": "2025-12-10T00:45:23.123Z"
+ * }
+ */
+router.post('/', async (req, res) => {
+  try {
+    const { text, geo } = req.body;
+
+        // Validations
+        if (!text || typeof text !== 'string') {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid text',
+                details: 'A valid text is required for translation'
+            });
+        }
+
+        if (!geo?.properties?.name) {
+            return res.status(400).json({
+                success: false,
+                message: 'Incomplete data',
+                details: 'Destination country information is required'
+            });
+        }
+
+        // Validate text length
+        if (text.length > 500) {
+            return res.status(400).json({
+                success: false,
+                message: 'Text too long',
+                details: 'Text cannot exceed 500 characters'
+            });
+        }
+
+        // Get country code
+        const alpha3Code = countryNameToCode[geo.properties.name];
+        if (!alpha3Code) {
+            return res.status(404).json({
+                success: false,
+                message: `Unsupported country: ${geo.properties.name}`,
+                details: 'Country not in our database'
+            });
+        }
+
+        // Get language information
+        const languageInfo = countryLanguageMap[alpha3Code];
+        if (!languageInfo) {
+            return res.status(404).json({
+                success: false,
+                message: `Language not configured for: ${geo.properties.name}`,
+                details: 'Could not find the language associated with the country'
+            });
+        }
+
+        // Adjust language code for MyMemory
+        let targetLang = languageInfo.code.toLowerCase();
+        if (targetLang === 'zh') targetLang = 'zh-CN';  // Simplified Chinese
+        if (targetLang === 'pt') targetLang = 'pt-BR';  // Brazilian Portuguese
+
+        // Search in cache
+        const cachedTranslation = await Translation.findOne({
+            originalText: text.toLowerCase().trim(),
+            alpha3Code: alpha3Code
+        });
+
+        if (cachedTranslation) {
+            return res.json({
+                success: true,
+                translation: cachedTranslation.translation,
+                language: cachedTranslation.language,
+                country: geo.properties.name,
+                languageCode: languageInfo.code,
+                fromCache: true
+            });
+        }
+
+        // --- COUNTRY BLOCKING here ---
+        const sourceLang = await detectLanguage(text);
+        const blockedCountries = getBlockedCountriesBySourceLang(sourceLang);
+        
+        if (blockedCountries.includes(alpha3Code)) {
+            return res.status(403).json({
+                success: false,
+                message: `Country "${geo.properties.name}" is blocked because its main language matches the source language.`,
+                blockedCountries,
+                sourceLang,
+                details: 'You must choose a different country where that language is not spoken as the main language.'
+            });
+        }
+
+        // Translate with hybrid system (DeepL + Google Fallback)
+        // If source language is the same as target, don't translate
+        if (sourceLang === targetLang || sourceLang === targetLang.split('-')[0]) {
+            return res.json({
+                success: true,
+                translation: text,
+                language: languageInfo.name,
+                country: geo.properties.name,
+                languageCode: targetLang,
+                fromCache: false,
+                note: 'The text is already in the language of the selected country'
+            });
+        }
+        const translatedText = await translateText(text, sourceLang, targetLang);
+
+        // Validate that the translation is valid
+        if (!translatedText || translatedText.trim() === '') {
+            throw new Error('The returned translation is empty');
+        }
+
+        // Save to cache
+        try {
+            const newTranslation = new Translation({
+                originalText: text.toLowerCase().trim(),
+                alpha3Code: alpha3Code,
+                language: languageInfo.name,
+                translation: translatedText
+            });
+            await newTranslation.save();
+        } catch (cacheError) {
+            // Cache error ignored - translation already completed
+        }
+
+        // Send response
+        return res.json({
+            success: true,
+            translation: translatedText,
+            language: languageInfo.name,
+            country: geo.properties.name,
+            languageCode: languageInfo.code,
+            fromCache: false,
+            blockedCountries  // Extra info opcional
+        });
+
+    } catch (error) {
+        // Capture exception in Sentry
+        Sentry.captureException(error, {
+          tags: {
+            endpoint: '/api/translate',
+            operation: 'translate',
+          },
+        });
+
+        let statusCode = 500;
+        let errorMessage = 'Internal server error';
+        let errorDetails = error.message;
+        const errorMap = {
+            'authentication': { status: 401, message: 'Authentication error with translation service' },
+            'timeout': { status: 504, message: 'Request timed out' },
+            'quota exceeded': { status: 429, message: 'Translation quota exceeded' },
+            'Too many requests': { status: 429, message: 'Too many requests' },
+            'connect': { status: 502, message: 'Could not connect to the translation service' },
+            'Language not supported': { status: 400, message: 'Language not supported' },
+            'Text too long': { status: 400, message: 'Text too long' }
+        };
+        for (const [key, value] of Object.entries(errorMap)) {
+            if (error.message.toLowerCase().includes(key.toLowerCase())) {
+                statusCode = value.status;
+                errorMessage = value.message;
+                break;
+            }
+        }
+        res.status(statusCode).json({
+            success: false,
+            message: errorMessage,
+            details: errorDetails,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+/**
+ * @route   GET /api/translate/test-error
+ * @method  GET
+ * @desc    Test route that intentionally generates an error to verify that Sentry captures errors.
+ *          This route should NOT be used in production.
+ * @access  Public
+ * 
+ * @returns {500} Internal Server Error - Error captured by Sentry
+ * 
+ * @example Request
+ * GET /api/translate/test-error
+ */
+
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
+});
+
+module.exports = router;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a></li><li><a href="module-data_countriesDatabase.html">data/countriesDatabase</a></li><li><a href="module-data_countryCodeMapping.html">data/countryCodeMapping</a></li><li><a href="module-data_countryLanguageMap.html">data/countryLanguageMap</a></li><li><a href="module-data_phrasesDatabase.html">data/phrasesDatabase</a></li><li><a href="module-getFlagUrl.html">getFlagUrl</a></li><li><a href="module-models_GameStats.html">models/GameStats</a></li><li><a href="module-models_Translation.html">models/Translation</a></li><li><a href="module-routes_api_game.html">routes/api/game</a></li><li><a href="module-routes_api_translate.html">routes/api/translate</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#corsOptions">corsOptions</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#translateLimiter">translateLimiter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Feb 11 2026 08:08:37 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

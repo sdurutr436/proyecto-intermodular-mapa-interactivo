@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/GameStats.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/GameStats.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file GameStats.js
+ * @description Mongoose model to store game session statistics.
+ * Records attempts, correct answers, hints used and calculates final scores.
+ * @module models/GameStats
+ */
+
+const mongoose = require('mongoose');
+
+/**
+ * Game statistics schema
+ * @typedef {Object} GameStats
+ * @property {string} sessionId - Unique session identifier
+ * @property {number} attempts - Total number of attempts
+ * @property {number} correct - Number of correct answers
+ * @property {number} incorrect - Number of incorrect answers
+ * @property {number} livesLost - Number of lives lost
+ * @property {number} hintsUsed - Number of hints used
+ * @property {number} phrasesSkipped - Number of phrases skipped
+ * @property {boolean} gameOver - Indicates if the game has ended
+ * @property {number} finalScore - Calculated final score
+ * @property {Array&lt;Object>} languagesPlayed - History of languages played
+ * @property {Date} startedAt - Start date and time
+ * @property {Date} endedAt - End date and time
+ * @property {number} duration - Game duration in seconds
+ */
+const GameStatsSchema = new mongoose.Schema({
+  sessionId: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  attempts: {
+    type: Number,
+    default: 0,
+  },
+  correct: {
+    type: Number,
+    default: 0,
+  },
+  incorrect: {
+    type: Number,
+    default: 0,
+  },
+  livesLost: {
+    type: Number,
+    default: 0,
+  },
+  hintsUsed: {
+    type: Number,
+    default: 0,
+  },
+  phrasesSkipped: {
+    type: Number,
+    default: 0,
+  },
+  gameOver: {
+    type: Boolean,
+    default: false,
+  },
+  finalScore: {
+    type: Number,
+    default: 0,
+  },
+  languagesPlayed: [{
+    languageCode: String,
+    languageName: String,
+    correct: Boolean,
+    countryGuessed: String,
+  }],
+  startedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  endedAt: {
+    type: Date,
+  },
+  duration: {
+    type: Number, // in seconds
+  },
+});
+
+/**
+ * Pre-save hook that automatically calculates game duration
+ * when the session ends.
+ * 
+ * @function
+ * @param {Function} next - Mongoose callback to continue
+ */
+GameStatsSchema.pre('save', function(next) {
+  if (this.gameOver &amp;&amp; this.endedAt &amp;&amp; this.startedAt) {
+    this.duration = Math.floor((this.endedAt - this.startedAt) / 1000);
+  }
+  next();
+});
+
+/**
+ * Calculates the final score based on correct answers, hints used and phrases skipped.
+ * Formula: (correct * 10) - (hints * 2) - (skipped * 5)
+ * 
+ * @method calculateFinalScore
+ * @returns {number} Final score (minimum 0)
+ * 
+ * @example
+ * const stats = new GameStats({ correct: 10, hintsUsed: 2, phrasesSkipped: 1 });
+ * const score = stats.calculateFinalScore();
+ * console.log(score); // 91
+ */
+GameStatsSchema.methods.calculateFinalScore = function() {
+  const correctPoints = this.correct * 10;
+  const hintsUsedPenalty = this.hintsUsed * 2;
+  const skippedPenalty = this.phrasesSkipped * 5;
+  
+  this.finalScore = Math.max(0, correctPoints - hintsUsedPenalty - skippedPenalty);
+  return this.finalScore;
+};
+
+module.exports = mongoose.model('GameStats', GameStatsSchema);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a></li><li><a href="module-data_countriesDatabase.html">data/countriesDatabase</a></li><li><a href="module-data_countryCodeMapping.html">data/countryCodeMapping</a></li><li><a href="module-data_countryLanguageMap.html">data/countryLanguageMap</a></li><li><a href="module-data_phrasesDatabase.html">data/phrasesDatabase</a></li><li><a href="module-getFlagUrl.html">getFlagUrl</a></li><li><a href="module-models_GameStats.html">models/GameStats</a></li><li><a href="module-models_Translation.html">models/Translation</a></li><li><a href="module-routes_api_game.html">routes/api/game</a></li><li><a href="module-routes_api_translate.html">routes/api/translate</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#corsOptions">corsOptions</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#translateLimiter">translateLimiter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Feb 11 2026 08:08:37 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
