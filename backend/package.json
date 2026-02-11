@@ -19,7 +19,7 @@
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
     "mongoose": "^7.0.0",
-    "node-fetch": "^2.6.9"
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "docdash": "^2.0.2",
