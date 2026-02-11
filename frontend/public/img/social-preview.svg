@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="greenAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#11998e"/>
+      <stop offset="100%" style="stop-color:#38ef7d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Decorative grid dots -->
+  <g opacity="0.08" fill="#fff">
+    <circle cx="50" cy="50" r="2"/><circle cx="110" cy="50" r="2"/><circle cx="170" cy="50" r="2"/><circle cx="230" cy="50" r="2"/>
+    <circle cx="50" cy="110" r="2"/><circle cx="110" cy="110" r="2"/><circle cx="170" cy="110" r="2"/><circle cx="230" cy="110" r="2"/>
+    <circle cx="1050" cy="530" r="2"/><circle cx="1110" cy="530" r="2"/><circle cx="1170" cy="530" r="2"/><circle cx="1230" cy="530" r="2"/>
+    <circle cx="1050" cy="590" r="2"/><circle cx="1110" cy="590" r="2"/><circle cx="1170" cy="590" r="2"/><circle cx="1230" cy="590" r="2"/>
+  </g>
+
+  <!-- Globe icon -->
+  <g transform="translate(640, 220)" opacity="0.12">
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#667eea" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="60" ry="120" fill="none" stroke="#667eea" stroke-width="1.5"/>
+    <ellipse cx="0" cy="0" rx="95" ry="120" fill="none" stroke="#667eea" stroke-width="1"/>
+    <line x1="-120" y1="0" x2="120" y2="0" stroke="#667eea" stroke-width="1"/>
+    <line x1="-110" y1="-60" x2="110" y2="-60" stroke="#667eea" stroke-width="0.8"/>
+    <line x1="-110" y1="60" x2="110" y2="60" stroke="#667eea" stroke-width="0.8"/>
+  </g>
+
+  <!-- Decorative floating elements -->
+  <g opacity="0.15">
+    <text x="100" y="180" font-family="Arial, sans-serif" font-size="40" fill="#38ef7d">🗺️</text>
+    <text x="1120" y="150" font-family="Arial, sans-serif" font-size="35" fill="#667eea">🌍</text>
+    <text x="150" y="480" font-family="Arial, sans-serif" font-size="30" fill="#764ba2">🔤</text>
+    <text x="1080" y="460" font-family="Arial, sans-serif" font-size="32" fill="#11998e">🎮</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="640" y="280" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-weight="800" font-size="82" fill="url(#accent)" letter-spacing="-1">
+    Transkarte
+  </text>
+
+  <!-- Tagline -->
+  <text x="640" y="340" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-weight="300" font-size="28" fill="#e0e0e0" letter-spacing="1">
+    Explore the world while learning languages
+  </text>
+
+  <!-- Divider line -->
+  <rect x="520" y="370" width="240" height="3" rx="1.5" fill="url(#accent)" opacity="0.6"/>
+
+  <!-- Tech badges -->
+  <g transform="translate(640, 420)" text-anchor="middle">
+    <!-- React -->
+    <rect x="-290" y="-18" width="90" height="36" rx="18" fill="#20232a" stroke="#61DAFB" stroke-width="1.5"/>
+    <text x="-245" y="6" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#61DAFB" font-weight="600">React</text>
+
+    <!-- TypeScript -->
+    <rect x="-180" y="-18" width="120" height="36" rx="18" fill="#20232a" stroke="#3178C6" stroke-width="1.5"/>
+    <text x="-120" y="6" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#3178C6" font-weight="600">TypeScript</text>
+
+    <!-- Node.js -->
+    <rect x="-42" y="-18" width="90" height="36" rx="18" fill="#20232a" stroke="#68A063" stroke-width="1.5"/>
+    <text x="3" y="6" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#68A063" font-weight="600">Node.js</text>
+
+    <!-- MongoDB -->
+    <rect x="68" y="-18" width="105" height="36" rx="18" fill="#20232a" stroke="#4ea94b" stroke-width="1.5"/>
+    <text x="120" y="6" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#4ea94b" font-weight="600">MongoDB</text>
+
+    <!-- Docker -->
+    <rect x="193" y="-18" width="95" height="36" rx="18" fill="#20232a" stroke="#0db7ed" stroke-width="1.5"/>
+    <text x="240" y="6" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#0db7ed" font-weight="600">Docker</text>
+  </g>
+
+  <!-- Description -->
+  <text x="640" y="490" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-weight="400" font-size="18" fill="#b0b0b0">
+    Interactive world map · Real-time translation · Geography games · 150+ countries
+  </text>
+
+  <!-- Bottom gradient bar -->
+  <rect x="0" y="630" width="1280" height="10" fill="url(#greenAccent)" opacity="0.7"/>
+
+  <!-- Corner accents -->
+  <rect x="0" y="0" width="4" height="80" fill="url(#accent)" opacity="0.5"/>
+  <rect x="0" y="0" width="80" height="4" fill="url(#accent)" opacity="0.5"/>
+  <rect x="1276" y="560" width="4" height="80" fill="url(#accent)" opacity="0.5"/>
+  <rect x="1200" y="636" width="80" height="4" fill="url(#accent)" opacity="0.5"/>
+</svg>
